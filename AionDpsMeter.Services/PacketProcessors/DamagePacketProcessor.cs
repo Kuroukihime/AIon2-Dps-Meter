@@ -30,6 +30,7 @@ namespace AionDpsMeter.Services.PacketProcessors
 
         public void Process04_38(byte[] packet)
         {
+            logger.LogDebug($"0438: {BitConverter.ToString(packet)}");
             var parsed = parser.ParseFullPacket(packet);
 
             if (!parsed.IsValid)
@@ -43,6 +44,7 @@ namespace AionDpsMeter.Services.PacketProcessors
 
         public void ProcessFF_FF(byte[] packet)
         {
+            logger.LogDebug($"FFFF: {BitConverter.ToString(packet)}");
             var packetsResult = packetExtractor.ExtractPackets(packet);
 
             if (packetsResult.Packets != null)
