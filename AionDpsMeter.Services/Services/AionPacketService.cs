@@ -20,9 +20,13 @@ namespace AionDpsMeter.Services.Services
         private readonly PacketProcessor packetProcessor;
         private readonly NicknamePacketProcessor nicknameProcessor;
         private readonly DamagePacketProcessor damagePacketProcessor;
+        private readonly ServerTimePacketProcessor serverTimePacketProcessor;
 
         public event EventHandler<PlayerDamage>? DamageReceived;
         private ILogger<AionPacketService> logger;
+
+        public event EventHandler<int>? PingUpdated;
+        public int CurrentPingMs { get; private set; }
 
         public AionPacketService(IPacketCaptureDevice captureDevice, TcpStreamBuffer tcpStreamBuffer,
             ILoggerFactory loggerFactory)
@@ -37,6 +41,7 @@ namespace AionDpsMeter.Services.Services
                 new NicknamePacketProcessor(entityTracker, loggerFactory.CreateLogger<NicknamePacketProcessor>());
             damagePacketProcessor =
                 new DamagePacketProcessor(entityTracker, loggerFactory.CreateLogger<DamagePacketProcessor>());
+            serverTimePacketProcessor = new();
 
             damagePacketProcessor.DamageReceived += (s, e) => DamageReceived?.Invoke(this, e);
             streamBuffer.PacketExtracted += OnPacketExtracted;
@@ -66,13 +71,15 @@ namespace AionDpsMeter.Services.Services
         }
 
 
-        private void OnPacketExtracted(object? sender, byte[] packet)
+        private void OnPacketExtracted(object? sender, TcpPacketEventArgs e)
         {
-            var frames = packetProcessor.ProcessPacket(packet);
+            var frames = packetProcessor.ProcessPacket(e.Payload);
 
             foreach (var frame in frames)
             {
-                ProcessFrame(frame);
+                var f = frame;
+                f.ReceivedAt = e.ReceivedAt;
+                ProcessFrame(f);
             }
         }
 
@@ -81,8 +88,9 @@ namespace AionDpsMeter.Services.Services
             try
             {
                 nicknameProcessor.Process(packet.Data);
-                
-                if (packet.Type == PacketTypeEnum.P_04_38) damagePacketProcessor.Process04_38(packet.Data);
+
+                if (packet.Type == PacketTypeEnum.DAMAGE) damagePacketProcessor.Process04_38(packet.Data);
+                else if (packet.Type == PacketTypeEnum.CURRENT_TIME) ProcessPing(packet);
                 else
                 {
                     logger.LogTrace("UNKNOWN PACKET TYPE {packetType}", packet.Type);
@@ -93,7 +101,11 @@ namespace AionDpsMeter.Services.Services
                 logger.LogError(ex, "Error processing packet of type {packetType}", packet.Type);
             }
         }
-        
+        private void ProcessPing(PacketProcessor.Packet packet)
+        {
+            CurrentPingMs = serverTimePacketProcessor.GetPing(packet.Data, packet.ReceivedAt);
+            PingUpdated?.Invoke(this, CurrentPingMs);
+        }
 
         public void Dispose()
         {

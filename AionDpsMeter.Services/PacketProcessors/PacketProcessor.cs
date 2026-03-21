@@ -11,6 +11,7 @@ namespace AionDpsMeter.Services.PacketProcessors
         {
             public PacketTypeEnum Type;
             public byte[] Data;
+            public long ReceivedAt;
         }
 
         internal List<Packet> ProcessPacket(byte[] packet)
@@ -19,7 +20,7 @@ namespace AionDpsMeter.Services.PacketProcessors
             {
                 var type = DeterminePacketType(packet);
 
-                if (type != PacketTypeEnum.P_FF_FF)
+                if (type != PacketTypeEnum.COMPRESSED_STREAM)
                     return [new Packet { Type = type, Data = packet }];
 
                 return ExtractInnerPackets(packet);
@@ -35,8 +36,9 @@ namespace AionDpsMeter.Services.PacketProcessors
         {
             var lenValueLength = packet.ReadVarInt().Length;
             if (lenValueLength < 0 || packet.Length < lenValueLength + 2) return PacketTypeEnum.BROKEN;
-            if (packet[lenValueLength] == 0x04 && packet[lenValueLength + 1] == 0x38) return PacketTypeEnum.P_04_38;
-            if (packet[lenValueLength] == 0xFF && packet[lenValueLength + 1] == 0xFF) return PacketTypeEnum.P_FF_FF;
+            if (packet[lenValueLength] == 0x04 && packet[lenValueLength + 1] == 0x38) return PacketTypeEnum.DAMAGE;
+            if (packet[lenValueLength] == 0xFF && packet[lenValueLength + 1] == 0xFF) return PacketTypeEnum.COMPRESSED_STREAM;
+            if (packet[lenValueLength] == 0x03 && packet[lenValueLength + 1] == 0x36) return PacketTypeEnum.CURRENT_TIME;
             return PacketTypeEnum.UNKNOWN;
         }
 
