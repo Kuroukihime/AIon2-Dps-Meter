@@ -40,15 +40,31 @@ namespace AionDpsMeter.Services.Services.Session
         }
 
         public void AddDamage(PlayerDamage damage) => damageHistory.Add(damage);
-     
-        public void UpdateStats(long totalCombatDamage)
+
+        public void CountRecentTargetHits(DateTime cutoff, Dictionary<int, int> targetCounts)
+        {
+            for (int i = damageHistory.Count - 1; i >= 0; i--)
+            {
+                var damage = damageHistory[i];
+                if (damage.DateTime < cutoff) break;
+
+                var targetId = damage.TargetEntity.Id;
+                targetCounts.TryGetValue(targetId, out var count);
+                targetCounts[targetId] = count + 1;
+            }
+        }
+
+        public void UpdateStats(long totalCombatDamage, int activeTargetId)
         {
             long totalDamage = 0;
             int hitCount = 0, criticalHits = 0, backAttacks = 0, perfectHits = 0, doubleDamageHits = 0, parryHits = 0;
-            DateTime lastHit = Stats.FirstHit;
+            DateTime firstHit = DateTime.MaxValue;
+            DateTime lastHit = DateTime.MinValue;
 
             foreach (var r in damageHistory)
             {
+                if (r.TargetEntity.Id != activeTargetId) continue;
+
                 totalDamage += r.Damage;
                 hitCount++;
                 if (r.IsCritical) criticalHits++;
@@ -56,19 +72,29 @@ namespace AionDpsMeter.Services.Services.Session
                 if (r.IsPerfect) perfectHits++;
                 if (r.IsDoubleDamage) doubleDamageHits++;
                 if (r.IsParry) parryHits++;
+                if (r.DateTime < firstHit) firstHit = r.DateTime;
                 if (r.DateTime > lastHit) lastHit = r.DateTime;
             }
 
             Stats.TotalDamage = totalDamage;
             Stats.HitCount = hitCount;
-            Stats.LastHit = lastHit;
             Stats.CriticalHits = criticalHits;
             Stats.BackAttacks = backAttacks;
             Stats.PerfectHits = perfectHits;
             Stats.DoubleDamageHits = doubleDamageHits;
             Stats.ParryHits = parryHits;
 
-            var playerDuration = (Stats.LastHit - Stats.FirstHit).TotalSeconds;
+            if (hitCount == 0)
+            {
+                Stats.DamagePerSecond = 0;
+                Stats.DamagePercentage = 0;
+                return;
+            }
+
+            Stats.FirstHit = firstHit;
+            Stats.LastHit = lastHit;
+
+            var playerDuration = (lastHit - firstHit).TotalSeconds;
             if (playerDuration < 0.1) playerDuration = 0.1;
             Stats.DamagePerSecond = totalDamage / playerDuration;
             Stats.DamagePercentage = totalCombatDamage > 0
@@ -76,14 +102,25 @@ namespace AionDpsMeter.Services.Services.Session
                 : 0;
         }
 
-        public IReadOnlyList<PlayerDamage> GetDamageHistory() => damageHistory;
+        public IReadOnlyList<PlayerDamage> GetDamageHistory(int activeTargetId)
+        {
+            var result = new List<PlayerDamage>();
+            foreach (var damage in damageHistory)
+            {
+                if (damage.TargetEntity.Id == activeTargetId)
+                    result.Add(damage);
+            }
+            return result;
+        }
 
-        public IReadOnlyCollection<SkillStats> GetSkillStats()
+        public IReadOnlyCollection<SkillStats> GetSkillStats(int activeTargetId)
         {
             skillStats.Clear();
 
             foreach (var damage in damageHistory)
             {
+                if (damage.TargetEntity.Id != activeTargetId) continue;
+
                 if (!skillStats.TryGetValue(damage.Skill.Id, out var skill))
                 {
                     skill = new SkillStats

@@ -7,13 +7,14 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
-                
+
             </ResourceDictionary.MergedDictionaries>
 
             <!-- Converters -->
             <converters:PercentageToWidthConverter x:Key="PercentageToWidthConverter"/>
             <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
             <converters:SafeImageSourceConverter x:Key="SafeImageSourceConverter"/>
+            <converters:StringToBrushConverter x:Key="StringToBrushConverter"/>
 
             <!-- Colors -->
             <SolidColorBrush x:Key="PrimaryBackgroundBrush" Color="#1E1E1E"/>

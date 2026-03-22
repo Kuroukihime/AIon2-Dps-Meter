@@ -37,6 +37,7 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
@@ -56,8 +57,26 @@
                                    Foreground="{StaticResource PrimaryTextBrush}"/>
                     </Border>
 
+                    <!-- Ping Display -->
+                    <Border Grid.Column="1" 
+                            Background="{StaticResource TertiaryBackgroundBrush}"
+                            CornerRadius="3"
+                            Padding="6,2"
+                            Margin="4,0,0,0"
+                            VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="⏱ " FontSize="9" Foreground="{StaticResource SecondaryTextBrush}" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding PingDisplay}"
+                                       FontSize="10"
+                                       FontFamily="Consolas"
+                                       FontWeight="Bold"
+                                       Foreground="{Binding PingColor, Converter={StaticResource StringToBrushConverter}}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
                     <!-- Reset Button -->
-                    <Button Grid.Column="2" 
+                    <Button Grid.Column="3" 
                             Content="↺"
                             Command="{Binding ResetDataCommand}"
                             Width="22" 
@@ -70,7 +89,7 @@
                             Padding="0"/>
 
                     <!-- Minimize Button -->
-                    <Button Grid.Column="3" 
+                    <Button Grid.Column="4" 
                             Content="━"
                             Width="22" 
                             Height="22"
@@ -82,7 +101,7 @@
                             Padding="0"/>
 
                     <!-- Close Button -->
-                    <Button Grid.Column="4" 
+                    <Button Grid.Column="5" 
                             Content="✕"
                             Width="22" 
                             Height="22"
@@ -166,7 +185,7 @@
                                             </MultiBinding>
                                         </Border.Width>
                                     </Border>
-                                    
+
                                     <!-- Player Name on left, Total Damage in center -->
                                     <Grid>
                                         <TextBlock Text="{Binding PlayerName}"
@@ -177,7 +196,7 @@
                                                    HorizontalAlignment="Left"
                                                    Margin="6,0,0,0"
                                                    TextTrimming="CharacterEllipsis"/>
-                                        
+
                                         <TextBlock Text="{Binding TotalDamageFormatted}"
                                                    FontSize="10"
                                                    FontWeight="Bold"

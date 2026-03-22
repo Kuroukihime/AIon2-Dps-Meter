@@ -23,6 +23,12 @@ namespace AionDpsMeter.UI.ViewModels
         [ObservableProperty]
         private string _combatDuration = "00:00";
 
+        [ObservableProperty]
+        private string _pingDisplay = "-- ms";
+
+        [ObservableProperty]
+        private string _pingColor = "#888888";
+
         private DispatcherTimer? _updateTimer;
 
         // Expose session manager for PlayerDetailsWindow
@@ -39,6 +45,7 @@ namespace AionDpsMeter.UI.ViewModels
 
             // Subscribe to damage events
             this.packetService.DamageReceived += OnPacketReceived;
+            this.packetService.PingUpdated += OnPingUpdated;
             _sessionManager.CombatAutoReset += OnCombatAutoReset;
 
             // Setup update timer for UI refresh (30 FPS)
@@ -58,6 +65,21 @@ namespace AionDpsMeter.UI.ViewModels
             _updateTimer?.Start();
         }
 
+        private void OnPingUpdated(object? sender, int pingMs)
+        {
+            _dispatcher.BeginInvoke(() =>
+            {
+                PingDisplay = $"{pingMs} ms";
+                PingColor = pingMs switch
+                {
+                    < 60 => "#4EC9B0",   // Green - excellent
+                    < 100 => "#DCDCAA",  // Yellow - good
+                    < 200 => "#CE9178",  // Orange - mediocre
+                    _ => "#F44747"       // Red - bad
+                };
+            });
+        }
+
         [RelayCommand]
         private void ResetData()
         {
@@ -66,6 +88,8 @@ namespace AionDpsMeter.UI.ViewModels
 
             Players.Clear();
             CombatDuration = "00:00";
+            PingDisplay = "-- ms";
+            PingColor = "#888888";
         }
 
         private void OnPacketReceived(object? sender, PlayerDamage damageEvent)
@@ -125,6 +149,7 @@ namespace AionDpsMeter.UI.ViewModels
         public void Dispose()
         {
             packetService.DamageReceived -= OnPacketReceived;
+            packetService.PingUpdated -= OnPingUpdated;
             _sessionManager.CombatAutoReset -= OnCombatAutoReset;
             _updateTimer?.Stop();
 

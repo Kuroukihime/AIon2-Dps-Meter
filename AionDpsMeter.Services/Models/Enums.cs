@@ -2,10 +2,11 @@
 {
     internal enum PacketTypeEnum
     {
-        P_04_38,
-        P_FF_FF,
+        DAMAGE,
+        COMPRESSED_STREAM,
         UNKNOWN,
-        BROKEN
+        BROKEN,
+        CURRENT_TIME
     }
 
     internal enum PacketProcessResult

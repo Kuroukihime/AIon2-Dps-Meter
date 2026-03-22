@@ -191,6 +191,8 @@ namespace AionDpsMeter.Services.PacketCapture
 
             string streamKey = $"Client:{tcp.DestinationPort}";
 
+            long arrivedAt = new DateTimeOffset(raw.Timestamp, TimeSpan.Zero).ToUnixTimeMilliseconds();
+
             uint currentSeq = tcp.SequenceNumber;
             uint payloadLen = (uint)tcp.PayloadData.Length;
 
@@ -209,15 +211,15 @@ namespace AionDpsMeter.Services.PacketCapture
             {
                 if (!expectedSeqNumbers.TryGetValue(streamKey, out uint expectedSeq))
                 {
-                  
+
                     expectedSeqNumbers[streamKey] = nextSeq;
                     if (tcp.PayloadData.Length < 1) return;
-                    tcpStreamBuffer.AddData(streamKey, tcp.PayloadData);
+                    tcpStreamBuffer.AddData(streamKey, tcp.PayloadData, arrivedAt);
                     return;
                 }
                 if (currentSeq < expectedSeq)
                 {
-                    
+
                     if (nextSeq <= expectedSeq)
                     {
                          logger.LogTrace($"[TCP] Duplicate/Old packet ignored. Seq: {currentSeq}, Expected: {expectedSeq}");
@@ -227,19 +229,19 @@ namespace AionDpsMeter.Services.PacketCapture
                 }
                 if (currentSeq > expectedSeq)
                 {
-                    
+
                     logger.LogWarning($"[TCP GAP] Stream broken! Expected: {expectedSeq}, Got: {currentSeq}. Diff: {currentSeq - expectedSeq}");
 
                     expectedSeqNumbers[streamKey] = nextSeq;
 
-                    tcpStreamBuffer.AddData(streamKey, tcp.PayloadData);
+                    tcpStreamBuffer.AddData(streamKey, tcp.PayloadData, arrivedAt);
                     return;
                 }
                 if (currentSeq == expectedSeq)
                 {
                     expectedSeqNumbers[streamKey] = nextSeq;
                     if (tcp.PayloadData.Length < 1) return;
-                    tcpStreamBuffer.AddData(streamKey, tcp.PayloadData);
+                    tcpStreamBuffer.AddData(streamKey, tcp.PayloadData, arrivedAt);
                 }
             }
         }
