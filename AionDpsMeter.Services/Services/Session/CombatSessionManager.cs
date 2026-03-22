@@ -9,12 +9,15 @@ namespace AionDpsMeter.Services.Services.Session
     {
         private static readonly TimeSpan HardResetThreshold = TimeSpan.FromSeconds(40);
         private static readonly TimeSpan SoftResetThreshold = TimeSpan.FromSeconds(20);
+        private static readonly TimeSpan ActiveTargetWindow = TimeSpan.FromSeconds(5);
 
         private readonly ConcurrentDictionary<long, PlayerSession> playerSessions = new();
         private readonly HashSet<int> knownTargetIds = new();
+        private readonly Dictionary<int, int> targetCountBuffer = new();
         private readonly object lockObject = new();
         private DateTime? combatStartTime;
         private DateTime? combatLastHitTime;
+        private int? activeTargetId;
         private readonly ILogger<CombatSessionManager> logger;
         private readonly ILoggerFactory loggerFactory;
 
@@ -33,7 +36,10 @@ namespace AionDpsMeter.Services.Services.Session
             {
                 lock (lockObject)
                 {
-                    return playerSessions.Values.Select(s => s.Stats).ToList();
+                    return playerSessions.Values
+                        .Where(s => s.Stats.HitCount > 0)
+                        .Select(s => s.Stats)
+                        .ToList();
                 }
             }
         }
@@ -42,8 +48,13 @@ namespace AionDpsMeter.Services.Services.Session
         {
             lock (lockObject)
             {
-                if (playerSessions.TryGetValue(playerId, out var session))
-                    return session.GetDamageHistory().Reverse().ToList();
+                if (activeTargetId != null && playerSessions.TryGetValue(playerId, out var session))
+                {
+                    var filtered = session.GetDamageHistory(activeTargetId.Value);
+                    var result = new List<PlayerDamage>(filtered);
+                    result.Reverse();
+                    return result;
+                }
                 return Array.Empty<PlayerDamage>();
             }
         }
@@ -112,24 +123,58 @@ namespace AionDpsMeter.Services.Services.Session
         {
             lock (lockObject)
             {
-                if (playerSessions.TryGetValue(playerId, out var session)) return session.GetSkillStats();
+                if (activeTargetId != null && playerSessions.TryGetValue(playerId, out var session))
+                    return session.GetSkillStats(activeTargetId.Value);
                 return Array.Empty<SkillStats>();
             }
+        }
+
+        private int? DetermineActiveTargetId()
+        {
+            if (combatLastHitTime == null) return null;
+
+            var cutoff = combatLastHitTime.Value - ActiveTargetWindow;
+            targetCountBuffer.Clear();
+
+            foreach (var session in playerSessions.Values)
+            {
+                session.CountRecentTargetHits(cutoff, targetCountBuffer);
+            }
+
+            if (targetCountBuffer.Count == 0) return null;
+
+            int bestTargetId = 0;
+            int bestCount = 0;
+            foreach (var kvp in targetCountBuffer)
+            {
+                if (kvp.Value > bestCount)
+                {
+                    bestCount = kvp.Value;
+                    bestTargetId = kvp.Key;
+                }
+            }
+
+            return bestTargetId;
         }
 
         private void RecalculateStatistics()
         {
             if (combatStartTime == null) return;
 
+            activeTargetId = DetermineActiveTargetId();
+            if (activeTargetId == null) return;
+
+            int targetId = activeTargetId.Value;
+
             foreach (var playerSess in playerSessions.Values)
             {
-                playerSess.UpdateStats(0);
+                playerSess.UpdateStats(0, targetId);
             }
 
             var totalDamage = TotalCombatDamage;
             foreach (var playerSess in playerSessions.Values)
             {
-                playerSess.UpdateStats(totalDamage);
+                playerSess.UpdateStats(totalDamage, targetId);
             }
         }
 
@@ -150,6 +195,8 @@ namespace AionDpsMeter.Services.Services.Session
                 session.Reset();
             playerSessions.Clear();
             knownTargetIds.Clear();
+            targetCountBuffer.Clear();
+            activeTargetId = null;
             combatStartTime = null;
             combatLastHitTime = null;
         }
