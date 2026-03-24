@@ -25,7 +25,7 @@ namespace AionDpsMeter.Services.Services.Session
         public CombatSessionManager(ILoggerFactory loggerFactory)
         {
             this.loggerFactory = loggerFactory;
-            logger = loggerFactory.CreateLogger<CombatSessionManager>();    
+            logger = loggerFactory.CreateLogger<CombatSessionManager>();
         }
 
         private long TotalCombatDamage => playerSessions.Values.Sum(s => s.Stats.TotalDamage);
@@ -206,6 +206,35 @@ namespace AionDpsMeter.Services.Services.Session
             lock (lockObject)
             {
                 ResetInternal();
+            }
+        }
+
+        public ActiveTargetInfo? GetActiveTargetInfo()
+        {
+            lock (lockObject)
+            {
+                if (activeTargetId == null) return null;
+
+                int targetId = activeTargetId.Value;
+
+                // Find the Mob from any player session's damage history
+                foreach (var session in playerSessions.Values)
+                {
+                    var damageHistory = session.GetDamageHistory(targetId);
+                    if (damageHistory.Count > 0)
+                    {
+                        var mob = damageHistory[0].TargetEntity;
+                        return new ActiveTargetInfo
+                        {
+                            TargetId = targetId,
+                            Name = mob.Name,
+                            HpTotal = mob.HpTotal,
+                            HpCurrent = mob.HpCurrent
+                        };
+                    }
+                }
+
+                return null;
             }
         }
     }

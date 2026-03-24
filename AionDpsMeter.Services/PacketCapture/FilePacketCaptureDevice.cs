@@ -104,9 +104,9 @@ namespace AionDpsMeter.Services.PacketCapture
                     }
 
                     previousTimestamp = timestamp;
-                    tcpStreamBuffer.AddData(streamKey, payload, new DateTimeOffset(timestamp, TimeSpan.Zero).ToUnixTimeMilliseconds());
+                    tcpStreamBuffer.AddData(streamKey, payload, new DateTimeOffset(DateTime.SpecifyKind(timestamp, DateTimeKind.Utc), TimeSpan.Zero).ToUnixTimeMilliseconds());
                     // Raise the PacketReceived event
-                  
+
                 }
             }
             catch (OperationCanceledException)

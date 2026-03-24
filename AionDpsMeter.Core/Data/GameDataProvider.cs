@@ -1,4 +1,5 @@
 using AionDpsMeter.Core.Models;
+using System.Collections.Frozen;
 using System.Text.Json;
 
 namespace AionDpsMeter.Core.Data
@@ -12,6 +13,7 @@ namespace AionDpsMeter.Core.Data
         private readonly Dictionary<int, CharacterClass> _classesById = [];
         private readonly int[] _sortedSkillIds = [];
         private int[] _skillCodeOffsets = [];
+        private FrozenDictionary<int, MobData> _mobsById = FrozenDictionary<int, MobData>.Empty;
 
         public static GameDataProvider Instance
         {
@@ -37,9 +39,10 @@ namespace AionDpsMeter.Core.Data
         private void LoadData()
         {
             var basePath = AppDomain.CurrentDomain.BaseDirectory;
-            
+
             LoadClasses(Path.Combine(basePath, "Data", "classes.json"));
             LoadSkills(Path.Combine(basePath, "Data", "skills.json"));
+            LoadMobs(Path.Combine(basePath, "Data", "mobs.json"));
         }
 
         private void LoadClasses(string path)
@@ -51,7 +54,7 @@ namespace AionDpsMeter.Core.Data
 
             var json = File.ReadAllText(path);
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            var classesFile = JsonSerializer.Deserialize<ClassesFile>(json, options) 
+            var classesFile = JsonSerializer.Deserialize<ClassesFile>(json, options)
                 ?? throw new InvalidDataException("Failed to deserialize classes.json");
 
             foreach (var classData in classesFile.Classes)
@@ -74,7 +77,7 @@ namespace AionDpsMeter.Core.Data
 
             var json = File.ReadAllText(path);
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            var skillsFile = JsonSerializer.Deserialize<SkillsFile>(json, options) 
+            var skillsFile = JsonSerializer.Deserialize<SkillsFile>(json, options)
                 ?? throw new InvalidDataException("Failed to deserialize skills.json");
 
             foreach (var skillData in skillsFile.Skills)
@@ -91,6 +94,18 @@ namespace AionDpsMeter.Core.Data
             }
 
             _skillCodeOffsets = [.. skillsFile.SkillCodeOffsets];
+        }
+
+        private void LoadMobs(string path)
+        {
+            if (!File.Exists(path))
+                return;
+
+            var json = File.ReadAllText(path);
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var raw = JsonSerializer.Deserialize<Dictionary<int, MobData>>(json, options);
+            if (raw is not null)
+                _mobsById = raw.ToFrozenDictionary();
         }
 
         public Skill? GetSkillById(int skillCode)
@@ -172,5 +187,7 @@ namespace AionDpsMeter.Core.Data
 
         public IEnumerable<Skill> GetAllSkills() => _skillsById.Values;
         public IEnumerable<CharacterClass> GetAllClasses() => _classesById.Values;
+        public string GetMobName(int mobId) => _mobsById.TryGetValue(mobId, out var mob) ? mob.Name : $"Unknown ({mobId})";
+        public bool IsMobBoss(int mobId) => _mobsById.TryGetValue(mobId, out var mob) && mob.IsBoss;
     }
 }

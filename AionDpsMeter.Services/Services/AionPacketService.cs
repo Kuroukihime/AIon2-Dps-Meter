@@ -21,6 +21,7 @@ namespace AionDpsMeter.Services.Services
         private readonly NicknamePacketProcessor nicknameProcessor;
         private readonly DamagePacketProcessor damagePacketProcessor;
         private readonly ServerTimePacketProcessor serverTimePacketProcessor;
+        private readonly MobPacketProcessor mobPacketProcessor;
 
         public event EventHandler<PlayerDamage>? DamageReceived;
         private ILogger<AionPacketService> logger;
@@ -37,11 +38,10 @@ namespace AionDpsMeter.Services.Services
             entityTracker = new EntityTracker();
 
             packetProcessor = new PacketProcessor(loggerFactory.CreateLogger<PacketProcessor>());
-            nicknameProcessor =
-                new NicknamePacketProcessor(entityTracker, loggerFactory.CreateLogger<NicknamePacketProcessor>());
-            damagePacketProcessor =
-                new DamagePacketProcessor(entityTracker, loggerFactory.CreateLogger<DamagePacketProcessor>());
+            nicknameProcessor = new NicknamePacketProcessor(entityTracker, loggerFactory.CreateLogger<NicknamePacketProcessor>());
+            damagePacketProcessor = new DamagePacketProcessor(entityTracker, loggerFactory.CreateLogger<DamagePacketProcessor>());
             serverTimePacketProcessor = new();
+            mobPacketProcessor = new MobPacketProcessor(entityTracker, loggerFactory.CreateLogger<MobPacketProcessor>());
 
             damagePacketProcessor.DamageReceived += (s, e) => DamageReceived?.Invoke(this, e);
             streamBuffer.PacketExtracted += OnPacketExtracted;
@@ -91,6 +91,8 @@ namespace AionDpsMeter.Services.Services
 
                 if (packet.Type == PacketTypeEnum.DAMAGE) damagePacketProcessor.Process04_38(packet.Data);
                 else if (packet.Type == PacketTypeEnum.CURRENT_TIME) ProcessPing(packet);
+                else if (packet.Type == PacketTypeEnum.MOB_HP) mobPacketProcessor.ProcessMobHp(packet.Data);
+                else if (packet.Type == PacketTypeEnum.MOB_SUMMON) mobPacketProcessor.ParseSummonSpawnAt(packet.Data);
                 else
                 {
                     logger.LogTrace("UNKNOWN PACKET TYPE {packetType}", packet.Type);
@@ -101,6 +103,11 @@ namespace AionDpsMeter.Services.Services
                 logger.LogError(ex, "Error processing packet of type {packetType}", packet.Type);
             }
         }
+
+
+
+
+
         private void ProcessPing(PacketProcessor.Packet packet)
         {
             CurrentPingMs = serverTimePacketProcessor.GetPing(packet.Data, packet.ReceivedAt);
