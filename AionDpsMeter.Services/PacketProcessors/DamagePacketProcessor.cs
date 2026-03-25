@@ -60,11 +60,7 @@ namespace AionDpsMeter.Services.PacketProcessors
                 return null;
             }
 
-            var skill = gameData.GetSkillById(damageData.SkillCode);
-            if (skill == null)
-            {
-                return null;
-            }
+            var skill = gameData.GetSkillOrDefault(damageData.SkillCode);
 
             var sourceEntity = entityTracker.GetOrCreatePlayerEntity(damageData.ActorId, characterClass);
             var targetEntity = entityTracker.GetOrCreateTargetEntity(damageData.TargetId);
