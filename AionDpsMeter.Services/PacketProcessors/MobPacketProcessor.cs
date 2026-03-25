@@ -6,124 +6,95 @@ namespace AionDpsMeter.Services.PacketProcessors
 {
     internal class MobPacketProcessor (EntityTracker entityTracker, ILogger<MobPacketProcessor> logger )
     {
+        private const int NpcTypeScanWindow = 60;
+        private const int HpScanWindow = 64;
 
+        /// <summary>
+        /// Processes a mob HP update packet and updates the entity tracker with the current HP value.
+        /// </summary>
         public void ProcessMobHp(byte[] data)
         {
             int offset = 3;
-            var mobIdInf = data.ReadVarInt(offset);
-            offset += mobIdInf.Length;
-            var mobId = mobIdInf.Value;
+
+            var mobIdInfo = data.ReadVarInt(offset);
+            offset += mobIdInfo.Length;
+            var mobId = mobIdInfo.Value;
 
             offset += data.ReadVarInt(offset).Length;
             offset += data.ReadVarInt(offset).Length;
             offset += data.ReadVarInt(offset).Length;
 
-            var hpInf = data.ReadUInt32Le(offset);
-            entityTracker.UpdateTargetEntityHpCurrent(mobId, hpInf);
+            var hpCurrent = data.ReadUInt32Le(offset);
+            entityTracker.UpdateTargetEntityHpCurrent(mobId, hpCurrent);
         }
 
-        public bool ParseSummonSpawnAt(byte[] packet)
+        /// <summary>
+        /// Parses a summon/spawn packet and registers or updates the entity in the tracker.
+        /// </summary>
+        public void ProcessMobSpawn(byte[] packet)
         {
-            var headerLen = packet.ReadVarInt().Length + 2;
-            var offset = headerLen;
+            int offset = packet.ReadVarInt().Length + 2;
+
             var targetInfo = packet.ReadVarInt(offset);
-            if (targetInfo.Length < 0) return false;
+            if (targetInfo.Length <= 0) return;
             offset += targetInfo.Length;
 
-            // Strip Object Type
-            long realActorId = targetInfo.Value;
-            if (realActorId > 1_000_000)
-            {
-                realActorId = (realActorId & 0x3FFF) | 0x4000;
-            }
             int mobTypeId = -1;
             int maxHp = 0;
 
-            bool foundSomething = false;
-
-
-            //int codeMarkerIdx = packet.IndexOfArray([0x00, 0x40, 0x02]);
-            //if (codeMarkerIdx == -1)
-            //{
-            //    codeMarkerIdx = packet.IndexOfArray([0x00, 0x00, 0x02]);
-            //}
-
-         
-
-            //if (codeMarkerIdx != -1)
-            //{
-            //    int mobCode = (packet[codeMarkerIdx - 1] << 16) |
-            //                  (packet[codeMarkerIdx - 2] << 8) |
-            //                  (packet[codeMarkerIdx - 3]);
-
-            //    //DataManager.SaveMobId(summonInfo.Value, mobCode);
-            //    if (mobCode == 2310509)
-            //    {
-            //        Console.WriteLine();
-            //    }
-
-            //}
-
-            // Scan for NPC Type
-            int scanOffset = offset;
-            int maxScan = Math.Min(packet.Length - 2, offset + 60);
-
-            while (scanOffset < maxScan)
+            if (TryScanNpcTypeId(packet, offset, out int markerOffset))
             {
-                if (packet[scanOffset] == 0x00 &&
-                    (packet[scanOffset + 1] == 0x40 || packet[scanOffset + 1] == 0x00) &&
-                    packet[scanOffset + 2] == 0x02)
-                {
-                    if (scanOffset - 3 >= offset)
-                    {
-                        int b1 = packet[scanOffset - 3];
-                        int b2 = packet[scanOffset - 2];
-                        int b3 = packet[scanOffset - 1];
-                        mobTypeId = b1 | (b2 << 8) | (b3 << 16);
-                    }
-                    break;
-                }
-                scanOffset++;
+                mobTypeId = packet.ReadUInt32Le(markerOffset-3); 
+                maxHp = TryScanMaxHp(packet, markerOffset + 3);
             }
 
-
-
-            if (mobTypeId != -1)
-            {
-
-                //dataStorage.AppendMob(realActorId, mobTypeId);
-
-                int hpScanOffset = scanOffset + 3;
-                int hpScanEnd = Math.Min(packet.Length - 2, hpScanOffset + 64);
-
-                while (hpScanOffset < hpScanEnd)
-                {
-                    if (packet[hpScanOffset] == 0x01)
-                    {
-                        var currentHpInfo = packet.ReadVarInt(hpScanOffset + 1);
-                        if (currentHpInfo.Length > 0 && currentHpInfo.Value > 0)
-                        {
-                            var maxHpInfo = packet.ReadVarInt(hpScanOffset + 1 + currentHpInfo.Length);
-                            if (maxHpInfo.Length > 0 && maxHpInfo.Value >= currentHpInfo.Value)
-                            {
-                                maxHp = maxHpInfo.Value;
-                                //if (maxHpInfo.Value > 1000000)
-                                //{
-                                //    Console.WriteLine();
-
-                                //}
-                                //dataStorage.AppendMobHp(realActorId, (int)maxHpInfo.Value);
-                                //logger.Debug("Summon mob HP mapped: Target {0} -> Max HP {1}", realActorId, maxHpInfo.Value);
-                                break;
-                            }
-                        }
-                    }
-                    hpScanOffset++;
-                }
-                foundSomething = true;
-            }
             entityTracker.CreateOrUpdateTargetEntity(targetInfo.Value, mobTypeId, maxHp);
-            return foundSomething;
+        }
+
+        /// <summary>
+        /// Scans for the NPC type marker pattern and extracts the 3-byte mob type ID preceding it.
+        /// Returns <c>true</c> if a valid marker was found; <paramref name="markerOffset"/> is set
+        /// </summary>
+        private static bool TryScanNpcTypeId(byte[] packet, int startOffset, out int markerOffset)
+        {
+            markerOffset = 0;
+            int maxScan = Math.Min(packet.Length - 2, startOffset + NpcTypeScanWindow);
+
+            for (int i = startOffset; i < maxScan; i++)
+            {
+                if (packet[i] != 0x00) continue;
+                if (packet[i + 1] != 0x40 && packet[i + 1] != 0x00) continue;
+                if (packet[i + 2] != 0x02) continue;
+                if (i - 3 < startOffset) continue;
+
+                markerOffset = i;
+                return true;
+            }
+
+            return false;
+        }
+
+
+        /// <summary>
+        /// Scans forward from <paramref name="scanStart"/> for the HP block (marker byte 0x01)
+        /// and returns the decoded max HP value, or 0 if not found.
+        /// </summary>
+        private static int TryScanMaxHp(byte[] packet, int scanStart)
+        {
+            int scanEnd = Math.Min(packet.Length - 2, scanStart + HpScanWindow);
+
+            for (int i = scanStart; i < scanEnd; i++)
+            {
+                if (packet[i] != 0x01) continue;
+
+                var currentHpInfo = packet.ReadVarInt(i + 1);
+                if (currentHpInfo.Length <= 0 || currentHpInfo.Value <= 0) continue;
+
+                var maxHpInfo = packet.ReadVarInt(i + 1 + currentHpInfo.Length);
+                if (maxHpInfo.Length > 0 && maxHpInfo.Value >= currentHpInfo.Value)
+                    return maxHpInfo.Value;
+            }
+            return 0;
         }
     }
 }
