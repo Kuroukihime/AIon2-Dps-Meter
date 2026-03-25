@@ -122,6 +122,11 @@ namespace AionDpsMeter.Core.Data
             var originalCode = InferOriginalSkillCode(skillCode);
             if (_skillsById.TryGetValue(originalCode, out var skill))
             {
+                if (skill.GroupId != 0)
+                {
+                    var baseSkill = _skillsById.GetValueOrDefault((int)skill.GroupId);
+                    if (baseSkill != null) return baseSkill;
+                }
                 return skill;
             }
 
