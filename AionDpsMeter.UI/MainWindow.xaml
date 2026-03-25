@@ -64,7 +64,6 @@
                             Margin="4,0,0,0"
                             VerticalAlignment="Center">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <TextBlock Text="⏱ " FontSize="9" Foreground="{StaticResource SecondaryTextBrush}" VerticalAlignment="Center"/>
                             <TextBlock Text="{Binding PingDisplay}"
                                        FontSize="10"
                                        FontFamily="Consolas"
@@ -92,18 +91,13 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0"
-                                       Text="🎯"
-                                       FontSize="9"
-                                       VerticalAlignment="Center"
-                                       Margin="0,0,3,0"/>
-                            <TextBlock Grid.Column="1"
                                        Text="{Binding ActiveTargetName}"
                                        FontSize="10"
                                        FontWeight="SemiBold"
                                        Foreground="{StaticResource PrimaryTextBrush}"
                                        VerticalAlignment="Center"
                                        TextTrimming="CharacterEllipsis"/>
-                            <TextBlock Grid.Column="2"
+                            <TextBlock Grid.Column="1"
                                        Text="{Binding ActiveTargetHpDisplay}"
                                        FontSize="9"
                                        FontFamily="Consolas"
