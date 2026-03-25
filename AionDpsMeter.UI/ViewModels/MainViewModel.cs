@@ -29,6 +29,24 @@ namespace AionDpsMeter.UI.ViewModels
         [ObservableProperty]
         private string _pingColor = "#888888";
 
+        [ObservableProperty]
+        private string _activeTargetName = string.Empty;
+
+        [ObservableProperty]
+        private int _activeTargetHpTotal;
+
+        [ObservableProperty]
+        private int _activeTargetHpCurrent;
+
+        [ObservableProperty]
+        private bool _hasActiveTarget;
+
+        [ObservableProperty]
+        private string _activeTargetHpDisplay = string.Empty;
+
+        [ObservableProperty]
+        private double _activeTargetHpPercentage;
+
         private DispatcherTimer? _updateTimer;
 
         // Expose session manager for PlayerDetailsWindow
@@ -40,7 +58,6 @@ namespace AionDpsMeter.UI.ViewModels
             this.packetService = packetService;
             _sessionManager = sessionManager;
 
-            // Получаем Dispatcher из текущего потока
             _dispatcher = Dispatcher.CurrentDispatcher;
 
             // Subscribe to damage events
@@ -88,8 +105,12 @@ namespace AionDpsMeter.UI.ViewModels
 
             Players.Clear();
             CombatDuration = "00:00";
-            PingDisplay = "-- ms";
-            PingColor = "#888888";
+            ActiveTargetName = string.Empty;
+            ActiveTargetHpTotal = 0;
+            ActiveTargetHpCurrent = 0;
+            HasActiveTarget = false;
+            ActiveTargetHpDisplay = string.Empty;
+            ActiveTargetHpPercentage = 0;
         }
 
         private void OnPacketReceived(object? sender, PlayerDamage damageEvent)
@@ -103,6 +124,12 @@ namespace AionDpsMeter.UI.ViewModels
             {
                 Players.Clear();
                 CombatDuration = "00:00";
+                ActiveTargetName = string.Empty;
+                ActiveTargetHpTotal = 0;
+                ActiveTargetHpCurrent = 0;
+                HasActiveTarget = false;
+                ActiveTargetHpDisplay = string.Empty;
+                ActiveTargetHpPercentage = 0;
             });
         }
 
@@ -110,6 +137,7 @@ namespace AionDpsMeter.UI.ViewModels
         {
             UpdatePlayerStats();
             UpdateCombatDuration();
+            UpdateActiveTarget();
         }
 
         private void UpdatePlayerStats()
@@ -144,6 +172,44 @@ namespace AionDpsMeter.UI.ViewModels
         {
             var duration = _sessionManager.GetCombatDuration();
             CombatDuration = duration.ToString(@"mm\:ss");
+        }
+
+        private void UpdateActiveTarget()
+        {
+            var targetInfo = _sessionManager.GetActiveTargetInfo();
+            if (targetInfo != null)
+            {
+                HasActiveTarget = true;
+                ActiveTargetName = targetInfo.Name;
+                ActiveTargetHpTotal = targetInfo.HpTotal;
+                ActiveTargetHpCurrent = targetInfo.HpCurrent;
+                ActiveTargetHpPercentage = targetInfo.HpTotal > 0
+                    ? (double)targetInfo.HpCurrent / targetInfo.HpTotal * 100
+                    : 0;
+                ActiveTargetHpDisplay = targetInfo.HpTotal > 0
+                    ? $"{FormatNumber(targetInfo.HpCurrent)} / {FormatNumber(targetInfo.HpTotal)}"
+                    : string.Empty;
+            }
+            else
+            {
+                HasActiveTarget = false;
+                ActiveTargetName = string.Empty;
+                ActiveTargetHpTotal = 0;
+                ActiveTargetHpCurrent = 0;
+                ActiveTargetHpPercentage = 0;
+                ActiveTargetHpDisplay = string.Empty;
+            }
+        }
+
+        private static string FormatNumber(long number)
+        {
+            if (number >= 1_000_000_000)
+                return $"{number / 1_000_000_000.0:F2}B";
+            if (number >= 1_000_000)
+                return $"{number / 1_000_000.0:F2}M";
+            if (number >= 1_000)
+                return $"{number / 1_000.0:F1}K";
+            return number.ToString();
         }
 
         public void Dispose()

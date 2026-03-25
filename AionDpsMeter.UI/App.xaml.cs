@@ -3,6 +3,7 @@ using AionDpsMeter.Services.Extensions;
 using AionDpsMeter.Services.Models;
 using AionDpsMeter.Services.PacketCapture;
 using AionDpsMeter.Services.Services;
+using AionDpsMeter.Services.Services.Entity;
 using AionDpsMeter.Services.Services.Session;
 using AionDpsMeter.UI.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.Windows;
+using AionDpsMeter.Services.Services.Entity;
 
 namespace AionDpsMeter.UI
 {
@@ -40,7 +42,7 @@ namespace AionDpsMeter.UI
 
                     //services.AddSingleton<IPacketCaptureDevice, FilePacketCaptureDevice>();
                     services.AddSingleton<IPacketCaptureDevice, LoopbackCaptureDevice>();
-
+                    services.AddSingleton<EntityTracker>();
                     services.AddSingleton<IPacketService, AionPacketService>();
                     services.AddSingleton<CombatSessionManager>();
                     services.AddSingleton<MainViewModel>();

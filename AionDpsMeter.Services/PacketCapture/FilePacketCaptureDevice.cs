@@ -24,9 +24,9 @@ namespace AionDpsMeter.Services.PacketCapture
       
         public FilePacketCaptureDevice(TcpStreamBuffer tcpStreamBuffer)
         {
-            var packetsTxt = "D:\\xdd\\packets_20260131_132823.txt";
+            var packetsTxt = "D:\\xdd\\b3_cliric_heal_bug_start.txt";
             bool playback = false;
-            double speed = 1;
+            double speed = 2;
             if (string.IsNullOrWhiteSpace(packetsTxt))
                 throw new ArgumentException("File path cannot be null or empty.", nameof(packetsTxt));
 
@@ -104,9 +104,9 @@ namespace AionDpsMeter.Services.PacketCapture
                     }
 
                     previousTimestamp = timestamp;
-                    tcpStreamBuffer.AddData(streamKey, payload, new DateTimeOffset(timestamp, TimeSpan.Zero).ToUnixTimeMilliseconds());
+                    tcpStreamBuffer.AddData(streamKey, payload, new DateTimeOffset(DateTime.SpecifyKind(timestamp, DateTimeKind.Utc), TimeSpan.Zero).ToUnixTimeMilliseconds());
                     // Raise the PacketReceived event
-                  
+
                 }
             }
             catch (OperationCanceledException)

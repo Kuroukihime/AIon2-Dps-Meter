@@ -26,4 +26,15 @@ namespace AionDpsMeter.Core.Data
     {
         public List<ClassData> Classes { get; set; } = [];
     }
+
+    public sealed class MobData
+    {
+        public string Name { get; set; } = string.Empty;
+        public bool IsBoss { get; set; }
+    }
+
+    public sealed class MobsFile
+    {
+        public List<MobData> Mobs { get; set; } = [];
+    }
 }

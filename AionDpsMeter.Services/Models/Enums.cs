@@ -6,7 +6,9 @@
         COMPRESSED_STREAM,
         UNKNOWN,
         BROKEN,
-        CURRENT_TIME
+        CURRENT_TIME,
+        MOB_HP,
+        MOB_SUMMON
     }
 
     internal enum PacketProcessResult
