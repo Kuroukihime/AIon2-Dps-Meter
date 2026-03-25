@@ -39,6 +39,8 @@ namespace AionDpsMeter.Services.PacketProcessors
             if (packet[lenValueLength] == 0x04 && packet[lenValueLength + 1] == 0x38) return PacketTypeEnum.DAMAGE;
             if (packet[lenValueLength] == 0xFF && packet[lenValueLength + 1] == 0xFF) return PacketTypeEnum.COMPRESSED_STREAM;
             if (packet[lenValueLength] == 0x03 && packet[lenValueLength + 1] == 0x36) return PacketTypeEnum.CURRENT_TIME;
+            if (packet[lenValueLength] == 0x00 && packet[lenValueLength + 1] == 0x8D) return PacketTypeEnum.MOB_HP;
+            if (packet[lenValueLength] == 0x40 && packet[lenValueLength + 1] == 0x36) return PacketTypeEnum.MOB_SUMMON;
             return PacketTypeEnum.UNKNOWN;
         }
 
@@ -46,7 +48,7 @@ namespace AionDpsMeter.Services.PacketProcessors
         {
             var result = new List<Packet>();
 
-      
+
             var stack = new Stack<(byte[] Buffer, int Offset, int Length)>();
             stack.Push((rawPacket, 0, rawPacket.Length));
 
@@ -74,7 +76,7 @@ namespace AionDpsMeter.Services.PacketProcessors
 
                             if (dataLen > 0)
                             {
-                                byte[] frameBytes = buf.AsSpan(dataOffset- frame.VarintLen, dataLen+ frame.VarintLen).ToArray();
+                                byte[] frameBytes = buf.AsSpan(dataOffset - frame.VarintLen, dataLen + frame.VarintLen).ToArray();
                                 var packetType = DeterminePacketType(frameBytes);
                                 result.Add(new Packet { Type = packetType, Data = frameBytes });
                             }

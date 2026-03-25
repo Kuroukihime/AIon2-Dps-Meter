@@ -15,6 +15,7 @@
             <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
             <converters:SafeImageSourceConverter x:Key="SafeImageSourceConverter"/>
             <converters:StringToBrushConverter x:Key="StringToBrushConverter"/>
+            <converters:IntToVisibilityConverter x:Key="IntToVisibilityConverter"/>
 
             <!-- Colors -->
             <SolidColorBrush x:Key="PrimaryBackgroundBrush" Color="#1E1E1E"/>

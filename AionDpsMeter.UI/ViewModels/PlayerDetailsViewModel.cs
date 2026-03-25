@@ -72,6 +72,18 @@ namespace AionDpsMeter.UI.ViewModels
         [ObservableProperty]
         private int _skillCount;
 
+        [ObservableProperty]
+        private string _activeTargetName = string.Empty;
+
+        [ObservableProperty]
+        private int _activeTargetHpTotal;
+
+        [ObservableProperty]
+        private string _activeTargetHpTotalDisplay = string.Empty;
+
+        [ObservableProperty]
+        private bool _hasActiveTarget;
+
         public bool HasPlayerIcon => !string.IsNullOrEmpty(_playerIcon);
         public bool HasClassIcon => !string.IsNullOrEmpty(_classIcon);
 
@@ -127,6 +139,24 @@ namespace AionDpsMeter.UI.ViewModels
                 ParryRateDisplay = $"{playerStats.ParryRate:F1}%";
                 DamageContributionDisplay = $"{playerStats.DamagePercentage:F1}%";
                 CombatDurationDisplay = FormatDuration(playerStats.CombatDuration);
+            }
+
+            var targetInfo = _sessionManager.GetActiveTargetInfo();
+            if (targetInfo != null)
+            {
+                HasActiveTarget = true;
+                ActiveTargetName = targetInfo.Name;
+                ActiveTargetHpTotal = targetInfo.HpTotal;
+                ActiveTargetHpTotalDisplay = targetInfo.HpTotal > 0
+                    ? $"HP: {FormatDamageWithNumber(targetInfo.HpTotal)}"
+                    : string.Empty;
+            }
+            else
+            {
+                HasActiveTarget = false;
+                ActiveTargetName = string.Empty;
+                ActiveTargetHpTotal = 0;
+                ActiveTargetHpTotalDisplay = string.Empty;
             }
         }
 
