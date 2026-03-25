@@ -3,6 +3,7 @@ using AionDpsMeter.Services.Extensions;
 using AionDpsMeter.Services.Models;
 using AionDpsMeter.Services.PacketCapture;
 using AionDpsMeter.Services.Services;
+using AionDpsMeter.Services.Services.Entity;
 using AionDpsMeter.Services.Services.Session;
 using AionDpsMeter.UI.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
