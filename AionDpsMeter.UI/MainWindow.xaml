@@ -223,13 +223,13 @@
                                     <Border Background="{StaticResource TertiaryBackgroundBrush}"
                                             CornerRadius="2"
                                             Height="20"/>
-                                    <Border Background="{StaticResource DamageBarBrush}"
+                                    <Border Background="{StaticResource ProgressBarGradientBrush}"
                                             CornerRadius="2"
                                             Height="20"
                                             HorizontalAlignment="Left">
                                         <Border.Width>
                                             <MultiBinding Converter="{StaticResource PercentageToWidthConverter}">
-                                                <Binding Path="DamagePercentage"/>
+                                                <Binding Path="AnimatedPercentage"/>
                                                 <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType=Grid}"/>
                                             </MultiBinding>
                                         </Border.Width>
@@ -264,7 +264,7 @@
                                         VerticalAlignment="Center">
                                     <TextBlock FontSize="10"
                                                FontWeight="Bold"
-                                               Foreground="#7FFF00"
+                                               Foreground="{StaticResource DpsColorBrush}"
                                                VerticalAlignment="Center">
                                         <Run Text="{Binding DpsFormatted, Mode=OneWay}"/>
                                         <Run Text="/s" FontSize="8" Foreground="{StaticResource SecondaryTextBrush}"/>
