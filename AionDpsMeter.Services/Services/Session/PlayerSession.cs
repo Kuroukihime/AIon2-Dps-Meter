@@ -16,6 +16,8 @@ namespace AionDpsMeter.Services.Services.Session
         public long ClassId { get; }
         public string ClassName { get; }
         public string? ClassIcon { get; }
+        public int CombatPower { get; private set; }
+        public string ServerName { get; private set; } = string.Empty;
 
         private readonly List<PlayerDamage> damageHistory = new();
 
@@ -29,10 +31,19 @@ namespace AionDpsMeter.Services.Services.Session
             ClassId = firstDamage.CharacterClass.Id;
             ClassName = firstDamage.CharacterClass.Name;
             ClassIcon = firstDamage.CharacterClass.Icon;
+            CombatPower = firstDamage.SourceEntity.CombatPower;
+            ServerName = firstDamage.SourceEntity.ServerName;
             Stats = CreateEmptyStats(firstDamage.DateTime);
         }
 
-        public void AddDamage(PlayerDamage damage) => damageHistory.Add(damage);
+        public void AddDamage(PlayerDamage damage)
+        {
+            damageHistory.Add(damage);
+            if (damage.SourceEntity.CombatPower > 0)
+                CombatPower = damage.SourceEntity.CombatPower;
+            if (!string.IsNullOrEmpty(damage.SourceEntity.ServerName))
+                ServerName = damage.SourceEntity.ServerName;
+        }
 
         /// <summary>
         /// Counts how many hits each target received after <paramref name="cutoff"/>.
@@ -58,6 +69,8 @@ namespace AionDpsMeter.Services.Services.Session
         /// </summary>
         public void UpdateStats(int activeTargetId, long totalCombatDamage)
         {
+            Stats.CombatPower = CombatPower;
+            Stats.ServerName = ServerName;
             DamageStatisticsCalculator.UpdatePlayerStats(Stats, damageHistory, activeTargetId, totalCombatDamage);
         }
 
@@ -96,6 +109,8 @@ namespace AionDpsMeter.Services.Services.Session
                 PlayerIcon = PlayerIcon,
                 ClassName = ClassName,
                 ClassIcon = ClassIcon,
+                CombatPower = CombatPower,
+                ServerName = ServerName,
                 FirstHit = initialTime ?? default,
                 LastHit = initialTime ?? default
             };

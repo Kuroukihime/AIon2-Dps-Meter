@@ -88,10 +88,16 @@
                             <Image Source="{Binding ClassIconDisplay, Converter={StaticResource SafeImageSourceConverter}}"
                                    Stretch="Uniform" RenderOptions.BitmapScalingMode="LowQuality"/>
                         </Border>
-                        <TextBlock Text="{Binding PlayerNameDisplay}"
+                        <TextBlock Text="{Binding PlayerNameWithServer}"
                                    FontSize="13" FontWeight="Bold"
                                    Foreground="{StaticResource PrimaryTextBrush}"
-                                   VerticalAlignment="Center" Margin="0,0,14,0"/>
+                                   VerticalAlignment="Center" Margin="0,0,6,0"/>
+                        <TextBlock Text="{Binding CombatPower, StringFormat=CP: {0}}"
+                                   FontSize="10"
+                                   Foreground="{StaticResource SecondaryTextBrush}"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,10,0"
+                                   Visibility="{Binding CombatPower, Converter={StaticResource IntToVisibilityConverter}}"/>
                         <TextBlock FontSize="11" VerticalAlignment="Center" Margin="0,0,10,0">
                             <Run Text="Total: " Foreground="{StaticResource SecondaryTextBrush}"/>
                             <Run Text="{Binding TotalDamageDisplay, Mode=OneWay}"
@@ -204,7 +210,7 @@
                                 <ColumnDefinition Width="50"/>
                                 <ColumnDefinition Width="70"/>
                                 <ColumnDefinition Width="65"/>
-                                <ColumnDefinition Width="65"/>
+                                    <ColumnDefinition Width="65"/>
                                 <ColumnDefinition Width="1.3*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0"  Style="{StaticResource ColHeader}"/>

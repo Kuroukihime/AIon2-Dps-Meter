@@ -16,13 +16,19 @@ namespace AionDpsMeter.UI.ViewModels
             _animatedPercentage = stats.DamagePercentage;
         }
 
-        public long    PlayerId        => _stats.PlayerId;
-        public string  PlayerName      => _stats.PlayerName;
-        public string? PlayerIcon      => _stats.PlayerIcon;
-        public string  ClassName       => _stats.ClassName;
-        public string? ClassIcon       => _stats.ClassIcon;
-        public bool    HasPlayerIcon   => !string.IsNullOrEmpty(_stats.PlayerIcon);
-        public bool    HasClassIcon    => !string.IsNullOrEmpty(_stats.ClassIcon);
+        public long    PlayerId          => _stats.PlayerId;
+        public string  PlayerName        => _stats.PlayerName;
+        public string  ServerName        => _stats.ServerName;
+        /// <summary>Nickname formatted as <c>Name[Server]</c> when server is known, otherwise just <c>Name</c>.</summary>
+        public string  PlayerNameDisplay => string.IsNullOrEmpty(_stats.ServerName)
+                                               ? _stats.PlayerName
+                                               : $"{_stats.PlayerName}[{_stats.ServerName}]";
+        public string? PlayerIcon        => _stats.PlayerIcon;
+        public string  ClassName         => _stats.ClassName;
+        public string? ClassIcon         => _stats.ClassIcon;
+        public int     CombatPower       => _stats.CombatPower;
+        public bool    HasPlayerIcon     => !string.IsNullOrEmpty(_stats.PlayerIcon);
+        public bool    HasClassIcon      => !string.IsNullOrEmpty(_stats.ClassIcon);
 
         public long   TotalDamage          => _stats.TotalDamage;
         public string TotalDamageFormatted => DamageFormatter.Format(_stats.TotalDamage);
@@ -64,6 +70,9 @@ namespace AionDpsMeter.UI.ViewModels
             OnPropertyChanged(nameof(PlayerIcon));
             OnPropertyChanged(nameof(HasPlayerIcon));
             OnPropertyChanged(nameof(HasClassIcon));
+            OnPropertyChanged(nameof(CombatPower));
+            OnPropertyChanged(nameof(ServerName));
+            OnPropertyChanged(nameof(PlayerNameDisplay));
         }
     }
 }

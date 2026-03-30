@@ -206,7 +206,7 @@
                                 Padding="2"
                                 Cursor="Hand"
                                 MouseLeftButtonDown="PlayerItem_Click"
-                                ToolTip="{Binding PlayerName}">
+                                ToolTip="{Binding PlayerNameDisplay}">
                             <Border.Tag>
                                 <Binding/>
                             </Border.Tag>
@@ -250,14 +250,20 @@
 
                                     <!-- Player Name on left, Total Damage in center -->
                                     <Grid>
-                                        <TextBlock Text="{Binding PlayerName}"
-                                                   FontSize="10"
-                                                   FontWeight="SemiBold"
-                                                   Foreground="{StaticResource PrimaryTextBrush}"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Left"
-                                                   Margin="6,0,0,0"
-                                                   TextTrimming="CharacterEllipsis"/>
+                                        <StackPanel Orientation="Vertical"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    Margin="6,0,0,0">
+                                            <TextBlock Text="{Binding PlayerNameDisplay}"
+                                                       FontSize="10"
+                                                       FontWeight="SemiBold"
+                                                       Foreground="{StaticResource PrimaryTextBrush}"
+                                                       TextTrimming="CharacterEllipsis"/>
+                                            <TextBlock Text="{Binding CombatPower, StringFormat=CP: {0}}"
+                                                       FontSize="8"
+                                                       Foreground="{StaticResource SecondaryTextBrush}"
+                                                       Visibility="{Binding CombatPower, Converter={StaticResource IntToVisibilityConverter}}"/>
+                                        </StackPanel>
 
                                         <TextBlock Text="{Binding TotalDamageFormatted}"
                                                    FontSize="10"

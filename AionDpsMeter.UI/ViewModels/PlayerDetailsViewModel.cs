@@ -19,9 +19,11 @@ namespace AionDpsMeter.UI.ViewModels
         [ObservableProperty] private ObservableCollection<CombatLogEntryViewModel> _combatLog = new();
         [ObservableProperty] private int _selectedTabIndex;
         [ObservableProperty] private string _playerNameDisplay;
+        [ObservableProperty] private string _serverName = string.Empty;
         [ObservableProperty] private string _classNameDisplay = string.Empty;
         [ObservableProperty] private string? _playerIconDisplay;
         [ObservableProperty] private string? _classIconDisplay;
+        [ObservableProperty] private int _combatPower;
 
         // ?? Summary stats ??????????????????????????????????????????????????????
         [ObservableProperty] private string _totalDamageDisplay = "0";
@@ -47,6 +49,11 @@ namespace AionDpsMeter.UI.ViewModels
         public bool ShowSkills => !ShowCombatLog;
         partial void OnShowCombatLogChanged(bool value) => OnPropertyChanged(nameof(ShowSkills));
 
+        /// <summary>Nickname formatted as <c>Name[Server]</c> when server is known, otherwise just <c>Name</c>.</summary>
+        public string PlayerNameWithServer => string.IsNullOrEmpty(_serverName)
+            ? _playerNameDisplay
+            : $"{_playerNameDisplay}[{_serverName}]";
+
         public bool HasPlayerIcon => !string.IsNullOrEmpty(_playerIcon);
         public bool HasClassIcon  => !string.IsNullOrEmpty(_classIcon);
 
@@ -56,16 +63,20 @@ namespace AionDpsMeter.UI.ViewModels
             string playerName,
             string className,
             string? playerIcon,
-            string? classIcon)
+            string? classIcon,
+            int combatPower = 0,
+            string serverName = "")
         {
-            _sessionManager   = sessionManager;
-            _playerId         = playerId;
-            _playerIcon       = playerIcon;
-            _classIcon        = classIcon;
+            _sessionManager    = sessionManager;
+            _playerId          = playerId;
+            _playerIcon        = playerIcon;
+            _classIcon         = classIcon;
             _playerNameDisplay = playerName;
             _classNameDisplay  = className;
             _playerIconDisplay = playerIcon;
             _classIconDisplay  = classIcon;
+            _combatPower       = combatPower;
+            _serverName        = serverName;
 
             _updateTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(66) };
             _updateTimer.Tick += OnUpdateTimerTick;
@@ -91,24 +102,31 @@ namespace AionDpsMeter.UI.ViewModels
             var playerStats = _sessionManager.PlayerStats.FirstOrDefault(p => p.PlayerId == _playerId);
             if (playerStats is not null)
             {
-                TotalDamageDisplay       = DamageFormatter.FormatFull(playerStats.TotalDamage);
-                DpsDisplay               = DamageFormatter.Format(playerStats.DamagePerSecond);
-                TotalHits                = playerStats.HitCount;
-                CriticalRateDisplay      = DamageFormatter.FormatRate(playerStats.CriticalRate);
-                BackAttackRateDisplay    = DamageFormatter.FormatRate(playerStats.BackAttackRate);
-                PerfectRateDisplay       = DamageFormatter.FormatRate(playerStats.PerfectRate);
-                DoubleDamageRateDisplay  = DamageFormatter.FormatRate(playerStats.DoubleDamageRate);
-                ParryRateDisplay         = DamageFormatter.FormatRate(playerStats.ParryRate);
+                TotalDamageDisplay        = DamageFormatter.FormatFull(playerStats.TotalDamage);
+                DpsDisplay                = DamageFormatter.Format(playerStats.DamagePerSecond);
+                TotalHits                 = playerStats.HitCount;
+                CriticalRateDisplay       = DamageFormatter.FormatRate(playerStats.CriticalRate);
+                BackAttackRateDisplay     = DamageFormatter.FormatRate(playerStats.BackAttackRate);
+                PerfectRateDisplay        = DamageFormatter.FormatRate(playerStats.PerfectRate);
+                DoubleDamageRateDisplay   = DamageFormatter.FormatRate(playerStats.DoubleDamageRate);
+                ParryRateDisplay          = DamageFormatter.FormatRate(playerStats.ParryRate);
                 DamageContributionDisplay = DamageFormatter.FormatRate(playerStats.DamagePercentage);
-                CombatDurationDisplay    = DamageFormatter.FormatDuration(playerStats.CombatDuration);
+                CombatDurationDisplay     = DamageFormatter.FormatDuration(playerStats.CombatDuration);
+                if (playerStats.CombatPower > 0)
+                    CombatPower = playerStats.CombatPower;
+                if (!string.IsNullOrEmpty(playerStats.ServerName))
+                {
+                    ServerName = playerStats.ServerName;
+                    OnPropertyChanged(nameof(PlayerNameWithServer));
+                }
             }
 
             var targetInfo = _sessionManager.GetActiveTargetInfo();
             if (targetInfo is not null)
             {
-                HasActiveTarget          = true;
-                ActiveTargetName         = targetInfo.Name;
-                ActiveTargetHpTotal      = targetInfo.HpTotal;
+                HasActiveTarget            = true;
+                ActiveTargetName           = targetInfo.Name;
+                ActiveTargetHpTotal        = targetInfo.HpTotal;
                 ActiveTargetHpTotalDisplay = targetInfo.HpTotal > 0
                     ? $"HP: {DamageFormatter.FormatFull(targetInfo.HpTotal)}"
                     : string.Empty;

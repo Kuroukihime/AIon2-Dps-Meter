@@ -1,11 +1,14 @@
-﻿using AionDpsMeter.Services.Services.Entity;
+﻿using AionDpsMeter.Core.Data;
+using AionDpsMeter.Services.Extensions;
+using AionDpsMeter.Services.Services.Entity;
 using Microsoft.Extensions.Logging;
 using System.Text;
-using AionDpsMeter.Core.Data;
-using AionDpsMeter.Services.Extensions;
+using AionDpsMeter.Core.Models;
 
 namespace AionDpsMeter.Services.PacketProcessors
 {
+
+
     public sealed class NicknamePacketProcessor
     {
         private readonly EntityTracker entityTracker;
@@ -31,25 +34,139 @@ namespace AionDpsMeter.Services.PacketProcessors
         {
             if ( packet.Length < 4) return;
 
+            var lenVarInt = packet.ReadVarInt().Length;
+            if (packet[lenVarInt] == 0x02 && packet[lenVarInt + 1] == 0x97)
+            {
+                ProcessPartyPacket(packet, lenVarInt);
+                return;
+            }
             TryExtractAndApplyPlayerInfo(packet, 0, packet.Length);
         }
+
+
+        private void ProcessPartyPacket(byte[] packet, int lenVarInt )
+        {
+            List<Player> list = ParsePartyMemberBlocks(packet, lenVarInt + 2);
+            if (list.Count > 0)
+            {
+                foreach (var partyMember in list)
+                {
+                    entityTracker.RegisterBasePlayerEntity(partyMember);
+                }
+            }
+        }
+
+        private List<Player> ParsePartyMemberBlocks(byte[] packet, int dataOffset)
+        {
+            var results = new List<Player>();
+            var seenCharacterIds = new HashSet<uint>();
+
+            int pos = dataOffset + 11;
+
+            while (pos < packet.Length)
+            {
+                int nameLength = packet[pos];
+
+                if (nameLength < 1 || nameLength > 48)
+                {
+                    pos++;
+                    continue;
+                }
+
+                int nameStart = pos + 1;
+                int afterName = nameStart + nameLength;
+
+                if (afterName + 12 > packet.Length)
+                {
+                    pos++;
+                    continue;
+                }
+
+                string nickname;
+                try
+                {
+                    nickname = DecodeGameString(packet, nameStart, nameLength);
+                }
+                catch
+                {
+                    pos++;
+                    continue;
+                }
+
+                int jobCode = packet.ReadUInt32Le(afterName);
+                int level = packet.ReadUInt32Le(afterName + 4);
+                int combatPower = packet.ReadUInt32Le(afterName + 8);
+
+                if (level < 1 || level > 55)
+                {
+                    pos++;
+                    continue;
+                }
+
+                if (combatPower > 9_999_999)
+                {
+                    pos++;
+                    continue;
+                }
+
+                if (pos < 8)
+                {
+                    pos++;
+                    continue;
+                }
+
+                uint characterId = (uint)packet.ReadUInt32Le(pos - 8);
+                int serverId = packet[pos - 2] | (packet[pos - 1] << 8);
+
+                if (string.IsNullOrEmpty(ServerMap.GetName(serverId)))
+                {
+                    if (afterName + 14 <= packet.Length)
+                        serverId = packet[afterName + 12] | (packet[afterName + 13] << 8);
+
+                    if (string.IsNullOrEmpty(ServerMap.GetName(serverId)))
+                    {
+                        pos++;
+                        continue;
+                    }
+                }
+
+                if (characterId == 0 || seenCharacterIds.Contains(characterId))
+                {
+                    pos++;
+                    continue;
+                }
+
+                seenCharacterIds.Add(characterId);
+                results.Add(new Player
+                {
+                    Id = (int)characterId,
+                    ServerId = serverId,
+                    ServerName = ServerMap.GetName(serverId),
+                    Name = nickname,
+                    CharactedLevel = level,
+                    CombatPower = combatPower
+                });
+
+                pos = afterName + 12;
+            }
+
+            return results;
+        }
+
+
 
         private void TryExtractAndApplyPlayerInfo(byte[] data, int startOffset, int length)
         {
             int endOffset = startOffset + length;
 
-            if (TryParseInfoTag1(data, endOffset, out PlayerInfoResult selfInfo))
+            if (TryParseInfoTag1(data, endOffset, out PlayerInfoResult result))
             {
-                string displayName = BuildDisplayName(selfInfo.Name, selfInfo.ServerId);
-                entityTracker.UpdatePlayerEntityName(selfInfo.EntityId, displayName);
+                entityTracker.UpdatePlayerEntityName(result.EntityId, result.Name, ServerMap.GetName(result.ServerId));
                 return;
             }
-
-            if (!TryParseInfoTag2(data, endOffset, out PlayerInfoResult otherInfo))
+            if (!TryParseInfoTag2(data, endOffset, out PlayerInfoResult result2))
                 return;
-
-            string otherDisplayName = BuildDisplayName(otherInfo.Name, otherInfo.ServerId);
-            entityTracker.UpdatePlayerEntityName(otherInfo.EntityId, otherDisplayName);
+            entityTracker.UpdatePlayerEntityName(result2.EntityId, result2.Name, ServerMap.GetName(result2.ServerId));
         }
 
         private bool TryParseInfoTag1(byte[] data, int endOffset, out PlayerInfoResult result)
@@ -250,15 +367,5 @@ namespace AionDpsMeter.Services.PacketProcessors
             return true;
         }
 
-        private string BuildDisplayName(string playerName, int serverId)
-        {
-            if (serverId <= 0)
-                return playerName;
-
-            string serverName = ServerMap.GetName(serverId);
-            return !string.IsNullOrEmpty(serverName)
-                ? $"{playerName}[{serverName}]"
-                : playerName;
-        }
     }
 }

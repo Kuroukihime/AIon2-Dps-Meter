@@ -4,34 +4,19 @@ namespace AionDpsMeter.Services.Services.Entity
 {
     public sealed class EntityTracker
     {
+
         public List<Player> PlayerEntities => playerEntities.Select(r => r.Value).ToList();
         public List<Mob> TargetEntities => targetEntities.Select(r => r.Value).ToList();
         public int PlayerEntityCount => playerEntities.Count;
         public int TargetEntityCount => targetEntities.Count;
         public int SummonCount => summons.Count;
 
+
+        private readonly Dictionary<string, Player> basePlayerEntities = [];
         private readonly Dictionary<int, Player> playerEntities = [];
         private readonly Dictionary<int, Mob> targetEntities = [];
         private readonly Dictionary<int, int> summons = []; // summonId -> ownerId
 
-        public Player GetOrCreatePlayerEntity(int entityId, CharacterClass characterClass)
-        {
-            if (playerEntities.TryGetValue(entityId, out var entity))
-            {
-                return entity;
-            }
-
-            entity = new Player
-            {
-                Id = entityId,
-                Name = $"Player_{entityId}",
-                Icon = null,
-                CharacterClass = characterClass
-            };
-
-            playerEntities[entityId] = entity;
-            return entity;
-        }
 
         public Mob GetOrCreateTargetEntity(int entityId)
         {
@@ -76,17 +61,42 @@ namespace AionDpsMeter.Services.Services.Entity
             }
         }
 
-
-        public void UpdatePlayerEntityName(int entityId, string name)
+        public Player GetOrCreatePlayerEntity(int entityId, CharacterClass characterClass)
         {
+            if (playerEntities.TryGetValue(entityId, out var entity))
+            {
+                return entity;
+            }
+
+            entity = new Player
+            {
+                Id = entityId,
+                Name = $"Player_{entityId}",
+                Icon = null,
+                CharacterClass = characterClass
+            };
+
+            playerEntities[entityId] = entity;
+            return entity;
+        }
+
+        public void UpdatePlayerEntityName(int entityId, string name, string serverName = "")
+        {
+
+            basePlayerEntities.TryGetValue(name, out var basePlayerEntity);
+
             if (playerEntities.TryGetValue(entityId, out var existing))
             {
-                // Since Entity is immutable (init-only), we need to replace it
                 playerEntities[entityId] = new Player
                 {
                     Id = entityId,
                     Name = name,
-                    Icon = existing.Icon
+                    Icon = existing.Icon,
+                    CharacterClass = existing.CharacterClass,
+                    CharactedLevel = basePlayerEntity?.CharactedLevel ?? 0,
+                    ServerName = basePlayerEntity?.ServerName ?? serverName,
+                    CombatPower = basePlayerEntity?.CombatPower ?? 0,
+                    ServerId = basePlayerEntity?.ServerId ?? 0
                 };
             }
             else
@@ -95,7 +105,49 @@ namespace AionDpsMeter.Services.Services.Entity
                 {
                     Id = entityId,
                     Name = name,
-                    Icon = null
+                    Icon = null,
+                    CharactedLevel = basePlayerEntity?.CharactedLevel ?? 0,
+                    ServerName = basePlayerEntity?.ServerName ?? serverName,
+                    CombatPower = basePlayerEntity?.CombatPower ?? 0,
+                    ServerId = basePlayerEntity?.ServerId ?? 0
+                };
+            }
+        }
+
+        public void RegisterBasePlayerEntity(Player player)
+        {
+            basePlayerEntities[player.Name] = player;
+        }
+
+        public void UpdatePlayerEntity(Player player)
+        {
+            if (playerEntities.TryGetValue(player.Id, out var existing))
+            {
+                // Since Entity is immutable (init-only), we need to replace it
+                playerEntities[player.Id] = new Player
+                {
+                    Id = player.Id,
+                    Name = player.Name,
+                    Icon = existing.Icon,
+                    CharacterClass = existing.CharacterClass,
+                    CharactedLevel = player.CharactedLevel,
+                    CombatPower = player.CombatPower,
+                    ServerId = player.ServerId,
+                    ServerName = player.ServerName
+                };
+            }
+            else
+            {
+                playerEntities[player.Id] = new Player
+                {
+                    Id = player.Id,
+                    Name = player.Name,
+                    Icon = null,
+                    CharacterClass = player.CharacterClass,
+                    CharactedLevel = player.CharactedLevel,
+                    CombatPower = player.CombatPower,
+                    ServerId = player.ServerId,
+                    ServerName = player.ServerName
                 };
             }
         }
