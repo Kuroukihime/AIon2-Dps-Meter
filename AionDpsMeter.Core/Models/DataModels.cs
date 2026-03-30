@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace AionDpsMeter.Core.Data
+namespace AionDpsMeter.Core.Models
 {
     public sealed class ClassData
     {

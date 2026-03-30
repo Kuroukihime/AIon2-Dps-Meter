@@ -6,12 +6,12 @@
         public int ClassId { get; init; }
         public string Name { get; init; } = string.Empty;
         public string? Icon { get; init; }
+        public bool[] SpecializationFlags { get; init; } = [];
 
-        public override bool Equals(object? obj)
-        {
-            return obj is Skill skill && Id == skill.Id;
-        }
+        /// <summary>True when this skill has an associated icon path.</summary>
+        public bool HasIcon => !string.IsNullOrEmpty(Icon);
 
+        public override bool Equals(object? obj) => obj is Skill skill && Id == skill.Id;
         public override int GetHashCode() => Id.GetHashCode();
     }
 }

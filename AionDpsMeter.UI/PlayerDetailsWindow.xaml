@@ -195,6 +195,7 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="28"/>
                                 <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="56"/>
                                 <ColumnDefinition Width="40"/>
                                 <ColumnDefinition Width="55"/>
                                 <ColumnDefinition Width="55"/>
@@ -208,16 +209,17 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0"  Style="{StaticResource ColHeader}"/>
                             <TextBlock Grid.Column="1"  Text="Skill"  Style="{StaticResource ColHeader}" Margin="4,0,0,0"/>
-                            <TextBlock Grid.Column="2"  Text="Hits"   Style="{StaticResource ColHeader}" HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Column="3"  Text="Crit%"  Style="{StaticResource ColHeader}" HorizontalAlignment="Center" Foreground="{StaticResource CriticalColorBrush}"/>
-                            <TextBlock Grid.Column="4"  Text="Back%"  Style="{StaticResource ColHeader}" HorizontalAlignment="Center" Foreground="{StaticResource BackAttackColorBrush}"/>
-                            <TextBlock Grid.Column="5"  Text="Perf%"  Style="{StaticResource ColHeader}" HorizontalAlignment="Center" Foreground="{StaticResource PerfectColorBrush}"/>
-                            <TextBlock Grid.Column="6"  Text="x2%"    Style="{StaticResource ColHeader}" HorizontalAlignment="Center" Foreground="{StaticResource DoubleDamageColorBrush}"/>
-                            <TextBlock Grid.Column="7"  Text="Parry%" Style="{StaticResource ColHeader}" HorizontalAlignment="Center" Foreground="{StaticResource ParryColorBrush}"/>
-                            <TextBlock Grid.Column="8"  Text="Avg"    Style="{StaticResource ColHeader}" HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Column="9"  Text="Min"    Style="{StaticResource ColHeader}" HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Column="10" Text="Max"    Style="{StaticResource ColHeader}" HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Column="11" Text="Damage" Style="{StaticResource ColHeader}" HorizontalAlignment="Right" Margin="0,0,6,0"/>
+                            <TextBlock Grid.Column="2"  Text="Spec"   Style="{StaticResource ColHeader}" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="3"  Text="Hits"   Style="{StaticResource ColHeader}" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="4"  Text="Crit%"  Style="{StaticResource ColHeader}" HorizontalAlignment="Center" Foreground="{StaticResource CriticalColorBrush}"/>
+                            <TextBlock Grid.Column="5"  Text="Back%"  Style="{StaticResource ColHeader}" HorizontalAlignment="Center" Foreground="{StaticResource BackAttackColorBrush}"/>
+                            <TextBlock Grid.Column="6"  Text="Perf%"  Style="{StaticResource ColHeader}" HorizontalAlignment="Center" Foreground="{StaticResource PerfectColorBrush}"/>
+                            <TextBlock Grid.Column="7"  Text="x2%"    Style="{StaticResource ColHeader}" HorizontalAlignment="Center" Foreground="{StaticResource DoubleDamageColorBrush}"/>
+                            <TextBlock Grid.Column="8"  Text="Parry%" Style="{StaticResource ColHeader}" HorizontalAlignment="Center" Foreground="{StaticResource ParryColorBrush}"/>
+                            <TextBlock Grid.Column="9"  Text="Avg"    Style="{StaticResource ColHeader}" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="10" Text="Min"    Style="{StaticResource ColHeader}" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="11" Text="Max"    Style="{StaticResource ColHeader}" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="12" Text="Damage" Style="{StaticResource ColHeader}" HorizontalAlignment="Right" Margin="0,0,6,0"/>
                         </Grid>
                     </Border>
 
@@ -265,6 +267,7 @@
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="28"/>
                                                 <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="56"/>
                                                 <ColumnDefinition Width="40"/>
                                                 <ColumnDefinition Width="55"/>
                                                 <ColumnDefinition Width="55"/>
@@ -285,34 +288,37 @@
                                                        FontSize="11" FontWeight="SemiBold"
                                                        Foreground="{StaticResource PrimaryTextBrush}"
                                                        VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Margin="4,0,4,0"/>
-                                            <TextBlock Grid.Column="2" Text="{Binding HitCountFormatted}"
+                                            <ContentPresenter Grid.Column="2"
+                                                              Content="{Binding SpecializationFlags, Converter={StaticResource SpecFlagsConverter}}"
+                                                              HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="3" Text="{Binding HitCountFormatted}"
                                                        FontSize="10" VerticalAlignment="Center"
                                                        Foreground="{StaticResource SecondaryTextBrush}" HorizontalAlignment="Center"/>
-                                            <TextBlock Grid.Column="3" Text="{Binding CriticalRateFormatted}"
+                                            <TextBlock Grid.Column="4" Text="{Binding CriticalRateFormatted}"
                                                        FontSize="10" VerticalAlignment="Center"
                                                        Foreground="{StaticResource CriticalColorBrush}" HorizontalAlignment="Center"/>
-                                            <TextBlock Grid.Column="4" Text="{Binding BackAttackRateFormatted}"
+                                            <TextBlock Grid.Column="5" Text="{Binding BackAttackRateFormatted}"
                                                        FontSize="10" VerticalAlignment="Center"
                                                        Foreground="{StaticResource BackAttackColorBrush}" HorizontalAlignment="Center"/>
-                                            <TextBlock Grid.Column="5" Text="{Binding PerfectRateFormatted}"
+                                            <TextBlock Grid.Column="6" Text="{Binding PerfectRateFormatted}"
                                                        FontSize="10" VerticalAlignment="Center"
                                                        Foreground="{StaticResource PerfectColorBrush}" HorizontalAlignment="Center"/>
-                                            <TextBlock Grid.Column="6" Text="{Binding DoubleDamageRateFormatted}"
+                                            <TextBlock Grid.Column="7" Text="{Binding DoubleDamageRateFormatted}"
                                                        FontSize="10" VerticalAlignment="Center"
                                                        Foreground="{StaticResource DoubleDamageColorBrush}" HorizontalAlignment="Center"/>
-                                            <TextBlock Grid.Column="7" Text="{Binding ParryRateFormatted}"
+                                            <TextBlock Grid.Column="8" Text="{Binding ParryRateFormatted}"
                                                        FontSize="10" VerticalAlignment="Center"
                                                        Foreground="#FF6B6B" HorizontalAlignment="Center"/>
-                                            <TextBlock Grid.Column="8" Text="{Binding AverageDamageFormatted}"
+                                            <TextBlock Grid.Column="9" Text="{Binding AverageDamageFormatted}"
                                                        FontSize="10" VerticalAlignment="Center"
                                                        Foreground="{StaticResource PrimaryTextBrush}" HorizontalAlignment="Center"/>
-                                            <TextBlock Grid.Column="9" Text="{Binding MinHitFormatted}"
+                                            <TextBlock Grid.Column="10" Text="{Binding MinHitFormatted}"
                                                        FontSize="10" VerticalAlignment="Center"
                                                        Foreground="{StaticResource SecondaryTextBrush}" HorizontalAlignment="Center"/>
-                                            <TextBlock Grid.Column="10" Text="{Binding MaxHitFormatted}"
+                                            <TextBlock Grid.Column="11" Text="{Binding MaxHitFormatted}"
                                                        FontSize="10" VerticalAlignment="Center"
                                                        Foreground="{StaticResource SecondaryTextBrush}" HorizontalAlignment="Center"/>
-                                            <TextBlock Grid.Column="11" FontSize="10" VerticalAlignment="Center"
+                                            <TextBlock Grid.Column="12" FontSize="10" VerticalAlignment="Center"
                                                        Foreground="{StaticResource DamageBarBrush}"
                                                        HorizontalAlignment="Right" Margin="0,0,6,0">
                                                 <Run Text="{Binding TotalDamageFormatted, Mode=OneWay}" FontWeight="Bold"/>

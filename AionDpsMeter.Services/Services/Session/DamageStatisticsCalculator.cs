@@ -82,6 +82,7 @@ namespace AionDpsMeter.Services.Services.Session
                         SkillId = hit.Skill.Id,
                         SkillName = hit.Skill.Name,
                         SkillIcon = hit.Skill.Icon,
+                        SpecializationFlags = hit.Skill.SpecializationFlags,
                         MinHit = long.MaxValue
                     };
                     skillMap[hit.Skill.Id] = skill;

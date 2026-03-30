@@ -14,5 +14,23 @@
         public bool IsDoubleDamage { get; init; }
         public bool IsParry { get; init; }
         public long[]? PotentialDamageData { get; init; }
+
+        /// <summary>
+        /// Space-separated label string of all active hit flags (e.g. "CRIT BACK").
+        /// Empty string when no flags are set.
+        /// </summary>
+        public string Flags
+        {
+            get
+            {
+                var flags = new List<string>(5);
+                if (IsCritical)     flags.Add("CRIT");
+                if (IsBackAttack)   flags.Add("BACK");
+                if (IsPerfect)      flags.Add("PERFECT");
+                if (IsDoubleDamage) flags.Add("x2");
+                if (IsParry)        flags.Add("PARRY");
+                return flags.Count > 0 ? string.Join(" ", flags) : string.Empty;
+            }
+        }
     }
 }

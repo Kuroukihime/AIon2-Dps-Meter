@@ -16,6 +16,7 @@
             <converters:SafeImageSourceConverter x:Key="SafeImageSourceConverter"/>
             <converters:StringToBrushConverter x:Key="StringToBrushConverter"/>
             <converters:IntToVisibilityConverter x:Key="IntToVisibilityConverter"/>
+            <converters:SpecFlagsConverter x:Key="SpecFlagsConverter"/>
 
             <!-- Colors – dark gaming theme -->
             <SolidColorBrush x:Key="PrimaryBackgroundBrush"   Color="#0D1117"/>
