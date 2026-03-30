@@ -11,111 +11,84 @@ namespace AionDpsMeter.UI.ViewModels
     {
         private readonly CombatSessionManager _sessionManager;
         private readonly long _playerId;
-        private readonly string _playerName;
-        private readonly string _className;
         private readonly string? _playerIcon;
         private readonly string? _classIcon;
         private readonly DispatcherTimer _updateTimer;
 
-        [ObservableProperty]
-        private ObservableCollection<SkillStatsViewModel> _skills = new();
+        [ObservableProperty] private ObservableCollection<SkillStatsViewModel> _skills = new();
+        [ObservableProperty] private ObservableCollection<CombatLogEntryViewModel> _combatLog = new();
+        [ObservableProperty] private int _selectedTabIndex;
+        [ObservableProperty] private string _playerNameDisplay;
+        [ObservableProperty] private string _serverName = string.Empty;
+        [ObservableProperty] private string _classNameDisplay = string.Empty;
+        [ObservableProperty] private string? _playerIconDisplay;
+        [ObservableProperty] private string? _classIconDisplay;
+        [ObservableProperty] private int _combatPower;
 
-        [ObservableProperty]
-        private ObservableCollection<CombatLogEntryViewModel> _combatLog = new();
+        // ?? Summary stats ??????????????????????????????????????????????????????
+        [ObservableProperty] private string _totalDamageDisplay = "0";
+        [ObservableProperty] private string _dpsDisplay = "0";
+        [ObservableProperty] private int _totalHits;
+        [ObservableProperty] private string _criticalRateDisplay = "0%";
+        [ObservableProperty] private string _backAttackRateDisplay = "0%";
+        [ObservableProperty] private string _perfectRateDisplay = "0%";
+        [ObservableProperty] private string _doubleDamageRateDisplay = "0%";
+        [ObservableProperty] private string _parryRateDisplay = "0%";
+        [ObservableProperty] private string _damageContributionDisplay = "0%";
+        [ObservableProperty] private string _combatDurationDisplay = "00:00";
+        [ObservableProperty] private int _skillCount;
 
-        [ObservableProperty]
-        private int _selectedTabIndex;
+        // ?? Active target ??????????????????????????????????????????????????????
+        [ObservableProperty] private string _activeTargetName = string.Empty;
+        [ObservableProperty] private int _activeTargetHpTotal;
+        [ObservableProperty] private string _activeTargetHpTotalDisplay = string.Empty;
+        [ObservableProperty] private bool _hasActiveTarget;
 
-        [ObservableProperty]
-        private string _playerNameDisplay;
+        // ?? View toggle ????????????????????????????????????????????????????????
+        [ObservableProperty] private bool _showCombatLog;
+        public bool ShowSkills => !ShowCombatLog;
+        partial void OnShowCombatLogChanged(bool value) => OnPropertyChanged(nameof(ShowSkills));
 
-        [ObservableProperty]
-        private string _classNameDisplay = string.Empty;
-
-        [ObservableProperty]
-        private string? _playerIconDisplay;
-
-        [ObservableProperty]
-        private string? _classIconDisplay;
-
-        // Summary stats
-        [ObservableProperty]
-        private string _totalDamageDisplay = "0";
-
-        [ObservableProperty]
-        private string _dpsDisplay = "0";
-
-        [ObservableProperty]
-        private int _totalHits;
-
-        [ObservableProperty]
-        private string _criticalRateDisplay = "0%";
-
-        [ObservableProperty]
-        private string _backAttackRateDisplay = "0%";
-
-        [ObservableProperty]
-        private string _perfectRateDisplay = "0%";
-
-        [ObservableProperty]
-        private string _doubleDamageRateDisplay = "0%";
-
-        [ObservableProperty]
-        private string _parryRateDisplay = "0%";
-
-        [ObservableProperty]
-        private string _damageContributionDisplay = "0%";
-
-        [ObservableProperty]
-        private string _combatDurationDisplay = "00:00";
-
-        [ObservableProperty]
-        private int _skillCount;
-
-        [ObservableProperty]
-        private string _activeTargetName = string.Empty;
-
-        [ObservableProperty]
-        private int _activeTargetHpTotal;
-
-        [ObservableProperty]
-        private string _activeTargetHpTotalDisplay = string.Empty;
-
-        [ObservableProperty]
-        private bool _hasActiveTarget;
+        /// <summary>Nickname formatted as <c>Name[Server]</c> when server is known, otherwise just <c>Name</c>.</summary>
+        public string PlayerNameWithServer => string.IsNullOrEmpty(_serverName)
+            ? _playerNameDisplay
+            : $"{_playerNameDisplay}[{_serverName}]";
 
         public bool HasPlayerIcon => !string.IsNullOrEmpty(_playerIcon);
-        public bool HasClassIcon => !string.IsNullOrEmpty(_classIcon);
+        public bool HasClassIcon  => !string.IsNullOrEmpty(_classIcon);
 
-        public PlayerDetailsViewModel(CombatSessionManager sessionManager, long playerId, string playerName, string className, string? playerIcon, string? classIcon)
+        public PlayerDetailsViewModel(
+            CombatSessionManager sessionManager,
+            long playerId,
+            string playerName,
+            string className,
+            string? playerIcon,
+            string? classIcon,
+            int combatPower = 0,
+            string serverName = "")
         {
-            _sessionManager = sessionManager;
-            _playerId = playerId;
-            _playerName = playerName;
-            _className = className;
-            _playerIcon = playerIcon;
-            _classIcon = classIcon;
+            _sessionManager    = sessionManager;
+            _playerId          = playerId;
+            _playerIcon        = playerIcon;
+            _classIcon         = classIcon;
             _playerNameDisplay = playerName;
-            _classNameDisplay = className;
+            _classNameDisplay  = className;
             _playerIconDisplay = playerIcon;
-            _classIconDisplay = classIcon;
+            _classIconDisplay  = classIcon;
+            _combatPower       = combatPower;
+            _serverName        = serverName;
 
-            // Setup update timer for live updates (15 FPS)
-            _updateTimer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromMilliseconds(66)
-            };
+            _updateTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(66) };
             _updateTimer.Tick += OnUpdateTimerTick;
             _updateTimer.Start();
 
-            // Initial load
             RefreshData();
         }
 
-        private void OnUpdateTimerTick(object? sender, EventArgs e)
-        {
-            RefreshData();
-        }
+        [RelayCommand]
+        private void ToggleCombatLog() => ShowCombatLog = !ShowCombatLog;
+
+        private void OnUpdateTimerTick(object? sender, EventArgs e) => RefreshData();
 
         private void RefreshData()
         {
@@ -127,98 +100,63 @@ namespace AionDpsMeter.UI.ViewModels
         private void RefreshPlayerSummary()
         {
             var playerStats = _sessionManager.PlayerStats.FirstOrDefault(p => p.PlayerId == _playerId);
-            if (playerStats != null)
+            if (playerStats is not null)
             {
-                TotalDamageDisplay = FormatDamageWithNumber(playerStats.TotalDamage);
-                DpsDisplay = FormatDamage((long)playerStats.DamagePerSecond);
-                TotalHits = playerStats.HitCount;
-                CriticalRateDisplay = $"{playerStats.CriticalRate:F1}%";
-                BackAttackRateDisplay = $"{playerStats.BackAttackRate:F1}%";
-                PerfectRateDisplay = $"{playerStats.PerfectRate:F1}%";
-                DoubleDamageRateDisplay = $"{playerStats.DoubleDamageRate:F1}%";
-                ParryRateDisplay = $"{playerStats.ParryRate:F1}%";
-                DamageContributionDisplay = $"{playerStats.DamagePercentage:F1}%";
-                CombatDurationDisplay = FormatDuration(playerStats.CombatDuration);
+                TotalDamageDisplay        = DamageFormatter.FormatFull(playerStats.TotalDamage);
+                DpsDisplay                = DamageFormatter.Format(playerStats.DamagePerSecond);
+                TotalHits                 = playerStats.HitCount;
+                CriticalRateDisplay       = DamageFormatter.FormatRate(playerStats.CriticalRate);
+                BackAttackRateDisplay     = DamageFormatter.FormatRate(playerStats.BackAttackRate);
+                PerfectRateDisplay        = DamageFormatter.FormatRate(playerStats.PerfectRate);
+                DoubleDamageRateDisplay   = DamageFormatter.FormatRate(playerStats.DoubleDamageRate);
+                ParryRateDisplay          = DamageFormatter.FormatRate(playerStats.ParryRate);
+                DamageContributionDisplay = DamageFormatter.FormatRate(playerStats.DamagePercentage);
+                CombatDurationDisplay     = DamageFormatter.FormatDuration(playerStats.CombatDuration);
+                if (playerStats.CombatPower > 0)
+                    CombatPower = playerStats.CombatPower;
+                if (!string.IsNullOrEmpty(playerStats.ServerName))
+                {
+                    ServerName = playerStats.ServerName;
+                    OnPropertyChanged(nameof(PlayerNameWithServer));
+                }
             }
 
             var targetInfo = _sessionManager.GetActiveTargetInfo();
-            if (targetInfo != null)
+            if (targetInfo is not null)
             {
-                HasActiveTarget = true;
-                ActiveTargetName = targetInfo.Name;
-                ActiveTargetHpTotal = targetInfo.HpTotal;
+                HasActiveTarget            = true;
+                ActiveTargetName           = targetInfo.Name;
+                ActiveTargetHpTotal        = targetInfo.HpTotal;
                 ActiveTargetHpTotalDisplay = targetInfo.HpTotal > 0
-                    ? $"HP: {FormatDamageWithNumber(targetInfo.HpTotal)}"
+                    ? $"HP: {DamageFormatter.FormatFull(targetInfo.HpTotal)}"
                     : string.Empty;
             }
             else
             {
-                HasActiveTarget = false;
-                ActiveTargetName = string.Empty;
-                ActiveTargetHpTotal = 0;
+                HasActiveTarget            = false;
+                ActiveTargetName           = string.Empty;
+                ActiveTargetHpTotal        = 0;
                 ActiveTargetHpTotalDisplay = string.Empty;
             }
         }
 
-        [ObservableProperty]
-        private bool _showCombatLog;
-
-        public bool ShowSkills => !ShowCombatLog;
-
-        partial void OnShowCombatLogChanged(bool value) => OnPropertyChanged(nameof(ShowSkills));
-
-        [RelayCommand]
-        private void ToggleCombatLog() => ShowCombatLog = !ShowCombatLog;
-
         private void RefreshSkills()
         {
             var skillStats = _sessionManager.GetPlayerSkillStats(_playerId);
-
             Skills.Clear();
             foreach (var skill in skillStats.OrderByDescending(s => s.TotalDamage))
-            {
                 Skills.Add(new SkillStatsViewModel(skill));
-            }
             SkillCount = Skills.Count;
         }
 
         private void RefreshCombatLog()
         {
             var combatLogEntries = _sessionManager.GetPlayerCombatLog(_playerId);
-
             CombatLog.Clear();
-            foreach (var entry in combatLogEntries.Take(200)) // Limit to 200 entries for performance
-            {
+            foreach (var entry in combatLogEntries.Take(200))
                 CombatLog.Add(new CombatLogEntryViewModel(entry));
-            }
         }
 
-        private static string FormatDamage(long damage)
-        {
-            if (damage >= 1_000_000_000)
-                return $"{damage / 1_000_000_000.0:F2}B";
-            if (damage >= 1_000_000)
-                return $"{damage / 1_000_000.0:F2}M";
-            if (damage >= 1_000)
-                return $"{damage / 1_000.0:F2}K";
-            return damage.ToString();
-        }
-
-        private static string FormatDamageWithNumber(long damage)
-        {
-            return damage.ToString("N0");
-        }
-
-        private static string FormatDuration(TimeSpan duration)
-        {
-            if (duration.TotalHours >= 1)
-                return $"{(int)duration.TotalHours:D2}:{duration.Minutes:D2}:{duration.Seconds:D2}";
-            return $"{duration.Minutes:D2}:{duration.Seconds:D2}";
-        }
-
-        public void Dispose()
-        {
-            _updateTimer.Stop();
-        }
+        public void Dispose() => _updateTimer.Stop();
     }
 }

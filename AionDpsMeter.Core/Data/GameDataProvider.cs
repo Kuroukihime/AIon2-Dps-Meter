@@ -1,191 +1,70 @@
 using AionDpsMeter.Core.Models;
-using System.Collections.Frozen;
-using System.Text.Json;
 
 namespace AionDpsMeter.Core.Data
 {
     public sealed class GameDataProvider
     {
-        private static GameDataProvider? _instance;
-        private static readonly object _lock = new();
+        private static GameDataProvider? instance;
+        private static readonly Lock Lock = new();
 
-        private readonly Dictionary<int, Skill> _skillsById = [];
-        private readonly Dictionary<int, CharacterClass> _classesById = [];
-        private readonly int[] _sortedSkillIds = [];
-        private int[] _skillCodeOffsets = [];
-        private FrozenDictionary<int, MobData> _mobsById = FrozenDictionary<int, MobData>.Empty;
+        public SkillRepository Skills { get; } = new();
+        public ClassRepository Classes { get; } = new();
+        public MobRepository Mobs { get; } = new();
+
 
         public static GameDataProvider Instance
         {
             get
             {
-                if (_instance is null)
-                {
-                    lock (_lock)
-                    {
-                        _instance ??= new GameDataProvider();
-                    }
-                }
-                return _instance;
+                if (instance is null)
+                    lock (Lock)
+                        instance ??= new GameDataProvider();
+                return instance;
             }
         }
 
-        private GameDataProvider()
-        {
-            LoadData();
-            _sortedSkillIds = [.. _skillsById.Keys.OrderBy(k => k)];
-        }
+        private GameDataProvider() => LoadData();
 
         private void LoadData()
         {
             var basePath = AppDomain.CurrentDomain.BaseDirectory;
+            var dataDir = Path.Combine(basePath, "Data");
 
-            LoadClasses(Path.Combine(basePath, "Data", "classes.json"));
-            LoadSkills(Path.Combine(basePath, "Data", "skills.json"));
-            LoadMobs(Path.Combine(basePath, "Data", "mobs.json"));
+            Classes.Load(Path.Combine(dataDir, "classes.json"));
+            Skills.Load(Path.Combine(dataDir, "skills.json"));
+            Mobs.Load(Path.Combine(dataDir, "mobs.json"));
         }
 
-        private void LoadClasses(string path)
-        {
-            if (!File.Exists(path))
-            {
-                throw new FileNotFoundException($"Classes data file not found: {path}");
-            }
 
-            var json = File.ReadAllText(path);
-            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            var classesFile = JsonSerializer.Deserialize<ClassesFile>(json, options)
-                ?? throw new InvalidDataException("Failed to deserialize classes.json");
+        public Skill? GetSkillById(int skillCode) => Skills.GetById(skillCode);
 
-            foreach (var classData in classesFile.Classes)
-            {
-                _classesById[classData.Id] = new CharacterClass
-                {
-                    Id = classData.Id,
-                    Name = classData.Name,
-                    Icon = classData.Icon
-                };
-            }
-        }
+        public Skill GetSkillOrDefault(int skillCode) => Skills.GetOrDefault(skillCode);
 
-        private void LoadSkills(string path)
-        {
-            if (!File.Exists(path))
-            {
-                throw new FileNotFoundException($"Skills data file not found: {path}");
-            }
+        public bool[] DecodeSpecializationFlags(int rawCode, int baseCode) => Skills.DecodeSpecializationFlags(rawCode, baseCode);
 
-            var json = File.ReadAllText(path);
-            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            var skillsFile = JsonSerializer.Deserialize<SkillsFile>(json, options)
-                ?? throw new InvalidDataException("Failed to deserialize skills.json");
+        public int NormalizeSkillCode(int rawPacketCode) => Skills.NormalizeSkillCode(rawPacketCode);
 
-            foreach (var skillData in skillsFile.Skills)
-            {
-                _skillsById[skillData.Id] = new Skill
-                {
-                    Id = skillData.Id,
-                    Name = skillData.Name,
-                    Icon = SkillIconResolver.GetIconUrl(skillData.Id),
-                    ClassId = skillData.ClassId,
-                    GroupId = skillData.GroupId,
-                    IsEntity = skillData.IsEntity
-                };
-            }
+        public bool ContainsSkillCode(int skillCode) => Skills.Contains(skillCode);
 
-            _skillCodeOffsets = [.. skillsFile.SkillCodeOffsets];
-        }
+        public string? GetSkillName(int skillCode) => Skills.GetName(skillCode);
 
-        private void LoadMobs(string path)
-        {
-            if (!File.Exists(path))
-                return;
+        public static bool IsSkillCodeInRange(int code) => SkillRepository.IsSkillCodeInRange(code);
 
-            var json = File.ReadAllText(path);
-            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            var raw = JsonSerializer.Deserialize<Dictionary<int, MobData>>(json, options);
-            if (raw is not null)
-                _mobsById = raw.ToFrozenDictionary();
-        }
+        public IEnumerable<Skill> GetAllSkills() => Skills.GetAll();
 
-        public Skill? GetSkillById(int skillCode)
-        {
-            var originalCode = InferOriginalSkillCode(skillCode);
-            var sk = _skillsById.GetValueOrDefault(originalCode);
-            if (sk == null) return null;
-            if (sk.GroupId != 0) return _skillsById.GetValueOrDefault((int)sk.GroupId);
-            return sk;
-        }
+       
 
-        public Skill GetSkillOrDefault(int skillCode)
-        {
-            var originalCode = InferOriginalSkillCode(skillCode);
-            if (_skillsById.TryGetValue(originalCode, out var skill))
-            {
-                if (skill.GroupId != 0)
-                {
-                    var baseSkill = _skillsById.GetValueOrDefault((int)skill.GroupId);
-                    if (baseSkill != null) return baseSkill;
-                }
-                return skill;
-            }
+        public CharacterClass? GetClassById(int classId) => Classes.GetById(classId);
 
-            return new Skill
-            {
-                Id = originalCode,
-                Name = $"Unknown Skill ({originalCode})",
-                Icon = null
-            };
-        }
+        public CharacterClass? GetClassBySkillCode(int skillCode) => Classes.GetBySkillCode(skillCode);
 
-        public CharacterClass? GetClassById(int classId)
-        {
-            return _classesById.TryGetValue(classId, out var charClass) ? charClass : null;
-        }
+        public CharacterClass GetClassOrDefault(int classId) => Classes.GetOrDefault(classId);
 
-        public CharacterClass? GetClassBySkillCode(int skillCode)
-        {
-            var originalCode = InferOriginalSkillCode(skillCode);
-            var classId = originalCode / 1000000;
+        public IEnumerable<CharacterClass> GetAllClasses() => Classes.GetAll();
 
-            if (_classesById.TryGetValue(classId, out var charClass))
-            {
-                return charClass;
-            }
-            return null;
-        }
+       
+        public string GetMobName(int mobId) => Mobs.GetName(mobId);
 
-        public CharacterClass GetClassOrDefault(int classId)
-        {
-            if (_classesById.TryGetValue(classId, out var charClass))
-            {
-                return charClass;
-            }
-
-            return new CharacterClass
-            {
-                Id = classId,
-                Name = $"Unknown Class ({classId})",
-                Icon = null
-            };
-        }
-
-        private int InferOriginalSkillCode(int skillCode)
-        {
-            foreach (var offset in _skillCodeOffsets)
-            {
-                var possibleOrigin = skillCode - offset;
-                if (Array.BinarySearch(_sortedSkillIds, possibleOrigin) >= 0)
-                {
-                    return possibleOrigin;
-                }
-            }
-            return skillCode;
-        }
-
-        public IEnumerable<Skill> GetAllSkills() => _skillsById.Values;
-        public IEnumerable<CharacterClass> GetAllClasses() => _classesById.Values;
-        public string GetMobName(int mobId) => _mobsById.TryGetValue(mobId, out var mob) ? mob.Name : $"Unknown ({mobId})";
-        public bool IsMobBoss(int mobId) => _mobsById.TryGetValue(mobId, out var mob) && mob.IsBoss;
+        public bool IsMobBoss(int mobId) => Mobs.IsBoss(mobId);
     }
 }

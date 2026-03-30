@@ -1,62 +1,58 @@
 ﻿using AionDpsMeter.Services.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AionDpsMeter.UI.ViewModels
 {
     public sealed class SkillStatsViewModel : ViewModelBase
     {
-        private readonly SkillStats stats;
+        private readonly SkillStats _stats;
 
         public SkillStatsViewModel(SkillStats stats)
         {
-            this.stats = stats;
+            _stats = stats;
         }
 
-        public long SkillId => stats.SkillId;
-        public string SkillName => stats.SkillName;
-        public string? SkillIcon => stats.SkillIcon;
-        public bool HasSkillIcon => !string.IsNullOrEmpty(stats.SkillIcon);
-        public long TotalDamage => stats.TotalDamage;
-        public string TotalDamageFormatted => FormatDamage(stats.TotalDamage);
-        public int HitCount => stats.HitCount;
-        public string HitCountFormatted => stats.HitCount.ToString();
-        public int CriticalHits => stats.CriticalHits;
-        public int BackAttacks => stats.BackAttacks;
-        public int PerfectHits => stats.PerfectHits;
-        public int DoubleDamageHits => stats.DoubleDamageHits;
-        public int ParryHits => stats.ParryHits;
-        public double AverageDamage => stats.AverageDamage;
-        public string AverageDamageFormatted => FormatDamage((long)stats.AverageDamage);
-        public long MaxHit => stats.MaxHit;
-        public long MinHit => stats.MinHit == long.MaxValue ? 0 : stats.MinHit;
-        public string MaxHitFormatted => $"{MaxHit:N0}";
-        public string MinHitFormatted => $"{MinHit:N0}";
-        public double DamagePercentage => stats.DamagePercentage;
-        public string DamagePercentageFormatted => $"{stats.DamagePercentage:F1}%";
-        public double DamagePerSecond => stats.DamagePerSecond;
-        public string DpsFormatted => FormatDamage((long)stats.DamagePerSecond);
-        public double CriticalRate => stats.CriticalRate;
-        public string CriticalRateFormatted => $"{stats.CriticalRate:F0}%";
-        public double BackAttackRate => stats.BackAttackRate;
-        public string BackAttackRateFormatted => $"{stats.BackAttackRate:F0}%";
-        public double PerfectRate => stats.PerfectRate;
-        public string PerfectRateFormatted => $"{stats.PerfectRate:F0}%";
-        public double DoubleDamageRate => stats.DoubleDamageRate;
-        public string DoubleDamageRateFormatted => $"{stats.DoubleDamageRate:F0}%";
-        public double ParryRate => stats.ParryRate;
-        public string ParryRateFormatted => $"{stats.ParryRate:F0}%";
+        public long     SkillId            => _stats.SkillId;
+        public string   SkillName          => _stats.SkillName;
+        public string?  SkillIcon          => _stats.SkillIcon;
+        public bool     HasSkillIcon       => !string.IsNullOrEmpty(_stats.SkillIcon);
+        public bool[]   SpecializationFlags => _stats.SpecializationFlags;
 
-        private static string FormatDamage(long damage)
-        {
-            if (damage >= 1_000_000_000)
-                return $"{damage / 1_000_000_000.0:F2}B";
-            if (damage >= 1_000_000)
-                return $"{damage / 1_000_000.0:F2}M";
-            if (damage >= 1_000)
-                return $"{damage / 1_000.0:F2}K";
-            return damage.ToString();
-        }
+        // ── Damage ────────────────────────────────────────────────────────────
+        public long   TotalDamage          => _stats.TotalDamage;
+        public string TotalDamageFormatted => DamageFormatter.Format(_stats.TotalDamage);
+        public double DamagePercentage     => _stats.DamagePercentage;
+        public string DamagePercentageFormatted => DamageFormatter.FormatRate(_stats.DamagePercentage);
+        public double DamagePerSecond      => _stats.DamagePerSecond;
+        public string DpsFormatted         => DamageFormatter.Format(_stats.DamagePerSecond);
+
+        // ── Hit stats ─────────────────────────────────────────────────────────
+        public int    HitCount             => _stats.HitCount;
+        public string HitCountFormatted    => _stats.HitCount.ToString();
+        public int    CriticalHits         => _stats.CriticalHits;
+        public int    BackAttacks          => _stats.BackAttacks;
+        public int    PerfectHits          => _stats.PerfectHits;
+        public int    DoubleDamageHits     => _stats.DoubleDamageHits;
+        public int    ParryHits            => _stats.ParryHits;
+
+        // ── Per-hit values ────────────────────────────────────────────────────
+        public double AverageDamage        => _stats.AverageDamage;
+        public string AverageDamageFormatted => DamageFormatter.Format(_stats.AverageDamage);
+        public long   MaxHit               => _stats.MaxHit;
+        public string MaxHitFormatted      => $"{_stats.MaxHit:N0}";
+        /// <summary>Sentinel-safe minimum hit (0 when no hit has been recorded).</summary>
+        public long   MinHit               => _stats.SafeMinHit;
+        public string MinHitFormatted      => $"{_stats.SafeMinHit:N0}";
+
+        // ── Rates ─────────────────────────────────────────────────────────────
+        public double CriticalRate           => _stats.CriticalRate;
+        public string CriticalRateFormatted  => DamageFormatter.FormatRateRounded(_stats.CriticalRate);
+        public double BackAttackRate         => _stats.BackAttackRate;
+        public string BackAttackRateFormatted => DamageFormatter.FormatRateRounded(_stats.BackAttackRate);
+        public double PerfectRate            => _stats.PerfectRate;
+        public string PerfectRateFormatted   => DamageFormatter.FormatRateRounded(_stats.PerfectRate);
+        public double DoubleDamageRate       => _stats.DoubleDamageRate;
+        public string DoubleDamageRateFormatted => DamageFormatter.FormatRateRounded(_stats.DoubleDamageRate);
+        public double ParryRate              => _stats.ParryRate;
+        public string ParryRateFormatted     => DamageFormatter.FormatRateRounded(_stats.ParryRate);
     }
 }

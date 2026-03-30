@@ -70,7 +70,9 @@ namespace AionDpsMeter.UI
                         player.PlayerName,
                         player.ClassName,
                         player.PlayerIcon,
-                        player.ClassIcon),
+                        player.ClassIcon,
+                        player.CombatPower,
+                        player.ServerName),
                     Owner = this
                 };
                 detailsWindow.Show();
