@@ -78,6 +78,7 @@ namespace AionDpsMeter.Services.PacketProcessors
                 Skill = skill,
                 CharacterClass = characterClass,
                 Damage = damage,
+                IsDot = true,
             };
 
             DamageReceived?.Invoke(this, playerDamage);
