@@ -18,6 +18,7 @@
         public long MinHit { get; set; } = long.MaxValue;
         public double DamagePerSecond { get; set; }
         public double DamagePercentage { get; set; }
+        public bool IsDot { get; set; }
 
         // ── Derived stats ──────────────────────────────────────────────────────
 

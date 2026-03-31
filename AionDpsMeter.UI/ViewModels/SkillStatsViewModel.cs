@@ -12,7 +12,7 @@ namespace AionDpsMeter.UI.ViewModels
         }
 
         public long     SkillId            => _stats.SkillId;
-        public string   SkillName          => _stats.SkillName;
+        public string   SkillName          => (_stats.IsDot ? "[DOT] " : "")+ _stats.SkillName;
         public string?  SkillIcon          => _stats.SkillIcon;
         public bool     HasSkillIcon       => !string.IsNullOrEmpty(_stats.SkillIcon);
         public bool[]   SpecializationFlags => _stats.SpecializationFlags;

@@ -14,6 +14,7 @@
         public bool IsDoubleDamage { get; init; }
         public bool IsParry { get; init; }
         public long[]? PotentialDamageData { get; init; }
+        public bool IsDot { get; init; }
 
         /// <summary>
         /// Space-separated label string of all active hit flags (e.g. "CRIT BACK").

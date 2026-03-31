@@ -23,14 +23,16 @@ namespace AionDpsMeter.Services.Services.Session
                 if (hit.TargetEntity.Id != activeTargetId) continue;
 
                 totalDamage += hit.Damage;
+                if (hit.DateTime < firstHit) firstHit = hit.DateTime;
+                if (hit.DateTime > lastHit) lastHit = hit.DateTime;
+
+                if(hit.IsDot) continue;
                 hitCount++;
                 if (hit.IsCritical) criticalHits++;
                 if (hit.IsBackAttack) backAttacks++;
                 if (hit.IsPerfect) perfectHits++;
                 if (hit.IsDoubleDamage) doubleDamageHits++;
                 if (hit.IsParry) parryHits++;
-                if (hit.DateTime < firstHit) firstHit = hit.DateTime;
-                if (hit.DateTime > lastHit) lastHit = hit.DateTime;
             }
 
             stats.TotalDamage = totalDamage;
@@ -83,13 +85,14 @@ namespace AionDpsMeter.Services.Services.Session
                         SkillName = hit.Skill.Name,
                         SkillIcon = hit.Skill.Icon,
                         SpecializationFlags = hit.Skill.SpecializationFlags,
-                        MinHit = long.MaxValue
+                        MinHit = long.MaxValue,
                     };
                     skillMap[hit.Skill.Id] = skill;
                 }
 
                 skill.TotalDamage += hit.Damage;
                 skill.HitCount++;
+                skill.IsDot = hit.IsDot;
                 if (hit.IsCritical) skill.CriticalHits++;
                 if (hit.IsBackAttack) skill.BackAttacks++;
                 if (hit.IsPerfect) skill.PerfectHits++;
