@@ -18,10 +18,7 @@ namespace AionDpsMeter.Services.Services.Settings
 
         public bool IsPacketLoggingEnabled
         {
-            get
-            {
-                lock (_lock) return _data.IsPacketLoggingEnabled;
-            }
+            get { lock (_lock) return _data.IsPacketLoggingEnabled; }
             set
             {
                 bool changed;
@@ -37,10 +34,7 @@ namespace AionDpsMeter.Services.Services.Settings
 
         public bool IsNicknameHidden
         {
-            get
-            {
-                lock (_lock) return _data.IsNicknameHidden;
-            }
+            get { lock (_lock) return _data.IsNicknameHidden; }
             set
             {
                 bool changed;
@@ -52,6 +46,30 @@ namespace AionDpsMeter.Services.Services.Settings
                 }
                 if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
             }
+        }
+
+        public double? WindowLeft
+        {
+            get { lock (_lock) return _data.WindowLeft; }
+            set { lock (_lock) { _data.WindowLeft = value; Save(); } }
+        }
+
+        public double? WindowTop
+        {
+            get { lock (_lock) return _data.WindowTop; }
+            set { lock (_lock) { _data.WindowTop = value; Save(); } }
+        }
+
+        public double? WindowWidth
+        {
+            get { lock (_lock) return _data.WindowWidth; }
+            set { lock (_lock) { _data.WindowWidth = value; Save(); } }
+        }
+
+        public double? WindowHeight
+        {
+            get { lock (_lock) return _data.WindowHeight; }
+            set { lock (_lock) { _data.WindowHeight = value; Save(); } }
         }
 
         private AppSettingsData Load()
@@ -85,6 +103,18 @@ namespace AionDpsMeter.Services.Services.Settings
 
             [JsonPropertyName("isNicknameHidden")]
             public bool IsNicknameHidden { get; set; }
+
+            [JsonPropertyName("windowLeft")]
+            public double? WindowLeft { get; set; }
+
+            [JsonPropertyName("windowTop")]
+            public double? WindowTop { get; set; }
+
+            [JsonPropertyName("windowWidth")]
+            public double? WindowWidth { get; set; }
+
+            [JsonPropertyName("windowHeight")]
+            public double? WindowHeight { get; set; }
         }
     }
 }
