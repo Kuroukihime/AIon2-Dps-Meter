@@ -80,7 +80,7 @@ namespace AionDpsMeter.Services.Services.Entity
             return entity;
         }
 
-        public void UpdatePlayerEntityName(int entityId, string name, string serverName = "")
+        public void UpdatePlayerEntityName(int entityId, string name, string serverName = "", bool isUser = false)
         {
 
             basePlayerEntities.TryGetValue(name, out var basePlayerEntity);
@@ -96,7 +96,8 @@ namespace AionDpsMeter.Services.Services.Entity
                     CharactedLevel = basePlayerEntity?.CharactedLevel ?? 0,
                     ServerName = basePlayerEntity?.ServerName ?? serverName,
                     CombatPower = basePlayerEntity?.CombatPower ?? 0,
-                    ServerId = basePlayerEntity?.ServerId ?? 0
+                    ServerId = basePlayerEntity?.ServerId ?? 0,
+                    IsUser = isUser,
                 };
             }
             else
@@ -109,7 +110,8 @@ namespace AionDpsMeter.Services.Services.Entity
                     CharactedLevel = basePlayerEntity?.CharactedLevel ?? 0,
                     ServerName = basePlayerEntity?.ServerName ?? serverName,
                     CombatPower = basePlayerEntity?.CombatPower ?? 0,
-                    ServerId = basePlayerEntity?.ServerId ?? 0
+                    ServerId = basePlayerEntity?.ServerId ?? 0,
+                    IsUser = isUser,
                 };
             }
         }

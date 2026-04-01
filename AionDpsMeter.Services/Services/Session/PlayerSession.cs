@@ -18,6 +18,7 @@ namespace AionDpsMeter.Services.Services.Session
         public string? ClassIcon { get; }
         public int CombatPower { get; private set; }
         public string ServerName { get; private set; } = string.Empty;
+        public bool IsUser { get; }
 
         private readonly List<PlayerDamage> damageHistory = new();
 
@@ -33,6 +34,7 @@ namespace AionDpsMeter.Services.Services.Session
             ClassIcon = firstDamage.CharacterClass.Icon;
             CombatPower = firstDamage.SourceEntity.CombatPower;
             ServerName = firstDamage.SourceEntity.ServerName;
+            IsUser = firstDamage.SourceEntity.IsUser;
             Stats = CreateEmptyStats(firstDamage.DateTime);
         }
 
@@ -111,6 +113,7 @@ namespace AionDpsMeter.Services.Services.Session
                 ClassIcon = ClassIcon,
                 CombatPower = CombatPower,
                 ServerName = ServerName,
+                IsUser = IsUser,
                 FirstHit = initialTime ?? default,
                 LastHit = initialTime ?? default
             };

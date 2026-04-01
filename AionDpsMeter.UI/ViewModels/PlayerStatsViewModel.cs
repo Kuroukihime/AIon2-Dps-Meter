@@ -38,6 +38,7 @@ namespace AionDpsMeter.UI.ViewModels
         public int    HitCount             => _stats.HitCount;
         public double CriticalRate         => _stats.CriticalRate;
         public double BackAttackRate       => _stats.BackAttackRate;
+        public bool    IsUser            => _stats.IsUser;
 
         public void Update(PlayerStats updatedStats)
         {
@@ -73,6 +74,7 @@ namespace AionDpsMeter.UI.ViewModels
             OnPropertyChanged(nameof(CombatPower));
             OnPropertyChanged(nameof(ServerName));
             OnPropertyChanged(nameof(PlayerNameDisplay));
+            OnPropertyChanged(nameof(IsUser));
         }
     }
 }

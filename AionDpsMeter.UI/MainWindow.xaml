@@ -236,7 +236,7 @@
                                     <Border Background="{StaticResource TertiaryBackgroundBrush}"
                                             CornerRadius="2"
                                             Height="20"/>
-                                    <Border Background="{StaticResource ProgressBarGradientBrush}"
+                                    <Border Background="{Binding IsUser, Converter={StaticResource BoolToProgressBrushConverter}}"
                                             CornerRadius="2"
                                             Height="20"
                                             HorizontalAlignment="Left">
