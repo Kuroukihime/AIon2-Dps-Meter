@@ -12,7 +12,7 @@ namespace AionDpsMeter.UI.ViewModels.History
             ? $"Mob #{_snapshot.TargetId}"
             : _snapshot.TargetName;
 
-        public string DateDisplay => _snapshot.SessionStart.ToString("dd.MM.yyyy  HH:mm:ss");
+        public string DateDisplay => _snapshot.SessionEnd.ToString("dd.MM.yyyy  HH:mm:ss");
         public string Duration    => DamageFormatter.FormatDuration(_snapshot.Duration);
         public bool   IsCompleted => _snapshot.State == SessionState.Completed;
         public string StateLabel  => IsCompleted ? "Completed" : "Active";

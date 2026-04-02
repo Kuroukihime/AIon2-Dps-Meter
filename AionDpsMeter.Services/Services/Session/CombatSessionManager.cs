@@ -57,7 +57,7 @@ namespace AionDpsMeter.Services.Services.Session
             {
                 return targetEntries.Values
                     .SelectMany(e => e.AllSessions)
-                    .OrderByDescending(s => s.SessionStart)
+                    .OrderByDescending(s => s.LastHitTime)
                     .Select(HistorySessionSnapshot.From)
                     .ToList();
             }
