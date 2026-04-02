@@ -17,13 +17,10 @@ namespace AionDpsMeter.Services.Services.Session
 
         public int TargetId { get; }
 
-        /// <summary>The session currently receiving damage. Null before the first hit.</summary>
         public TargetCombatSession? CurrentSession { get; private set; }
 
-        /// <summary>All completed sessions, ordered oldest-first.</summary>
         public IReadOnlyList<TargetCombatSession> History => history;
 
-        /// <summary>Current session + all history combined, ordered oldest-first.</summary>
         public IEnumerable<TargetCombatSession> AllSessions =>
             CurrentSession is null ? history : [.. history, CurrentSession];
 
@@ -33,14 +30,6 @@ namespace AionDpsMeter.Services.Services.Session
             this.entityTracker = entityTracker;
         }
 
-        /// <summary>
-        /// Routes a damage event to the correct session.
-        /// Creates a new session when:
-        /// <list type="bullet">
-        ///   <item>No session exists yet.</item>
-        ///   <item>The mob's HP increased since the last recorded value (new try of the same boss).</item>
-        /// </list>
-        /// </summary>
         public void AddDamage(PlayerDamage damage)
         {
             var mob = entityTracker.GetTargetMob(damage.TargetEntity.Id) ?? damage.TargetEntity;
@@ -58,10 +47,6 @@ namespace AionDpsMeter.Services.Services.Session
             CurrentSession!.AddDamage(damage);
         }
 
-        /// <summary>
-        /// Checks whether the current session has gone idle (no hits for <see cref="IdleTimeout"/>)
-        /// and marks it completed if so.
-        /// </summary>
         public void CheckIdleTimeout(DateTime now)
         {
             if (CurrentSession is null || CurrentSession.IsCompleted) return;
@@ -70,10 +55,6 @@ namespace AionDpsMeter.Services.Services.Session
                 CompleteCurrentSession(now);
         }
 
-        /// <summary>
-        /// Returns recent hit count for the current session only —
-        /// used by <see cref="ActiveTargetResolver"/>.
-        /// </summary>
         public int CountRecentHits(DateTime cutoff)
             => CurrentSession?.CountRecentHits(cutoff) ?? 0;
 
@@ -85,7 +66,6 @@ namespace AionDpsMeter.Services.Services.Session
             history.Clear();
         }
 
-        // ── Private ────────────────────────────────────────────────────────────
 
         private bool IsNewTry(Mob currentMobState)
         {

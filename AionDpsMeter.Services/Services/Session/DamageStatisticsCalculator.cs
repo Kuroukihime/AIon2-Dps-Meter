@@ -2,10 +2,7 @@ using AionDpsMeter.Services.Models;
 
 namespace AionDpsMeter.Services.Services.Session
 {
-    /// <summary>
-    /// Pure, stateless computation layer. Builds <see cref="PlayerStats"/> and
-    /// <see cref="SkillStats"/> from a <see cref="PlayerSession"/> on demand.
-    /// </summary>
+ 
     public static class DamageStatisticsCalculator
     {
         public static PlayerStats ComputePlayerStats(PlayerSession session, long totalCombatDamage)

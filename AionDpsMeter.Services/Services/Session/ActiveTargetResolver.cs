@@ -3,10 +3,6 @@ using AionDpsMeter.Services.Services.Entity;
 
 namespace AionDpsMeter.Services.Services.Session
 {
-    /// <summary>
-    /// Determines the active target — the <see cref="TargetEntry"/> whose current session
-    /// received the most hits within a recent time window.
-    /// </summary>
     public sealed class ActiveTargetResolver
     {
         private static readonly TimeSpan RecentHitWindow = TimeSpan.FromSeconds(5);

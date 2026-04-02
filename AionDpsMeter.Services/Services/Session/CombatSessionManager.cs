@@ -22,11 +22,9 @@ namespace AionDpsMeter.Services.Services.Session
             logger = loggerFactory.CreateLogger<CombatSessionManager>();
         }
 
-        // ── Queries ────────────────────────────────────────────────────────────
+      
 
-        /// <summary>
-        /// The current session of the active target (most-hit in last 5 s).
-        /// </summary>
+      
         public TargetCombatSession? GetActiveTargetSession()
         {
             lock (lockObject)
@@ -36,9 +34,7 @@ namespace AionDpsMeter.Services.Services.Session
             }
         }
 
-        /// <summary>
-        /// All sessions (current + history) for a given target, ordered oldest-first.
-        /// </summary>
+      
         public IEnumerable<TargetCombatSession> GetTargetHistory(int targetId)
         {
             lock (lockObject)
@@ -54,7 +50,19 @@ namespace AionDpsMeter.Services.Services.Session
             get { lock (lockObject) { return targetEntries.Values.ToList(); } }
         }
 
-        // Convenience pass-throughs for existing UI
+      
+        public IReadOnlyList<HistorySessionSnapshot> GetHistorySnapshot()
+        {
+            lock (lockObject)
+            {
+                return targetEntries.Values
+                    .SelectMany(e => e.AllSessions)
+                    .OrderByDescending(s => s.SessionStart)
+                    .Select(HistorySessionSnapshot.From)
+                    .ToList();
+            }
+        }
+
         public IReadOnlyCollection<PlayerStats> PlayerStats =>
             GetActiveTargetSession()?.GetPlayerStats() ?? [];
 
@@ -77,7 +85,7 @@ namespace AionDpsMeter.Services.Services.Session
             lock (lockObject) { return targetResolver.GetActiveTargetMob(); }
         }
 
-        // ── Command ────────────────────────────────────────────────────────────
+       
 
         public void ProcessDamageEvent(PlayerDamage damageEvent)
         {
@@ -107,7 +115,7 @@ namespace AionDpsMeter.Services.Services.Session
             lock (lockObject) { ResetInternal(); }
         }
 
-        // ── Private ────────────────────────────────────────────────────────────
+        
 
         private void RouteToTargetEntry(PlayerDamage damageEvent)
         {

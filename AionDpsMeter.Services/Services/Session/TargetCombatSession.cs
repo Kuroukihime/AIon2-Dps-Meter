@@ -20,7 +20,6 @@ namespace AionDpsMeter.Services.Services.Session
         public DateTime SessionStart { get; }
         public DateTime LastHitTime { get; private set; }
 
-        /// <summary>UTC time when this session was marked as completed. Null while active.</summary>
         public DateTime? CompletedAt { get; private set; }
         public SessionState State { get; private set; } = SessionState.Active;
 
@@ -49,10 +48,7 @@ namespace AionDpsMeter.Services.Services.Session
                 LastHitTime = damage.DateTime;
         }
 
-        /// <summary>
-        /// Marks this session as completed. Called when combat goes idle
-        /// or when a mob HP reset signals a new try.
-        /// </summary>
+     
         public void Complete(DateTime completedAt)
         {
             if (IsCompleted) return;
@@ -99,10 +95,6 @@ namespace AionDpsMeter.Services.Services.Session
             return DamageStatisticsCalculator.ComputeSkillStats(session);
         }
 
-        /// <summary>
-        /// Returns the number of hits recorded after <paramref name="cutoff"/>.
-        /// Used by <see cref="ActiveTargetResolver"/> to pick the most-hit active target.
-        /// </summary>
         public int CountRecentHits(DateTime cutoff)
             => playerSessions.Values.Sum(s => s.CountHitsAfter(cutoff));
 

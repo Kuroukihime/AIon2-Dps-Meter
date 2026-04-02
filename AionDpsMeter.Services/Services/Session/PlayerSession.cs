@@ -17,7 +17,6 @@ namespace AionDpsMeter.Services.Services.Session
         public int CombatPower => entityTaTracker.GetPlayerEntity(PlayerId)?.CombatPower ?? 0;
         public string ServerName => entityTaTracker.GetPlayerEntity(PlayerId)?.ServerName ?? "";
 
-        // Lightweight aggregates maintained incrementally for hot-path reads
         public long TotalDamage { get; private set; }
         public int HitCount { get; private set; }
         public DateTime? FirstHit { get; private set; }
@@ -31,13 +30,6 @@ namespace AionDpsMeter.Services.Services.Session
         {
             PlayerId = playerId;
             this.entityTaTracker = entityTaTracker;
-            //PlayerName = player.Name;
-            //PlayerIcon = player.Icon;
-            //ClassName = player.CharacterClass?.Name ?? string.Empty;
-            //ClassIcon = player.CharacterClass?.Icon;
-            //IsUser = player.IsUser;
-            //CombatPower = player.CombatPower;
-            //ServerName = player.ServerName;
         }
 
         public void AddDamage(PlayerDamage damage)
@@ -52,7 +44,6 @@ namespace AionDpsMeter.Services.Services.Session
 
         public int CountHitsAfter(DateTime cutoff)
         {
-            // Hits are appended in order — scan from end for efficiency
             int count = 0;
             for (int i = hits.Count - 1; i >= 0; i--)
             {
