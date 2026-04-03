@@ -112,8 +112,8 @@ Go to the [**Releases**](../../releases) page and download the latest `.zip` arc
 ### Clone the repository
 
 ```bash
-git clone https://github.com/Kuroukihime/af6b8cbd-8503-4627-95d3-aa1e33fa6d0d.git
-cd af6b8cbd-8503-4627-95d3-aa1e33fa6d0d
+git clone https://github.com/Kuroukihime/AIon2-Dps-Meter.git
+cd AIon2-Dps-Meter
 ```
 
 ### Build from command line
