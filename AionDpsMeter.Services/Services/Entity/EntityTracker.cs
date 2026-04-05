@@ -1,4 +1,5 @@
 using AionDpsMeter.Core.Models;
+using System.Numerics;
 
 namespace AionDpsMeter.Services.Services.Entity
 {
@@ -120,6 +121,46 @@ namespace AionDpsMeter.Services.Services.Entity
         public void RegisterBasePlayerEntity(Player player)
         {
             basePlayerEntities[player.Name] = player;
+        }
+
+        public bool LinkBaseToSessionPlayerEntity(int globalId, int sessionId)
+        {
+            var baseEntity = basePlayerEntities.FirstOrDefault(r => r.Value.Id == globalId).Value;
+            if(baseEntity == null) return false;
+
+            playerEntities.TryGetValue(sessionId, out var sessionPlayerEntity);
+
+            if(sessionPlayerEntity == null)
+            {
+                playerEntities[sessionId] = new Player
+                {
+                    Id = sessionId,
+                    Name = baseEntity.Name,
+                    Icon = null,
+                    CharacterClass = baseEntity.CharacterClass,
+                    CharactedLevel = baseEntity.CharactedLevel,
+                    CombatPower = baseEntity.CombatPower,
+                    ServerId = baseEntity.ServerId,
+                    ServerName = baseEntity.ServerName
+                };
+            }
+            else
+            {
+                playerEntities[baseEntity.Id] = new Player
+                {
+                    Id = sessionPlayerEntity.Id,
+                    Name = baseEntity.Name,
+                    Icon = null,
+                    CharacterClass = sessionPlayerEntity.CharacterClass,
+                    CharactedLevel = baseEntity.CharactedLevel,
+                    CombatPower = baseEntity.CombatPower,
+                    ServerId = baseEntity.ServerId,
+                    ServerName = baseEntity.ServerName
+                };
+            }
+
+            return true;
+
         }
 
         public void UpdatePlayerEntity(Player player)
