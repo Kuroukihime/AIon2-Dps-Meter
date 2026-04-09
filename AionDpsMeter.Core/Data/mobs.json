@@ -24334,5 +24334,303 @@
   "2980259": {
     "name": "Wraith Giselle",
     "isBoss": true
+  },
+  {
+    "2300162": {
+      "name": "Durvati's Venom",
+      "isBoss": true
+    },
+    "2301201": {
+      "name": "Contaminated Sura Mage",
+      "isBoss": false
+    },
+    "2301202": {
+      "name": "Contaminated Sura Soldier",
+      "isBoss": false
+    },
+    "2301203": {
+      "name": "Altered Poison Blood",
+      "isBoss": false
+    },
+    "2301204": {
+      "name": "Altered Sura Captain",
+      "isBoss": false
+    },
+    "2301205": {
+      "name": "Contaminated Slime",
+      "isBoss": false
+    },
+    "2301206": {
+      "name": "Contaminated Rat",
+      "isBoss": false
+    },
+    "2301207": {
+      "name": "Black Blood Blatt",
+      "isBoss": true
+    },
+    "2301208": {
+      "name": "Polymer Bargott",
+      "isBoss": true
+    },
+    "2301209": {
+      "name": "Devouring Nutra",
+      "isBoss": true
+    },
+    "2301210": {
+      "name": "Toxic Gas",
+      "isBoss": false
+    },
+    "2301211": {
+      "name": "Toxic Gas",
+      "isBoss": false
+    },
+    "2301212": {
+      "name": "Wastewater",
+      "isBoss": false
+    },
+    "2301213": {
+      "name": "Wastewater",
+      "isBoss": false
+    },
+    "2301214": {
+      "name": "Contaminated Poison Sac",
+      "isBoss": false
+    },
+    "2301215": {
+      "name": "Altered Poison Sac",
+      "isBoss": false
+    },
+    "2301216": {
+      "name": "Surveillance Device",
+      "isBoss": true
+    },
+    "2301217": {
+      "name": "Altered Sura Captain",
+      "isBoss": false
+    },
+    "2301218": {
+      "name": "Backflowing Pollution Purifier",
+      "isBoss": false
+    },
+    "2301401": {
+      "name": "Glassbane",
+      "isBoss": true
+    },
+    "2301402": {
+      "name": "Nasarak",
+      "isBoss": true
+    },
+    "2301403": {
+      "name": "Nathara",
+      "isBoss": true
+    },
+    "2301404": {
+      "name": "Phantom Templar Soul",
+      "isBoss": false
+    },
+    "2301405": {
+      "name": "Phantom Ranger Soul",
+      "isBoss": false
+    },
+    "2301406": {
+      "name": "Corridor Executioner",
+      "isBoss": false
+    },
+    "2301407": {
+      "name": "Forgotten Sura Knight",
+      "isBoss": false
+    },
+    "2301408": {
+      "name": "Forgotten Sura Priest",
+      "isBoss": false
+    },
+    "2301409": {
+      "name": "Forgotten Sura Warrior",
+      "isBoss": false
+    },
+    "2301410": {
+      "name": "Phantom Ghost",
+      "isBoss": false
+    },
+    "2301411": {
+      "name": "Divided Phantom Ghost",
+      "isBoss": false
+    },
+    "2301412": {
+      "name": "Corridor Watcher",
+      "isBoss": false
+    },
+    "2301413": {
+      "name": "Phantom Temple Priest",
+      "isBoss": false
+    },
+    "2301414": {
+      "name": "Phantom Veil",
+      "isBoss": false
+    },
+    "2301418": {
+      "name": "Spirit Bomb",
+      "isBoss": false
+    },
+    "2311401": {
+      "name": "Glassvein",
+      "isBoss": true
+    },
+    "2311402": {
+      "name": "Nazarak",
+      "isBoss": true
+    },
+    "2311403": {
+      "name": "Nathara",
+      "isBoss": true
+    },
+    "2311404": {
+      "name": "Phantom Templar Soul",
+      "isBoss": false
+    },
+    "2311405": {
+      "name": "Phantom Ranger Soul",
+      "isBoss": false
+    },
+    "2311406": {
+      "name": "Corridor Executioner",
+      "isBoss": false
+    },
+    "2311407": {
+      "name": "Forgotten Sura Knight",
+      "isBoss": false
+    },
+    "2311408": {
+      "name": "Forgotten Sura Priest",
+      "isBoss": false
+    },
+    "2311409": {
+      "name": "Forgotten Sura Warrior",
+      "isBoss": false
+    },
+    "2311410": {
+      "name": "Phantom Ghost",
+      "isBoss": false
+    },
+    "2311411": {
+      "name": "Divided Phantom Ghost",
+      "isBoss": false
+    },
+    "2311412": {
+      "name": "Corridor Watcher",
+      "isBoss": false
+    },
+    "2311413": {
+      "name": "Phantom Temple Priest",
+      "isBoss": false
+    },
+    "2311414": {
+      "name": "Phantom Veil",
+      "isBoss": false
+    },
+    "2311418": {
+      "name": "Spirit Bomb",
+      "isBoss": false
+    },
+    "2321401": {
+      "name": "Glassvein",
+      "isBoss": true
+    },
+    "2321402": {
+      "name": "Nazarak",
+      "isBoss": true
+    },
+    "2321403": {
+      "name": "Nathara",
+      "isBoss": true
+    },
+    "2321404": {
+      "name": "Phantom Templar Soul",
+      "isBoss": false
+    },
+    "2321405": {
+      "name": "Phantom Ranger Soul",
+      "isBoss": false
+    },
+    "2321406": {
+      "name": "Corridor Executioner",
+      "isBoss": false
+    },
+    "2321407": {
+      "name": "Forgotten Sura Knight",
+      "isBoss": false
+    },
+    "2321408": {
+      "name": "Forgotten Sura Priest",
+      "isBoss": false
+    },
+    "2321409": {
+      "name": "Forgotten Sura Warrior",
+      "isBoss": false
+    },
+    "2321410": {
+      "name": "Phantom Ghost",
+      "isBoss": false
+    },
+    "2321411": {
+      "name": "Divided Phantom Ghost",
+      "isBoss": false
+    },
+    "2321412": {
+      "name": "Corridor Watcher",
+      "isBoss": false
+    },
+    "2321413": {
+      "name": "Phantom Temple Priest",
+      "isBoss": false
+    },
+    "2321414": {
+      "name": "Phantom Veil",
+      "isBoss": false
+    },
+    "2321418": {
+      "name": "Spirit Bomb",
+      "isBoss": false
+    },
+    "2340516": {
+      "name": "Pang",
+      "isBoss": false
+    },
+    "2920908": {
+      "name": "Hydraulic Press",
+      "isBoss": true
+    },
+    "2920972": {
+      "name": "Time Bomb",
+      "isBoss": false
+    },
+    "2920973": {
+      "name": "Newt",
+      "isBoss": true
+    },
+    "2921069": {
+      "name": "Polymer Bargott",
+      "isBoss": false
+    },
+    "2921072": {
+      "name": "Time Bomb",
+      "isBoss": false
+    },
+    "2921097": {
+      "name": "Polymer Bargott",
+      "isBoss": false
+    },
+    "2921098": {
+      "name": "Polymer Bargott",
+      "isBoss": false
+    },
+    "2921167": {
+      "name": "Phantom Temple Priest",
+      "isBoss": false
+    },
+    "2921168": {
+      "name": "Phantom Temple Priest",
+      "isBoss": false
+    }
   }
 }
