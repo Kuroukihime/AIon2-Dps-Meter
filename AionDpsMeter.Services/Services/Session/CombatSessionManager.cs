@@ -63,14 +63,26 @@ namespace AionDpsMeter.Services.Services.Session
             }
         }
 
-        public IReadOnlyCollection<PlayerStats> PlayerStats =>
-            GetActiveTargetSession()?.GetPlayerStats() ?? [];
+        public IReadOnlyCollection<PlayerStats> PlayerStats
+        {
+            get { lock (lockObject) { return GetActiveTargetSession()?.GetPlayerStats() ?? []; } }
+        }
 
-        public IReadOnlyList<PlayerDamage> GetPlayerCombatLog(long playerId) =>
-            GetActiveTargetSession()?.GetCombatLog(playerId) ?? [];
+        public IReadOnlyList<PlayerDamage> GetPlayerCombatLog(long playerId)
+        {
+            lock (lockObject)
+            {
+                return GetActiveTargetSession()?.GetCombatLog(playerId) ?? [];
+            }
+        }
 
-        public IReadOnlyCollection<SkillStats> GetPlayerSkillStats(long playerId) =>
-            GetActiveTargetSession()?.GetSkillStats(playerId) ?? [];
+        public IReadOnlyCollection<SkillStats> GetPlayerSkillStats(long playerId)
+        {
+            lock (lockObject)
+            {
+                return GetActiveTargetSession()?.GetSkillStats(playerId) ?? [];
+            }
+        }
 
         public TimeSpan GetCombatDuration()
         {

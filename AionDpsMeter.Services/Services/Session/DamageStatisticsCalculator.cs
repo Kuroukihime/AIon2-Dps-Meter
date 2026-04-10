@@ -7,7 +7,7 @@ namespace AionDpsMeter.Services.Services.Session
     {
         public static PlayerStats ComputePlayerStats(PlayerSession session, long totalCombatDamage)
         {
-            var hits = session.Hits;
+            var hits = session.Hits.ToList();
 
             var nonDotHits = hits.Where(h => !h.IsDot).ToList();
             int hitCount = nonDotHits.Count;
@@ -48,7 +48,9 @@ namespace AionDpsMeter.Services.Services.Session
                 ? Math.Max((session.LastHit.Value - session.FirstHit.Value).TotalSeconds, 0.1)
                 : 0.1;
 
-            return session.Hits
+            var hits = session.Hits.ToList();
+
+            return hits
                 .GroupBy(h => h.Skill.Id)
                 .Select(g =>
                 {
