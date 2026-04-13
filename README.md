@@ -36,6 +36,7 @@ Click any player row to open a detailed breakdown:
 - **Damage contribution** percentage relative to the group
 - **Combat duration**
 - **Skill-by-skill breakdown** — damage, hits, crits, and more per skill
+- **Player buffs** — buffs applied to you by yourself or party members
 - **Live combat log** (up to 200 most recent hits)
 
 ![Player Details](ReadmeAssets/SkillDetails.png)
@@ -86,9 +87,6 @@ Go to the [**Releases**](../../releases) page and download the latest `.zip` arc
 
 **Q: Why is my nickname displayed as `Player_xxxx`?**
  - The server does not include player nicknames in damage packets. A nickname is only sent in specific events, such as teleporting or entering a dungeon. Until one of those events occurs, the meter displays a placeholder name.
-
-**Q: Why is the total party damage 1–2% lower than the boss's actual HP?**
- - The meter does not record damage dealt by **Theostones**. I didn't want to spend time on this since theostone damage is negligible. It may be added in a future update.
 
 **Q: Why are some summon skills registered as a separate unknown entity?**
  - This is a rare edge case. It happens when a summon is spawned outside your render range, meaning the meter missed the summoning event and could not link the summon's ID to the owning player.
