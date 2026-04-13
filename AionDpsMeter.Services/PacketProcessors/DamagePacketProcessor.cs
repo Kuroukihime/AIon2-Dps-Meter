@@ -55,14 +55,31 @@ namespace AionDpsMeter.Services.PacketProcessors
 
             
             if(targetId == actorId) return;
-            if (!gameData.IsDotDamageSkill(skillCode)) return;
-            if (gameData.IsHealingSkill(skillCode)) return;
-            var characterClass = gameData.GetClassBySkillCode(skillCode);
-            if (characterClass == null)
+            CharacterClass? characterClass = null;
+
+
+            if (!gameData.IsTheostone(skillCode))
             {
-                logger.LogWarning($"Unknown class for skill code: {skillCode}");
-                return;
+                characterClass = gameData.GetClassBySkillCode(skillCode);
+                if (characterClass == null)
+                {
+                    logger.LogWarning($"Unknown class for skill code: {skillCode}");
+                    return;
+                }
+                if (!gameData.IsDotDamageSkill(skillCode)) return;
+                if (gameData.IsHealingSkill(skillCode)) return;
             }
+            else
+            {
+                var player = entityTracker.GetPlayerEntity(actorId);
+                if (player == null)
+                {
+                    logger.LogWarning($"Unknown player for theostone code: {skillCode}");
+                    return;
+                }
+                characterClass = player.CharacterClass;
+            }
+ 
             var skill = gameData.GetSkillOrDefault(skillCode);
 
             var sourceEntity = entityTracker.GetOrCreatePlayerEntity(actorId, characterClass);
