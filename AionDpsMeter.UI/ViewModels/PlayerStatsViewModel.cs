@@ -66,12 +66,23 @@ namespace AionDpsMeter.UI.ViewModels
 
         public void Update(PlayerStats updatedStats)
         {
-            var properties = typeof(PlayerStats).GetProperties();
-            foreach (var prop in properties)
-            {
-                if (prop.CanWrite)
-                    prop.SetValue(_stats, prop.GetValue(updatedStats));
-            }
+            // Direct property copy — no reflection overhead
+            _stats.PlayerIcon        = updatedStats.PlayerIcon;
+            _stats.ClassName         = updatedStats.ClassName;
+            _stats.ClassIcon         = updatedStats.ClassIcon;
+            _stats.CombatPower       = updatedStats.CombatPower;
+            _stats.ServerName        = updatedStats.ServerName;
+            _stats.TotalDamage       = updatedStats.TotalDamage;
+            _stats.HitCount          = updatedStats.HitCount;
+            _stats.CriticalHits      = updatedStats.CriticalHits;
+            _stats.BackAttacks       = updatedStats.BackAttacks;
+            _stats.PerfectHits       = updatedStats.PerfectHits;
+            _stats.DoubleDamageHits  = updatedStats.DoubleDamageHits;
+            _stats.ParryHits         = updatedStats.ParryHits;
+            _stats.DamagePerSecond   = updatedStats.DamagePerSecond;
+            _stats.DamagePercentage  = updatedStats.DamagePercentage;
+            _stats.FirstHit          = updatedStats.FirstHit;
+            _stats.LastHit           = updatedStats.LastHit;
 
             // Smooth ease-towards animation for the progress bar
             double target = _stats.DamagePercentage;

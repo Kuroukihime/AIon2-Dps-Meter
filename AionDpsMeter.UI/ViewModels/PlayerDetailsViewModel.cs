@@ -18,8 +18,9 @@ namespace AionDpsMeter.UI.ViewModels
         private readonly string? _playerIcon;
         private readonly string? _classIcon;
         private readonly DispatcherTimer? _updateTimer;
+        private int _knownCombatLogCount;
 
-        /// <summary>True when this VM was created from a history snapshot — no live updates.</summary>
+        /// <summary>True when this VM was created from a history snapshot
         public bool IsSnapshot { get; }
 
         [ObservableProperty] private ObservableCollection<SkillStatsViewModel> _skills = new();
@@ -95,8 +96,6 @@ namespace AionDpsMeter.UI.ViewModels
                 combatPower: player.CombatPower,
                 serverName: player.ServerName,
                 isSnapshot: true);
-
-            // Populate from snapshot data immediately — no timer needed
             vm.TotalDamageDisplay        = player.TotalDamageDisplay;
             vm.DpsDisplay                = player.DpsDisplay;
             vm.TotalHits                 = player.HitCount;
@@ -225,10 +224,32 @@ namespace AionDpsMeter.UI.ViewModels
         {
             if (_sessionManager is null) return;
 
-            var skillStats = _sessionManager.GetPlayerSkillStats(_playerId);
-            Skills.Clear();
-            foreach (var skill in skillStats.OrderByDescending(s => s.TotalDamage))
-                Skills.Add(new SkillStatsViewModel(skill));
+            var skillStats = _sessionManager.GetPlayerSkillStats(_playerId)
+                .OrderByDescending(s => s.TotalDamage)
+                .ToList();
+
+            foreach (var stats in skillStats)
+            {
+                var existing = Skills.FirstOrDefault(vm => vm.SkillId == stats.SkillId);
+                if (existing is not null)
+                    existing.Update(stats);
+                else
+                    Skills.Add(new SkillStatsViewModel(stats));
+            }
+
+            for (int i = Skills.Count - 1; i >= 0; i--)
+            {
+                if (!skillStats.Any(s => s.SkillId == Skills[i].SkillId))
+                    Skills.RemoveAt(i);
+            }
+
+            for (int i = 0; i < skillStats.Count; i++)
+            {
+                int current = Skills.IndexOf(Skills.First(vm => vm.SkillId == skillStats[i].SkillId));
+                if (current != i)
+                    Skills.Move(current, i);
+            }
+
             SkillCount = Skills.Count;
         }
 
@@ -238,7 +259,6 @@ namespace AionDpsMeter.UI.ViewModels
 
             var buffStats = _sessionManager.GetPlayerBuffStats(_playerId);
 
-            // Only rebuild the collection when buff set actually changed
             if (Buffs.Count == buffStats.Count && BuffsMatch(buffStats))
             {
                 return;
@@ -268,10 +288,29 @@ namespace AionDpsMeter.UI.ViewModels
         {
             if (_sessionManager is null) return;
 
-            var combatLogEntries = _sessionManager.GetPlayerCombatLog(_playerId);
-            CombatLog.Clear();
-            foreach (var entry in combatLogEntries.Take(200))
-                CombatLog.Add(new CombatLogEntryViewModel(entry));
+            var allEntries = _sessionManager.GetPlayerCombatLog(_playerId);
+
+            if (allEntries.Count < _knownCombatLogCount)
+            {
+                CombatLog.Clear();
+                _knownCombatLogCount = 0;
+                Skills.Clear();
+                SkillCount = 0;
+            }
+
+        
+            if (allEntries.Count > _knownCombatLogCount)
+            {
+                int newCount = allEntries.Count - _knownCombatLogCount;
+              
+                for (int i = newCount - 1; i >= 0; i--)
+                    CombatLog.Insert(0, new CombatLogEntryViewModel(allEntries[i]));
+
+                _knownCombatLogCount = allEntries.Count;
+
+                while (CombatLog.Count > 200)
+                    CombatLog.RemoveAt(CombatLog.Count - 1);
+            }
         }
 
         public void Dispose()
