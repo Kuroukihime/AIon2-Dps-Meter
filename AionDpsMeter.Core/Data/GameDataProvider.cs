@@ -37,6 +37,7 @@ namespace AionDpsMeter.Core.Data
             Mobs.Load(Path.Combine(dataDir, "mobs.json"));
 
         }
+        public bool IsTheostone(int skillCode) => Skills.IsTheostone(skillCode);
         public bool IsHealingSkill(int skillCode) => Skills.IsHealingSkill(skillCode);
         public bool IsDotDamageSkill(int skillCode) => Skills.IsDotDamageSkill(skillCode);
 

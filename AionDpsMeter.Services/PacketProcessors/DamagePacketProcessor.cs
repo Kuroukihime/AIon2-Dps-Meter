@@ -100,11 +100,25 @@ namespace AionDpsMeter.Services.PacketProcessors
         private PlayerDamage? CreatePlayerDamage(DamagePacketData damageData)
         {
             if (gameData.IsHealingSkill(damageData.SkillCode)) return null;
-            var characterClass = gameData.GetClassBySkillCode(damageData.SkillCode);
-            if (characterClass == null)
+            CharacterClass? characterClass = null;
+            if (!gameData.IsTheostone(damageData.SkillCode))
             {
-                logger.LogWarning($"Unknown class for skill code: {damageData.SkillCode}");
-                return null;
+                characterClass = gameData.GetClassBySkillCode(damageData.SkillCode);
+                if (characterClass == null)
+                {
+                    logger.LogWarning($"Unknown class for skill code: {damageData.SkillCode}");
+                    return null;
+                }
+            }
+            else
+            {
+                var player = entityTracker.GetPlayerEntity(damageData.ActorId);
+                if (player == null)
+                {
+                    logger.LogWarning($"Unknown player for theostone code: {damageData.SkillCode}");
+                    return null;
+                }
+                characterClass = player.CharacterClass;
             }
 
             var skill = gameData.GetSkillOrDefault(damageData.SkillCode);
@@ -118,7 +132,7 @@ namespace AionDpsMeter.Services.PacketProcessors
                 SourceEntity = sourceEntity,
                 TargetEntity = targetEntity,
                 Skill = skill,
-                CharacterClass = characterClass,
+                CharacterClass = characterClass!,
                 Damage = damageData.Damage,
                 IsCritical = damageData.IsCritical,
                 IsBackAttack = damageData.IsBackAttack,

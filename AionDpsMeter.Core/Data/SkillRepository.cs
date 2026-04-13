@@ -29,7 +29,17 @@ namespace AionDpsMeter.Core.Data
                 if (!int.TryParse(idStr, out var fullId))
                     continue;
 
-                var prefix = NormalizeSkillCode(fullId);
+                int prefix = 0;
+                bool isTheostone = fullId / 1000_000 == 30;
+
+                if (isTheostone)
+                {
+                    prefix = fullId / 10;
+                }
+                else
+                {
+                    prefix = NormalizeSkillCode(fullId);
+                }
 
                 // Only keep the first occurrence per prefix to avoid duplicates
                 if (skillsByPrefix.ContainsKey(prefix))
@@ -42,7 +52,7 @@ namespace AionDpsMeter.Core.Data
                     Id = prefix,
                     ClassId = classId,
                     Name = name,
-                    Icon = SkillIconResolver.GetIconUrl(fullId)
+                    Icon = SkillIconResolver.GetIconUrl(fullId, isTheostone)
                 };
             }
         }
@@ -74,6 +84,16 @@ namespace AionDpsMeter.Core.Data
                 healingSkillIds.Add(prefix);
             }
         }
+
+        public bool IsTheostone(int code)
+        {
+            if (code >= 3_000_000L && code <= 3_099_999L)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public bool IsHealingSkill(int skillId)
         {
             var prefix = NormalizeSkillCode(skillId);
