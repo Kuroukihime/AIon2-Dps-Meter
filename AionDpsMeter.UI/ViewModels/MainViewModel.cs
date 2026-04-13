@@ -39,6 +39,7 @@ namespace AionDpsMeter.UI.ViewModels
             _dispatcher     = Dispatcher.CurrentDispatcher;
 
             _packetService.DamageReceived    += OnPacketReceived;
+            _packetService.BuffReceived      += OnBuffReceived;
             _packetService.PingUpdated       += OnPingUpdated;
 
             // UI refresh at ~30 FPS
@@ -80,6 +81,9 @@ namespace AionDpsMeter.UI.ViewModels
         private void OnPacketReceived(object? sender, PlayerDamage damageEvent)
             => _sessionManager.ProcessDamageEvent(damageEvent);
 
+        private void OnBuffReceived(object? sender, BuffEvent buffEvent)
+            => _sessionManager.ProcessBuffEvent(buffEvent);
+
         private void OnCombatAutoReset(object? sender, EventArgs e)
             => _dispatcher.BeginInvoke(ClearUiState);
 
@@ -105,6 +109,7 @@ namespace AionDpsMeter.UI.ViewModels
         private void UpdatePlayerStats()
         {
             var currentStats = _sessionManager.PlayerStats;
+            var currentIds   = currentStats.Select(s => s.PlayerId).ToHashSet();
 
             foreach (var stats in currentStats)
             {
@@ -115,13 +120,19 @@ namespace AionDpsMeter.UI.ViewModels
                     Players.Add(new PlayerStatsViewModel(stats, _settingsService));
             }
 
-            var currentIds = currentStats.Select(s => s.PlayerId).ToHashSet();
-            var sorted = Players.Where(p => p.TotalDamage > 0 && currentIds.Contains(p.PlayerId))
-                                 .OrderByDescending(p => p.TotalDamage)
-                                 .ToList();
-            Players.Clear();
-            foreach (var player in sorted)
-                Players.Add(player);
+            for (int i = Players.Count - 1; i >= 0; i--)
+            {
+                if (!currentIds.Contains(Players[i].PlayerId) || Players[i].TotalDamage <= 0)
+                    Players.RemoveAt(i);
+            }
+
+            var sorted = Players.OrderByDescending(p => p.TotalDamage).ToList();
+            for (int i = 0; i < sorted.Count; i++)
+            {
+                int current = Players.IndexOf(sorted[i]);
+                if (current != i)
+                    Players.Move(current, i);
+            }
         }
 
         private void UpdateCombatDuration()
@@ -157,6 +168,7 @@ namespace AionDpsMeter.UI.ViewModels
         public void Dispose()
         {
             _packetService.DamageReceived   -= OnPacketReceived;
+            _packetService.BuffReceived     -= OnBuffReceived;
             _packetService.PingUpdated      -= OnPingUpdated;
             _updateTimer?.Stop();
 

@@ -19,13 +19,28 @@ namespace AionDpsMeter.Services.Services.Session
         public IReadOnlyDictionary<long, IReadOnlyCollection<SkillStats>> SkillStatsByPlayer { get; init; }
             = new Dictionary<long, IReadOnlyCollection<SkillStats>>();
 
-        public static HistorySessionSnapshot From(TargetCombatSession session)
+        public IReadOnlyDictionary<long, IReadOnlyCollection<BuffStats>> BuffStatsByPlayer { get; init; }
+            = new Dictionary<long, IReadOnlyCollection<BuffStats>>();
+
+        public static HistorySessionSnapshot From(TargetCombatSession session, BuffEventManager buffManager)
         {
             var playerStats = session.GetPlayerStats().ToList();
+            var sessionStart = session.SessionStart;
+            var sessionEnd = session.LastHitTime;
 
             var skillStats = playerStats.ToDictionary(
                 p => p.PlayerId,
                 p => (IReadOnlyCollection<SkillStats>)session.GetSkillStats(p.PlayerId).ToList());
+
+            var buffStats = playerStats.ToDictionary(
+                p => p.PlayerId,
+                p =>
+                {
+                    var buffs = buffManager.GetBuffEvents((int)p.PlayerId, sessionStart, sessionEnd);
+                    return (IReadOnlyCollection<BuffStats>)BuffStatisticsCalculator
+                        .ComputeBuffStats(buffs, sessionStart, sessionEnd)
+                        .ToList();
+                });
 
             return new HistorySessionSnapshot
             {
@@ -37,6 +52,7 @@ namespace AionDpsMeter.Services.Services.Session
                 State         = session.State,
                 PlayerStats   = playerStats,
                 SkillStatsByPlayer = skillStats,
+                BuffStatsByPlayer  = buffStats,
             };
         }
     }

@@ -48,7 +48,12 @@ namespace AionDpsMeter.Services.Services.Session
                 LastHitTime = damage.DateTime;
         }
 
-     
+ 
+        public IReadOnlyCollection<int> GetPlayerEntityIds()
+        {
+            return playerSessions.Keys.Select(k => (int)k).ToList();
+        }
+
         public void Complete(DateTime completedAt)
         {
             if (IsCompleted) return;

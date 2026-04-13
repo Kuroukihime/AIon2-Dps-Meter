@@ -42,6 +42,8 @@ namespace AionDpsMeter.Services.PacketProcessors
             if (packet[lenValueLength] == 0x03 && packet[lenValueLength + 1] == 0x36) return PacketTypeEnum.CURRENT_TIME;
             if (packet[lenValueLength] == 0x00 && packet[lenValueLength + 1] == 0x8D) return PacketTypeEnum.MOB_HP;
             if (packet[lenValueLength] == 0x40 && packet[lenValueLength + 1] == 0x36) return PacketTypeEnum.MOB_SUMMON;
+            if (packet[lenValueLength] == 0x2A && packet[lenValueLength + 1] == 0x38) return PacketTypeEnum.BUFF_EFFECT;
+            if (packet[lenValueLength] == 0x2B && packet[lenValueLength + 1] == 0x38) return PacketTypeEnum.BUFF_EFFECT;
             return PacketTypeEnum.UNKNOWN;
         }
 
