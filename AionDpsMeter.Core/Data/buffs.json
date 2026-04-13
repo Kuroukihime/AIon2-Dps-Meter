@@ -1,0 +1,4430 @@
+{
+  "110000001": {
+    "Name": "Gladiator Weapon Mastery",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_TE_SKILL_001.png",
+    "Description": "Can equip Greatsword, Sword, Dagger, Mace, Bow, and Guard"
+  },
+  "110100201": {
+    "Name": "Increase Block",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_011.png",
+    "Description": "Increases Block"
+  },
+  "110800001": {
+    "Name": "Flying Blades",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_GL_SKILL_008.png",
+    "Description": "Decreases Defense and Received Healing"
+  },
+  "110800101": {
+    "Name": "Flying Blades",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_GL_SKILL_008.png",
+    "Description": "Decreases Defense and Received Healing"
+  },
+  "111000071": {
+    "Name": "Battle Preparation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_010.png",
+    "Description": "Increases Damage Amplification and Critical Hit"
+  },
+  "111100001": {
+    "Name": "Focused Parry",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_011.png",
+    "Description": "Guaranteed Parry state"
+  },
+  "111100401": {
+    "Name": "Focused Parry",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_011.png",
+    "Description": "Guaranteed Parry state"
+  },
+  "111200001": {
+    "Name": "Blood Siphon",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_012.png",
+    "Description": "Blood Siphon"
+  },
+  "111300001": {
+    "Name": "Unwavering Devotion",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_013.png",
+    "Description": "Increases Shock Resistance"
+  },
+  "111300101": {
+    "Name": "Unwavering Devotion",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_013.png",
+    "Description": "Increases Shock, Physical, and Mental status resistance"
+  },
+  "111300201": {
+    "Name": "Unwavering Devotion",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_013.png",
+    "Description": "Increases Shock, Physical, and Mental status resistance, increases Protective Armor effect"
+  },
+  "111300301": {
+    "Name": "Unwavering Devotion",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_013.png",
+    "Description": "Increases Shock, Physical, and Mental status resistance, increases Protective Armor and Skilled Counter effects"
+  },
+  "111300401": {
+    "Name": "Unwavering Devotion",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_013.png",
+    "Description": "Increases Shock, Physical, and Mental status resistance, increases Protective Armor and Skilled Counter effects"
+  },
+  "111400001": {
+    "Name": "Threatening Roar",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_GL_SKILL_014.png",
+    "Description": "Decreases Damage Amplification"
+  },
+  "111900201": {
+    "Name": "Leap Strike",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_019.png",
+    "Description": ""
+  },
+  "111900271": {
+    "Name": "Leap Strike",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_GL_SKILL_019.png",
+    "Description": ""
+  },
+  "111900371": {
+    "Name": "Leap Strike",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_019.png",
+    "Description": ""
+  },
+  "111900372": {
+    "Name": "Leap Strike",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_019.png",
+    "Description": ""
+  },
+  "111900471": {
+    "Name": "Leap Strike",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_019.png",
+    "Description": "Increases Damage Resistance"
+  },
+  "111900501": {
+    "Name": "Leap Strike",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_GL_SKILL_019.png",
+    "Description": ""
+  },
+  "112300001": {
+    "Name": "Charge",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_028.png",
+    "Description": "Increases Attack Speed"
+  },
+  "112400201": {
+    "Name": "Wrath Wave",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_GL_SKILL_007.png",
+    "Description": "Decreases Attack Power"
+  },
+  "112500001": {
+    "Name": "Zikel\u0027s Blessing",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_024.png",
+    "Description": "Increases Attack Power"
+  },
+  "112500101": {
+    "Name": "Zikel\u0027s Blessing",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_024.png",
+    "Description": "Increases Attack Power and Groggy point reduction"
+  },
+  "112500201": {
+    "Name": "Zikel\u0027s Blessing",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_024.png",
+    "Description": "Increases Attack Power, Groggy point reduction, and Accuracy"
+  },
+  "112500301": {
+    "Name": "Zikel\u0027s Blessing",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_024.png",
+    "Description": "Increases Attack Power, Groggy reduction, Accuracy, and Multi-hit Accuracy"
+  },
+  "112500401": {
+    "Name": "Zikel\u0027s Blessing",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_024.png",
+    "Description": "Increases Attack Power, Groggy reduction, Accuracy, Multi-hit Accuracy, and Status Effect hit chance"
+  },
+  "112700001": {
+    "Name": "Survival Stance",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_026.png",
+    "Description": "Increases HP"
+  },
+  "112900001": {
+    "Name": "Rotation",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_GL_SKILL_028.png",
+    "Description": "Rotation"
+  },
+  "112900002": {
+    "Name": "DP_Blade of Devastation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_028.png",
+    "Description": ""
+  },
+  "112900071": {
+    "Name": "Immunity",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_028.png",
+    "Description": "Immunity"
+  },
+  "113500071": {
+    "Name": "Rage",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_022.png",
+    "Description": "Physical skill damage amplification and increase Attack Speed"
+  },
+  "113800001": {
+    "Name": "Tenacity",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_038.png",
+    "Description": "Nullifies damage, increases damage resistance upon expiration"
+  },
+  "113800091": {
+    "Name": "Tenacity",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_038.png",
+    "Description": "Increases Damage Resistance"
+  },
+  "113800101": {
+    "Name": "Tenacity",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_038.png",
+    "Description": "Nullifies damage, increases Received Healing, increases damage resistance upon expiration"
+  },
+  "113800201": {
+    "Name": "Tenacity",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_038.png",
+    "Description": "Nullifies damage, increases Received Healing, restores HP upon expiration, increases damage resistance upon expiration"
+  },
+  "113800301": {
+    "Name": "Tenacity",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_038.png",
+    "Description": "Nullifies damage, increases healing, HP recovery on end, increases attack and damage resistance on end"
+  },
+  "113800401": {
+    "Name": "Tenacity",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_038.png",
+    "Description": "Nullifies damage, increases healing, HP recovery on end, increases attack and damage resistance on end"
+  },
+  "113900071": {
+    "Name": "Rage Explosion",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_GL_SKILL_039.png",
+    "Description": ""
+  },
+  "113900072": {
+    "Name": "Rage Explosion",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_GL_SKILL_039.png",
+    "Description": ""
+  },
+  "114000001": {
+    "Name": "Assault Stance",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_040.png",
+    "Description": "Increases Attack Speed"
+  },
+  "114000101": {
+    "Name": "Assault Stance",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_040.png",
+    "Description": "Increases Attack Speed, decreases Mana consumption"
+  },
+  "114000201": {
+    "Name": "Assault Stance",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_040.png",
+    "Description": "Increases Attack Speed, decreases Mana consumption, increases Move Speed"
+  },
+  "114000301": {
+    "Name": "Assault Stance",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_040.png",
+    "Description": "Increases Attack Speed, Mana efficiency, Move Speed, and Weakpoint Identification"
+  },
+  "114000401": {
+    "Name": "Assault Stance",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_040.png",
+    "Description": "Increases speed and efficiency, reduces cooldown on crit, increases Weakpoint Identification"
+  },
+  "114100001": {
+    "Name": "Armor of Waves",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_041.png",
+    "Description": "Continuous damage within range"
+  },
+  "114100101": {
+    "Name": "Armor of Waves",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_041.png",
+    "Description": "Continuous damage within range, absorbs damage dealt"
+  },
+  "114100201": {
+    "Name": "Armor of Waves",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_041.png",
+    "Description": "Continuous range damage, life steal, increases Blood Siphon effect"
+  },
+  "114100301": {
+    "Name": "Armor of Waves",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_041.png",
+    "Description": "Continuous damage, life steal, increases Blood Siphon and Murderous Rupture effects"
+  },
+  "114100401": {
+    "Name": "Armor of Waves",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_041.png",
+    "Description": "Continuous damage, life steal, increases Siphon/Rupture, reflects damage"
+  },
+  "114300201": {
+    "Name": "Forced Bind",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_GL_SKILL_043.png",
+    "Description": "Decreases Action Points"
+  },
+  "117100001": {
+    "Name": "Survival Stance",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_GL_SKILL_Passive_001.png",
+    "Description": "Increases HP, Max HP, HP Recovery, and Damage Resistance"
+  },
+  "117200001": {
+    "Name": "Protective Armor",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_GL_SKILL_Passive_002.png",
+    "Description": "Increases Block, HP recovery"
+  },
+  "117300001": {
+    "Name": "Blood Siphon",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_GL_SKILL_Passive_003.png",
+    "Description": "Blood Siphon"
+  },
+  "117300081": {
+    "Name": "Blood Siphon",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_Passive_003.png",
+    "Description": "HP recovery, life steal"
+  },
+  "117400001": {
+    "Name": "Weakpoint Identification",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_GL_SKILL_Passive_004.png",
+    "Description": "Increases Critical Hit and Perfection"
+  },
+  "117500001": {
+    "Name": "Offensive Preparation",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_GL_SKILL_Passive_005.png",
+    "Description": "Increases Damage Amplification, Defense, and Accuracy"
+  },
+  "117600001": {
+    "Name": "Impact Hit",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_GL_SKILL_Passive_006.png",
+    "Description": "Increases Shock Accuracy and Smash"
+  },
+  "117700001": {
+    "Name": "Destruction Impulse",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_GL_SKILL_Passive_007.png",
+    "Description": "Additional damage against Shocked or Groggy targets"
+  },
+  "117800001": {
+    "Name": "Skilled Counter",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_GL_SKILL_Passive_008.png",
+    "Description": "Increases Damage Amplification upon successful Block"
+  },
+  "117800071": {
+    "Name": "Skilled Counter",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_Passive_008.png",
+    "Description": "Increases Damage Amplification"
+  },
+  "117800072": {
+    "Name": "Skilled Counter",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_Passive_008.png",
+    "Description": "Increases Damage Amplification"
+  },
+  "117900001": {
+    "Name": "Will to Survive",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_GL_SKILL_Passive_009.png",
+    "Description": "Increases Status Resistance when hit under CC; increases Damage Resistance and Status Resistance upon being CC\u0027d"
+  },
+  "117900071": {
+    "Name": "Will to Survive",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_Passive_009.png",
+    "Description": "Increases Damage Resistance"
+  },
+  "117900081": {
+    "Name": "Will to Survive",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_Passive_009.png",
+    "Description": "Increases Status Resistance"
+  },
+  "118000001": {
+    "Name": "Murderous Rupture",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_GL_SKILL_Passive_010.png",
+    "Description": "At 5 stacks, deals AoE damage and decreases Critical Damage Resistance"
+  },
+  "118000071": {
+    "Name": "Murderous Rupture",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_Passive_010.png",
+    "Description": "At 5 stacks, deals AoE damage and decreases Critical Damage Resistance"
+  },
+  "118000081": {
+    "Name": "Murderous Rupture",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_GL_SKILL_Passive_010.png",
+    "Description": "Decreases Critical Damage Resistance"
+  },
+  "118000091": {
+    "Name": "Murderous Rupture",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_GL_SKILL_Passive_010.png",
+    "Description": "Decreases Critical Damage Resistance"
+  },
+  "120700071": {
+    "Name": "Shield of Doom",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_007.png",
+    "Description": "Shield"
+  },
+  "120700271": {
+    "Name": "Shield of Doom",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_007.png",
+    "Description": "Increases Block"
+  },
+  "120800001": {
+    "Name": "Induce",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_TE_SKILL_008.png",
+    "Description": "Decreases Status Resistance"
+  },
+  "120900001": {
+    "Name": "Executioner",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_009.png",
+    "Description": "Increases Accuracy and Damage Amplification"
+  },
+  "120900101": {
+    "Name": "Punishment",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_TE_SKILL_009.png",
+    "Description": "Continuous damage"
+  },
+  "120900102": {
+    "Name": "Punishment",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_TE_SKILL_009.png",
+    "Description": "Continuous damage"
+  },
+  "120900301": {
+    "Name": "Punishment",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_009.png",
+    "Description": "Decreases Received Damage"
+  },
+  "120900302": {
+    "Name": "Punishment",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_009.png",
+    "Description": "Decreases Received Damage"
+  },
+  "121000302": {
+    "Name": "Shield Bash",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_010.png",
+    "Description": "Activates Debilitating Blow skill"
+  },
+  "121100001": {
+    "Name": "Shield of Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_011.png",
+    "Description": "Guaranteed Shield Block state"
+  },
+  "121100401": {
+    "Name": "Shield of Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_011.png",
+    "Description": "Guaranteed Shield Block state"
+  },
+  "121200001": {
+    "Name": "Depression",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_TE_SKILL_012.png",
+    "Description": "Decreases Accuracy and Attack Power"
+  },
+  "121200002": {
+    "Name": "Depression",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_TE_SKILL_012.png",
+    "Description": "Decreases Accuracy, Attack Power, and Damage Resistance"
+  },
+  "121200003": {
+    "Name": "Depression",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_TE_SKILL_012.png",
+    "Description": "Decreases Accuracy, Attack Power, and Damage Resistance"
+  },
+  "121200004": {
+    "Name": "Provocation Defense",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_012.png",
+    "Description": "Decreases damage received from targets under Depression"
+  },
+  "121200005": {
+    "Name": "Provocation Defense",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_012.png",
+    "Description": "Decreases damage received from targets under Depression"
+  },
+  "121300001": {
+    "Name": "Pulled",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_TE_SKILL_013.png",
+    "Description": "Pulled"
+  },
+  "121300202": {
+    "Name": "Decrease Accuracy",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_TE_SKILL_013.png",
+    "Description": "Decreases Accuracy"
+  },
+  "121300381": {
+    "Name": "Capture",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_013.png",
+    "Description": "Resets Capture cooldown"
+  },
+  "121300402": {
+    "Name": "Shield",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_019.png",
+    "Description": "Shield effect"
+  },
+  "121800001": {
+    "Name": "Divine Grace",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_017.png",
+    "Description": "Additional damage"
+  },
+  "121900001": {
+    "Name": "Dual Armor",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_018.png",
+    "Description": "Increases Damage Resistance"
+  },
+  "121900002": {
+    "Name": "Dual Armor",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_018.png",
+    "Description": "Increases Damage Resistance and All Elemental Resistances"
+  },
+  "121900003": {
+    "Name": "Dual Armor",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_018.png",
+    "Description": "Increases Damage Resistance, Elemental Resistances, and reflects melee damage"
+  },
+  "121900004": {
+    "Name": "Dual Armor",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_018.png",
+    "Description": "Increases speed/defense, reflects melee, increases Iron Wall Defense"
+  },
+  "121900005": {
+    "Name": "Dual Armor",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_018.png",
+    "Description": "Increases speed/defense, reflects melee, increases Iron Wall Defense"
+  },
+  "122000001": {
+    "Name": "Unwavering Devotion",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_013.png",
+    "Description": "Increases Shock Resistance"
+  },
+  "122000002": {
+    "Name": "Unwavering Devotion",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_013.png",
+    "Description": "Increases Shock, Mental, and Physical Resistance"
+  },
+  "122000003": {
+    "Name": "Unwavering Devotion",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_013.png",
+    "Description": "Increases resistances and Move Speed"
+  },
+  "122000004": {
+    "Name": "Unwavering Devotion",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_013.png",
+    "Description": "Increases resistances, Move Speed, and Shield of Protection effect"
+  },
+  "122000005": {
+    "Name": "Unwavering Devotion",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_GL_SKILL_013.png",
+    "Description": "Increases resistances, Move Speed, and Shield of Protection effect"
+  },
+  "122100001": {
+    "Name": "Excitement",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_026.png",
+    "Description": "Increases Physical Damage Amplification"
+  },
+  "122200001": {
+    "Name": "Pulled",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_TE_SKILL_021.png",
+    "Description": "Pulled"
+  },
+  "122200002": {
+    "Name": "Shield",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_021.png",
+    "Description": "Shield effect"
+  },
+  "122200003": {
+    "Name": "Abduction",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_TE_SKILL_021.png",
+    "Description": "Decreases Damage Resistance"
+  },
+  "122200411": {
+    "Name": "Abduction",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_021.png",
+    "Description": "Increases Damage Resistance"
+  },
+  "122200421": {
+    "Name": "Abduction",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_021.png",
+    "Description": "Increases Damage Resistance"
+  },
+  "122200431": {
+    "Name": "Abduction",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_021.png",
+    "Description": "Increases Damage Resistance"
+  },
+  "122200441": {
+    "Name": "Abduction",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_021.png",
+    "Description": "Increases Damage Resistance"
+  },
+  "122300001": {
+    "Name": "Armor of Nobility",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_022.png",
+    "Description": "Increases HP"
+  },
+  "122300002": {
+    "Name": "Armor of Nobility",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_022.png",
+    "Description": "Increases HP and Defense"
+  },
+  "122300003": {
+    "Name": "Armor of Nobility",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_022.png",
+    "Description": "Increases HP, Defense, and Block"
+  },
+  "122300004": {
+    "Name": "Armor of Nobility",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_022.png",
+    "Description": "Increases stats, increases Insulting Roar damage"
+  },
+  "122300005": {
+    "Name": "Armor of Nobility",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_022.png",
+    "Description": "Increases stats, Insulting Roar damage, and healing received"
+  },
+  "122400001": {
+    "Name": "Judgement",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_004.png",
+    "Description": "Can use Judgement"
+  },
+  "122400371": {
+    "Name": "Judgement",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_TE_SKILL_004.png",
+    "Description": "Can use Judgement"
+  },
+  "122500001": {
+    "Name": "Bodyguard",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_024.png",
+    "Description": "Caster takes a portion of damage for the target"
+  },
+  "122500002": {
+    "Name": "Bodyguard",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_024.png",
+    "Description": "Increases Damage Resistance; caster takes a portion of damage"
+  },
+  "122500003": {
+    "Name": "Bodyguard",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_024.png",
+    "Description": "Increases Damage Resistance; takes shared damage; restores 25% HP when below 25% HP"
+  },
+  "122500004": {
+    "Name": "Bodyguard",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_024.png",
+    "Description": "Increases defense/sharing effects, increases Seal of Protection effect"
+  },
+  "122500005": {
+    "Name": "Bodyguard",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_024.png",
+    "Description": "Increases sharing/defense; increases Seal of Protection/Pain Block effects"
+  },
+  "122500006": {
+    "Name": "Bodyguard",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_024.png",
+    "Description": "Increases Sharing/Defense; restores 50% HP at end; increases Seal/Pain Block"
+  },
+  "122500071": {
+    "Name": "Bodyguard",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_024.png",
+    "Description": "Caster takes a portion of damage for the target"
+  },
+  "122500101": {
+    "Name": "Bodyguard",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_024.png",
+    "Description": "Caster takes shared damage; restores 25% HP when below 25% HP"
+  },
+  "122500171": {
+    "Name": "Bodyguard",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_024.png",
+    "Description": "Caster takes shared damage; restores 25% HP when below 25% HP"
+  },
+  "122500201": {
+    "Name": "Bodyguard",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_024.png",
+    "Description": "Caster takes shared damage; restores 25% HP when below 25% HP"
+  },
+  "122500271": {
+    "Name": "Bodyguard",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_024.png",
+    "Description": "Caster takes shared damage; restores 25% HP when below 25% HP"
+  },
+  "122500301": {
+    "Name": "Bodyguard",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_024.png",
+    "Description": "Caster takes shared damage; restores 25% HP when below 25% HP"
+  },
+  "122500371": {
+    "Name": "Bodyguard",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_024.png",
+    "Description": "Caster takes shared damage; restores 25% HP when below 25% HP"
+  },
+  "122500401": {
+    "Name": "Bodyguard",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_024.png",
+    "Description": "Caster takes shared damage; restores 25% HP when below 25% HP"
+  },
+  "122500471": {
+    "Name": "Bodyguard",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_024.png",
+    "Description": "Caster takes shared damage; restores 25% HP when below 25% HP"
+  },
+  "122700001": {
+    "Name": "Debilitate",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_TE_SKILL_025.png",
+    "Description": "Decreases Defense"
+  },
+  "122700002": {
+    "Name": "Debilitate",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_TE_SKILL_025.png",
+    "Description": "Decreases Defense and HP recovery"
+  },
+  "122700003": {
+    "Name": "Debilitate",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_TE_SKILL_025.png",
+    "Description": "Decreases Defense"
+  },
+  "122700004": {
+    "Name": "Debilitate",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_TE_SKILL_025.png",
+    "Description": "Decreases Defense and HP recovery"
+  },
+  "122700581": {
+    "Name": "Debilitate",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_025.png",
+    "Description": "Resets cooldown upon a successful Shield Block"
+  },
+  "122900001": {
+    "Name": "Shuddering Roar",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_TE_SKILL_027.png",
+    "Description": "Decreases Damage Amplification"
+  },
+  "123000001": {
+    "Name": "Annihilation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_028.png",
+    "Description": "Can use Annihilation"
+  },
+  "123000371": {
+    "Name": "Annihilation",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_TE_SKILL_028.png",
+    "Description": "Can use Annihilation"
+  },
+  "123100371": {
+    "Name": "Divine Punishment",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_029.png",
+    "Description": "Increases Damage Amplification"
+  },
+  "123200001": {
+    "Name": "Nezakan\u0027s Shield",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_030.png",
+    "Description": "Shield"
+  },
+  "123200002": {
+    "Name": "Nezakan\u0027s Shield",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_030.png",
+    "Description": "Shield, increases all Elemental Resistances"
+  },
+  "123200003": {
+    "Name": "Nezakan\u0027s Shield",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_030.png",
+    "Description": "Shield, elemental/damage resistance boost"
+  },
+  "123200004": {
+    "Name": "Nezakan\u0027s Shield",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_030.png",
+    "Description": "Shield, resistances boost, restores HP at end"
+  },
+  "123500001": {
+    "Name": "Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_035.png",
+    "Description": "Increases Damage Resistance"
+  },
+  "123500201": {
+    "Name": "Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_035.png",
+    "Description": "Increases Damage Resistance and Block"
+  },
+  "123500301": {
+    "Name": "Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_035.png",
+    "Description": "Increases Damage Resistance, continuous recovery effect"
+  },
+  "123500401": {
+    "Name": "Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_035.png",
+    "Description": "Increases Damage Resistance"
+  },
+  "123500402": {
+    "Name": "Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_035.png",
+    "Description": "Increases Damage Resistance"
+  },
+  "123500403": {
+    "Name": "Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_035.png",
+    "Description": "Increases Damage Resistance"
+  },
+  "123500404": {
+    "Name": "Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_035.png",
+    "Description": "Increases Damage Resistance"
+  },
+  "123500501": {
+    "Name": "Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_035.png",
+    "Description": "Increases Damage Resistance"
+  },
+  "123502301": {
+    "Name": "Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_035.png",
+    "Description": "Increases damage/block resistance, continuous recovery"
+  },
+  "123502401": {
+    "Name": "Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_035.png",
+    "Description": "Increases Damage Resistance and Block"
+  },
+  "123502402": {
+    "Name": "Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_035.png",
+    "Description": "Increases Damage Resistance and Block"
+  },
+  "123502403": {
+    "Name": "Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_035.png",
+    "Description": "Increases Damage Resistance and Block"
+  },
+  "123502404": {
+    "Name": "Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_035.png",
+    "Description": "Increases Damage Resistance and Block"
+  },
+  "123503401": {
+    "Name": "Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_035.png",
+    "Description": "Increases Damage Resistance, continuous recovery effect"
+  },
+  "123503402": {
+    "Name": "Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_035.png",
+    "Description": "Increases Damage Resistance, continuous recovery effect"
+  },
+  "123503403": {
+    "Name": "Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_035.png",
+    "Description": "Increases Damage Resistance, continuous recovery effect"
+  },
+  "123503404": {
+    "Name": "Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_035.png",
+    "Description": "Increases Damage Resistance, continuous recovery effect"
+  },
+  "123523401": {
+    "Name": "Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_035.png",
+    "Description": "Increases damage/block resistance, continuous recovery"
+  },
+  "123523402": {
+    "Name": "Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_035.png",
+    "Description": "Increases damage/block resistance, continuous recovery"
+  },
+  "123523403": {
+    "Name": "Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_035.png",
+    "Description": "Increases damage/block resistance, continuous recovery"
+  },
+  "123523404": {
+    "Name": "Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_035.png",
+    "Description": "Increases damage/block resistance, continuous recovery"
+  },
+  "124500001": {
+    "Name": "Battle Banner",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_045.png",
+    "Description": "Increases Attack Power proportional to Defense"
+  },
+  "124500002": {
+    "Name": "Battle Banner",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_045.png",
+    "Description": "Increases Attack Power proportional to Defense, increases Multi-hit Accuracy"
+  },
+  "124500003": {
+    "Name": "Battle Banner",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_045.png",
+    "Description": "Increases Attack Power proportional to Defense, Multi-hit Accuracy, and Critical Hit"
+  },
+  "124500004": {
+    "Name": "Battle Banner",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_045.png",
+    "Description": "Increases Attack Power proportional to Defense, Multi-hit Accuracy, and Critical Hit"
+  },
+  "124500005": {
+    "Name": "Battle Banner",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_045.png",
+    "Description": "Increases Attack Power proportional to Defense, Multi-hit Accuracy, and Critical Hit"
+  },
+  "127100001": {
+    "Name": "Constitution Enhancement",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_TE_SKILL_Passive_001.png",
+    "Description": "Increases HP, Max HP, and Received Healing"
+  },
+  "127200001": {
+    "Name": "Shield of Protection",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_TE_SKILL_Passive_002.png",
+    "Description": "Increases Block"
+  },
+  "127200011": {
+    "Name": "Shield of Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_Passive_002.png",
+    "Description": "Increases Block"
+  },
+  "127300001": {
+    "Name": "Divine Grace",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_TE_SKILL_Passive_003.png",
+    "Description": "Increases Critical Hit, chance for additional damage on attack"
+  },
+  "127300021": {
+    "Name": "Divine Grace",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_Passive_003.png",
+    "Description": "Chance for additional damage"
+  },
+  "127400001": {
+    "Name": "Iron Wall Defense",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_TE_SKILL_Passive_004.png",
+    "Description": "Increases Defense and Iron Wall"
+  },
+  "127500001": {
+    "Name": "Seal of Protection",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_TE_SKILL_Passive_005.png",
+    "Description": "Obtains Seal of Protection when HP is 50% or below"
+  },
+  "127500011": {
+    "Name": "Seal of Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_Passive_005.png",
+    "Description": "Shield"
+  },
+  "127500012": {
+    "Name": "Seal of Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_Passive_005.png",
+    "Description": "Shield"
+  },
+  "127600001": {
+    "Name": "Impact Hit",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_TE_SKILL_Passive_006.png",
+    "Description": "Increases Shock Accuracy and Smash"
+  },
+  "127700001": {
+    "Name": "Insulting Roar",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_TE_SKILL_Passive_007.png",
+    "Description": "Increases Enmity generation; additional damage and Enmity on Block"
+  },
+  "127800001": {
+    "Name": "Excitement",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_TE_SKILL_Passive_008.png",
+    "Description": "Increases self and party damage amplification upon successful Block"
+  },
+  "127800011": {
+    "Name": "Excitement",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_Passive_008.png",
+    "Description": "Increases Damage Amplification"
+  },
+  "127900001": {
+    "Name": "Will to Survive",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_TE_SKILL_Passive_009.png",
+    "Description": "Increases Status Resistance when hit under CC; increases Damage Resistance and Status Resistance upon being CC\u0027d"
+  },
+  "127900011": {
+    "Name": "Will to Survive",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_Passive_009.png",
+    "Description": "Increases Damage Resistance"
+  },
+  "127900021": {
+    "Name": "Will to Survive",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_Passive_009.png",
+    "Description": "Increases Status Resistance"
+  },
+  "128000001": {
+    "Name": "Pain Block",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_TE_SKILL_Passive_010.png",
+    "Description": "Obtains Pain Block each time you are attacked"
+  },
+  "128000012": {
+    "Name": "Pain Block",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_TE_SKILL_Passive_010.png",
+    "Description": "Increases Damage Resistance"
+  },
+  "130000011": {
+    "Name": "Signet",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_AS_SKILL_008.png",
+    "Description": "Decreases Rear Damage Resistance"
+  },
+  "130700271": {
+    "Name": "Ambush",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_007.png",
+    "Description": "Increases Critical Damage Amplification"
+  },
+  "130800001": {
+    "Name": "Evasion Stance",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_024.png",
+    "Description": "Guaranteed Evasion state"
+  },
+  "130800401": {
+    "Name": "Evasion Stance",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_024.png",
+    "Description": "Guaranteed Evasion state"
+  },
+  "131400301": {
+    "Name": "Shadow Step",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_014.png",
+    "Description": "Increases Evasion"
+  },
+  "131500001": {
+    "Name": "Contract of Frenzy",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_015.png",
+    "Description": "Increases Damage Amplification"
+  },
+  "131500101": {
+    "Name": "Contract of Frenzy",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_015.png",
+    "Description": "Increases Damage Amplification and Accuracy"
+  },
+  "131500201": {
+    "Name": "Contract of Frenzy",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_015.png",
+    "Description": "Increases damage/accuracy, 10% chance to reduce target\u0027s critical resistance on crit"
+  },
+  "131500271": {
+    "Name": "Contract of Frenzy",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_AS_SKILL_015.png",
+    "Description": "Decreases Critical Damage Resistance"
+  },
+  "131500301": {
+    "Name": "Contract of Frenzy",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_015.png",
+    "Description": "Increases damage, accuracy, smash, and chance to reduce crit resistance on crit"
+  },
+  "131600001": {
+    "Name": "Apply Poison",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_014.png",
+    "Description": "Chance to poison the target"
+  },
+  "131600071": {
+    "Name": "Poison",
+    "Type": "DEBUFF",
+    "IconUrlPart": "Abnormal/ICON_Abnormal_Poison.png",
+    "Description": "HP damage over time"
+  },
+  "131700001": {
+    "Name": "Maximize Intent",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_015.png",
+    "Description": "Increases damage of 1 skill"
+  },
+  "131800001": {
+    "Name": "Hide",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_016.png",
+    "Description": "Hidden state"
+  },
+  "131800101": {
+    "Name": "Hide",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_016.png",
+    "Description": "Critical Hit on next attack from Hide, Hidden state"
+  },
+  "131800401": {
+    "Name": "Hide",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_016.png",
+    "Description": "Critical Hit on next attack from Hide, Hidden state"
+  },
+  "132300371": {
+    "Name": "Aerial Shackle",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_026.png",
+    "Description": "Increases Surprise Stance effect"
+  },
+  "132700301": {
+    "Name": "Beast\u0027s Fang",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_AS_SKILL_025.png",
+    "Description": "Decreases Defense"
+  },
+  "132900001": {
+    "Name": "Hide",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_027.png",
+    "Description": "Hidden state"
+  },
+  "133100001": {
+    "Name": "Illusion Clone",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_029.png",
+    "Description": "Additional damage by a certain ratio, removes Heart Strike cooldown"
+  },
+  "133100101": {
+    "Name": "Illusion Clone",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_029.png",
+    "Description": "Additional damage by a certain ratio, removes Heart Strike cooldown"
+  },
+  "133100201": {
+    "Name": "Illusion Clone",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_029.png",
+    "Description": "Increases Critical Damage Amplification and additional damage, removes Heart Strike cooldown"
+  },
+  "133100301": {
+    "Name": "Illusion Clone",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_029.png",
+    "Description": "Increases crit amp/extra damage, removes cooldown, increases Opening Identification"
+  },
+  "133700001": {
+    "Name": "Contract of Evasion",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_039.png",
+    "Description": "Increases Evasion, immunity to Slow/Bind"
+  },
+  "133700101": {
+    "Name": "Contract of Evasion",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_039.png",
+    "Description": "Increases Evasion, immunity to Slow/Bind, 50% chance for projectile immunity"
+  },
+  "133700201": {
+    "Name": "Contract of Evasion",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_039.png",
+    "Description": "Increases evasion/move speed, immunity to Slow/Bind, 50% chance for projectile immunity"
+  },
+  "133700301": {
+    "Name": "Contract of Evasion",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_039.png",
+    "Description": "Increases stats/immunity, 50% chance to reduce all skill cooldowns upon evasion"
+  },
+  "133700401": {
+    "Name": "Contract of Evasion",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_039.png",
+    "Description": "Increases stats/immunity, 50% chance to reduce all skill cooldowns upon evasion"
+  },
+  "133900001": {
+    "Name": "Contract of Haste",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_037.png",
+    "Description": "Increases Attack Speed"
+  },
+  "133900101": {
+    "Name": "Contract of Haste",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_037.png",
+    "Description": "Increases Attack Speed and decreases Mana consumption"
+  },
+  "133900201": {
+    "Name": "Contract of Haste",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_037.png",
+    "Description": "Increases attack speed, mana efficiency, and Rear Smash effect"
+  },
+  "133900301": {
+    "Name": "Contract of Haste",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_037.png",
+    "Description": "Increases attack speed/efficiency, Rear Smash, and Assault Stance effects"
+  },
+  "133900401": {
+    "Name": "Contract of Haste",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_037.png",
+    "Description": "Increases attack speed/efficiency, Rear Smash, and Assault Stance effects"
+  },
+  "137100001": {
+    "Name": "Maximize Senses",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_AS_SKILL_Passive_001.png",
+    "Description": "Increases evasion/HP, restores HP upon successful Evasion"
+  },
+  "137200001": {
+    "Name": "Opening Identification",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_AS_SKILL_Passive_002.png",
+    "Description": "Increases Critical Hit; chance to summon clones upon Critical Hit"
+  },
+  "137300001": {
+    "Name": "Apply Poison",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_AS_SKILL_Passive_003.png",
+    "Description": "7% chance to poison target when attacking"
+  },
+  "137300071": {
+    "Name": "Poison",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_AS_SKILL_Passive_003.png",
+    "Description": "Decreases healing received, continuous poison damage"
+  },
+  "137400001": {
+    "Name": "Rear Smash",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_AS_SKILL_Passive_004.png",
+    "Description": "Increases Rear Damage Amplification"
+  },
+  "137500001": {
+    "Name": "Assault Stance",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_AS_SKILL_Passive_006.png",
+    "Description": "Increases Critical Damage Amplification"
+  },
+  "137600001": {
+    "Name": "Impact Hit",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_AS_SKILL_Passive_011.png",
+    "Description": "Increases Shock Accuracy and Smash"
+  },
+  "137700001": {
+    "Name": "Surprise Stance",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_AS_SKILL_Passive_007.png",
+    "Description": "50% chance for additional damage against Stunned or Blinded targets"
+  },
+  "137800001": {
+    "Name": "Defense Breach",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_AS_SKILL_Passive_008.png",
+    "Description": "Decreases defense and status resistance of Groggy or Shocked targets"
+  },
+  "137800071": {
+    "Name": "Defense Breach",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_AS_SKILL_Passive_008.png",
+    "Description": "Decreases defense and status resistance"
+  },
+  "137900001": {
+    "Name": "Contract of Resurrection",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_AS_SKILL_Passive_009.png",
+    "Description": "Increases resistance under CC; restores HP when HP is 10% or below"
+  },
+  "137900081": {
+    "Name": "Contract of Resurrection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_Passive_009.png",
+    "Description": "Increases Status Resistance"
+  },
+  "138000001": {
+    "Name": "Resolution",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_AS_SKILL_Passive_010.png",
+    "Description": "Additional damage against low-HP targets"
+  },
+  "140500001": {
+    "Name": "Bleed",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_Common_Abnormal_Bleed.png",
+    "Description": "Bleeding state"
+  },
+  "140500002": {
+    "Name": "Bleed",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_Common_Abnormal_Bleed.png",
+    "Description": "Bleeding state"
+  },
+  "140500201": {
+    "Name": "Bleed",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_Common_Abnormal_Bleed.png",
+    "Description": "Bleeding state"
+  },
+  "140500202": {
+    "Name": "Bleed",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_Common_Abnormal_Bleed.png",
+    "Description": "Bleeding state"
+  },
+  "140600001": {
+    "Name": "Blaze",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_Common_Abnormal_Burn.png",
+    "Description": "Continuous Fire damage"
+  },
+  "140600201": {
+    "Name": "Blaze",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_Common_Abnormal_Burn.png",
+    "Description": "Continuous Fire damage"
+  },
+  "140600371": {
+    "Name": "Blaze",
+    "Type": "BUFF",
+    "IconUrlPart": ".png",
+    "Description": ""
+  },
+  "140600401": {
+    "Name": "Blaze",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_Common_Abnormal_Burn.png",
+    "Description": "Continuous Fire damage"
+  },
+  "140900001": {
+    "Name": "Target",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_RA_SKILL_031.png",
+    "Description": "Decreases Critical Hit Resistance"
+  },
+  "140900101": {
+    "Name": "Target",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_RA_SKILL_031.png",
+    "Description": "Decreases Critical Hit Resistance and Defense"
+  },
+  "141100071": {
+    "Name": "Gale",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_011.png",
+    "Description": "Increases Attack Speed"
+  },
+  "141100461": {
+    "Name": "Gale",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_011.png",
+    "Description": "Increases Attack Speed"
+  },
+  "141100471": {
+    "Name": "Gale",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_011.png",
+    "Description": "Increases Attack Speed"
+  },
+  "141100481": {
+    "Name": "Gale",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_011.png",
+    "Description": "Increases Attack Speed"
+  },
+  "141100491": {
+    "Name": "Gale",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_011.png",
+    "Description": "Increases Attack Speed"
+  },
+  "141200271": {
+    "Name": "Surprise Kick",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_012.png",
+    "Description": "Shield proportional to Max HP"
+  },
+  "141600201": {
+    "Name": "Sealing Arrow",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_RA_SKILL_016.png",
+    "Description": "Decreases Max Action Points"
+  },
+  "141700301": {
+    "Name": "Delayed Damage",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_RA_SKILL_017.png",
+    "Description": "Additional damage after a certain time"
+  },
+  "141900001": {
+    "Name": "Hide",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_019.png",
+    "Description": "Hidden state"
+  },
+  "141900101": {
+    "Name": "Hide",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_019.png",
+    "Description": "Critical Hit on attack from Hide, Hidden state"
+  },
+  "141900201": {
+    "Name": "Hide",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_019.png",
+    "Description": "Increases Move Speed, guaranteed Crit on Hide attack, Hidden state"
+  },
+  "142100001": {
+    "Name": "Vaizel\u0027s Authority",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_021.png",
+    "Description": "Increases Attack Power"
+  },
+  "142200001": {
+    "Name": "Blessed Bow",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_030.png",
+    "Description": "Increases Critical Hit"
+  },
+  "142200101": {
+    "Name": "Blessed Bow",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_030.png",
+    "Description": "Increases Critical Hit and Multi-hit Accuracy"
+  },
+  "142200201": {
+    "Name": "Blessed Bow",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_030.png",
+    "Description": "Increases Critical Hit, Multi-hit Accuracy, and Accuracy"
+  },
+  "142200301": {
+    "Name": "Blessed Bow",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_030.png",
+    "Description": "Increases Critical Hit, Multi-hit Accuracy, Accuracy, and Critical Damage Amplification"
+  },
+  "142200401": {
+    "Name": "Blessed Bow",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_030.png",
+    "Description": "Increases Crit, Multi-hit, Accuracy, Crit Amp, and Smash"
+  },
+  "142400001": {
+    "Name": "Vaizel\u0027s Authority",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_024.png",
+    "Description": "Increases Attack Power and Perfection"
+  },
+  "142500001": {
+    "Name": "Vaizel\u0027s Authority",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_025.png",
+    "Description": "Increases stats and Concentrated Fire effect"
+  },
+  "143100001": {
+    "Name": "Vaizel\u0027s Authority",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_022.png",
+    "Description": "Increases Attack Power"
+  },
+  "143100101": {
+    "Name": "Vaizel\u0027s Authority",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_022.png",
+    "Description": "Increases Attack Power and Perfection"
+  },
+  "143100201": {
+    "Name": "Vaizel\u0027s Authority",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_022.png",
+    "Description": "Increases stats and Concentrated Fire effect"
+  },
+  "143100301": {
+    "Name": "Vaizel\u0027s Authority",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_022.png",
+    "Description": "Increases stats, Concentrated Fire, and Hunter\u0027s Soul effects"
+  },
+  "143100401": {
+    "Name": "Vaizel\u0027s Authority",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_022.png",
+    "Description": "Increases stats/effects, chance to reduce skill cooldowns on crit"
+  },
+  "143500001": {
+    "Name": "Nature\u0027s Breath",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_035.png",
+    "Description": "Decreases Received Damage"
+  },
+  "143500101": {
+    "Name": "Nature\u0027s Breath",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_035.png",
+    "Description": "Decreases Received Damage, increases Critical Hit Resistance"
+  },
+  "143500201": {
+    "Name": "Nature\u0027s Breath",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_035.png",
+    "Description": "Decreases damage/crit resistance, increases Eye of Vigilance effect"
+  },
+  "143500301": {
+    "Name": "Nature\u0027s Breath",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_035.png",
+    "Description": "Decreases damage, immunity to continuous damage, increases Eye of Vigilance"
+  },
+  "143500401": {
+    "Name": "Nature\u0027s Breath",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_035.png",
+    "Description": "Significantly decreases damage, immunity to DoTs, increases Eye of Vigilance"
+  },
+  "143800001": {
+    "Name": "Support Fire",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_038.png",
+    "Description": "25% chance for additional damage upon landing an attack"
+  },
+  "143800101": {
+    "Name": "Support Fire",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_038.png",
+    "Description": "50% chance for additional damage upon landing an attack"
+  },
+  "143800401": {
+    "Name": "Support Fire",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_038.png",
+    "Description": "50% chance for extra damage; Support Fire always crits"
+  },
+  "147100001": {
+    "Name": "Eye of Vigilance",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_RA_SKILL_Passive_004.png",
+    "Description": "Increases evasion/max HP, restores HP on successful Evasion"
+  },
+  "147200001": {
+    "Name": "Concentrated Fire",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_RA_SKILL_Passive_003.png",
+    "Description": "Additional damage against targets under damage over time"
+  },
+  "147300001": {
+    "Name": "Wind Vitality",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_RA_SKILL_Passive_006.png",
+    "Description": "Increases Max Action Points and Move Speed when taking damage"
+  },
+  "147300071": {
+    "Name": "Wind Vitality",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_Passive_006.png",
+    "Description": "Increases Move Speed"
+  },
+  "147400001": {
+    "Name": "Eye of Focus",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_RA_SKILL_Passive_001.png",
+    "Description": "Increases Accuracy, Damage Amplification, and Smash"
+  },
+  "147500001": {
+    "Name": "Hunter\u0027s Resolve",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_RA_SKILL_Passive_011.png",
+    "Description": "Increases Critical Damage Amplification"
+  },
+  "147600001": {
+    "Name": "Resolve of Resistance",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_RA_SKILL_Passive_012.png",
+    "Description": "Increases Physical Resistance"
+  },
+  "147700001": {
+    "Name": "Eye of Binding",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_RA_SKILL_Passive_008.png",
+    "Description": "Additional damage against Slowed or Bound targets"
+  },
+  "147800001": {
+    "Name": "Close Range Shooting",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_RA_SKILL_Passive_013.png",
+    "Description": "Knocks back targets within 5m; additional damage to targets beyond 5m"
+  },
+  "147900001": {
+    "Name": "Contract of Resurrection",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_RA_SKILL_Passive_009.png",
+    "Description": "Increases resistance under CC; restores HP when HP is 10% or below"
+  },
+  "147900081": {
+    "Name": "Contract of Resurrection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_RA_SKILL_Passive_009.png",
+    "Description": "Increases Status Resistance"
+  },
+  "148000001": {
+    "Name": "Hunter\u0027s Soul",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_RA_SKILL_Passive_007.png",
+    "Description": "Additional damage upon Critical Hit"
+  },
+  "150000001": {
+    "Name": "Sorcerer Weapon Mastery",
+    "Type": "PASSIVE",
+    "IconUrlPart": ".png",
+    "Description": "Allows equipping Sorcerer weapons."
+  },
+  "150200001": {
+    "Name": "Continuous Damage",
+    "Type": "DEBUFF",
+    "IconUrlPart": "Abnormal/ICON_Abnormal_DotMp.png",
+    "Description": "Continuous Fire damage"
+  },
+  "150500301": {
+    "Name": "Delayed Damage",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_SO_SKILL_005.png",
+    "Description": "Fire damage after 3 seconds"
+  },
+  "150900001": {
+    "Name": "Slow",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_Common_Abnormal_MoveSpeedDown.png",
+    "Description": "Decreases Move Speed and Flight Speed"
+  },
+  "150900201": {
+    "Name": "Slow",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_Common_Abnormal_MoveSpeedDown.png",
+    "Description": "Decreases Move Speed and Flight Speed"
+  },
+  "151100301": {
+    "Name": "Decrease Damage Resistance",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_SO_SKILL_011.png",
+    "Description": "Decreases Damage Resistance"
+  },
+  "151300201": {
+    "Name": "Soul Freeze",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_SO_SKILL_013.png",
+    "Description": "Decreases Action Points"
+  },
+  "151400001": {
+    "Name": "Curse: Tree",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_Abnormal_Polymorph.png",
+    "Description": "Incapacitation, decreases Fire Resistance"
+  },
+  "151400101": {
+    "Name": "Curse: Tree",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_Abnormal_Polymorph.png",
+    "Description": "Incapacitation, lower fire resistance, easier to break transformation"
+  },
+  "151400201": {
+    "Name": "Curse: Tree",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_Abnormal_Polymorph.png",
+    "Description": "Incapacitation; reduces block/evasion by 200 upon natural expiration"
+  },
+  "151400271": {
+    "Name": "Curse: Tree",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_Abnormal_Polymorph.png",
+    "Description": "Decreases Block and Evasion"
+  },
+  "151400301": {
+    "Name": "Curse: Tree",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_Abnormal_Polymorph.png",
+    "Description": "Incapacitation; reduces block, evasion, and shock resistance upon expiration"
+  },
+  "151400371": {
+    "Name": "Curse: Tree",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_Abnormal_Polymorph.png",
+    "Description": "Decreases Block, Evasion, and Shock Resistance"
+  },
+  "151400401": {
+    "Name": "Curse: Tree",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_Abnormal_Polymorph.png",
+    "Description": "Incapacitation; reduces block, evasion, and shock resistance upon expiration"
+  },
+  "151500001": {
+    "Name": "Frozen State",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_Abnormal_Frozen.png",
+    "Description": "Frozen state"
+  },
+  "151500002": {
+    "Name": "Frozen State",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_Abnormal_Frozen.png",
+    "Description": "Frozen state"
+  },
+  "151600001": {
+    "Name": "Stone Skin",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_016.png",
+    "Description": "Shield, increases Damage Resistance"
+  },
+  "151600101": {
+    "Name": "Stone Skin",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_016.png",
+    "Description": "Shield, increases Damage Resistance and Move Speed"
+  },
+  "151600201": {
+    "Name": "Stone Skin",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_016.png",
+    "Description": "Shield, increases stats, continuous HP recovery during duration"
+  },
+  "151600202": {
+    "Name": "HP Recovery",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_016.png",
+    "Description": "Restores HP"
+  },
+  "151600301": {
+    "Name": "Stone Skin",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_016.png",
+    "Description": "Shield, increases stats, continuous HP recovery during duration"
+  },
+  "151600401": {
+    "Name": "Stone Skin",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_016.png",
+    "Description": "Shield, increases stats, continuous HP recovery during duration"
+  },
+  "151800001": {
+    "Name": "Vaizel\u0027s Wisdom",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_017.png",
+    "Description": "Decreases casting speed, increases all Elemental Attack Power"
+  },
+  "152000011": {
+    "Name": "Cold Storm",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_019.png",
+    "Description": "Cold Storm"
+  },
+  "152000021": {
+    "Name": "Frostbite",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_SO_SKILL_019.png",
+    "Description": "Continuous Water damage"
+  },
+  "152000111": {
+    "Name": "Cold Storm",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_019.png",
+    "Description": "Cold Storm"
+  },
+  "152000421": {
+    "Name": "Enhanced: Frostbite",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_SO_SKILL_019.png",
+    "Description": "Continuous Water damage; additional damage from Water attacks"
+  },
+  "152000471": {
+    "Name": "Enhanced: Frostbite",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_019.png",
+    "Description": "Enhanced: Frostbite"
+  },
+  "152200371": {
+    "Name": "Frozen Explosion",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_SO_SKILL_022.png",
+    "Description": ""
+  },
+  "152200381": {
+    "Name": "Frozen Explosion",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_SO_SKILL_022.png",
+    "Description": ""
+  },
+  "152300001": {
+    "Name": "Winter Armor",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_021.png",
+    "Description": "Increases Damage Resistance, freezes attacker"
+  },
+  "152300101": {
+    "Name": "Winter Armor",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_021.png",
+    "Description": "Increases damage and shock resistance, freezes attacker"
+  },
+  "152300201": {
+    "Name": "Winter Armor",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_021.png",
+    "Description": "Increases stats, freezes attacker, increases Frost Summon effect"
+  },
+  "152300301": {
+    "Name": "Winter Armor",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_021.png",
+    "Description": "Increases stats, freezes attacker, increases Frost Summon and Robe of Frost effects"
+  },
+  "152300401": {
+    "Name": "Winter Armor",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_021.png",
+    "Description": "Increases stats, freezes attacker, increases Frost Summon and Robe of Frost effects"
+  },
+  "152800011": {
+    "Name": "SkillAbnormalString_152800011",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_025.png",
+    "Description": ""
+  },
+  "152800031": {
+    "Name": "Bind",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_Abnormal_HOLD.png",
+    "Description": "Bind state"
+  },
+  "152800221": {
+    "Name": "Decrease Damage Resistance",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_SO_SKILL_025.png",
+    "Description": "Decreases Damage Resistance"
+  },
+  "152800331": {
+    "Name": "Pull",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_SO_SKILL_025.png",
+    "Description": "Pull"
+  },
+  "152900001": {
+    "Name": "Illusion",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_026.png",
+    "Description": "Evades 1 attack"
+  },
+  "153100001": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases Attack Power and Accuracy"
+  },
+  "153100101": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases stats, decreases Mana consumption"
+  },
+  "153100201": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases Attack Power and Accuracy"
+  },
+  "153100301": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases stats and Max Mana"
+  },
+  "153100401": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases stats and Attack Speed"
+  },
+  "153100501": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases Attack Power and Accuracy"
+  },
+  "153101201": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases stats, decreases Mana consumption"
+  },
+  "153101301": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases stats/efficiency and Max Mana"
+  },
+  "153101401": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases stats/efficiency and Attack Speed"
+  },
+  "153101501": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases stats, decreases Mana consumption"
+  },
+  "153102301": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases stats and Max Mana"
+  },
+  "153102401": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases stats and Attack Speed"
+  },
+  "153102501": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases Attack Power and Accuracy"
+  },
+  "153103401": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases stats, Max Mana, and Attack Speed"
+  },
+  "153103501": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases stats and Max Mana"
+  },
+  "153104501": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases stats and Attack Speed"
+  },
+  "153112301": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases stats/efficiency and Max Mana"
+  },
+  "153112401": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases stats/efficiency and Attack Speed"
+  },
+  "153112501": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases stats, decreases Mana consumption"
+  },
+  "153113401": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases stats/efficiency, Max Mana, and Attack Speed"
+  },
+  "153113501": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases stats/efficiency and Max Mana"
+  },
+  "153114501": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases stats/efficiency and Attack Speed"
+  },
+  "153123401": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases stats, Max Mana, and Attack Speed"
+  },
+  "153123501": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases stats and Max Mana"
+  },
+  "153124501": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases stats and Attack Speed"
+  },
+  "153134501": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_028.png",
+    "Description": "Increases stats, Max Mana, and Attack Speed"
+  },
+  "153200001": {
+    "Name": "Delayed Damage",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_SO_SKILL_032.png",
+    "Description": "Fire damage after 4 seconds; decreases Damage Resistance"
+  },
+  "153200101": {
+    "Name": "Delayed Damage",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_SO_SKILL_032.png",
+    "Description": "Fire damage after 4 seconds; decreases Damage Resistance"
+  },
+  "153200201": {
+    "Name": "Delayed Damage",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_SO_SKILL_032.png",
+    "Description": "Fire damage after 4 seconds; decreases Damage Resistance"
+  },
+  "153200301": {
+    "Name": "Delayed Damage",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_SO_SKILL_032.png",
+    "Description": "Fire damage after 4 seconds; decreases Damage Resistance"
+  },
+  "153200401": {
+    "Name": "Delayed Damage",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_SO_SKILL_032.png",
+    "Description": "Fire damage after 4 seconds; decreases Damage Resistance"
+  },
+  "153400001": {
+    "Name": "Mutation",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_SO_SKILL_014.png",
+    "Description": "Incapacitation"
+  },
+  "153800001": {
+    "Name": "Lumiel\u0027s Authority",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_027.png",
+    "Description": "Status immunity state"
+  },
+  "153900001": {
+    "Name": "Embers",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_SO_SKILL_039.png",
+    "Description": "Continuous damage"
+  },
+  "153900011": {
+    "Name": "Flame Barrier",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_039.png",
+    "Description": ""
+  },
+  "153900401": {
+    "Name": "Enhanced: Embers",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_SO_SKILL_039.png",
+    "Description": "Continuous damage; additional damage from Fire attacks"
+  },
+  "153900471": {
+    "Name": "Enhanced: Embers",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_039.png",
+    "Description": "Enhanced: Embers"
+  },
+  "154000001": {
+    "Name": "Elemental Augmentation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_040.png",
+    "Description": "Increases Fire and Water damage"
+  },
+  "154000101": {
+    "Name": "Elemental Augmentation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_040.png",
+    "Description": "Increases Fire and Water damage; increases Accuracy"
+  },
+  "154000201": {
+    "Name": "Elemental Augmentation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_040.png",
+    "Description": "Increases fire/water damage and accuracy; increases Robe of Earth effect"
+  },
+  "154000301": {
+    "Name": "Elemental Augmentation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_040.png",
+    "Description": "Increases stats/accuracy; increases Robe of Earth and Grace of Enhancement effects"
+  },
+  "154000401": {
+    "Name": "Elemental Augmentation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_040.png",
+    "Description": "Further increases fire/water damage and accuracy; increases robe/grace effects"
+  },
+  "154100001": {
+    "Name": "Hibernation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_041.png",
+    "Description": "Damage nullification, incapacitation"
+  },
+  "154100071": {
+    "Name": "Hibernation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_041.png",
+    "Description": ""
+  },
+  "154100081": {
+    "Name": "Wake Up",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_041.png",
+    "Description": ""
+  },
+  "154100101": {
+    "Name": "Hibernation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_041.png",
+    "Description": "Damage nullification, increases Received Healing, incapacitation"
+  },
+  "154100171": {
+    "Name": "Hibernation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_041.png",
+    "Description": ""
+  },
+  "154100181": {
+    "Name": "Wake Up",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_041.png",
+    "Description": ""
+  },
+  "154100201": {
+    "Name": "Hibernation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_041.png",
+    "Description": "Damage nullification, healing boost, continuous HP recovery, incapacitation"
+  },
+  "154100271": {
+    "Name": "Hibernation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_041.png",
+    "Description": ""
+  },
+  "154100281": {
+    "Name": "Wake Up",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_041.png",
+    "Description": ""
+  },
+  "154100301": {
+    "Name": "Hibernation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_041.png",
+    "Description": "Damage nullification, healing boost, continuous HP recovery, incapacitation"
+  },
+  "154100371": {
+    "Name": "Hibernation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_041.png",
+    "Description": ""
+  },
+  "154100381": {
+    "Name": "Wake Up",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_041.png",
+    "Description": ""
+  },
+  "154100401": {
+    "Name": "Hibernation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_041.png",
+    "Description": "Damage nullification, healing boost, continuous HP recovery, incapacitation"
+  },
+  "154100471": {
+    "Name": "Hibernation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_041.png",
+    "Description": ""
+  },
+  "154100481": {
+    "Name": "Wake Up",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_041.png",
+    "Description": ""
+  },
+  "154100581": {
+    "Name": "Wake Up",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_SO_SKILL_041.png",
+    "Description": ""
+  },
+  "157100001": {
+    "Name": "Mark of Fire",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_SO_SKILL_Passive_002.png",
+    "Description": "Decreases Attack Power; 10% chance for extra damage with Fire attacks"
+  },
+  "157100071": {
+    "Name": "Mark of Fire",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_SO_SKILL_Passive_002.png",
+    "Description": "Decreases Attack Power"
+  },
+  "157100072": {
+    "Name": "Mark of Fire",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_SO_SKILL_Passive_002.png",
+    "Description": "Decreases Attack Power"
+  },
+  "157100081": {
+    "Name": "Burn",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_Cond_SO_Passive_002.png",
+    "Description": "Continuous Fire damage"
+  },
+  "157200001": {
+    "Name": "Robe of Earth",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_SO_SKILL_Passive_006.png",
+    "Description": "Increases Max Mana and Mana Recovery; increases Crit Hit when Mana is above 50%"
+  },
+  "157300001": {
+    "Name": "Frost Summon",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_SO_SKILL_Passive_003.png",
+    "Description": "Additional damage to Slowed targets"
+  },
+  "157400001": {
+    "Name": "Robe of Flame",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_SO_SKILL_Passive_004.png",
+    "Description": "Increases Accuracy, Damage Amplification, and Smash"
+  },
+  "157500001": {
+    "Name": "Robe of Frost",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_SO_SKILL_Passive_005.png",
+    "Description": "Increases stats, inflicts Slow on attacker when hit"
+  },
+  "157500071": {
+    "Name": "Robe of Frost",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_SO_SKILL_Passive_005.png",
+    "Description": "Slowed state"
+  },
+  "157500072": {
+    "Name": "Robe of Frost",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_SO_SKILL_Passive_005.png",
+    "Description": "Slowed state"
+  },
+  "157600001": {
+    "Name": "Essence Siphon",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_SO_SKILL_Passive_001.png",
+    "Description": "Restores mana on hit; 50% chance to reduce target\u0027s block/evasion"
+  },
+  "157600081": {
+    "Name": "Essence Siphon",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_SO_SKILL_Passive_001.png",
+    "Description": "Decreases Block and Evasion"
+  },
+  "157700001": {
+    "Name": "Grace of Resistance",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_SO_SKILL_038.png",
+    "Description": "Increases Mental and Shock Resistance"
+  },
+  "157800001": {
+    "Name": "Grace of Enhancement",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_SO_SKILL_Passive_007.png",
+    "Description": "Increases damage amp when mana is above 50%; 50% chance for extra damage"
+  },
+  "157900001": {
+    "Name": "Contract of Resurrection",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_AS_SKILL_Passive_009.png",
+    "Description": "Increases resistance under CC; restores HP when HP is 10% or below"
+  },
+  "157900081": {
+    "Name": "Contract of Resurrection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_Passive_009.png",
+    "Description": "Increases Status Resistance"
+  },
+  "158000001": {
+    "Name": "Vitality Evaporation",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_SO_SKILL_Passive_008.png",
+    "Description": "Additional damage based on target HP"
+  },
+  "160011091": {
+    "Name": "Wind Gale",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_014.png",
+    "Description": "Continuous damage"
+  },
+  "160011131": {
+    "Name": "Dust Cloud",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_014.png",
+    "Description": "Decreases Status Resistance"
+  },
+  "160300401": {
+    "Name": "Elemental Flow",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_003.png",
+    "Description": "Increases Attack Power"
+  },
+  "160600301": {
+    "Name": "Shield",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_006.png",
+    "Description": "Shield effect"
+  },
+  "160700101": {
+    "Name": "Soul Shriek",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_007.png",
+    "Description": "Decreases Defense"
+  },
+  "160800001": {
+    "Name": "Fear Shriek",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_008.png",
+    "Description": "Decreases Damage Resistance"
+  },
+  "16100201": {
+    "Name": "Fire Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_010.png",
+    "Description": "Increases Critical Damage"
+  },
+  "161000202": {
+    "Name": "Fire Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_010.png",
+    "Description": "Increases Critical Damage"
+  },
+  "161000203": {
+    "Name": "Fire Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_010.png",
+    "Description": "Increases Critical Damage"
+  },
+  "161000204": {
+    "Name": "Fire Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_010.png",
+    "Description": "Increases Critical Damage"
+  },
+  "161002301": {
+    "Name": "Fire Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_010.png",
+    "Description": "Increases Critical Damage"
+  },
+  "161002302": {
+    "Name": "Fire Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_010.png",
+    "Description": "Increases Critical Damage"
+  },
+  "161002303": {
+    "Name": "Fire Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_010.png",
+    "Description": "Increases Critical Damage"
+  },
+  "161002304": {
+    "Name": "Fire Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_010.png",
+    "Description": "Increases Critical Damage"
+  },
+  "161002401": {
+    "Name": "Fire Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_010.png",
+    "Description": "Increases Critical Damage"
+  },
+  "161002402": {
+    "Name": "Fire Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_010.png",
+    "Description": "Increases Critical Damage"
+  },
+  "161002403": {
+    "Name": "Fire Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_010.png",
+    "Description": "Increases Critical Damage"
+  },
+  "161002404": {
+    "Name": "Fire Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_010.png",
+    "Description": "Increases Critical Damage"
+  },
+  "161002501": {
+    "Name": "Fire Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_010.png",
+    "Description": "Increases Critical Damage"
+  },
+  "161002502": {
+    "Name": "Fire Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_010.png",
+    "Description": "Increases Critical Damage"
+  },
+  "161002503": {
+    "Name": "Fire Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_010.png",
+    "Description": "Increases Critical Damage"
+  },
+  "161002504": {
+    "Name": "Fire Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_010.png",
+    "Description": "Increases Critical Damage"
+  },
+  "161023401": {
+    "Name": "Fire Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_010.png",
+    "Description": "Increases Critical Damage"
+  },
+  "161023402": {
+    "Name": "Fire Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_010.png",
+    "Description": "Increases Critical Damage"
+  },
+  "161023403": {
+    "Name": "Fire Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_010.png",
+    "Description": "Increases Critical Damage"
+  },
+  "161023404": {
+    "Name": "Fire Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_010.png",
+    "Description": "Increases Critical Damage"
+  },
+  "161100201": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_011.png",
+    "Description": "Increases Attack Power"
+  },
+  "161100202": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_011.png",
+    "Description": "Increases Attack Power"
+  },
+  "161100203": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_011.png",
+    "Description": "Increases Attack Power"
+  },
+  "161100204": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_011.png",
+    "Description": "Increases Attack Power"
+  },
+  "161102301": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_011.png",
+    "Description": "Increases Attack Power"
+  },
+  "161102302": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_011.png",
+    "Description": "Increases Attack Power"
+  },
+  "161102303": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_011.png",
+    "Description": "Increases Attack Power"
+  },
+  "161102304": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_011.png",
+    "Description": "Increases Attack Power"
+  },
+  "161102401": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_011.png",
+    "Description": "Increases Attack Power"
+  },
+  "161102402": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_011.png",
+    "Description": "Increases Attack Power"
+  },
+  "161102403": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_011.png",
+    "Description": "Increases Attack Power"
+  },
+  "161102404": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_011.png",
+    "Description": "Increases Attack Power"
+  },
+  "161102501": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_011.png",
+    "Description": "Increases Attack Power"
+  },
+  "161102502": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_011.png",
+    "Description": "Increases Attack Power"
+  },
+  "161102503": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_011.png",
+    "Description": "Increases Attack Power"
+  },
+  "161102504": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_011.png",
+    "Description": "Increases Attack Power"
+  },
+  "161123401": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_011.png",
+    "Description": "Increases Attack Power"
+  },
+  "161123402": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_011.png",
+    "Description": "Increases Attack Power"
+  },
+  "161123403": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_011.png",
+    "Description": "Increases Attack Power"
+  },
+  "161123404": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_011.png",
+    "Description": "Increases Attack Power"
+  },
+  "161200011": {
+    "Name": "Wind Spirit",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_012.png",
+    "Description": "Decreases Damage Resistance"
+  },
+  "161200201": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_012.png",
+    "Description": "Increases Critical Hit"
+  },
+  "161200202": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_012.png",
+    "Description": "Increases Critical Hit"
+  },
+  "161200203": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_012.png",
+    "Description": "Increases Critical Hit"
+  },
+  "161200204": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_012.png",
+    "Description": "Increases Critical Hit"
+  },
+  "161200400": {
+    "Name": "Wind Spirit",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_Abnormal_HOLD.png",
+    "Description": "Decreases Attack Speed"
+  },
+  "161202301": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_012.png",
+    "Description": "Increases Critical Hit"
+  },
+  "161202302": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_012.png",
+    "Description": "Increases Critical Hit"
+  },
+  "161202303": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_012.png",
+    "Description": "Increases Critical Hit"
+  },
+  "161202304": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_012.png",
+    "Description": "Increases Critical Hit"
+  },
+  "161202401": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_012.png",
+    "Description": "Increases Critical Hit"
+  },
+  "161202402": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_012.png",
+    "Description": "Increases Critical Hit"
+  },
+  "161202403": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_012.png",
+    "Description": "Increases Critical Hit"
+  },
+  "161202404": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_012.png",
+    "Description": "Increases Critical Hit"
+  },
+  "161202501": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_012.png",
+    "Description": "Increases Critical Hit"
+  },
+  "161202502": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_012.png",
+    "Description": "Increases Critical Hit"
+  },
+  "161202503": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_012.png",
+    "Description": "Increases Critical Hit"
+  },
+  "161202504": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_012.png",
+    "Description": "Increases Critical Hit"
+  },
+  "161223401": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_012.png",
+    "Description": "Increases Critical Hit"
+  },
+  "161223402": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_012.png",
+    "Description": "Increases Critical Hit"
+  },
+  "161223403": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_012.png",
+    "Description": "Increases Critical Hit"
+  },
+  "161223404": {
+    "Name": "Water Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_012.png",
+    "Description": "Increases Critical Hit"
+  },
+  "161300011": {
+    "Name": "Earth Spirit",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_013.png",
+    "Description": "Decreases Damage Amplification"
+  },
+  "161300201": {
+    "Name": "Earth Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_013.png",
+    "Description": "Increases Defense"
+  },
+  "161300202": {
+    "Name": "Earth Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_013.png",
+    "Description": "Increases Defense"
+  },
+  "161300203": {
+    "Name": "Earth Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_013.png",
+    "Description": "Increases Defense"
+  },
+  "161300204": {
+    "Name": "Earth Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_013.png",
+    "Description": "Increases Defense"
+  },
+  "161302301": {
+    "Name": "Earth Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_013.png",
+    "Description": "Increases Defense"
+  },
+  "161302302": {
+    "Name": "Earth Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_013.png",
+    "Description": "Increases Defense"
+  },
+  "161302303": {
+    "Name": "Earth Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_013.png",
+    "Description": "Increases Defense"
+  },
+  "161302304": {
+    "Name": "Earth Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_013.png",
+    "Description": "Increases Defense"
+  },
+  "161302401": {
+    "Name": "Earth Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_013.png",
+    "Description": "Increases Defense"
+  },
+  "161302402": {
+    "Name": "Earth Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_013.png",
+    "Description": "Increases Defense"
+  },
+  "161302403": {
+    "Name": "Earth Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_013.png",
+    "Description": "Increases Defense"
+  },
+  "161302404": {
+    "Name": "Earth Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_013.png",
+    "Description": "Increases Defense"
+  },
+  "161302501": {
+    "Name": "Earth Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_013.png",
+    "Description": "Increases Defense"
+  },
+  "161302502": {
+    "Name": "Earth Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_013.png",
+    "Description": "Increases Defense"
+  },
+  "161302503": {
+    "Name": "Earth Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_013.png",
+    "Description": "Increases Defense"
+  },
+  "161302504": {
+    "Name": "Earth Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_013.png",
+    "Description": "Increases Defense"
+  },
+  "161323401": {
+    "Name": "Earth Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_013.png",
+    "Description": "Increases Defense"
+  },
+  "161323402": {
+    "Name": "Earth Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_013.png",
+    "Description": "Increases Defense"
+  },
+  "161323403": {
+    "Name": "Earth Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_013.png",
+    "Description": "Increases Defense"
+  },
+  "161323404": {
+    "Name": "Earth Spirit",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_013.png",
+    "Description": "Increases Defense"
+  },
+  "161400001": {
+    "Name": "Curse",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_014.png",
+    "Description": "Continuous damage, decreases Critical Damage Resistance"
+  },
+  "161400003": {
+    "Name": "Curse",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_014.png",
+    "Description": "Continuous damage, decreases crit resistance and damage to Spiritmaster"
+  },
+  "161400005": {
+    "Name": "Curse",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_014.png",
+    "Description": "Continuous damage, decreases Critical Damage Resistance"
+  },
+  "161400007": {
+    "Name": "Curse",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_014.png",
+    "Description": "Continuous damage, decreases crit resistance and damage to Spiritmaster"
+  },
+  "161500001": {
+    "Name": "Erosion",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_015.png",
+    "Description": "Continuous damage, decreases Damage Resistance"
+  },
+  "161500002": {
+    "Name": "Erosion",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_015.png",
+    "Description": "Continuous damage, decreases damage and amplification resistance"
+  },
+  "161500004": {
+    "Name": "Erosion",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_015.png",
+    "Description": "Continuous damage, decreases damage amp and received healing"
+  },
+  "161500005": {
+    "Name": "Erosion",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_015.png",
+    "Description": "Continuous damage, decreases damage amp and received healing"
+  },
+  "161531001": {
+    "Name": "Pincer: Erosion",
+    "Type": "DEBUFF",
+    "IconUrlPart": ".png",
+    "Description": "Increases Enmity"
+  },
+  "161700001": {
+    "Name": "Command: Substitute",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_017.png",
+    "Description": "Increases Damage Resistance, distributes Spiritmaster\u0027s damage to Spirit"
+  },
+  "161700002": {
+    "Name": "Command: Substitute",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_017.png",
+    "Description": "Increases Damage Resistance, distributes Spiritmaster\u0027s damage to Spirit"
+  },
+  "161700003": {
+    "Name": "Command: Substitute",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_017.png",
+    "Description": "Further increases Damage Resistance, distributes damage"
+  },
+  "161700004": {
+    "Name": "Command: Substitute",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_017.png",
+    "Description": "Further increases Damage Resistance, distributes damage, increases Spirit Protection effect"
+  },
+  "161700005": {
+    "Name": "Command: Substitute",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_017.png",
+    "Description": "Increases stats/sharing, increases Spirit Protection, continuous HP recovery"
+  },
+  "161700011": {
+    "Name": "Command: Substitute",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_017.png",
+    "Description": "Distributes damage to Spirit"
+  },
+  "161700012": {
+    "Name": "Command: Substitute",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_017.png",
+    "Description": "Distributes damage to Spirit"
+  },
+  "161700013": {
+    "Name": "Command: Substitute",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_017.png",
+    "Description": "Distributes damage to Spirit"
+  },
+  "161700014": {
+    "Name": "Command: Substitute",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_017.png",
+    "Description": "Distributes damage to Spirit, increases Spirit Protection effect by 1.5x"
+  },
+  "161700015": {
+    "Name": "Command: Substitute",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_017.png",
+    "Description": "Distributes damage to Spirit, increases Spirit Protection effect by 1.5x"
+  },
+  "161900001": {
+    "Name": "Spirit Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_019.png",
+    "Description": "Increases Damage Amplification and Damage Resistance, continuous recovery"
+  },
+  "161900002": {
+    "Name": "Spirit Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_019.png",
+    "Description": "Increases stats, continuous recovery, increases Spirit Strike effect"
+  },
+  "161900003": {
+    "Name": "Spirit Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_019.png",
+    "Description": "Increases stats, continuous recovery, increases Spirit Strike and Spirit Rapport"
+  },
+  "161900004": {
+    "Name": "Spirit Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_019.png",
+    "Description": "Increases stats, continuous recovery, increases Spirit Strike and Spirit Rapport"
+  },
+  "162100001": {
+    "Name": "Fear",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_007.png",
+    "Description": "Feared state"
+  },
+  "162100002": {
+    "Name": "Fear",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_007.png",
+    "Description": "Feared state"
+  },
+  "162200001": {
+    "Name": "Curse of Cloud",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_022.png",
+    "Description": "Continuous damage"
+  },
+  "162200002": {
+    "Name": "Curse of Cloud",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_022.png",
+    "Description": "Continuous damage, decreases Max Action Points"
+  },
+  "162200003": {
+    "Name": "Curse of Cloud",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_022.png",
+    "Description": "Continuous damage, decreases Max Action Points and Max HP"
+  },
+  "162200004": {
+    "Name": "Curse of Cloud",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_022.png",
+    "Description": "Continuous damage, decreases Max AP, Max HP, and Damage Resistance"
+  },
+  "162200005": {
+    "Name": "Curse of Cloud",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_022.png",
+    "Description": "Continuous damage, decreases stats and Status Resistance"
+  },
+  "162200006": {
+    "Name": "Curse of Cloud",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_022.png",
+    "Description": "Continuous damage, decreases Max Action Points"
+  },
+  "162200007": {
+    "Name": "Curse of Cloud",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_022.png",
+    "Description": "Continuous damage, decreases Max AP and Damage Resistance"
+  },
+  "162200008": {
+    "Name": "Curse of Cloud",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_022.png",
+    "Description": "Continuous damage, decreases stats and Status Resistance"
+  },
+  "162600001": {
+    "Name": "Magic Block",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_026.png",
+    "Description": "Decreases Max Action Points"
+  },
+  "163000002": {
+    "Name": "Four Elements",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_030.png",
+    "Description": "Can use [Elemental Fusion] skill"
+  },
+  "163000003": {
+    "Name": "Element",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_030.png",
+    "Description": "Obtained when using spirit skills; changes to Four Elements at 4 stacks"
+  },
+  "163000004": {
+    "Name": "Element [Water]",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_011.png",
+    "Description": "Element [Water]"
+  },
+  "163000005": {
+    "Name": "Element [Wind]",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_012.png",
+    "Description": "Element [Wind]"
+  },
+  "163000006": {
+    "Name": "Element [Earth]",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_013.png",
+    "Description": "Element [Earth]"
+  },
+  "163000007": {
+    "Name": "Decrease Damage Resistance",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_030.png",
+    "Description": "Decreases Damage Resistance"
+  },
+  "163000008": {
+    "Name": "Delayed Damage",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_030.png",
+    "Description": "Additional damage after {se:1630002013:effect_value02:time}"
+  },
+  "163300071": {
+    "Name": "Spatial Dominion",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_033.png",
+    "Description": "Pull"
+  },
+  "163300201": {
+    "Name": "Delayed Damage",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_033.png",
+    "Description": "Additional damage after {se:1633002014:effect_value02:time}"
+  },
+  "163300401": {
+    "Name": "Spatial Dominion",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_033.png",
+    "Description": "Pull"
+  },
+  "163300402": {
+    "Name": "Spatial Dominion",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_033.png",
+    "Description": "Pull"
+  },
+  "163600001": {
+    "Name": "Kaisinel\u0027s Authority",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_036.png",
+    "Description": "Increases Status Effect Hit and Status Resistance"
+  },
+  "163600002": {
+    "Name": "Kaisinel\u0027s Authority",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_036.png",
+    "Description": "Increases Hit, Status Resistance, Block, and Evasion"
+  },
+  "163600003": {
+    "Name": "Kaisinel\u0027s Authority",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_036.png",
+    "Description": "Increases Hit, Status Resistance, Block, and Evasion"
+  },
+  "163600004": {
+    "Name": "Kaisinel\u0027s Authority",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_036.png",
+    "Description": "Increases stats and Accuracy"
+  },
+  "163600005": {
+    "Name": "Kaisinel\u0027s Authority",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_036.png",
+    "Description": "Further increases Status Hit and other stats"
+  },
+  "163700001": {
+    "Name": "Blessing of Flames",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_037.png",
+    "Description": "Chance to deal additional damage on hit"
+  },
+  "163700002": {
+    "Name": "Blessing of Flames",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_037.png",
+    "Description": "Chance for extra damage; increases Accuracy"
+  },
+  "163700003": {
+    "Name": "Blessing of Flames",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_037.png",
+    "Description": "Chance for extra damage; increases Accuracy and Critical Hit"
+  },
+  "163700004": {
+    "Name": "Blessing of Flames",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_037.png",
+    "Description": "Increases stats and Critical Damage Amplification"
+  },
+  "163700005": {
+    "Name": "Blessing of Flames",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_037.png",
+    "Description": "Increases stats; 50% reduction to extra damage cooldown"
+  },
+  "167100001": {
+    "Name": "Spirit Strike",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_EL_SKILL_Passive_004.png",
+    "Description": "Increases self and spirit damage amp and perfection"
+  },
+  "167200001": {
+    "Name": "Spirit Protection",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_EL_SKILL_Passive_002.png",
+    "Description": "Increases self and spirit defense"
+  },
+  "167300001": {
+    "Name": "Spirit Advent",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_EL_SKILL_Passive_003.png",
+    "Description": "Chance for additional damage on attack"
+  },
+  "167300011": {
+    "Name": "Spirit Advent",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_Passive_003.png",
+    "Description": "Chance for additional damage on attack"
+  },
+  "167300012": {
+    "Name": "Spirit Advent",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_EL_SKILL_Passive_003.png",
+    "Description": "Increases chance for additional damage"
+  },
+  "167400001": {
+    "Name": "Corrosion",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_EL_SKILL_Passive_012.png",
+    "Description": "Increases Critical Hit; chance for extra damage on critical hit"
+  },
+  "167400011": {
+    "Name": "Corrosion",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_Passive_012.png",
+    "Description": "Continuous damage"
+  },
+  "167500001": {
+    "Name": "Spirit Resurrection",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_EL_SKILL_Passive_005.png",
+    "Description": "Restores spirit HP when below 50%; chance to reduce summon cooldown"
+  },
+  "167600001": {
+    "Name": "Mental Focus",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_EL_SKILL_Passive_006.png",
+    "Description": "Increases Mental Status Hit and Smash"
+  },
+  "167700001": {
+    "Name": "Spirit Rapport",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_EL_SKILL_Passive_007.png",
+    "Description": "Increases Accuracy; chance to restore self and spirit HP on attack"
+  },
+  "167800001": {
+    "Name": "Elemental Conflux",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_EL_SKILL_Passive_008.png",
+    "Description": "Spirit skills deal continuous damage and reduce attack power"
+  },
+  "167800011": {
+    "Name": "Elemental Conflux",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_Passive_008.png",
+    "Description": "Spirit skills deal continuous damage and reduce attack power"
+  },
+  "167800021": {
+    "Name": "Elemental Conflux",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_EL_SKILL_Passive_008.png",
+    "Description": "Spirit skills deal continuous damage and reduce attack power"
+  },
+  "167900001": {
+    "Name": "Contract of Resurrection",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_AS_SKILL_Passive_009.png",
+    "Description": "Increases resistance under CC; restores HP when HP is 10% or below"
+  },
+  "167900021": {
+    "Name": "Contract of Resurrection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_AS_SKILL_Passive_009.png",
+    "Description": "Increases Status Resistance"
+  },
+  "168000001": {
+    "Name": "Consecutive Backflow",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_EL_SKILL_Passive_013.png",
+    "Description": "Chance for additional damage when hitting a target with continuous damage"
+  },
+  "170000001": {
+    "Name": "Cleric Weapon Mastery",
+    "Type": "PASSIVE",
+    "IconUrlPart": ".png",
+    "Description": "Equip Maces and Guards"
+  },
+  "170700001": {
+    "Name": "Chain of Suffering",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_007.png",
+    "Description": "Decreases Damage Resistance, continuous damage state"
+  },
+  "170700101": {
+    "Name": "Chain of Suffering",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_007.png",
+    "Description": "Decreases Damage Resistance, continuous damage state"
+  },
+  "170700201": {
+    "Name": "Chain of Suffering",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_007.png",
+    "Description": "Decreases Damage Resistance, continuous damage state"
+  },
+  "170700401": {
+    "Name": "Chain of Suffering",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_007.png",
+    "Description": "Decreases Damage Resistance, continuous damage state"
+  },
+  "170700501": {
+    "Name": "Chain of Suffering",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_007.png",
+    "Description": "Decreases Damage Resistance, continuous damage state"
+  },
+  "170701201": {
+    "Name": "Chain of Suffering",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_007.png",
+    "Description": "Decreases Damage Resistance, continuous damage state"
+  },
+  "170701401": {
+    "Name": "Chain of Suffering",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_007.png",
+    "Description": "Decreases Damage Resistance, continuous damage state"
+  },
+  "170701501": {
+    "Name": "Chain of Suffering",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_007.png",
+    "Description": "Decreases Damage Resistance, continuous damage state"
+  },
+  "170702401": {
+    "Name": "Chain of Suffering",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_007.png",
+    "Description": "Decreases Damage Resistance, continuous damage state"
+  },
+  "170702501": {
+    "Name": "Chain of Suffering",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_007.png",
+    "Description": "Decreases Damage Resistance, continuous damage state"
+  },
+  "170704501": {
+    "Name": "Chain of Suffering",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_007.png",
+    "Description": "Decreases Damage Resistance, continuous damage state"
+  },
+  "170800001": {
+    "Name": "Brand of Weakening",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_008.png",
+    "Description": "Decreases Damage Resistance, continuous damage state"
+  },
+  "170800201": {
+    "Name": "Brand of Weakening",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_008.png",
+    "Description": "Decreases Damage Resistance and Defense, continuous damage state"
+  },
+  "170800401": {
+    "Name": "Brand of Weakening",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_008.png",
+    "Description": "Decreases Damage Resistance, continuous damage state"
+  },
+  "170800501": {
+    "Name": "Brand of Weakening",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_008.png",
+    "Description": "Decreases Damage Resistance, continuous damage state"
+  },
+  "170802401": {
+    "Name": "Brand of Weakening",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_008.png",
+    "Description": "Decreases Damage Resistance and Defense, continuous damage state"
+  },
+  "170802501": {
+    "Name": "Brand of Weakening",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_008.png",
+    "Description": "Decreases Damage Resistance and Defense, continuous damage state"
+  },
+  "170804501": {
+    "Name": "Brand of Weakening",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_008.png",
+    "Description": "Decreases Damage Resistance, continuous damage state"
+  },
+  "170824501": {
+    "Name": "Brand of Weakening",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_008.png",
+    "Description": "Decreases Damage Resistance and Defense, continuous damage state"
+  },
+  "170900001": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases Damage Resistance"
+  },
+  "170900101": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases Damage Resistance and Defense"
+  },
+  "170900201": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases Damage Resistance and Attack Power"
+  },
+  "170900301": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases damage resistance, block, and evasion"
+  },
+  "170900401": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases Damage Resistance and Critical Hit"
+  },
+  "170900501": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases Damage Resistance"
+  },
+  "170901201": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases stats, defense, and attack power"
+  },
+  "170901301": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases defense, damage resistance, block, and evasion"
+  },
+  "170901401": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases defense, damage resistance, and critical hit"
+  },
+  "170901501": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases Damage Resistance and Defense"
+  },
+  "170902301": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases damage resistance, attack, block, and evasion"
+  },
+  "170902401": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases attack, damage resistance, and critical hit"
+  },
+  "170902501": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases Damage Resistance and Attack Power"
+  },
+  "170903401": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases damage resistance, block, evasion, and critical hit"
+  },
+  "170903501": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases damage resistance, block, and evasion"
+  },
+  "170904501": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases Damage Resistance and Critical Hit"
+  },
+  "170912301": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases damage resistance, defense, attack, block, and evasion"
+  },
+  "170912401": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases defense, attack, and critical hit"
+  },
+  "170912501": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases Damage Resistance, Defense, and Attack Power"
+  },
+  "170913401": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases defense, damage resistance, block, evasion, and crit"
+  },
+  "170913501": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases defense, damage resistance, block, and evasion"
+  },
+  "170914501": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases defense, damage resistance, and critical hit"
+  },
+  "170923401": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases damage resistance, attack, block, evasion, and crit"
+  },
+  "170923501": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases attack, damage resistance, block, and evasion"
+  },
+  "170924501": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases Damage Resistance, Attack Power, and Critical Hit"
+  },
+  "170934501": {
+    "Name": "Light of Rejuvenation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_009.png",
+    "Description": "Recovery state, increases damage resistance, block, evasion, and critical hit"
+  },
+  "171200411": {
+    "Name": "Splendor of Recovery",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_012.png",
+    "Description": "Increases Received Healing"
+  },
+  "171600221": {
+    "Name": "Aura of Healing",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_016.png",
+    "Description": "Increases Defense"
+  },
+  "171600321": {
+    "Name": "Aura of Healing",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_016.png",
+    "Description": "Increases Defense and Attack Power"
+  },
+  "171600421": {
+    "Name": "Aura of Healing",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_016.png",
+    "Description": "Increases defense, attack, and attack speed"
+  },
+  "172700001": {
+    "Name": "Salvation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_027.png",
+    "Description": "Damage nullification"
+  },
+  "172700101": {
+    "Name": "Salvation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_027.png",
+    "Description": "Damage nullification, increases Received Healing"
+  },
+  "172700201": {
+    "Name": "Salvation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_027.png",
+    "Description": "Damage nullification, increases healing, restores HP at end"
+  },
+  "172700401": {
+    "Name": "Salvation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_027.png",
+    "Description": "Damage nullification, increases healing, restores HP at end"
+  },
+  "172900401": {
+    "Name": "Acquittal",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_029.png",
+    "Description": "Recovery state"
+  },
+  "173000001": {
+    "Name": "Voice of Destruction",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_030.png",
+    "Description": "Continuous damage, decreases received healing and potion effect"
+  },
+  "173000301": {
+    "Name": "Voice of Destruction",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_030.png",
+    "Description": "Continuous damage, decreases received healing, potion effect, and crit resistance"
+  },
+  "173000401": {
+    "Name": "Voice of Destruction",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_030.png",
+    "Description": "Continuous damage, decreases received healing, potion effect, and crit resistance"
+  },
+  "173900002": {
+    "Name": "Summon Resurrection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_039.png",
+    "Description": "Resurrection effect"
+  },
+  "173900431": {
+    "Name": "Summon Resurrection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_027.png",
+    "Description": "Nullifies damage and weakening magic"
+  },
+  "174000001": {
+    "Name": "Earth\u0027s Punishment",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_040.png",
+    "Description": "Continuous damage state"
+  },
+  "174000101": {
+    "Name": "Earth\u0027s Punishment",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_040.png",
+    "Description": "Continuous damage state"
+  },
+  "174000201": {
+    "Name": "Earth\u0027s Punishment",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_040.png",
+    "Description": "Continuous damage, decreases Smash Resistance"
+  },
+  "174000301": {
+    "Name": "Earth\u0027s Punishment",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_040.png",
+    "Description": "Continuous damage, decreases Smash Resistance, Attack Power, and Defense"
+  },
+  "174000401": {
+    "Name": "Earth\u0027s Punishment",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_040.png",
+    "Description": "Continuous damage, decreases Smash Resistance, Attack Power, and Defense"
+  },
+  "174100001": {
+    "Name": "Light of Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_041.png",
+    "Description": "Increases Max HP and Damage Amplification"
+  },
+  "174100101": {
+    "Name": "Light of Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_041.png",
+    "Description": "Increases Max HP, damage amp, and received healing"
+  },
+  "174100201": {
+    "Name": "Light of Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_041.png",
+    "Description": "Increases Max HP, damage amp, healing, and Move Speed"
+  },
+  "174100301": {
+    "Name": "Light of Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_041.png",
+    "Description": "Increases Max HP, damage amp, healing, and Move Speed"
+  },
+  "174100401": {
+    "Name": "Light of Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_041.png",
+    "Description": "Increases Max HP, damage amp, healing, and Move Speed"
+  },
+  "174100471": {
+    "Name": "Blessing of Reincarnation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_045.png",
+    "Description": "Resurrection blessing"
+  },
+  "174100481": {
+    "Name": "Blessing of Reincarnation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_045.png",
+    "Description": "Resurrection blessing"
+  },
+  "174200001": {
+    "Name": "Yustiel\u0027s Authority",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_042.png",
+    "Description": "Increases Damage Resistance"
+  },
+  "174200101": {
+    "Name": "Yustiel\u0027s Authority Shield",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_Common_Abnormal_HpBarrier.png",
+    "Description": "Shield"
+  },
+  "174200201": {
+    "Name": "Yustiel\u0027s Authority",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_042.png",
+    "Description": "Increases Damage Resistance, Block, and Evasion"
+  },
+  "174200301": {
+    "Name": "Yustiel\u0027s Authority",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_042.png",
+    "Description": "Increases Damage Resistance, Block, Evasion, and Status Resistance"
+  },
+  "174200401": {
+    "Name": "Yustiel\u0027s Authority",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_042.png",
+    "Description": "Increases Damage Resistance, Block, Evasion, and Status Resistance"
+  },
+  "174300001": {
+    "Name": "Prayer of Amplification",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_043.png",
+    "Description": "Increases Attack Power"
+  },
+  "174300201": {
+    "Name": "Prayer of Amplification",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_043.png",
+    "Description": "Increases Attack Power and Empyrean Lord\u0027s Grace effect"
+  },
+  "174300301": {
+    "Name": "Prayer of Amplification",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_043.png",
+    "Description": "Increases attack, Empyrean Lord\u0027s Grace, and Earth\u0027s Grace effects"
+  },
+  "174300401": {
+    "Name": "Prayer of Amplification",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_043.png",
+    "Description": "Increases attack, Empyrean Lord\u0027s Grace, and Earth\u0027s Grace effects"
+  },
+  "174400001": {
+    "Name": "Touch of Reincarnation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_045.png",
+    "Description": "Resurrection blessing"
+  },
+  "174400101": {
+    "Name": "Touch of Reincarnation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_045.png",
+    "Description": "Resurrection blessing"
+  },
+  "174400201": {
+    "Name": "Touch of Reincarnation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_045.png",
+    "Description": "Resurrection blessing, increases Defense"
+  },
+  "174400301": {
+    "Name": "Touch of Reincarnation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_045.png",
+    "Description": "Resurrection blessing, increases Defense and Damage Resistance"
+  },
+  "174400401": {
+    "Name": "Touch of Reincarnation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_045.png",
+    "Description": "Resurrection blessing, increases defense, damage resistance, and healing amplification"
+  },
+  "174400471": {
+    "Name": "Touch of Reincarnation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_045.png",
+    "Description": "Resurrection blessing"
+  },
+  "174401471": {
+    "Name": "Touch of Reincarnation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_045.png",
+    "Description": "Resurrection blessing"
+  },
+  "177100001": {
+    "Name": "Warm Protection",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_CL_SKILL_Passive_001.png",
+    "Description": "Increases HP and Mana"
+  },
+  "177200001": {
+    "Name": "Empyrean Lord\u0027s Protection",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_CL_SKILL_Passive_002.png",
+    "Description": "Increases Block, restores HP on successful Block"
+  },
+  "177200011": {
+    "Name": "Empyrean Lord\u0027s Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_Passive_002.png",
+    "Description": "Increases Block, restores HP on successful Block"
+  },
+  "177300001": {
+    "Name": "Empyrean Lord\u0027s Grace",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_CL_SKILL_Passive_012.png",
+    "Description": "Increases Critical Hit, Smash, and additional damage"
+  },
+  "177400001": {
+    "Name": "Healing Power Enhancement",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_CL_SKILL_Passive_004.png",
+    "Description": "Increases Healing Amplification"
+  },
+  "177500001": {
+    "Name": "Immortal Shroud",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_CL_SKILL_Passive_005.png",
+    "Description": "Increases Defense, Critical Hit Resistance, and Blessing of Reincarnation"
+  },
+  "177500101": {
+    "Name": "Blessing of Reincarnation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_045.png",
+    "Description": "Resurrection blessing"
+  },
+  "177500201": {
+    "Name": "Blessing of Reincarnation",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_045.png",
+    "Description": "Resurrection blessing"
+  },
+  "177500301": {
+    "Name": "Blessing of Reincarnation [Standby]",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_044.png",
+    "Description": "Reincarnation standby state"
+  },
+  "177600001": {
+    "Name": "Recovery Block",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_CL_SKILL_Passive_006.png",
+    "Description": "Chance to reduce target recovery upon hitting"
+  },
+  "177600011": {
+    "Name": "Recovery Block",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CL_SKILL_Passive_006.png",
+    "Description": "Decreases Received Healing"
+  },
+  "177700001": {
+    "Name": "Focused Prayer",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_CL_SKILL_Passive_007.png",
+    "Description": "Creates a shield and increases healing amp when HP is 50% or below"
+  },
+  "177700011": {
+    "Name": "Focused Prayer",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_Passive_007.png",
+    "Description": "Creates a shield, increases healing amplification"
+  },
+  "177800001": {
+    "Name": "Earth\u0027s Grace",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_CL_SKILL_Passive_008.png",
+    "Description": "Increases Damage Amplification upon hitting"
+  },
+  "177800011": {
+    "Name": "Earth\u0027s Grace",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_Passive_008.png",
+    "Description": "Increases Damage Amplification"
+  },
+  "177800021": {
+    "Name": "Earth\u0027s Grace",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_Passive_008.png",
+    "Description": "Increases Damage Amplification"
+  },
+  "177900001": {
+    "Name": "Will to Survive",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_CL_SKILL_Passive_009.png",
+    "Description": "Increases resistance under CC; increases Damage and Status Resistance when CC\u0027d"
+  },
+  "177900011": {
+    "Name": "Will to Survive",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_Passive_009.png",
+    "Description": "Increases Damage Resistance"
+  },
+  "177900021": {
+    "Name": "Will to Survive",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CL_SKILL_Passive_009.png",
+    "Description": "Increases Status Resistance"
+  },
+  "178000001": {
+    "Name": "Radiant Grace",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_CL_SKILL_Passive_010.png",
+    "Description": "Restores self and party HP upon hitting"
+  },
+  "180400201": {
+    "Name": "Block",
+    "Type": "BUFF",
+    "IconUrlPart": "Abnormal/ICON_Abnormal_DotMp.png",
+    "Description": "Block"
+  },
+  "180500401": {
+    "Name": "Rupture Stroke",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CH_SKILL_005.png",
+    "Description": "Decreases Accuracy"
+  },
+  "180600101": {
+    "Name": "Soul Crush",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CH_SKILL_007.png",
+    "Description": "Continuous damage"
+  },
+  "180800004": {
+    "Name": "Shock Wave",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CH_SKILL_008.png",
+    "Description": "Grappled state"
+  },
+  "180800401": {
+    "Name": "Shock Wave",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_Common_Abnormal_AttackDown.png",
+    "Description": "Decreases Damage Amplification"
+  },
+  "181200001": {
+    "Name": "Incantation of Recovery",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_012.png",
+    "Description": "HP recovery state"
+  },
+  "181200301": {
+    "Name": "Incantation of Recovery",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_012.png",
+    "Description": "HP recovery state"
+  },
+  "181400001": {
+    "Name": "Focused Defense",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_014.png",
+    "Description": "Guaranteed Parry state"
+  },
+  "181400401": {
+    "Name": "Focused Defense",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_014.png",
+    "Description": "Guaranteed Parry state"
+  },
+  "181600001": {
+    "Name": "Mantra of Celerity",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_016.png",
+    "Description": "Increases Move Speed; chance to restore HP on hit"
+  },
+  "181600011": {
+    "Name": "Mantra of Celerity",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_016.png",
+    "Description": "Increases Move Speed; chance to restore HP on hit"
+  },
+  "181600101": {
+    "Name": "Mantra of Celerity",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_016.png",
+    "Description": "Increases speed and received healing; chance for HP on hit"
+  },
+  "181600111": {
+    "Name": "Mantra of Celerity",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_016.png",
+    "Description": "Increases speed and received healing; chance for HP on hit"
+  },
+  "181600201": {
+    "Name": "Mantra of Celerity",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_016.png",
+    "Description": "Increases speed, healing, and Action Point recovery"
+  },
+  "181600211": {
+    "Name": "Mantra of Celerity",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_016.png",
+    "Description": "Increases speed, healing, and Action Point recovery"
+  },
+  "181600301": {
+    "Name": "Mantra of Celerity",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_016.png",
+    "Description": "Increases stats; restores double HP on hit when below 50% HP"
+  },
+  "181600311": {
+    "Name": "Mantra of Celerity",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_016.png",
+    "Description": "Increases stats; restores double HP on hit when below 50% HP"
+  },
+  "181600401": {
+    "Name": "Mantra of Celerity",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_016.png",
+    "Description": "Increases stats and Regrowth"
+  },
+  "181600411": {
+    "Name": "Mantra of Celerity",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_016.png",
+    "Description": "Increases stats and Regrowth"
+  },
+  "181900001": {
+    "Name": "Mantra of Victory",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_019.png",
+    "Description": ""
+  },
+  "181900011": {
+    "Name": "Mantra of Victory",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_019.png",
+    "Description": "Increases Damage Amplification and Damage Resistance"
+  },
+  "181900101": {
+    "Name": "Mantra of Victory",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_019.png",
+    "Description": ""
+  },
+  "181900111": {
+    "Name": "Mantra of Victory",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_019.png",
+    "Description": "Increases damage amp, damage resistance, and critical hit"
+  },
+  "181900201": {
+    "Name": "Mantra of Victory",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_019.png",
+    "Description": ""
+  },
+  "181900211": {
+    "Name": "Mantra of Victory",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_019.png",
+    "Description": "Increases damage amp, damage resistance, crit hit, and accuracy"
+  },
+  "181900301": {
+    "Name": "Mantra of Victory",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_019.png",
+    "Description": ""
+  },
+  "181900311": {
+    "Name": "Mantra of Victory",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_019.png",
+    "Description": "Increases stats and Critical Damage Amplification"
+  },
+  "181900401": {
+    "Name": "Mantra of Victory",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_019.png",
+    "Description": ""
+  },
+  "181900411": {
+    "Name": "Mantra of Victory",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_019.png",
+    "Description": "Increases stats, crit amp, and smash"
+  },
+  "182300201": {
+    "Name": "Brand of Binding",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CH_SKILL_023.png",
+    "Description": "Decreases Max Action Points"
+  },
+  "182400001": {
+    "Name": "Authority of Blocking",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_024.png",
+    "Description": "Shield"
+  },
+  "182400101": {
+    "Name": "Authority of Blocking",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_024.png",
+    "Description": "Shield, increases Defense"
+  },
+  "182400201": {
+    "Name": "Authority of Blocking",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_024.png",
+    "Description": "Shield, increases Defense and Received Healing"
+  },
+  "182400301": {
+    "Name": "Authority of Blocking",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_024.png",
+    "Description": "Shield, increases stats and Damage Resistance"
+  },
+  "182400401": {
+    "Name": "Authority of Blocking",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_024.png",
+    "Description": "Shield, increases stats, restores HP at end"
+  },
+  "182500001": {
+    "Name": "Authority of Gales",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_025.png",
+    "Description": "Increases Attack Speed, decreases skill cooldown"
+  },
+  "182500101": {
+    "Name": "Authority of Gales",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_025.png",
+    "Description": "Increases Attack Speed, decreases skill cooldown"
+  },
+  "182500201": {
+    "Name": "Authority of Gales",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_025.png",
+    "Description": "Increases stats and Accuracy"
+  },
+  "182500301": {
+    "Name": "Authority of Gales",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_025.png",
+    "Description": "Increases stats and Critical Hit"
+  },
+  "182500401": {
+    "Name": "Authority of Gales",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_025.png",
+    "Description": "Increases stats and Attack Power"
+  },
+  "183300071": {
+    "Name": "Marchutan\u0027s Wrath",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CH_SKILL_033.png",
+    "Description": ""
+  },
+  "183300301": {
+    "Name": "Marchutan\u0027s Wrath",
+    "Type": "DEBUFF",
+    "IconUrlPart": "ICON_CH_SKILL_033.png",
+    "Description": "Decreases Received Healing and Potion recovery"
+  },
+  "184200001": {
+    "Name": "Blessing of Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_042.png",
+    "Description": "Increases Max HP"
+  },
+  "184200101": {
+    "Name": "Blessing of Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_042.png",
+    "Description": "Increases Max HP and Defense"
+  },
+  "184200201": {
+    "Name": "Blessing of Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_042.png",
+    "Description": "Increases Max HP, Defense, and Cross Defense effect"
+  },
+  "184200301": {
+    "Name": "Blessing of Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_042.png",
+    "Description": "Increases stats and Status Resistance"
+  },
+  "184200401": {
+    "Name": "Blessing of Protection",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_042.png",
+    "Description": "Increases stats, Status Resistance, and Received Healing"
+  },
+  "184400001": {
+    "Name": "Mantra of Warding",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_044.png",
+    "Description": "Fixes HP level"
+  },
+  "184400101": {
+    "Name": "Mantra of Warding",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_044.png",
+    "Description": "Fixes HP level; restores HP at end"
+  },
+  "184400201": {
+    "Name": "Mantra of Warding",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_044.png",
+    "Description": "Fixes HP level; restores HP and increases Damage Resistance at end"
+  },
+  "184400271": {
+    "Name": "Mantra of Warding [Damage Resistance]",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_Common_Abnormal_DefenseUp.png",
+    "Description": "Increases Damage Resistance"
+  },
+  "184400301": {
+    "Name": "Mantra of Warding",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_044.png",
+    "Description": "Fixes HP level; restores HP and increases Damage Resistance at end"
+  },
+  "184400401": {
+    "Name": "Mantra of Warding",
+    "Type": "BUFF",
+    "IconUrlPart": "ICON_CH_SKILL_044.png",
+    "Description": "Fixes HP level; restores HP and increases Damage Resistance at end"
+  },
+  "187100001": {
+    "Name": "Blessing of Life",
+    "Type": "PASSIVE",
+    "IconUrlPart": "SKILL/ICON_CH_SKILL_Passive_001.png",
+    "Description": "Increases HP, Max HP, and Healing Amplification"
+  },
+  "187200001": {
+    "Name": "Cross Defense",
+    "Type": "PASSIVE",
+    "IconUrlPart": "SKILL/ICON_CH_SKILL_Passive_002.png",
+    "Description": "Increases Block, restores HP on successful Block"
+  },
+  "187300001": {
+    "Name": "Protective Array",
+    "Type": "PASSIVE",
+    "IconUrlPart": "SKILL/ICON_CH_SKILL_Passive_003.png",
+    "Description": "Obtains Divine Shield at 10 stacks"
+  },
+  "187300011": {
+    "Name": "Protective Array",
+    "Type": "BUFF",
+    "IconUrlPart": "SKILL/ICON_CH_SKILL_Passive_003.png",
+    "Description": "Obtains Divine Shield at 10 stacks"
+  },
+  "187300021": {
+    "Name": "Divine Shield",
+    "Type": "BUFF",
+    "IconUrlPart": "SKILL/ICON_CH_SKILL_Passive_003.png",
+    "Description": "Shield"
+  },
+  "187400001": {
+    "Name": "Inspirative Incantation",
+    "Type": "PASSIVE",
+    "IconUrlPart": "ICON_CH_SKILL_Passive_011.png",
+    "Description": "Increases Critical Hit and Perfection"
+  },
+  "187500001": {
+    "Name": "Offensive Preparation",
+    "Type": "PASSIVE",
+    "IconUrlPart": "SKILL/ICON_CH_SKILL_Passive_005.png",
+    "Description": "Increases Damage Amplification, Defense, and Accuracy"
+  },
+  "187600001": {
+    "Name": "Impact Hit",
+    "Type": "PASSIVE",
+    "IconUrlPart": "SKILL/ICON_CH_SKILL_Passive_006.png",
+    "Description": "Increases Shock Accuracy and Smash"
+  },
+  "187700001": {
+    "Name": "Incantation of Fury",
+    "Type": "PASSIVE",
+    "IconUrlPart": "SKILL/ICON_CH_SKILL_Passive_007.png",
+    "Description": "Additional damage against Shocked or Groggy targets"
+  },
+  "187800001": {
+    "Name": "Promise of Earth",
+    "Type": "PASSIVE",
+    "IconUrlPart": "SKILL/ICON_CH_SKILL_Passive_008.png",
+    "Description": "Decreases target\u0027s Damage Resistance when your HP is above a certain level"
+  },
+  "187800011": {
+    "Name": "Promise of Earth",
+    "Type": "DEBUFF",
+    "IconUrlPart": "SKILL/ICON_CH_SKILL_Passive_008.png",
+    "Description": "Decreases Damage Resistance"
+  },
+  "187900001": {
+    "Name": "Will to Survive",
+    "Type": "PASSIVE",
+    "IconUrlPart": "SKILL/ICON_CH_SKILL_Passive_009.png",
+    "Description": "Increases resistance under CC; increases Damage and Status Resistance when CC\u0027d"
+  },
+  "187900011": {
+    "Name": "Will to Survive",
+    "Type": "BUFF",
+    "IconUrlPart": "SKILL/ICON_CH_SKILL_Passive_009.png",
+    "Description": "Increases Damage Resistance"
+  },
+  "187900021": {
+    "Name": "Will to Survive",
+    "Type": "BUFF",
+    "IconUrlPart": "SKILL/ICON_CH_SKILL_Passive_009.png",
+    "Description": "Increases Status Resistance"
+  },
+  "188000001": {
+    "Name": "Promise of Wind",
+    "Type": "PASSIVE",
+    "IconUrlPart": "SKILL/ICON_CH_SKILL_Passive_010.png",
+    "Description": "Chance for additional damage upon Critical Hit"
+  }
+}

@@ -54,5 +54,54 @@ namespace AionDpsMeter.UI.ViewModels
         public string DoubleDamageRateFormatted => DamageFormatter.FormatRateRounded(_stats.DoubleDamageRate);
         public double ParryRate              => _stats.ParryRate;
         public string ParryRateFormatted     => DamageFormatter.FormatRateRounded(_stats.ParryRate);
+
+        public void Update(AionDpsMeter.Services.Models.SkillStats stats)
+        {
+            _stats.TotalDamage        = stats.TotalDamage;
+            _stats.HitCount           = stats.HitCount;
+            _stats.CriticalHits       = stats.CriticalHits;
+            _stats.BackAttacks        = stats.BackAttacks;
+            _stats.PerfectHits        = stats.PerfectHits;
+            _stats.DoubleDamageHits   = stats.DoubleDamageHits;
+            _stats.ParryHits          = stats.ParryHits;
+            _stats.MaxHit             = stats.MaxHit;
+            _stats.MinHit             = stats.MinHit;
+            _stats.DamagePerSecond    = stats.DamagePerSecond;
+            _stats.DamagePercentage   = stats.DamagePercentage;
+            _stats.IsDot              = stats.IsDot;
+            _stats.SpecializationFlags = stats.SpecializationFlags;
+
+            OnPropertyChanged(nameof(TotalDamage));
+            OnPropertyChanged(nameof(TotalDamageFormatted));
+            OnPropertyChanged(nameof(DamagePercentage));
+            OnPropertyChanged(nameof(DamagePercentageFormatted));
+            OnPropertyChanged(nameof(DamagePerSecond));
+            OnPropertyChanged(nameof(DpsFormatted));
+            OnPropertyChanged(nameof(HitCount));
+            OnPropertyChanged(nameof(HitCountFormatted));
+            OnPropertyChanged(nameof(CriticalHits));
+            OnPropertyChanged(nameof(BackAttacks));
+            OnPropertyChanged(nameof(PerfectHits));
+            OnPropertyChanged(nameof(DoubleDamageHits));
+            OnPropertyChanged(nameof(ParryHits));
+            OnPropertyChanged(nameof(AverageDamage));
+            OnPropertyChanged(nameof(AverageDamageFormatted));
+            OnPropertyChanged(nameof(MaxHit));
+            OnPropertyChanged(nameof(MaxHitFormatted));
+            OnPropertyChanged(nameof(MinHit));
+            OnPropertyChanged(nameof(MinHitFormatted));
+            OnPropertyChanged(nameof(CriticalRate));
+            OnPropertyChanged(nameof(CriticalRateFormatted));
+            OnPropertyChanged(nameof(BackAttackRate));
+            OnPropertyChanged(nameof(BackAttackRateFormatted));
+            OnPropertyChanged(nameof(PerfectRate));
+            OnPropertyChanged(nameof(PerfectRateFormatted));
+            OnPropertyChanged(nameof(DoubleDamageRate));
+            OnPropertyChanged(nameof(DoubleDamageRateFormatted));
+            OnPropertyChanged(nameof(ParryRate));
+            OnPropertyChanged(nameof(ParryRateFormatted));
+            OnPropertyChanged(nameof(SkillName));
+            OnPropertyChanged(nameof(SpecializationFlags));
+        }
     }
 }

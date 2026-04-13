@@ -11,6 +11,7 @@ namespace AionDpsMeter.Services.Services.Session
         private readonly ConcurrentDictionary<int, TargetEntry> targetEntries = new();
         private readonly ActiveTargetResolver targetResolver;
         private readonly EntityTracker entityTracker;
+        private readonly BuffEventManager buffEventManager = new();
         private readonly ILogger<CombatSessionManager> logger;
         private readonly Lock lockObject = new();
 
@@ -58,7 +59,7 @@ namespace AionDpsMeter.Services.Services.Session
                 return targetEntries.Values
                     .SelectMany(e => e.AllSessions)
                     .OrderByDescending(s => s.LastHitTime)
-                    .Select(HistorySessionSnapshot.From)
+                    .Select(s => HistorySessionSnapshot.From(s, buffEventManager))
                     .ToList();
             }
         }
@@ -81,6 +82,21 @@ namespace AionDpsMeter.Services.Services.Session
             lock (lockObject)
             {
                 return GetActiveTargetSession()?.GetSkillStats(playerId) ?? [];
+            }
+        }
+
+        public IReadOnlyCollection<BuffStats> GetPlayerBuffStats(long playerId)
+        {
+            lock (lockObject)
+            {
+                var session = GetActiveTargetSession();
+                if (session is null) return [];
+
+                var sessionStart = session.SessionStart;
+                var sessionEnd = session.LastHitTime;
+
+                var buffs = buffEventManager.GetBuffEvents((int)playerId, sessionStart, sessionEnd);
+                return BuffStatisticsCalculator.ComputeBuffStats(buffs, sessionStart, sessionEnd);
             }
         }
 
@@ -119,6 +135,21 @@ namespace AionDpsMeter.Services.Services.Session
             catch (Exception ex)
             {
                 logger.LogError(ex, "Error processing damage event");
+            }
+        }
+
+        public void ProcessBuffEvent(BuffEvent buffEvent)
+        {
+            try
+            {
+                lock (lockObject)
+                {
+                    buffEventManager.Add(buffEvent);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error processing buff event");
             }
         }
 
@@ -172,6 +203,7 @@ namespace AionDpsMeter.Services.Services.Session
                 entry.Reset();
             targetEntries.Clear();
             targetResolver.Reset();
+            buffEventManager.Reset();
         }
     }
 }

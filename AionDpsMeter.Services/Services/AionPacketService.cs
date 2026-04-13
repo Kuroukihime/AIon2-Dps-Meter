@@ -21,8 +21,10 @@ namespace AionDpsMeter.Services.Services
         private readonly DamagePacketProcessor damagePacketProcessor;
         private readonly ServerTimePacketProcessor serverTimePacketProcessor;
         private readonly MobPacketProcessor mobPacketProcessor;
+        private readonly BuffPacketProcessor buffPacketProcessor;
 
         public event EventHandler<PlayerDamage>? DamageReceived;
+        public event EventHandler<BuffEvent>? BuffReceived;
         private ILogger<AionPacketService> logger;
 
         public event EventHandler<int>? PingUpdated;
@@ -40,8 +42,10 @@ namespace AionDpsMeter.Services.Services
             damagePacketProcessor = new DamagePacketProcessor(entityTracker, loggerFactory.CreateLogger<DamagePacketProcessor>());
             serverTimePacketProcessor = new();
             mobPacketProcessor = new MobPacketProcessor(entityTracker, loggerFactory.CreateLogger<MobPacketProcessor>());
+            buffPacketProcessor = new BuffPacketProcessor(entityTracker, loggerFactory.CreateLogger<BuffPacketProcessor>());
 
             damagePacketProcessor.DamageReceived += (s, e) => DamageReceived?.Invoke(this, e);
+            buffPacketProcessor.BuffReceived += (s, e) => BuffReceived?.Invoke(this, e);
             streamBuffer.PacketExtracted += OnPacketExtracted;
 
         }
@@ -92,6 +96,7 @@ namespace AionDpsMeter.Services.Services
                 else if (packet.Type == PacketTypeEnum.CURRENT_TIME) ProcessPing(packet);
                 else if (packet.Type == PacketTypeEnum.MOB_HP) mobPacketProcessor.ProcessMobHp(packet.Data);
                 else if (packet.Type == PacketTypeEnum.MOB_SUMMON) mobPacketProcessor.ProcessMobSpawn(packet.Data);
+                else if (packet.Type == PacketTypeEnum.BUFF_EFFECT) buffPacketProcessor.Process(packet.Data);
                 else
                 {
                     logger.LogTrace("UNKNOWN PACKET TYPE {packetType}", packet.Type);
@@ -102,10 +107,6 @@ namespace AionDpsMeter.Services.Services
                 logger.LogError(ex, "Error processing packet of type {packetType}", packet.Type);
             }
         }
-
-
-
-
 
         private void ProcessPing(PacketProcessor.Packet packet)
         {

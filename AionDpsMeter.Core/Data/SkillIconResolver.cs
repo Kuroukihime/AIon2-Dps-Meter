@@ -5,6 +5,8 @@ namespace AionDpsMeter.Core.Data
     public static class SkillIconResolver
     {
         private const string BaseUrl = "https://assets.playnccdn.com/static-aion2-gamedata/resources";
+        private const string TheostonePrefix = "30";
+        private const string TheostoneIconBase = "Icon_Item_Usable_Godstone_WP_r_";
 
         private static readonly IReadOnlyDictionary<string, string> PrefixToClassCode =
             new Dictionary<string, string>(StringComparer.Ordinal)
@@ -19,6 +21,13 @@ namespace AionDpsMeter.Core.Data
                 { "18", "CH" }, // Chanter
             };
 
+        private static readonly Dictionary<int, string> NameColorByCode = new Dictionary<int, string>
+        {
+            { 0, "#52b35c" }, // green
+            { 1, "#3d94d8" }, // blue
+            { 2, "#e9a43a" }  // yellow
+        };
+
         private static IReadOnlyDictionary<string, string>? _skillIconMap;
 
         public static void LoadSkillIconMap(string json)
@@ -26,8 +35,11 @@ namespace AionDpsMeter.Core.Data
             _skillIconMap = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
         }
 
-        public static string? GetIconUrl(int skillCode)
+        public static string? GetIconUrl(int skillCode, bool isTheostone)
         {
+
+            if (isTheostone) return GetTheostoneIconUrl(skillCode.ToString());
+
             if (skillCode is < 10_000_000 or > 19_999_999)
                 return null;
 
@@ -65,6 +77,26 @@ namespace AionDpsMeter.Core.Data
             }
             string subPad  = sub.ToString("D3");
             return $"{BaseUrl}/ICON_{classCode}_SKILL_{suffix}{subPad}.png";
+        }
+
+        private static string? GetTheostoneIconUrl(string rawCode)
+        {
+            string code = rawCode ?? "";
+
+            if (!code.StartsWith(TheostonePrefix) || code.Length < 7)
+                return null;
+
+            if (!int.TryParse(code[4].ToString(), out int qualityCode))
+                return null;
+
+            if (!int.TryParse(code.Substring(5, 2), out int iconCode) || iconCode <= 0)
+                return null;
+
+            string iconHex = iconCode.ToString("x3");
+
+            NameColorByCode.TryGetValue(qualityCode, out string? nameColor);
+
+            return $"{BaseUrl}/{TheostoneIconBase}{iconHex}.png";
         }
     }
 }

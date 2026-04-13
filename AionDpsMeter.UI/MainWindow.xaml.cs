@@ -3,6 +3,7 @@ using AionDpsMeter.UI.Utils;
 using AionDpsMeter.UI.ViewModels;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace AionDpsMeter.UI
 {
@@ -12,6 +13,7 @@ namespace AionDpsMeter.UI
         private readonly IAppSettingsService settingsService;
         private SettingsWindow? settingsWindow;
         private HistoryWindow? historyWindow;
+        private DispatcherTimer? _saveBoundsTimer;
 
         public MainWindow(MainViewModel viewModel, SettingsViewModel settingsViewModel, IAppSettingsService settingsService)
         {
@@ -20,7 +22,9 @@ namespace AionDpsMeter.UI
             this.settingsViewModel = settingsViewModel;
             this.settingsService = settingsService;
 
-      
+            _saveBoundsTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(500) };
+            _saveBoundsTimer.Tick += (_, _) => { _saveBoundsTimer.Stop(); SaveWindowBounds(); };
+
             RestoreWindowBounds();
         }
 
@@ -89,13 +93,15 @@ namespace AionDpsMeter.UI
         protected override void OnLocationChanged(EventArgs e)
         {
             base.OnLocationChanged(e);
-            SaveWindowBounds();
+            _saveBoundsTimer?.Stop();
+            _saveBoundsTimer?.Start();
         }
 
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
             base.OnRenderSizeChanged(sizeInfo);
-            SaveWindowBounds();
+            _saveBoundsTimer?.Stop();
+            _saveBoundsTimer?.Start();
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -185,6 +191,9 @@ namespace AionDpsMeter.UI
 
         protected override void OnClosed(EventArgs e)
         {
+            _saveBoundsTimer?.Stop();
+            _saveBoundsTimer = null;
+            SaveWindowBounds();
             if (DataContext is MainViewModel viewModel)
                 viewModel.Dispose();
             base.OnClosed(e);

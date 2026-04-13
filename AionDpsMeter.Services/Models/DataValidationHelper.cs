@@ -18,7 +18,7 @@ namespace AionDpsMeter.Services.Models
             //Theostone 
             if (code >= 3_000_000L && code <= 3_099_999L)
             {
-                return false;
+                return true;
             }
 
             //NPC skills
