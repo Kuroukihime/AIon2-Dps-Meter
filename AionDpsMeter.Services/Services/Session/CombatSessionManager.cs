@@ -11,6 +11,7 @@ namespace AionDpsMeter.Services.Services.Session
         private readonly ConcurrentDictionary<int, TargetEntry> targetEntries = new();
         private readonly ActiveTargetResolver targetResolver;
         private readonly EntityTracker entityTracker;
+        private readonly BuffEventManager buffEventManager = new();
         private readonly ILogger<CombatSessionManager> logger;
         private readonly Lock lockObject = new();
 
@@ -58,7 +59,7 @@ namespace AionDpsMeter.Services.Services.Session
                 return targetEntries.Values
                     .SelectMany(e => e.AllSessions)
                     .OrderByDescending(s => s.LastHitTime)
-                    .Select(HistorySessionSnapshot.From)
+                    .Select(s => HistorySessionSnapshot.From(s, buffEventManager))
                     .ToList();
             }
         }
@@ -88,7 +89,14 @@ namespace AionDpsMeter.Services.Services.Session
         {
             lock (lockObject)
             {
-                return GetActiveTargetSession()?.GetBuffStats(playerId) ?? [];
+                var session = GetActiveTargetSession();
+                if (session is null) return [];
+
+                var sessionStart = session.SessionStart;
+                var sessionEnd = session.LastHitTime;
+
+                var buffs = buffEventManager.GetBuffEvents((int)playerId, sessionStart, sessionEnd);
+                return BuffStatisticsCalculator.ComputeBuffStats(buffs, sessionStart, sessionEnd);
             }
         }
 
@@ -136,14 +144,7 @@ namespace AionDpsMeter.Services.Services.Session
             {
                 lock (lockObject)
                 {
-                    // Route buff to all active sessions where this entityId is a participant
-                    foreach (var (_, entry) in targetEntries)
-                    {
-                        var session = entry.CurrentSession;
-                        if (session is null || session.IsCompleted) continue;
-
-                        session.AddBuff(buffEvent.EntityId, buffEvent);
-                    }
+                    buffEventManager.Add(buffEvent);
                 }
             }
             catch (Exception ex)
@@ -202,6 +203,7 @@ namespace AionDpsMeter.Services.Services.Session
                 entry.Reset();
             targetEntries.Clear();
             targetResolver.Reset();
+            buffEventManager.Reset();
         }
     }
 }

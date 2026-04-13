@@ -29,6 +29,7 @@ namespace AionDpsMeter.UI.ViewModels.History
                 .Select(p => new HistoryPlayerViewModel(
                     p,
                     snapshot.SkillStatsByPlayer.TryGetValue(p.PlayerId, out var skills) ? skills : [],
+                    snapshot.BuffStatsByPlayer.TryGetValue(p.PlayerId, out var buffs) ? buffs : [],
                     settingsService))
                 .ToList();
         }

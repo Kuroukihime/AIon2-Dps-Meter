@@ -140,7 +140,7 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                     <!-- BUFFS SECTION -->
-                    <Border Grid.Row="2" Visibility="{Binding BuffCount, Converter={StaticResource IntToVisibilityConverter}}" Background="{StaticResource SecondaryBackgroundBrush}" BorderBrush="#21262D" BorderThickness="0,1,0,0" Padding="8,4" MaxHeight="90">
+                    <Border Grid.Row="2" Visibility="{Binding BuffCount, Converter={StaticResource IntToVisibilityConverter}}" Background="{StaticResource PrimaryBackgroundBrush}" BorderBrush="#21262D" BorderThickness="0,1,0,0" Padding="8,6" MaxHeight="90">
                         <Grid>
                             <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
                             <TextBlock Grid.Row="0" FontSize="9" FontWeight="Bold" Foreground="{StaticResource BuffColorBrush}" Margin="0,0,0,3"><Run Text="&#x2B25; BUFFS"/><Run Text="{Binding BuffCount, Mode=OneWay, StringFormat=' ({0})'}" Foreground="{StaticResource SecondaryTextBrush}"/></TextBlock>
@@ -150,7 +150,7 @@
                                     <DataTemplate>
                                         <Border Margin="2,1" Padding="2" Background="{StaticResource TertiaryBackgroundBrush}" CornerRadius="3" ToolTipService.InitialShowDelay="200">
                                             <Border.ToolTip>
-                                                <ToolTip MaxWidth="280">
+                                                <ToolTip MaxWidth="280" Background="{StaticResource SecondaryBackgroundBrush}" BorderBrush="#30363D" Foreground="{StaticResource PrimaryTextBrush}">
                                                     <StackPanel>
                                                         <TextBlock Text="{Binding BuffName}" FontWeight="Bold" FontSize="12" Foreground="{StaticResource PrimaryTextBrush}"/>
                                                         <TextBlock Text="{Binding Description}" FontSize="10" Foreground="{StaticResource SecondaryTextBrush}" TextWrapping="Wrap" Margin="0,2,0,4"/>

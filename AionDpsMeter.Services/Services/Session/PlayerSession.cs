@@ -7,7 +7,6 @@ namespace AionDpsMeter.Services.Services.Session
     public sealed class PlayerSession
     {
         private readonly List<PlayerDamage> hits = new();
-        private readonly List<BuffEvent> buffEvents = new();
 
         public int PlayerId { get; }
         public string PlayerName => entityTaTracker.GetPlayerEntity(PlayerId)?.Name ?? $"Unknown player {PlayerId}";
@@ -24,7 +23,6 @@ namespace AionDpsMeter.Services.Services.Session
         public DateTime? LastHit { get; private set; }
 
         public IReadOnlyList<PlayerDamage> Hits => hits;
-        public IReadOnlyList<BuffEvent> BuffEvents => buffEvents;
 
         private readonly EntityTracker entityTaTracker;
 
@@ -44,11 +42,6 @@ namespace AionDpsMeter.Services.Services.Session
             if (LastHit is null || damage.DateTime > LastHit) LastHit = damage.DateTime;
         }
 
-        public void AddBuff(BuffEvent buff)
-        {
-            buffEvents.Add(buff);
-        }
-
         public int CountHitsAfter(DateTime cutoff)
         {
             int count = 0;
@@ -63,7 +56,6 @@ namespace AionDpsMeter.Services.Services.Session
         public void Reset()
         {
             hits.Clear();
-            buffEvents.Clear();
             TotalDamage = 0;
             HitCount = 0;
             FirstHit = null;

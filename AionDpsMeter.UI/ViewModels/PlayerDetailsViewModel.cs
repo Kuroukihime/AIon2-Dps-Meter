@@ -115,6 +115,10 @@ namespace AionDpsMeter.UI.ViewModels
                 vm.Skills.Add(skill);
             vm.SkillCount = vm.Skills.Count;
 
+            foreach (var buff in player.Buffs)
+                vm.Buffs.Add(buff);
+            vm.BuffCount = vm.Buffs.Count;
+
             return vm;
         }
 

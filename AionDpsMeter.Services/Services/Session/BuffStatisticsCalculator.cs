@@ -6,7 +6,10 @@ namespace AionDpsMeter.Services.Services.Session
 
     public static class BuffStatisticsCalculator
     {
-        public static IReadOnlyCollection<BuffStats> ComputeBuffStats(IReadOnlyList<BuffEvent> buffEvents)
+        public static IReadOnlyCollection<BuffStats> ComputeBuffStats(
+            IReadOnlyList<BuffEvent> buffEvents,
+            DateTime windowStart,
+            DateTime windowEnd)
         {
             if (buffEvents.Count == 0)
                 return [];
@@ -16,7 +19,14 @@ namespace AionDpsMeter.Services.Services.Session
                 .Select(g =>
                 {
                     var intervals = g
-                        .Select(e => (Start: e.AppliedAt, End: e.AppliedAt.AddMilliseconds(e.DurationMs)))
+                        .Select(e =>
+                        {
+                            var start = e.AppliedAt < windowStart ? windowStart : e.AppliedAt;
+                            var end = e.AppliedAt.AddMilliseconds(e.DurationMs);
+                            if (end > windowEnd) end = windowEnd;
+                            return (Start: start, End: end);
+                        })
+                        .Where(i => i.Start < i.End)
                         .OrderBy(i => i.Start)
                         .ToList();
 

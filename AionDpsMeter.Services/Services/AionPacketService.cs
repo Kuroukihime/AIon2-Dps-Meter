@@ -1,5 +1,4 @@
-﻿using AionDpsMeter.Core.Data;
-using AionDpsMeter.Core.Models;
+﻿using AionDpsMeter.Core.Models;
 using AionDpsMeter.Services.PacketCapture;
 using AionDpsMeter.Services.PacketProcessors;
 using Microsoft.Extensions.Logging;
@@ -31,8 +30,6 @@ namespace AionDpsMeter.Services.Services
         public event EventHandler<int>? PingUpdated;
         public int CurrentPingMs { get; private set; }
 
-        private const uint MaxReasonableBuffDurationMs = 3_600_000; // 1 hour
-
         public AionPacketService(IPacketCaptureDevice captureDevice, TcpStreamBuffer tcpStreamBuffer, EntityTracker entityTracker, ILoggerFactory loggerFactory)
         {
             this.captureDevice = captureDevice;
@@ -48,7 +45,7 @@ namespace AionDpsMeter.Services.Services
             buffPacketProcessor = new BuffPacketProcessor(entityTracker, loggerFactory.CreateLogger<BuffPacketProcessor>());
 
             damagePacketProcessor.DamageReceived += (s, e) => DamageReceived?.Invoke(this, e);
-            buffPacketProcessor.BuffReceived += OnBuffReceived;
+            buffPacketProcessor.BuffReceived += (s, e) => BuffReceived?.Invoke(this, e);
             streamBuffer.PacketExtracted += OnPacketExtracted;
 
         }
@@ -109,36 +106,6 @@ namespace AionDpsMeter.Services.Services
             {
                 logger.LogError(ex, "Error processing packet of type {packetType}", packet.Type);
             }
-        }
-
-        private void OnBuffReceived(object? sender, BuffEventArgs e)
-        {
-            // Filter out permanent, zero-duration, and very long buffs
-            if (e.DurationMs == uint.MaxValue) return;
-            if (e.DurationMs == 0) return;
-            if (e.DurationMs > MaxReasonableBuffDurationMs) return;
-
-            var gameData = GameDataProvider.Instance;
-            var buffData = gameData.GetBuff(e.BuffId);
-            if (buffData is null) return;
-
-            string? iconUrl = !string.IsNullOrWhiteSpace(buffData.IconUrlPart)
-                ? $"https://assets.playnccdn.com/static-aion2-gamedata/resources/{buffData.IconUrlPart}"
-                : null;
-
-            var buffEvent = new BuffEvent
-            {
-                EntityId = e.EntityId,
-                BuffId = e.BuffId,
-                BuffName = buffData.Name,
-                BuffIcon = iconUrl,
-                Description = buffData.Description,
-                DurationMs = e.DurationMs,
-                AppliedAt = DateTime.Now,
-                CasterId = e.CasterId,
-            };
-
-            BuffReceived?.Invoke(this, buffEvent);
         }
 
         private void ProcessPing(PacketProcessor.Packet packet)

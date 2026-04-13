@@ -49,14 +49,23 @@ namespace AionDpsMeter.UI.ViewModels.History
         public int     HitCount              => _stats.HitCount;
 
         public IReadOnlyList<SkillStatsViewModel> Skills { get; }
+        public IReadOnlyList<BuffStatsViewModel> Buffs { get; }
 
-        public HistoryPlayerViewModel(PlayerStats stats, IReadOnlyCollection<SkillStats> skills, IAppSettingsService settingsService)
+        public HistoryPlayerViewModel(
+            PlayerStats stats,
+            IReadOnlyCollection<SkillStats> skills,
+            IReadOnlyCollection<BuffStats> buffs,
+            IAppSettingsService settingsService)
         {
             _stats = stats;
             _settingsService = settingsService;
             Skills = skills
                 .OrderByDescending(s => s.TotalDamage)
                 .Select(s => new SkillStatsViewModel(s))
+                .ToList();
+            Buffs = buffs
+                .OrderByDescending(b => b.ApplicationCount)
+                .Select(b => new BuffStatsViewModel(b))
                 .ToList();
         }
     }

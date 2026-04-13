@@ -1,23 +1,16 @@
 ﻿using AionDpsMeter.Core.Data;
+using AionDpsMeter.Core.Models;
 using AionDpsMeter.Services.Extensions;
 using AionDpsMeter.Services.Services.Entity;
 using Microsoft.Extensions.Logging;
 
 namespace AionDpsMeter.Services.PacketProcessors
 {
-    internal sealed class BuffEventArgs : EventArgs
-    {
-        public int EntityId { get; init; }
-        public int BuffId { get; init; }
-        public byte Type { get; init; }
-        public uint DurationMs { get; init; }
-        public long Timestamp { get; init; }
-        public int CasterId { get; init; }
-    }
-
     internal class BuffPacketProcessor
     {
-        public event EventHandler<BuffEventArgs>? BuffReceived;
+        public event EventHandler<BuffEvent>? BuffReceived;
+
+        private const uint MaxReasonableBuffDurationMs = 3_600_000; // 1 hour
 
         private readonly GameDataProvider gameData;
         private readonly EntityTracker entityTracker;
@@ -95,7 +88,7 @@ namespace AionDpsMeter.Services.PacketProcessors
             uint durationMs = (uint)packet.ReadUInt32Le(offset);
             offset += 4;
 
-            if (durationMs != uint.MaxValue && durationMs < 100)
+            if (durationMs < 100 || durationMs > MaxReasonableBuffDurationMs)
                 return;
 
             // skip 4 unknown bytes
@@ -121,13 +114,19 @@ namespace AionDpsMeter.Services.PacketProcessors
 
             logger.LogInformation($"[BUFF] entityId={entityId} buffId={buffId} buffName={skill.Name} type={type} durationMs={durationMs} casterId={casterId}");
 
-            BuffReceived?.Invoke(this, new BuffEventArgs
+            string? iconUrl = !string.IsNullOrWhiteSpace(skill.IconUrlPart)
+                ? $"https://assets.playnccdn.com/static-aion2-gamedata/resources/{skill.IconUrlPart}"
+                : null;
+
+            BuffReceived?.Invoke(this, new BuffEvent
             {
                 EntityId = entityId,
                 BuffId = buffId,
-                Type = type,
+                BuffName = skill.Name,
+                BuffIcon = iconUrl,
+                Description = skill.Description,
                 DurationMs = durationMs,
-                Timestamp = timestamp,
+                AppliedAt = DateTime.Now,
                 CasterId = casterId,
             });
         }
