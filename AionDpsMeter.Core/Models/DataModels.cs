@@ -20,6 +20,22 @@ namespace AionDpsMeter.Core.Models
         public bool IsBoss { get; set; }
     }
 
+
+    public enum BuffType
+    {
+        PASSIVE = 0,
+        DEBUFF = 1,
+        BUFF = 2,
+    }
+
+    public sealed class BuffData
+    {
+        public string Name { get; set; } = string.Empty;
+        public BuffType Type { get; set; }
+        public string IconUrlPart { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+    }
+
     internal sealed class SkillsData
     {
         [JsonPropertyName("skillCodeOffsets")]
@@ -28,4 +44,5 @@ namespace AionDpsMeter.Core.Models
         [JsonPropertyName("skills")]
         public Dictionary<string, string> Skills { get; set; } = [];
     }
+
 }

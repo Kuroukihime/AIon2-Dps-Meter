@@ -31,7 +31,7 @@ namespace AionDpsMeter.Services.PacketProcessors
 
             if (!parsed.IsValid)
             {
-                logger.LogWarning($"[04-38-FULL] PARSING FAILED {parsed.Result} {BitConverter.ToString(packet)}");
+                logger.LogDebug($"[04-38-FULL] PARSING FAILED {parsed.Result} {BitConverter.ToString(packet)}");
                 return;
             }
 
@@ -123,7 +123,7 @@ namespace AionDpsMeter.Services.PacketProcessors
 
             var skill = gameData.GetSkillOrDefault(damageData.SkillCode);
             
-            var sourceEntity = entityTracker.GetOrCreatePlayerEntity(damageData.ActorId, characterClass);
+            var sourceEntity = entityTracker.GetOrCreatePlayerEntity(damageData.ActorId, characterClass!);
             var targetEntity = entityTracker.GetOrCreateTargetEntity(damageData.TargetId);
 
             return new PlayerDamage

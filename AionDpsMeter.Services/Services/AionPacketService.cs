@@ -1,4 +1,5 @@
-﻿using AionDpsMeter.Core.Models;
+﻿using AionDpsMeter.Core.Data;
+using AionDpsMeter.Core.Models;
 using AionDpsMeter.Services.PacketCapture;
 using AionDpsMeter.Services.PacketProcessors;
 using Microsoft.Extensions.Logging;
@@ -21,12 +22,16 @@ namespace AionDpsMeter.Services.Services
         private readonly DamagePacketProcessor damagePacketProcessor;
         private readonly ServerTimePacketProcessor serverTimePacketProcessor;
         private readonly MobPacketProcessor mobPacketProcessor;
+        private readonly BuffPacketProcessor buffPacketProcessor;
 
         public event EventHandler<PlayerDamage>? DamageReceived;
+        public event EventHandler<BuffEvent>? BuffReceived;
         private ILogger<AionPacketService> logger;
 
         public event EventHandler<int>? PingUpdated;
         public int CurrentPingMs { get; private set; }
+
+        private const uint MaxReasonableBuffDurationMs = 3_600_000; // 1 hour
 
         public AionPacketService(IPacketCaptureDevice captureDevice, TcpStreamBuffer tcpStreamBuffer, EntityTracker entityTracker, ILoggerFactory loggerFactory)
         {
@@ -40,8 +45,10 @@ namespace AionDpsMeter.Services.Services
             damagePacketProcessor = new DamagePacketProcessor(entityTracker, loggerFactory.CreateLogger<DamagePacketProcessor>());
             serverTimePacketProcessor = new();
             mobPacketProcessor = new MobPacketProcessor(entityTracker, loggerFactory.CreateLogger<MobPacketProcessor>());
+            buffPacketProcessor = new BuffPacketProcessor(entityTracker, loggerFactory.CreateLogger<BuffPacketProcessor>());
 
             damagePacketProcessor.DamageReceived += (s, e) => DamageReceived?.Invoke(this, e);
+            buffPacketProcessor.BuffReceived += OnBuffReceived;
             streamBuffer.PacketExtracted += OnPacketExtracted;
 
         }
@@ -92,6 +99,7 @@ namespace AionDpsMeter.Services.Services
                 else if (packet.Type == PacketTypeEnum.CURRENT_TIME) ProcessPing(packet);
                 else if (packet.Type == PacketTypeEnum.MOB_HP) mobPacketProcessor.ProcessMobHp(packet.Data);
                 else if (packet.Type == PacketTypeEnum.MOB_SUMMON) mobPacketProcessor.ProcessMobSpawn(packet.Data);
+                else if (packet.Type == PacketTypeEnum.BUFF_EFFECT) buffPacketProcessor.Process(packet.Data);
                 else
                 {
                     logger.LogTrace("UNKNOWN PACKET TYPE {packetType}", packet.Type);
@@ -103,9 +111,35 @@ namespace AionDpsMeter.Services.Services
             }
         }
 
+        private void OnBuffReceived(object? sender, BuffEventArgs e)
+        {
+            // Filter out permanent, zero-duration, and very long buffs
+            if (e.DurationMs == uint.MaxValue) return;
+            if (e.DurationMs == 0) return;
+            if (e.DurationMs > MaxReasonableBuffDurationMs) return;
 
+            var gameData = GameDataProvider.Instance;
+            var buffData = gameData.GetBuff(e.BuffId);
+            if (buffData is null) return;
 
+            string? iconUrl = !string.IsNullOrWhiteSpace(buffData.IconUrlPart)
+                ? $"https://assets.playnccdn.com/static-aion2-gamedata/resources/{buffData.IconUrlPart}"
+                : null;
 
+            var buffEvent = new BuffEvent
+            {
+                EntityId = e.EntityId,
+                BuffId = e.BuffId,
+                BuffName = buffData.Name,
+                BuffIcon = iconUrl,
+                Description = buffData.Description,
+                DurationMs = e.DurationMs,
+                AppliedAt = DateTime.Now,
+                CasterId = e.CasterId,
+            };
+
+            BuffReceived?.Invoke(this, buffEvent);
+        }
 
         private void ProcessPing(PacketProcessor.Packet packet)
         {

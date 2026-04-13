@@ -39,6 +39,7 @@ namespace AionDpsMeter.UI.ViewModels
             _dispatcher     = Dispatcher.CurrentDispatcher;
 
             _packetService.DamageReceived    += OnPacketReceived;
+            _packetService.BuffReceived      += OnBuffReceived;
             _packetService.PingUpdated       += OnPingUpdated;
 
             // UI refresh at ~30 FPS
@@ -79,6 +80,9 @@ namespace AionDpsMeter.UI.ViewModels
 
         private void OnPacketReceived(object? sender, PlayerDamage damageEvent)
             => _sessionManager.ProcessDamageEvent(damageEvent);
+
+        private void OnBuffReceived(object? sender, BuffEvent buffEvent)
+            => _sessionManager.ProcessBuffEvent(buffEvent);
 
         private void OnCombatAutoReset(object? sender, EventArgs e)
             => _dispatcher.BeginInvoke(ClearUiState);
@@ -157,6 +161,7 @@ namespace AionDpsMeter.UI.ViewModels
         public void Dispose()
         {
             _packetService.DamageReceived   -= OnPacketReceived;
+            _packetService.BuffReceived     -= OnBuffReceived;
             _packetService.PingUpdated      -= OnPingUpdated;
             _updateTimer?.Stop();
 

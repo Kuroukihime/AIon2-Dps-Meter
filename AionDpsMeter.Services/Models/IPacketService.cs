@@ -5,6 +5,7 @@ namespace AionDpsMeter.Services.Models
     public interface IPacketService
     {
         event EventHandler<PlayerDamage>? DamageReceived;
+        event EventHandler<BuffEvent>? BuffReceived;
         /// <summary>
         /// Fired when a new ping measurement is available.
         /// The event arg is ping in milliseconds.

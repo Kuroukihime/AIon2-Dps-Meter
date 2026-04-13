@@ -84,6 +84,14 @@ namespace AionDpsMeter.Services.Services.Session
             }
         }
 
+        public IReadOnlyCollection<BuffStats> GetPlayerBuffStats(long playerId)
+        {
+            lock (lockObject)
+            {
+                return GetActiveTargetSession()?.GetBuffStats(playerId) ?? [];
+            }
+        }
+
         public TimeSpan GetCombatDuration()
         {
             lock (lockObject)
@@ -119,6 +127,28 @@ namespace AionDpsMeter.Services.Services.Session
             catch (Exception ex)
             {
                 logger.LogError(ex, "Error processing damage event");
+            }
+        }
+
+        public void ProcessBuffEvent(BuffEvent buffEvent)
+        {
+            try
+            {
+                lock (lockObject)
+                {
+                    // Route buff to all active sessions where this entityId is a participant
+                    foreach (var (_, entry) in targetEntries)
+                    {
+                        var session = entry.CurrentSession;
+                        if (session is null || session.IsCompleted) continue;
+
+                        session.AddBuff(buffEvent.EntityId, buffEvent);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error processing buff event");
             }
         }
 

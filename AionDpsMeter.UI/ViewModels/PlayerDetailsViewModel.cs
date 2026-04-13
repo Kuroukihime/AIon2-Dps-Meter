@@ -24,6 +24,7 @@ namespace AionDpsMeter.UI.ViewModels
 
         [ObservableProperty] private ObservableCollection<SkillStatsViewModel> _skills = new();
         [ObservableProperty] private ObservableCollection<CombatLogEntryViewModel> _combatLog = new();
+        [ObservableProperty] private ObservableCollection<BuffStatsViewModel> _buffs = new();
         [ObservableProperty] private int _selectedTabIndex;
         [ObservableProperty] private string _playerNameDisplay;
         [ObservableProperty] private string _serverName = string.Empty;
@@ -44,6 +45,7 @@ namespace AionDpsMeter.UI.ViewModels
         [ObservableProperty] private string _damageContributionDisplay = "0%";
         [ObservableProperty] private string _combatDurationDisplay = "00:00";
         [ObservableProperty] private int _skillCount;
+        [ObservableProperty] private int _buffCount;
 
         // ?? Active target ??????????????????????????????????????????????????????
         [ObservableProperty] private string _activeTargetName = string.Empty;
@@ -165,6 +167,7 @@ namespace AionDpsMeter.UI.ViewModels
         private void RefreshData()
         {
             RefreshSkills();
+            RefreshBuffs();
             RefreshCombatLog();
             RefreshPlayerSummary();
         }
@@ -223,6 +226,38 @@ namespace AionDpsMeter.UI.ViewModels
             foreach (var skill in skillStats.OrderByDescending(s => s.TotalDamage))
                 Skills.Add(new SkillStatsViewModel(skill));
             SkillCount = Skills.Count;
+        }
+
+        private void RefreshBuffs()
+        {
+            if (_sessionManager is null) return;
+
+            var buffStats = _sessionManager.GetPlayerBuffStats(_playerId);
+
+            // Only rebuild the collection when buff set actually changed
+            if (Buffs.Count == buffStats.Count && BuffsMatch(buffStats))
+            {
+                return;
+            }
+
+            Buffs.Clear();
+            foreach (var buff in buffStats)
+                Buffs.Add(new BuffStatsViewModel(buff));
+            BuffCount = Buffs.Count;
+        }
+
+        private bool BuffsMatch(IReadOnlyCollection<Services.Models.BuffStats> newStats)
+        {
+            int i = 0;
+            foreach (var stat in newStats)
+            {
+                if (i >= Buffs.Count) return false;
+                var existing = Buffs[i];
+                if (existing.BuffId != stat.BuffId || existing.ApplicationCount != stat.ApplicationCount)
+                    return false;
+                i++;
+            }
+            return true;
         }
 
         private void RefreshCombatLog()

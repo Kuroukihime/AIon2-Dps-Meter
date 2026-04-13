@@ -48,7 +48,21 @@ namespace AionDpsMeter.Services.Services.Session
                 LastHitTime = damage.DateTime;
         }
 
-     
+ 
+        public bool AddBuff(int entityId, BuffEvent buffEvent)
+        {
+            if (!playerSessions.TryGetValue(entityId, out var session))
+                return false;
+
+            session.AddBuff(buffEvent);
+            return true;
+        }
+
+        public IReadOnlyCollection<int> GetPlayerEntityIds()
+        {
+            return playerSessions.Keys.Select(k => (int)k).ToList();
+        }
+
         public void Complete(DateTime completedAt)
         {
             if (IsCompleted) return;
@@ -93,6 +107,14 @@ namespace AionDpsMeter.Services.Services.Session
                 return [];
 
             return DamageStatisticsCalculator.ComputeSkillStats(session);
+        }
+
+        public IReadOnlyCollection<BuffStats> GetBuffStats(long playerId)
+        {
+            if (!playerSessions.TryGetValue(playerId, out var session))
+                return [];
+
+            return BuffStatisticsCalculator.ComputeBuffStats(session.BuffEvents);
         }
 
         public int CountRecentHits(DateTime cutoff)
