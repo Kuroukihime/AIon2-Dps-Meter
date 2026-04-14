@@ -2,7 +2,13 @@
 using AionDpsMeter.Services.Models;
 using AionDpsMeter.Services.PacketCapture;
 using AionDpsMeter.Services.PacketProcessors;
+using AionDpsMeter.Services.PacketProcessors.Buff;
+using AionDpsMeter.Services.PacketProcessors.Damage;
+using AionDpsMeter.Services.PacketProcessors.DotDamage;
 using AionDpsMeter.Services.PacketProcessors.Handlers;
+using AionDpsMeter.Services.PacketProcessors.Mob;
+using AionDpsMeter.Services.PacketProcessors.Nickname;
+using AionDpsMeter.Services.PacketProcessors.Ping;
 using AionDpsMeter.Services.Services.Entity;
 using Microsoft.Extensions.Logging;
 
@@ -36,14 +42,16 @@ namespace AionDpsMeter.Services.Services
 
             packetProcessor = new PacketProcessor(loggerFactory.CreateLogger<PacketProcessor>());
 
-            var nicknameProcessor = new NicknamePacketProcessor(entityTracker, loggerFactory.CreateLogger<NicknamePacketProcessor>());
-            var damageProcessor = new DamagePacketProcessor(entityTracker, loggerFactory.CreateLogger<DamagePacketProcessor>());
-            var mobProcessor = new MobPacketProcessor(entityTracker, loggerFactory.CreateLogger<MobPacketProcessor>());
-            var buffProcessor = new BuffPacketProcessor(loggerFactory.CreateLogger<BuffPacketProcessor>());
+            var nicknameProcessor   = new NicknamePacketProcessor(entityTracker, loggerFactory.CreateLogger<NicknamePacketProcessor>());
+            var damageProcessor     = new DamagePacketProcessor(entityTracker, loggerFactory.CreateLogger<DamagePacketProcessor>());
+            var dotDamageProcessor  = new DotDamagePacketProcessor(entityTracker, loggerFactory.CreateLogger<DotDamagePacketProcessor>());
+            var mobProcessor        = new MobPacketProcessor(entityTracker, loggerFactory.CreateLogger<MobPacketProcessor>());
+            var buffProcessor       = new BuffPacketProcessor(loggerFactory.CreateLogger<BuffPacketProcessor>());
             var serverTimeProcessor = new ServerTimePacketProcessor();
 
-            damageProcessor.DamageReceived += (s, e) => DamageReceived?.Invoke(this, e);
-            buffProcessor.BuffReceived += (s, e) => BuffReceived?.Invoke(this, e);
+            damageProcessor.DamageReceived    += (_, e) => DamageReceived?.Invoke(this, e);
+            dotDamageProcessor.DamageReceived += (_, e) => DamageReceived?.Invoke(this, e);
+            buffProcessor.BuffReceived        += (_, e) => BuffReceived?.Invoke(this, e);
 
             IEnumerable<IPacketHandler> handlers =
             [
@@ -52,7 +60,7 @@ namespace AionDpsMeter.Services.Services
                 new PartyInfoHandler(nicknameProcessor),
                 new GlobalSessIdLinkingHandler(nicknameProcessor),
                 new DamagePacketHandler(damageProcessor),
-                new DotDamagePacketHandler(damageProcessor),
+                new DotDamagePacketHandler(dotDamageProcessor),
                 new MobHpHandler(mobProcessor),
                 new MobSummonHandler(mobProcessor),
                 new BuffPacketHandler(buffProcessor),

@@ -1,16 +1,15 @@
-﻿using AionDpsMeter.Core.Data;
+using AionDpsMeter.Core.Data;
 using AionDpsMeter.Core.Models;
 using AionDpsMeter.Services.Extensions;
-using AionDpsMeter.Services.Services.Entity;
 using Microsoft.Extensions.Logging;
 
-namespace AionDpsMeter.Services.PacketProcessors
+namespace AionDpsMeter.Services.PacketProcessors.Buff
 {
-    internal class BuffPacketProcessor
+    internal sealed class BuffPacketProcessor
     {
         public event EventHandler<BuffEvent>? BuffReceived;
 
-        private const uint MaxReasonableBuffDurationMs = 3_600_000; // 1 hour
+        private const uint MaxReasonableBuffDurationMs = 3_600_000;
 
         private readonly GameDataProvider gameData;
         private readonly ILogger<BuffPacketProcessor> logger;
@@ -26,82 +25,45 @@ namespace AionDpsMeter.Services.PacketProcessors
             int offset = 0;
             int packetEnd = packet.Length;
 
-            // Skip varint length header + 2-byte opcode
             var packetLenVarInt = packet.ReadVarInt(offset);
-            if (packetLenVarInt.Length <= 0)
-                return;
+            if (packetLenVarInt.Length <= 0) return;
             offset += packetLenVarInt.Length + 2;
+            if (offset >= packetEnd) return;
 
-            if (offset >= packetEnd)
-                return;
-
-            // entityId
             var entityIdVarInt = packet.ReadVarInt(offset);
-            if (entityIdVarInt.Length <= 0 || entityIdVarInt.Value < 0)
-                return;
+            if (entityIdVarInt.Length <= 0 || entityIdVarInt.Value < 0) return;
             offset += entityIdVarInt.Length;
             int entityId = entityIdVarInt.Value;
+            if (offset >= packetEnd) return;
 
-            if (offset >= packetEnd)
-                return;
-
-            // skip 1 unknown byte, then read type byte
-            offset++;
-            if (offset >= packetEnd)
-                return;
-
+            offset++; // skip unknown byte
+            if (offset >= packetEnd) return;
             byte type = packet[offset++];
 
-         
-
-            // skip one more varint (unknown field)
             var unknownVarInt = packet.ReadVarInt(offset);
-            if (unknownVarInt.Length <= 0)
-                return;
+            if (unknownVarInt.Length <= 0) return;
             offset += unknownVarInt.Length;
+            if (offset >= packetEnd) return;
 
-            if (offset >= packetEnd)
-                return;
-
-            // buffId — 4 bytes LE
-            if (offset + 4 > packetEnd)
-                return;
-
+            if (offset + 4 > packetEnd) return;
             int buffId = packet.ReadUInt32Le(offset);
             offset += 4;
-            
-            if (!gameData.IsBuff(buffId))
-            {
-                return;
-            }
-            var skill = gameData.GetBuff(buffId);
-            if (skill ==  null)
-            {
-                return;
-            }
-            // durationMs — 4 bytes LE
-            if (offset + 4 > packetEnd)
-                return;
 
+            if (!gameData.IsBuff(buffId)) return;
+            var skill = gameData.GetBuff(buffId);
+            if (skill == null) return;
+
+            if (offset + 4 > packetEnd) return;
             uint durationMs = (uint)packet.ReadUInt32Le(offset);
             offset += 4;
+            if (durationMs < 100 || durationMs > MaxReasonableBuffDurationMs) return;
 
-            if (durationMs < 100 || durationMs > MaxReasonableBuffDurationMs)
-                return;
+            if (offset + 4 > packetEnd) return;
+            offset += 4; // skip unknown bytes
 
-            // skip 4 unknown bytes
-            if (offset + 4 > packetEnd)
-                return;
-            offset += 4;
+            if (offset + 8 > packetEnd) return;
+            offset += 8; // skip timestamp
 
-            // timestamp — 8 bytes LE
-            if (offset + 8 > packetEnd)
-                return;
-
-            long timestamp = BitConverter.ToInt64(packet, offset);
-            offset += 8;
-
-            // casterId — optional trailing varint
             int casterId = 0;
             if (offset < packetEnd)
             {
@@ -110,7 +72,8 @@ namespace AionDpsMeter.Services.PacketProcessors
                     casterId = casterVarInt.Value;
             }
 
-            logger.LogTrace($"[BUFF] entityId={entityId} buffId={buffId} buffName={skill.Name} type={type} durationMs={durationMs} casterId={casterId}");
+            logger.LogTrace("[BUFF] entityId={EntityId} buffId={BuffId} buffName={BuffName} type={Type} durationMs={DurationMs} casterId={CasterId}",
+                entityId, buffId, skill.Name, type, durationMs, casterId);
 
             BuffReceived?.Invoke(this, new BuffEvent
             {

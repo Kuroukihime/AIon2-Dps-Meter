@@ -1,4 +1,5 @@
 using AionDpsMeter.Services.Models;
+using AionDpsMeter.Services.PacketProcessors.Mob;
 
 namespace AionDpsMeter.Services.PacketProcessors.Handlers
 {
