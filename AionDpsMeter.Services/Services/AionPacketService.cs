@@ -42,7 +42,7 @@ namespace AionDpsMeter.Services.Services
             damagePacketProcessor = new DamagePacketProcessor(entityTracker, loggerFactory.CreateLogger<DamagePacketProcessor>());
             serverTimePacketProcessor = new();
             mobPacketProcessor = new MobPacketProcessor(entityTracker, loggerFactory.CreateLogger<MobPacketProcessor>());
-            buffPacketProcessor = new BuffPacketProcessor(entityTracker, loggerFactory.CreateLogger<BuffPacketProcessor>());
+            buffPacketProcessor = new BuffPacketProcessor(loggerFactory.CreateLogger<BuffPacketProcessor>());
 
             damagePacketProcessor.DamageReceived += (s, e) => DamageReceived?.Invoke(this, e);
             buffPacketProcessor.BuffReceived += (s, e) => BuffReceived?.Invoke(this, e);

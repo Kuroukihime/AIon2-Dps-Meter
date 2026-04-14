@@ -13,12 +13,10 @@ namespace AionDpsMeter.Services.PacketProcessors
         private const uint MaxReasonableBuffDurationMs = 3_600_000; // 1 hour
 
         private readonly GameDataProvider gameData;
-        private readonly EntityTracker entityTracker;
         private readonly ILogger<BuffPacketProcessor> logger;
 
-        public BuffPacketProcessor(EntityTracker entityTracker, ILogger<BuffPacketProcessor> logger)
+        public BuffPacketProcessor(ILogger<BuffPacketProcessor> logger)
         {
-            this.entityTracker = entityTracker ?? throw new ArgumentNullException(nameof(entityTracker));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.gameData = GameDataProvider.Instance;
         }
@@ -112,18 +110,14 @@ namespace AionDpsMeter.Services.PacketProcessors
                     casterId = casterVarInt.Value;
             }
 
-            logger.LogInformation($"[BUFF] entityId={entityId} buffId={buffId} buffName={skill.Name} type={type} durationMs={durationMs} casterId={casterId}");
-
-            string? iconUrl = !string.IsNullOrWhiteSpace(skill.IconUrlPart)
-                ? $"https://assets.playnccdn.com/static-aion2-gamedata/resources/{skill.IconUrlPart}"
-                : null;
+            logger.LogTrace($"[BUFF] entityId={entityId} buffId={buffId} buffName={skill.Name} type={type} durationMs={durationMs} casterId={casterId}");
 
             BuffReceived?.Invoke(this, new BuffEvent
             {
                 EntityId = entityId,
                 BuffId = buffId,
                 BuffName = skill.Name,
-                BuffIcon = iconUrl,
+                BuffIcon = skill.Icon,
                 Description = skill.Description,
                 DurationMs = durationMs,
                 AppliedAt = DateTime.Now,
