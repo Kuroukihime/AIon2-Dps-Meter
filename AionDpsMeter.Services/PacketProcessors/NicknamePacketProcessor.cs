@@ -1,10 +1,10 @@
 ﻿using AionDpsMeter.Core.Data;
+using AionDpsMeter.Core.Models;
 using AionDpsMeter.Services.Extensions;
 using AionDpsMeter.Services.Services.Entity;
 using Microsoft.Extensions.Logging;
-using System.Text;
-using AionDpsMeter.Core.Models;
 using System.Diagnostics;
+using System.Text;
 
 namespace AionDpsMeter.Services.PacketProcessors
 {
@@ -31,24 +31,52 @@ namespace AionDpsMeter.Services.PacketProcessors
         private readonly record struct PlayerInfoResult(int EntityId, string Name, int ServerId, int JobCode);
         private readonly record struct NameReadResult(string Name, int EndOffset);
 
-        public void Process(byte[] packet)
+
+        public void ProcessPlayerInfo(byte[] packet)
         {
-            if ( packet.Length < 4) return;
-
-            var lenVarInt = packet.ReadVarInt().Length;
-
-            if (packet[lenVarInt] == 0x20 && packet[lenVarInt + 1] == 0x36)
-            {
-                ProcessIdLinkinPacket(packet, lenVarInt);
-                return;
-            }
-            if (packet[lenVarInt] == 0x02 && packet[lenVarInt + 1] == 0x97)
-            {
-                ProcessPartyPacket(packet, lenVarInt);
-                return;
-            }
-            TryExtractAndApplyPlayerInfo(packet, 0, packet.Length);
+            if (!TryParseInfoTag1(packet, packet.Length, out PlayerInfoResult result)) return;
+            entityTracker.UpdatePlayerEntityName(result.EntityId, result.Name, ServerMap.GetName(result.ServerId), true);
         }
+
+        public void ProcessOtherPlayersInfo(byte[] packet)
+        {
+            if (!TryParseInfoTag2(packet, packet.Length, out PlayerInfoResult result2)) return;
+            entityTracker.UpdatePlayerEntityName(result2.EntityId, result2.Name, ServerMap.GetName(result2.ServerId));
+        }
+
+        public void ProcessGlobalSessionIdLinking(byte[] packet)
+        {
+            if (packet.Length < 4) return;
+            var lenVarInt = packet.ReadVarInt().Length;
+            ProcessIdLinkinPacket(packet, lenVarInt);
+        }
+
+        public void ProcessPartyPacket(byte[] packet)
+        {
+            if (packet.Length < 4) return;
+            var lenVarInt = packet.ReadVarInt().Length;
+            ProcessPartyPacket(packet, lenVarInt);
+        }
+
+
+        //public void Process(byte[] packet)
+        //{
+        //    if ( packet.Length < 4) return;
+
+        //    var lenVarInt = packet.ReadVarInt().Length;
+
+        //    if (packet[lenVarInt] == 0x20 && packet[lenVarInt + 1] == 0x36)
+        //    {
+        //        ProcessIdLinkinPacket(packet, lenVarInt);
+        //        return;
+        //    }
+        //    if (packet[lenVarInt] == 0x02 && packet[lenVarInt + 1] == 0x97)
+        //    {
+        //        ProcessPartyPacket(packet, lenVarInt);
+        //        return;
+        //    }
+        //    TryExtractAndApplyPlayerInfo(packet, 0, packet.Length);
+        //}
 
         private void ProcessIdLinkinPacket(byte[] packet, int lenVarInt)
         {    
