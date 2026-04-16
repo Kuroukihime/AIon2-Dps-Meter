@@ -26,6 +26,10 @@ namespace AionDpsMeter.UI
             _saveBoundsTimer.Tick += (_, _) => { _saveBoundsTimer.Stop(); SaveWindowBounds(); };
 
             RestoreWindowBounds();
+
+            MainBorder.Opacity = settingsService.WindowOpacity;
+            settingsService.SettingsChanged += (_, _) =>
+                Dispatcher.InvokeAsync(() => MainBorder.Opacity = settingsService.WindowOpacity);
         }
 
      

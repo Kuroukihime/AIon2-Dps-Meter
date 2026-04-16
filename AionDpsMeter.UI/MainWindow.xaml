@@ -17,9 +17,10 @@
         ResizeMode="CanResizeWithGrip"
         MouseLeftButtonDown="Window_MouseLeftButtonDown">
 
-    <Border Background="{StaticResource PrimaryBackgroundBrush}"
+    <Border x:Name="MainBorder"
+            Background="{StaticResource PrimaryBackgroundBrush}"
             BorderBrush="{StaticResource AccentBrush}"
-            BorderThickness="1"
+            BorderThickness="0"
             CornerRadius="4"
             Opacity="0.92">
         <Grid>
@@ -194,11 +195,12 @@
                      ItemsSource="{Binding Players}"
                      Background="Transparent"
                      BorderThickness="0"
+                     Grid.IsSharedSizeScope="True"
                      VirtualizingPanel.IsVirtualizing="True"
                      VirtualizingPanel.VirtualizationMode="Recycling"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                      ScrollViewer.VerticalScrollBarVisibility="Auto"
-                     Padding="4,2,4,4">
+                     Padding="4,1,4,2">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
                         <Setter Property="Padding" Value="0"/>
@@ -216,8 +218,8 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border Background="Transparent"
-                                Margin="0,1"
-                                Padding="2"
+                                Margin="0,0"
+                                Padding="0"
                                 Cursor="Hand"
                                 MouseLeftButtonDown="PlayerItem_Click"
                                 ToolTip="{Binding PlayerNameDisplay}">
@@ -225,12 +227,13 @@
                                 <Binding/>
                             </Border.Tag>
 
-                            <Grid Height="26">
+                            <Grid Height="24">
+
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="26"/>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition SharedSizeGroup="DpsCol" Width="Auto"/>
+                                    <ColumnDefinition SharedSizeGroup="PctCol" Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
                                 <!-- Class Icon -->

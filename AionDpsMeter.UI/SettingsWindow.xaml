@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Settings"
         Width="400"
-        Height="270"
+        Height="310"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
@@ -168,6 +168,40 @@
                              BorderThickness="1"
                              CaretBrush="{StaticResource PrimaryTextBrush}"
                              PreviewTextInput="ThresholdTextBox_PreviewTextInput"/>
+                </Grid>
+
+                <!-- Window Opacity row -->
+                <Grid Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock Text="Window Opacity"
+                                   FontSize="12"
+                                   Foreground="{StaticResource PrimaryTextBrush}"/>
+                        <TextBlock Text="Transparency of the main window (10%–100%)"
+                                   FontSize="10"
+                                   Foreground="{StaticResource SecondaryTextBrush}"
+                                   Margin="0,2,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0,0,0">
+                        <Slider Minimum="10" Maximum="100"
+                                Value="{Binding WindowOpacityPercent, Mode=TwoWay}"
+                                Width="100"
+                                VerticalAlignment="Center"
+                                IsSnapToTickEnabled="True"
+                                TickFrequency="1"/>
+                        <TextBlock Text="{Binding WindowOpacityPercent, StringFormat={}{0}%}"
+                                   FontSize="11"
+                                   FontFamily="Consolas"
+                                   Foreground="{StaticResource PrimaryTextBrush}"
+                                   VerticalAlignment="Center"
+                                   Margin="6,0,0,0"
+                                   Width="36"/>
+                    </StackPanel>
                 </Grid>
 
             </StackPanel>
