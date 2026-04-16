@@ -106,6 +106,22 @@ namespace AionDpsMeter.Services.Services.Settings
             set { lock (_lock) { _data.WindowHeight = value; Save(); } }
         }
 
+        public string? BackgroundImagePath
+        {
+            get { lock (_lock) return _data.BackgroundImagePath; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    changed = _data.BackgroundImagePath != value;
+                    _data.BackgroundImagePath = value;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         private AppSettingsData Load()
         {
             try
@@ -155,6 +171,9 @@ namespace AionDpsMeter.Services.Services.Settings
 
             [JsonPropertyName("windowHeight")]
             public double? WindowHeight { get; set; }
+
+            [JsonPropertyName("backgroundImagePath")]
+            public string? BackgroundImagePath { get; set; }
         }
     }
 }

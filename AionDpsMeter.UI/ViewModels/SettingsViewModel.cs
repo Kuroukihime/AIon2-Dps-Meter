@@ -1,5 +1,7 @@
 using AionDpsMeter.Services.Services.Settings;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Win32;
 
 namespace AionDpsMeter.UI.ViewModels
 {
@@ -19,6 +21,9 @@ namespace AionDpsMeter.UI.ViewModels
         [ObservableProperty]
         private int _windowOpacityPercent;
 
+        [ObservableProperty]
+        private string? _backgroundImagePath;
+
         public SettingsViewModel(IAppSettingsService settingsService)
         {
             _settingsService = settingsService;
@@ -26,6 +31,7 @@ namespace AionDpsMeter.UI.ViewModels
             _isNicknameHidden = settingsService.IsNicknameHidden;
             _historyDamageThreshold = settingsService.HistoryDamageThreshold;
             _windowOpacityPercent = (int)Math.Round(settingsService.WindowOpacity * 100);
+            _backgroundImagePath = settingsService.BackgroundImagePath;
         }
 
         partial void OnIsPacketLoggingEnabledChanged(bool value)
@@ -47,6 +53,31 @@ namespace AionDpsMeter.UI.ViewModels
         {
             int clamped = Math.Clamp(value, 10, 100);
             _settingsService.WindowOpacity = clamped / 100.0;
+        }
+
+        partial void OnBackgroundImagePathChanged(string? value)
+        {
+            _settingsService.BackgroundImagePath = value;
+        }
+
+        [RelayCommand]
+        private void PickBackgroundImage()
+        {
+            var dialog = new OpenFileDialog
+            {
+                Title = "Select Background Image",
+                Filter = "Image Files|*.png;*.jpg;*.jpeg;*.bmp;*.gif;*.webp|All Files|*.*",
+                CheckFileExists = true
+            };
+
+            if (dialog.ShowDialog() == true)
+                BackgroundImagePath = dialog.FileName;
+        }
+
+        [RelayCommand]
+        private void ResetBackgroundImage()
+        {
+            BackgroundImagePath = null;
         }
     }
 }
