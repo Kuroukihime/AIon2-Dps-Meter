@@ -37,9 +37,14 @@ Click any player row to open a detailed breakdown:
 - **Combat duration**
 - **Skill-by-skill breakdown** — damage, hits, crits, and more per skill
 - **Player buffs** — buffs applied to you by yourself or party members
+- **Dps graph with buffs timeline** - View your damage over time with an interactive chart showing:
+    - Per-second damage output
+    - Cumulative DPS throughout the fight
+    - Buff timeline overlay showing when buffs were active
 - **Live combat log** (up to 200 most recent hits)
 
 ![Player Details](ReadmeAssets/SkillDetails.png)
+![DPS Graph](ReadmeAssets/DpsGraph.png)
 ![Combat Log](ReadmeAssets/CombatLog.png)
 
 ### 📜 Combat History
