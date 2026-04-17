@@ -3,6 +3,8 @@ using AionDpsMeter.UI.Utils;
 using AionDpsMeter.UI.ViewModels;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 namespace AionDpsMeter.UI
@@ -26,9 +28,48 @@ namespace AionDpsMeter.UI
             _saveBoundsTimer.Tick += (_, _) => { _saveBoundsTimer.Stop(); SaveWindowBounds(); };
 
             RestoreWindowBounds();
+
+            MainBorder.Opacity = settingsService.WindowOpacity;
+            ApplyBackgroundImage(settingsService.BackgroundImagePath);
+
+            settingsService.SettingsChanged += (_, _) =>
+                Dispatcher.InvokeAsync(() =>
+                {
+                    MainBorder.Opacity = settingsService.WindowOpacity;
+                    ApplyBackgroundImage(settingsService.BackgroundImagePath);
+                });
         }
 
-     
+        private void ApplyBackgroundImage(string? path)
+        {
+            if (string.IsNullOrEmpty(path) || !System.IO.File.Exists(path))
+            {
+                PlayersBackgroundImage.Source = null;
+                PlayersBackgroundOverlay.Visibility = Visibility.Collapsed;
+                MainBorder.Background = (Brush)FindResource("PrimaryBackgroundBrush");
+                return;
+            }
+
+            try
+            {
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(path, UriKind.Absolute);
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+                bitmap.Freeze();
+                PlayersBackgroundImage.Source = bitmap;
+                PlayersBackgroundOverlay.Visibility = Visibility.Visible;
+                MainBorder.Background = Brushes.Transparent;
+            }
+            catch
+            {
+                PlayersBackgroundImage.Source = null;
+                PlayersBackgroundOverlay.Visibility = Visibility.Collapsed;
+                MainBorder.Background = (Brush)FindResource("PrimaryBackgroundBrush");
+            }
+        }
+
         private void RestoreWindowBounds()
         {
             var left   = settingsService.WindowLeft;

@@ -10,7 +10,12 @@
         MOB_HP,
         MOB_SUMMON,
         DOT_DAMAGE, 
-        BUFF_EFFECT
+        BUFF_EFFECT,
+        PLAYER_INFO,
+        OTHER_PLAYERS_INFO,
+        PARTY_INFO,
+        GLOBAL_SESSID_LINKING
+
     }
 
     internal enum PacketProcessResult

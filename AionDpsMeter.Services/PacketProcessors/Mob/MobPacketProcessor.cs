@@ -1,10 +1,10 @@
-﻿using AionDpsMeter.Services.Extensions;
+using AionDpsMeter.Services.Extensions;
 using AionDpsMeter.Services.Services.Entity;
 using Microsoft.Extensions.Logging;
 
-namespace AionDpsMeter.Services.PacketProcessors
+namespace AionDpsMeter.Services.PacketProcessors.Mob
 {
-    internal class MobPacketProcessor(EntityTracker entityTracker, ILogger<MobPacketProcessor> logger)
+    internal sealed class MobPacketProcessor(EntityTracker entityTracker, ILogger<MobPacketProcessor> logger)
     {
         private static readonly byte[] SummonBoundaryMarker = [0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF];
         private static readonly byte[] SummonActorHeader = [0x07, 0x02, 0x06];
@@ -14,17 +14,13 @@ namespace AionDpsMeter.Services.PacketProcessors
         public void ProcessMobHp(byte[] data)
         {
             int offset = 3;
-
             var mobIdInfo = data.ReadVarInt(offset);
             offset += mobIdInfo.Length;
-            var mobId = mobIdInfo.Value;
-
             offset += data.ReadVarInt(offset).Length;
             offset += data.ReadVarInt(offset).Length;
             offset += data.ReadVarInt(offset).Length;
-
             var hpCurrent = data.ReadUInt32Le(offset);
-            entityTracker.UpdateTargetEntityHpCurrent(mobId, hpCurrent);
+            entityTracker.UpdateTargetEntityHpCurrent(mobIdInfo.Value, hpCurrent);
         }
 
         public void ProcessMobSpawn(byte[] packet)
@@ -37,31 +33,23 @@ namespace AionDpsMeter.Services.PacketProcessors
         {
             int end = data.Length;
             int pos = data.ReadVarInt().Length + 2;
-
-            if (pos >= end)
-                return false;
+            if (pos >= end) return false;
 
             int mobId = data.ReadVarInt(pos).Value;
-            if (mobId == -1)
-                return false;
+            if (mobId == -1) return false;
 
             int searchFrom = pos;
             int searchLimit = Math.Min(searchFrom + MobTypeScanWindow, end - 2);
-
             int markerPos = ScanMobCodeMarker(data, pos, searchFrom, searchLimit, end);
-            if (markerPos < 0)
-                return false;
+            if (markerPos < 0) return false;
 
             int codeRelative = markerPos - 2;
-            if (searchFrom > codeRelative - 3)
-                return false;
+            if (searchFrom > codeRelative - 3) return false;
 
             int codeAbsolute = pos + codeRelative - 3;
-            if (codeAbsolute < pos || codeAbsolute + 3 > end)
-                return false;
+            if (codeAbsolute < pos || codeAbsolute + 3 > end) return false;
 
             int mobCode = data.ReadUInt24Le(codeAbsolute);
-
             TryFireMobSpawnWithHp(data, pos, end - pos, end, codeRelative, mobId, mobCode);
             return true;
         }
@@ -77,9 +65,7 @@ namespace AionDpsMeter.Services.PacketProcessors
             return -1;
         }
 
-        private void TryFireMobSpawnWithHp(
-            byte[] data, int offset, int length, int end,
-            int codeRelative, int mobId, int mobCode)
+        private void TryFireMobSpawnWithHp(byte[] data, int offset, int length, int end, int codeRelative, int mobId, int mobCode)
         {
             int hpScanFrom = codeRelative + 3;
             int hpScanLimit = Math.Min(codeRelative + HpScanWindow, length - 2);
@@ -87,27 +73,18 @@ namespace AionDpsMeter.Services.PacketProcessors
             for (int rel = hpScanFrom; rel < hpScanLimit; rel++)
             {
                 int abs = offset + rel;
-                if (abs >= end)
-                    break;
-
-                if (data[abs] != 1)
-                    continue;
+                if (abs >= end) break;
+                if (data[abs] != 1) continue;
 
                 int pos = abs + 1;
-                if (pos >= end)
-                    break;
+                if (pos >= end) break;
 
                 int maxHp = data.ReadVarInt(pos).Value;
-                if (maxHp == -1 || maxHp == 0 || pos >= end)
-                    continue;
+                if (maxHp == -1 || maxHp == 0 || pos >= end) continue;
 
                 int currentHp = data.ReadVarInt(pos).Value;
-                if (currentHp == -1)
-                    continue;
-
-                if (currentHp >= maxHp)
-                    entityTracker.CreateOrUpdateTargetEntity(mobId, mobCode, maxHp);
-
+                if (currentHp == -1) continue;
+                if (currentHp >= maxHp) entityTracker.CreateOrUpdateTargetEntity(mobId, mobCode, maxHp);
                 break;
             }
         }
@@ -116,16 +93,12 @@ namespace AionDpsMeter.Services.PacketProcessors
         {
             int end = data.Length;
             int pos = data.ReadVarInt().Length + 2;
-
-            if (pos >= end)
-                return false;
+            if (pos >= end) return false;
 
             int petId = data.ReadVarInt(pos).Value;
-            if (petId == int.MaxValue)
-                return false;
+            if (petId == int.MaxValue) return false;
 
-            if (!TryFindSummonActorId(data, pos, end - pos, out ushort actorId))
-                return false;
+            if (!TryFindSummonActorId(data, pos, end - pos, out ushort actorId)) return false;
 
             entityTracker.RegisterSummon(petId, actorId);
             return true;
@@ -134,28 +107,22 @@ namespace AionDpsMeter.Services.PacketProcessors
         private static bool TryFindSummonActorId(byte[] data, int offset, int length, out ushort actorId)
         {
             actorId = 0;
-
-            ReadOnlySpan<byte> span = new ReadOnlySpan<byte>(data, offset, length);
+            ReadOnlySpan<byte> span = new(data, offset, length);
 
             int boundaryIndex = span.IndexOf(SummonBoundaryMarker);
-            if (boundaryIndex == -1)
-                return false;
+            if (boundaryIndex == -1) return false;
 
             int afterBoundary = boundaryIndex + SummonBoundaryMarker.Length;
-            if (afterBoundary >= length)
-                return false;
+            if (afterBoundary >= length) return false;
 
             int headerIndex = span.Slice(afterBoundary).IndexOf(SummonActorHeader);
-            if (headerIndex == -1)
-                return false;
+            if (headerIndex == -1) return false;
 
             int actorOffset = afterBoundary + headerIndex;
-            if (actorOffset + 5 > length)
-                return false;
+            if (actorOffset + 5 > length) return false;
 
             ushort candidate = (ushort)(data[offset + actorOffset + 3] | (data[offset + actorOffset + 4] << 8));
-            if (candidate <= 99)
-                return false;
+            if (candidate <= 99) return false;
 
             actorId = candidate;
             return true;

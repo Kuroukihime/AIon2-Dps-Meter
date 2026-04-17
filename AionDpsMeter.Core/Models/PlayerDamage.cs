@@ -13,7 +13,6 @@
         public bool IsPerfect { get; init; }
         public bool IsDoubleDamage { get; init; }
         public bool IsParry { get; init; }
-        public long[]? PotentialDamageData { get; init; }
         public bool IsDot { get; init; }
 
         /// <summary>

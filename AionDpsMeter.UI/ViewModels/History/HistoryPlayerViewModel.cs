@@ -1,3 +1,4 @@
+using AionDpsMeter.Core.Models;
 using AionDpsMeter.Services.Models;
 using AionDpsMeter.Services.Services.Settings;
 using AionDpsMeter.UI.Utils;
@@ -20,7 +21,6 @@ namespace AionDpsMeter.UI.ViewModels.History
         public bool    IsUser                => _stats.IsUser;
         public int     CombatPower           => _stats.CombatPower;
 
-       
         public string PlayerNameDisplay
         {
             get
@@ -48,17 +48,27 @@ namespace AionDpsMeter.UI.ViewModels.History
         public string  DurationDisplay       => DamageFormatter.FormatDuration(_stats.CombatDuration);
         public int     HitCount              => _stats.HitCount;
 
-        public IReadOnlyList<SkillStatsViewModel> Skills { get; }
-        public IReadOnlyList<BuffStatsViewModel> Buffs { get; }
+        public IReadOnlyList<SkillStatsViewModel>  Skills { get; }
+        public IReadOnlyList<BuffStatsViewModel>   Buffs  { get; }
+
+        /// <summary>Raw hits (newest first) for combat log and graph in snapshot details window.</summary>
+        public IReadOnlyList<PlayerDamage> RawHits       { get; }
+
+        /// <summary>Raw buff events for graph timeline in snapshot details window.</summary>
+        public IReadOnlyList<BuffEvent>    RawBuffEvents { get; }
 
         public HistoryPlayerViewModel(
             PlayerStats stats,
             IReadOnlyCollection<SkillStats> skills,
             IReadOnlyCollection<BuffStats> buffs,
+            IReadOnlyList<PlayerDamage> rawHits,
+            IReadOnlyList<BuffEvent> rawBuffEvents,
             IAppSettingsService settingsService)
         {
-            _stats = stats;
+            _stats           = stats;
             _settingsService = settingsService;
+            RawHits          = rawHits;
+            RawBuffEvents    = rawBuffEvents;
             Skills = skills
                 .OrderByDescending(s => s.TotalDamage)
                 .Select(s => new SkillStatsViewModel(s))

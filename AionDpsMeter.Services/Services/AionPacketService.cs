@@ -1,9 +1,16 @@
 ﻿using AionDpsMeter.Core.Models;
+using AionDpsMeter.Services.Models;
 using AionDpsMeter.Services.PacketCapture;
 using AionDpsMeter.Services.PacketProcessors;
-using Microsoft.Extensions.Logging;
-using AionDpsMeter.Services.Models;
+using AionDpsMeter.Services.PacketProcessors.Buff;
+using AionDpsMeter.Services.PacketProcessors.Damage;
+using AionDpsMeter.Services.PacketProcessors.DotDamage;
+using AionDpsMeter.Services.PacketProcessors.Handlers;
+using AionDpsMeter.Services.PacketProcessors.Mob;
+using AionDpsMeter.Services.PacketProcessors.Nickname;
+using AionDpsMeter.Services.PacketProcessors.Ping;
 using AionDpsMeter.Services.Services.Entity;
+using Microsoft.Extensions.Logging;
 
 namespace AionDpsMeter.Services.Services
 {
@@ -12,48 +19,65 @@ namespace AionDpsMeter.Services.Services
         private readonly IPacketCaptureDevice captureDevice;
         private readonly TcpStreamBuffer streamBuffer;
         private readonly EntityTracker entityTracker;
+        private readonly PacketProcessor packetProcessor;
+        private readonly PacketDispatcher dispatcher;
 
         private bool isRunning;
         private bool disposed;
 
-        private readonly PacketProcessor packetProcessor;
-        private readonly NicknamePacketProcessor nicknameProcessor;
-        private readonly DamagePacketProcessor damagePacketProcessor;
-        private readonly ServerTimePacketProcessor serverTimePacketProcessor;
-        private readonly MobPacketProcessor mobPacketProcessor;
-        private readonly BuffPacketProcessor buffPacketProcessor;
-
         public event EventHandler<PlayerDamage>? DamageReceived;
         public event EventHandler<BuffEvent>? BuffReceived;
-        private ILogger<AionPacketService> logger;
-
         public event EventHandler<int>? PingUpdated;
         public int CurrentPingMs { get; private set; }
 
-        public AionPacketService(IPacketCaptureDevice captureDevice, TcpStreamBuffer tcpStreamBuffer, EntityTracker entityTracker, ILoggerFactory loggerFactory)
+        public AionPacketService(
+            IPacketCaptureDevice captureDevice,
+            TcpStreamBuffer tcpStreamBuffer,
+            EntityTracker entityTracker,
+            ILoggerFactory loggerFactory)
         {
             this.captureDevice = captureDevice;
-            logger = loggerFactory.CreateLogger<AionPacketService>();
-            streamBuffer = tcpStreamBuffer;
+            this.streamBuffer = tcpStreamBuffer;
             this.entityTracker = entityTracker;
 
             packetProcessor = new PacketProcessor(loggerFactory.CreateLogger<PacketProcessor>());
-            nicknameProcessor = new NicknamePacketProcessor(entityTracker, loggerFactory.CreateLogger<NicknamePacketProcessor>());
-            damagePacketProcessor = new DamagePacketProcessor(entityTracker, loggerFactory.CreateLogger<DamagePacketProcessor>());
-            serverTimePacketProcessor = new();
-            mobPacketProcessor = new MobPacketProcessor(entityTracker, loggerFactory.CreateLogger<MobPacketProcessor>());
-            buffPacketProcessor = new BuffPacketProcessor(entityTracker, loggerFactory.CreateLogger<BuffPacketProcessor>());
 
-            damagePacketProcessor.DamageReceived += (s, e) => DamageReceived?.Invoke(this, e);
-            buffPacketProcessor.BuffReceived += (s, e) => BuffReceived?.Invoke(this, e);
+            var nicknameProcessor   = new NicknamePacketProcessor(entityTracker, loggerFactory.CreateLogger<NicknamePacketProcessor>());
+            var damageProcessor     = new DamagePacketProcessor(entityTracker, loggerFactory.CreateLogger<DamagePacketProcessor>());
+            var dotDamageProcessor  = new DotDamagePacketProcessor(entityTracker, loggerFactory.CreateLogger<DotDamagePacketProcessor>());
+            var mobProcessor        = new MobPacketProcessor(entityTracker, loggerFactory.CreateLogger<MobPacketProcessor>());
+            var buffProcessor       = new BuffPacketProcessor(loggerFactory.CreateLogger<BuffPacketProcessor>());
+            var serverTimeProcessor = new ServerTimePacketProcessor();
+
+            damageProcessor.DamageReceived    += (_, e) => DamageReceived?.Invoke(this, e);
+            dotDamageProcessor.DamageReceived += (_, e) => DamageReceived?.Invoke(this, e);
+            buffProcessor.BuffReceived        += (_, e) => BuffReceived?.Invoke(this, e);
+
+            IEnumerable<IPacketHandler> handlers =
+            [
+                new PlayerInfoHandler(nicknameProcessor),
+                new OtherPlayersInfoHandler(nicknameProcessor),
+                new PartyInfoHandler(nicknameProcessor),
+                new GlobalSessIdLinkingHandler(nicknameProcessor),
+                new DamagePacketHandler(damageProcessor),
+                new DotDamagePacketHandler(dotDamageProcessor),
+                new MobHpHandler(mobProcessor),
+                new MobSummonHandler(mobProcessor),
+                new BuffPacketHandler(buffProcessor),
+                new PingPacketHandler(serverTimeProcessor, ping =>
+                {
+                    CurrentPingMs = ping;
+                    PingUpdated?.Invoke(this, ping);
+                }),
+            ];
+
+            dispatcher = new PacketDispatcher(handlers, loggerFactory.CreateLogger<PacketDispatcher>());
             streamBuffer.PacketExtracted += OnPacketExtracted;
-
         }
 
         public void Start()
         {
             if (isRunning) return;
-
             isRunning = true;
             captureDevice.StartCapture();
         }
@@ -61,7 +85,6 @@ namespace AionDpsMeter.Services.Services
         public void Stop()
         {
             if (!isRunning) return;
-
             isRunning = false;
             captureDevice.StopCapture();
         }
@@ -72,56 +95,23 @@ namespace AionDpsMeter.Services.Services
             streamBuffer.Clear();
         }
 
-
         private void OnPacketExtracted(object? sender, TcpPacketEventArgs e)
         {
             var frames = packetProcessor.ProcessPacket(e.Payload);
-
             foreach (var frame in frames)
             {
                 var f = frame;
                 f.ReceivedAt = e.ReceivedAt;
-                ProcessFrame(f);
+                dispatcher.Dispatch(f);
             }
-        }
-
-        private void ProcessFrame(PacketProcessor.Packet packet)
-        {
-            try
-            {
-                nicknameProcessor.Process(packet.Data);
-
-                if (packet.Type == PacketTypeEnum.DAMAGE) damagePacketProcessor.Process04_38(packet.Data);
-                else if (packet.Type == PacketTypeEnum.DOT_DAMAGE) damagePacketProcessor.ProcessDotDamage(packet.Data);
-                else if (packet.Type == PacketTypeEnum.CURRENT_TIME) ProcessPing(packet);
-                else if (packet.Type == PacketTypeEnum.MOB_HP) mobPacketProcessor.ProcessMobHp(packet.Data);
-                else if (packet.Type == PacketTypeEnum.MOB_SUMMON) mobPacketProcessor.ProcessMobSpawn(packet.Data);
-                else if (packet.Type == PacketTypeEnum.BUFF_EFFECT) buffPacketProcessor.Process(packet.Data);
-                else
-                {
-                    logger.LogTrace("UNKNOWN PACKET TYPE {packetType}", packet.Type);
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Error processing packet of type {packetType}", packet.Type);
-            }
-        }
-
-        private void ProcessPing(PacketProcessor.Packet packet)
-        {
-            CurrentPingMs = serverTimePacketProcessor.GetPing(packet.Data, packet.ReceivedAt);
-            PingUpdated?.Invoke(this, CurrentPingMs);
         }
 
         public void Dispose()
         {
             if (disposed) return;
-
             Stop();
             streamBuffer.PacketExtracted -= OnPacketExtracted;
             captureDevice.Dispose();
-
             disposed = true;
         }
     }

@@ -34,6 +34,10 @@ namespace AionDpsMeter.Core.Models
         public BuffType Type { get; set; }
         public string IconUrlPart { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
+
+        /// <summary>Fully resolved icon URL, set during repository load.</summary>
+        [JsonIgnore]
+        public string? Icon { get; set; }
     }
 
     internal sealed class SkillsData

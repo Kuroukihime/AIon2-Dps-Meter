@@ -14,6 +14,22 @@ namespace AionDpsMeter.Services.PacketProcessors
             public long ReceivedAt;
         }
 
+        private static readonly Dictionary<(byte, byte), PacketTypeEnum> OpcodeMap = new()
+        {
+            { (0x04, 0x38), PacketTypeEnum.DAMAGE },
+            { (0x05, 0x38), PacketTypeEnum.DOT_DAMAGE },
+            { (0xFF, 0xFF), PacketTypeEnum.COMPRESSED_STREAM },
+            { (0x03, 0x36), PacketTypeEnum.CURRENT_TIME },
+            { (0x00, 0x8D), PacketTypeEnum.MOB_HP },
+            { (0x40, 0x36), PacketTypeEnum.MOB_SUMMON },
+            { (0x2A, 0x38), PacketTypeEnum.BUFF_EFFECT },
+            { (0x2B, 0x38), PacketTypeEnum.BUFF_EFFECT },
+            { (0x33, 0x36), PacketTypeEnum.PLAYER_INFO },
+            { (0x44, 0x36), PacketTypeEnum.OTHER_PLAYERS_INFO },
+            { (0x20, 0x36), PacketTypeEnum.GLOBAL_SESSID_LINKING },
+            { (0x02, 0x97), PacketTypeEnum.PARTY_INFO },
+        };
+
         internal List<Packet> ProcessPacket(byte[] packet)
         {
             try
@@ -32,26 +48,19 @@ namespace AionDpsMeter.Services.PacketProcessors
             }
         }
 
-        private PacketTypeEnum DeterminePacketType(byte[] packet)
+        private static PacketTypeEnum DeterminePacketType(byte[] packet)
         {
             var lenValueLength = packet.ReadVarInt().Length;
-            if (lenValueLength < 0 || packet.Length < lenValueLength + 2) return PacketTypeEnum.BROKEN;
-            if (packet[lenValueLength] == 0x04 && packet[lenValueLength + 1] == 0x38) return PacketTypeEnum.DAMAGE;
-            if (packet[lenValueLength] == 0x05 && packet[lenValueLength + 1] == 0x38) return PacketTypeEnum.DOT_DAMAGE;
-            if (packet[lenValueLength] == 0xFF && packet[lenValueLength + 1] == 0xFF) return PacketTypeEnum.COMPRESSED_STREAM;
-            if (packet[lenValueLength] == 0x03 && packet[lenValueLength + 1] == 0x36) return PacketTypeEnum.CURRENT_TIME;
-            if (packet[lenValueLength] == 0x00 && packet[lenValueLength + 1] == 0x8D) return PacketTypeEnum.MOB_HP;
-            if (packet[lenValueLength] == 0x40 && packet[lenValueLength + 1] == 0x36) return PacketTypeEnum.MOB_SUMMON;
-            if (packet[lenValueLength] == 0x2A && packet[lenValueLength + 1] == 0x38) return PacketTypeEnum.BUFF_EFFECT;
-            if (packet[lenValueLength] == 0x2B && packet[lenValueLength + 1] == 0x38) return PacketTypeEnum.BUFF_EFFECT;
-            return PacketTypeEnum.UNKNOWN;
+            if (lenValueLength < 0 || packet.Length < lenValueLength + 2)
+                return PacketTypeEnum.BROKEN;
+
+            var key = (packet[lenValueLength], packet[lenValueLength + 1]);
+            return OpcodeMap.GetValueOrDefault(key, PacketTypeEnum.UNKNOWN);
         }
 
         private List<Packet> ExtractInnerPackets(byte[] rawPacket)
         {
             var result = new List<Packet>();
-
-
             var stack = new Stack<(byte[] Buffer, int Offset, int Length)>();
             stack.Push((rawPacket, 0, rawPacket.Length));
 
@@ -59,30 +68,18 @@ namespace AionDpsMeter.Services.PacketProcessors
             {
                 var (buf, offset, length) = stack.Pop();
 
-                var frames = ScanFrames(buf.AsSpan(), offset, length);
-
-                foreach (var frame in frames)
+                foreach (var frame in ScanFrames(buf.AsSpan(), offset, length))
                 {
                     try
                     {
                         if (TryDecompress(buf.AsSpan(), frame.FrameBase, frame.FramePayloadLen,
                                 frame.VarintLen, out byte[]? decompressed, out int decompressedLen))
                         {
-                            // Push decompressed data back onto the stack for further processing
                             stack.Push((decompressed!, 0, decompressedLen));
                         }
                         else
                         {
-                            // Plain frame — extract the raw bytes and classify
-                            int dataOffset = frame.FrameBase + frame.VarintLen;
-                            int dataLen = frame.FramePayloadLen - frame.VarintLen;
-
-                            if (dataLen > 0)
-                            {
-                                byte[] frameBytes = buf.AsSpan(dataOffset - frame.VarintLen, dataLen + frame.VarintLen).ToArray();
-                                var packetType = DeterminePacketType(frameBytes);
-                                result.Add(new Packet { Type = packetType, Data = frameBytes });
-                            }
+                            CollectPlainFrame(buf, frame, result);
                         }
                     }
                     catch (Exception ex)
@@ -93,6 +90,15 @@ namespace AionDpsMeter.Services.PacketProcessors
             }
 
             return result;
+        }
+
+        private void CollectPlainFrame(byte[] buf, FrameInfo frame, List<Packet> result)
+        {
+            int dataLen = frame.FramePayloadLen - frame.VarintLen;
+            if (dataLen <= 0) return;
+
+            byte[] frameBytes = buf.AsSpan(frame.FrameBase, dataLen + frame.VarintLen).ToArray();
+            result.Add(new Packet { Type = DeterminePacketType(frameBytes), Data = frameBytes });
         }
 
         private readonly record struct FrameInfo(int FrameBase, int FramePayloadLen, int VarintLen);

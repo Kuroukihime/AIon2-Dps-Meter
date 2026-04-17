@@ -100,6 +100,27 @@ namespace AionDpsMeter.Services.Services.Session
             }
         }
 
+        public (IReadOnlyList<Models.DpsDataPoint> Points, IReadOnlyList<Models.BuffTimelineEntry> BuffTimeline, double TotalSec)
+            GetPlayerGraphData(long playerId)
+        {
+            lock (lockObject)
+            {
+                var session = GetActiveTargetSession();
+                if (session is null)
+                    return ([], [], 0);
+
+                var hits = session.GetCombatLog(playerId);
+                if (hits.Count == 0)
+                    return ([], [], 0);
+
+                var sessionStart = session.SessionStart;
+                var sessionEnd   = session.LastHitTime;
+                var buffEvents   = buffEventManager.GetBuffEvents((int)playerId, sessionStart, sessionEnd);
+
+                return GraphDataCalculator.Compute(hits, buffEvents);
+            }
+        }
+
         public TimeSpan GetCombatDuration()
         {
             lock (lockObject)

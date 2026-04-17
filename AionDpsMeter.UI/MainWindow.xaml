@@ -17,20 +17,26 @@
         ResizeMode="CanResizeWithGrip"
         MouseLeftButtonDown="Window_MouseLeftButtonDown">
 
-    <Border Background="{StaticResource PrimaryBackgroundBrush}"
+    <Border x:Name="MainBorder"
+            Background="#EB0D1117"
             BorderBrush="{StaticResource AccentBrush}"
-            BorderThickness="1"
-            CornerRadius="4"
-            Opacity="0.92">
+            BorderThickness="0"
+            CornerRadius="4">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
+            <!-- Global background image (behind everything) -->
+            <Image x:Name="PlayersBackgroundImage"
+                   Grid.RowSpan="2"
+                   Stretch="UniformToFill"
+                   IsHitTestVisible="False"/>
+
             <!-- Compact Header -->
             <Border Grid.Row="0"
-                    Background="{StaticResource SecondaryBackgroundBrush}"
+                    Background="#CC0D1117"
                     CornerRadius="3,3,0,0"
                     Padding="6,4">
                 <Grid>
@@ -47,7 +53,7 @@
 
                     <!-- Combat Duration -->
                     <Border Grid.Column="0"
-                            Background="{StaticResource TertiaryBackgroundBrush}"
+                            Background="#B321262D"
                             CornerRadius="3"
                             Padding="6,2"
                             VerticalAlignment="Center">
@@ -60,7 +66,7 @@
 
                     <!-- Ping Display -->
                     <Border Grid.Column="1"
-                            Background="{StaticResource TertiaryBackgroundBrush}"
+                            Background="#B321262D"
                             CornerRadius="3"
                             Padding="6,2"
                             Margin="4,0,0,0"
@@ -124,6 +130,7 @@
                             </Border>
                         </Grid>
                     </Grid>
+
                     <!-- History Button -->
                     <Button Grid.Column="3"
                          Content="☰"
@@ -134,8 +141,8 @@
                          ToolTip="History"
                          Click="HistoryButton_Click"
                          Style="{StaticResource ModernButtonStyle}"
-                         Background="{StaticResource TertiaryBackgroundBrush}"
-                         Padding="0"/>      
+                         Background="#B321262D"
+                         Padding="0"/>
                     <!-- Reset Button -->
                     <Button Grid.Column="4"
                             Content="↺"
@@ -146,7 +153,7 @@
                             Margin="4,0"
                             ToolTip="Reset"
                             Style="{StaticResource ModernButtonStyle}"
-                            Background="{StaticResource TertiaryBackgroundBrush}"
+                            Background="#B321262D"
                             Padding="0"/>
 
                     <!-- Settings Button -->
@@ -159,10 +166,8 @@
                             ToolTip="Settings"
                             Click="SettingsButton_Click"
                             Style="{StaticResource ModernButtonStyle}"
-                            Background="{StaticResource TertiaryBackgroundBrush}"
+                            Background="#B321262D"
                             Padding="0"/>
-
-                   
 
                     <!-- Minimize Button -->
                     <Button Grid.Column="6"
@@ -173,7 +178,7 @@
                             Margin="2,0"
                             Click="MinimizeButton_Click"
                             Style="{StaticResource ModernButtonStyle}"
-                            Background="{StaticResource TertiaryBackgroundBrush}"
+                            Background="#B321262D"
                             Padding="0"/>
 
                     <!-- Close Button -->
@@ -184,141 +189,153 @@
                             FontSize="10"
                             Click="CloseButton_Click"
                             Style="{StaticResource ModernButtonStyle}"
-                            Background="#C42B1C"
+                            Background="#B3C42B1C"
                             Padding="0"/>
                 </Grid>
             </Border>
 
             <!-- Players List - Compact & Virtualized -->
-            <ListBox Grid.Row="1"
-                     ItemsSource="{Binding Players}"
+            <Grid Grid.Row="1" ClipToBounds="True">
+                <!-- Dark overlay for readability over background image -->
+                <Border x:Name="PlayersBackgroundOverlay"
+                        Background="#80000000"
+                        IsHitTestVisible="False"
+                        Visibility="Collapsed"/>
+
+                <ListBox ItemsSource="{Binding Players}"
                      Background="Transparent"
                      BorderThickness="0"
+                     Grid.IsSharedSizeScope="True"
                      VirtualizingPanel.IsVirtualizing="True"
                      VirtualizingPanel.VirtualizationMode="Recycling"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                      ScrollViewer.VerticalScrollBarVisibility="Auto"
-                     Padding="4,2,4,4">
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-                        <Setter Property="Padding" Value="0"/>
-                        <Setter Property="Margin" Value="0"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="ListBoxItem">
-                                    <ContentPresenter/>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ListBox.ItemContainerStyle>
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Border Background="Transparent"
-                                Margin="0,1"
-                                Padding="2"
-                                Cursor="Hand"
-                                MouseLeftButtonDown="PlayerItem_Click"
-                                ToolTip="{Binding PlayerNameDisplay}">
-                            <Border.Tag>
-                                <Binding/>
-                            </Border.Tag>
+                     Padding="4,1,4,2">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="Margin" Value="0"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <ContentPresenter/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="Transparent"
+                                    Margin="0,0"
+                                    Padding="0"
+                                    Cursor="Hand"
+                                    MouseLeftButtonDown="PlayerItem_Click">
 
-                            <Grid Height="26">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="26"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
+                                <Border.Tag>
+                                    <Binding/>
+                                </Border.Tag>
 
-                                <!-- Class Icon -->
-                                <Border Grid.Column="0"
-                                        Width="22"
-                                        Height="22"
-                                        CornerRadius="2"
-                                        Background="{StaticResource TertiaryBackgroundBrush}"
-                                        VerticalAlignment="Center">
-                                    <Image Source="{Binding ClassIcon, Converter={StaticResource SafeImageSourceConverter}}"
-                                           Stretch="Uniform"
-                                           RenderOptions.BitmapScalingMode="LowQuality"/>
-                                </Border>
+                                <Grid Height="24">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="26"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition SharedSizeGroup="DpsCol" Width="Auto"/>
+                                        <ColumnDefinition SharedSizeGroup="PctCol" Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
 
-                                <!-- Damage Bar with Player Name and Total Damage -->
-                                <Grid Grid.Column="1" Margin="4,2,4,2" VerticalAlignment="Center">
-                                    <Border Background="{StaticResource TertiaryBackgroundBrush}"
+                                    <!-- Class Icon -->
+                                    <Border Grid.Column="0"
+                                            Width="22"
+                                            Height="22"
                                             CornerRadius="2"
-                                            Height="20"/>
-                                    <Border Background="{Binding IsUser, Converter={StaticResource BoolToProgressBrushConverter}}"
-                                            CornerRadius="2"
-                                            Height="20"
-                                            HorizontalAlignment="Left">
-                                        <Border.Width>
-                                            <MultiBinding Converter="{StaticResource PercentageToWidthConverter}">
-                                                <Binding Path="AnimatedPercentage"/>
-                                                <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType=Grid}"/>
-                                            </MultiBinding>
-                                        </Border.Width>
+                                            Background="#BF21262D"
+                                            VerticalAlignment="Center">
+                                        <Image Source="{Binding ClassIcon, Converter={StaticResource SafeImageSourceConverter}}"
+                                               Stretch="Uniform"
+                                               RenderOptions.BitmapScalingMode="LowQuality"/>
                                     </Border>
 
-                                    <!-- Player Name on left, Total Damage in center -->
-                                    <Grid>
-                                        <StackPanel Orientation="Vertical"
-                                                    HorizontalAlignment="Left"
-                                                    VerticalAlignment="Center"
-                                                    Margin="6,0,0,0">
-                                            <TextBlock Text="{Binding PlayerNameDisplay}"
+                                    <!-- Damage Bar with Player Name and Total Damage -->
+                                    <Grid Grid.Column="1" Margin="4,2,4,2" VerticalAlignment="Center">
+                                        <!-- Track (background) -->
+                                        <Border Background="{StaticResource TertiaryBackgroundBrush}"
+                                                CornerRadius="2"
+                                                Height="20"
+                                                Opacity="0.4"/>
+                                        <!-- Fill -->
+                                        <Border Background="{Binding IsUser, Converter={StaticResource BoolToProgressBrushConverter}}"
+                                                CornerRadius="2"
+                                                Height="20"
+                                                Opacity="0.55"
+                                                HorizontalAlignment="Left">
+                                            <Border.Width>
+                                                <MultiBinding Converter="{StaticResource PercentageToWidthConverter}">
+                                                    <Binding Path="AnimatedPercentage"/>
+                                                    <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType=Grid}"/>
+                                                </MultiBinding>
+                                            </Border.Width>
+                                        </Border>
+
+                                        <!-- Player Name on left, Total Damage in center -->
+                                        <Grid>
+                                            <StackPanel Orientation="Vertical"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Center"
+                                                        Margin="6,0,0,0">
+                                                <TextBlock Text="{Binding PlayerNameDisplay}"
+                                                           FontSize="10"
+                                                           FontWeight="SemiBold"
+                                                           Foreground="{StaticResource PrimaryTextBrush}"
+                                                           TextTrimming="CharacterEllipsis"/>
+                                                <TextBlock Text="{Binding CombatPower, StringFormat=CP: {0}}"
+                                                           FontSize="8"
+                                                           Foreground="{StaticResource SecondaryTextBrush}"
+                                                           Visibility="{Binding CombatPower, Converter={StaticResource IntToVisibilityConverter}}"/>
+                                            </StackPanel>
+
+                                            <TextBlock Text="{Binding TotalDamageFormatted}"
                                                        FontSize="10"
-                                                       FontWeight="SemiBold"
+                                                       FontWeight="Bold"
                                                        Foreground="{StaticResource PrimaryTextBrush}"
-                                                       TextTrimming="CharacterEllipsis"/>
-                                            <TextBlock Text="{Binding CombatPower, StringFormat=CP: {0}}"
-                                                       FontSize="8"
-                                                       Foreground="{StaticResource SecondaryTextBrush}"
-                                                       Visibility="{Binding CombatPower, Converter={StaticResource IntToVisibilityConverter}}"/>
-                                        </StackPanel>
-
-                                        <TextBlock Text="{Binding TotalDamageFormatted}"
-                                                   FontSize="10"
-                                                   FontWeight="Bold"
-                                                   Foreground="{StaticResource PrimaryTextBrush}"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center"/>
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"/>
+                                        </Grid>
                                     </Grid>
+
+                                    <!-- DPS -->
+                                    <Border Grid.Column="2"
+                                            Background="#8C21262D"
+                                            CornerRadius="2"
+                                            Padding="4,2"
+                                            Margin="0,2"
+                                            VerticalAlignment="Center">
+                                        <TextBlock FontSize="10"
+                                                   FontWeight="Bold"
+                                                   Foreground="{StaticResource DpsColorBrush}"
+                                                   VerticalAlignment="Center">
+                                            <Run Text="{Binding DpsFormatted, Mode=OneWay}"/>
+                                            <Run Text="/s" FontSize="8" Foreground="{StaticResource SecondaryTextBrush}"/>
+                                        </TextBlock>
+                                    </Border>
+
+                                    <!-- Percentage -->
+                                    <TextBlock Grid.Column="3"
+                                               Text="{Binding DamagePercentage, StringFormat={}{0:F1}%}"
+                                               FontSize="10"
+                                               FontWeight="SemiBold"
+                                               Foreground="{StaticResource SecondaryTextBrush}"
+                                               VerticalAlignment="Center"
+                                               Margin="4,0,2,0"
+                                               Width="36"
+                                               TextAlignment="Right"/>
                                 </Grid>
-
-                                <!-- DPS -->
-                                <Border Grid.Column="2"
-                                        Background="{StaticResource TertiaryBackgroundBrush}"
-                                        CornerRadius="2"
-                                        Padding="4,2"
-                                        Margin="0,2"
-                                        VerticalAlignment="Center">
-                                    <TextBlock FontSize="10"
-                                               FontWeight="Bold"
-                                               Foreground="{StaticResource DpsColorBrush}"
-                                               VerticalAlignment="Center">
-                                        <Run Text="{Binding DpsFormatted, Mode=OneWay}"/>
-                                        <Run Text="/s" FontSize="8" Foreground="{StaticResource SecondaryTextBrush}"/>
-                                    </TextBlock>
-                                </Border>
-
-                                <!-- Percentage -->
-                                <TextBlock Grid.Column="3"
-                                           Text="{Binding DamagePercentage, StringFormat={}{0:F1}%}"
-                                           FontSize="10"
-                                           FontWeight="SemiBold"
-                                           Foreground="{StaticResource SecondaryTextBrush}"
-                                           VerticalAlignment="Center"
-                                           Margin="4,0,2,0"
-                                           Width="36"
-                                           TextAlignment="Right"/>
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
         </Grid>
     </Border>
 </Window>

@@ -30,6 +30,8 @@ namespace AionDpsMeter.UI.ViewModels.History
                     p,
                     snapshot.SkillStatsByPlayer.TryGetValue(p.PlayerId, out var skills) ? skills : [],
                     snapshot.BuffStatsByPlayer.TryGetValue(p.PlayerId, out var buffs) ? buffs : [],
+                    snapshot.HitsByPlayer.TryGetValue(p.PlayerId, out var hits) ? hits : [],
+                    snapshot.BuffEventsByPlayer.TryGetValue(p.PlayerId, out var buffEvts) ? buffEvts : [],
                     settingsService))
                 .ToList();
         }

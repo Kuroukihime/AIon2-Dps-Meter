@@ -65,6 +65,23 @@ namespace AionDpsMeter.Services.Services.Settings
             }
         }
 
+        public double WindowOpacity
+        {
+            get { lock (_lock) return _data.WindowOpacity; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    double clamped = Math.Clamp(value, 0.1, 1.0);
+                    changed = _data.WindowOpacity != clamped;
+                    _data.WindowOpacity = clamped;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public double? WindowLeft
         {
             get { lock (_lock) return _data.WindowLeft; }
@@ -87,6 +104,22 @@ namespace AionDpsMeter.Services.Services.Settings
         {
             get { lock (_lock) return _data.WindowHeight; }
             set { lock (_lock) { _data.WindowHeight = value; Save(); } }
+        }
+
+        public string? BackgroundImagePath
+        {
+            get { lock (_lock) return _data.BackgroundImagePath; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    changed = _data.BackgroundImagePath != value;
+                    _data.BackgroundImagePath = value;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         private AppSettingsData Load()
@@ -124,6 +157,9 @@ namespace AionDpsMeter.Services.Services.Settings
             [JsonPropertyName("historyDamageThreshold")]
             public int HistoryDamageThreshold { get; set; } = 0;
 
+            [JsonPropertyName("windowOpacity")]
+            public double WindowOpacity { get; set; } = 0.92;
+
             [JsonPropertyName("windowLeft")]
             public double? WindowLeft { get; set; }
 
@@ -135,6 +171,9 @@ namespace AionDpsMeter.Services.Services.Settings
 
             [JsonPropertyName("windowHeight")]
             public double? WindowHeight { get; set; }
+
+            [JsonPropertyName("backgroundImagePath")]
+            public string? BackgroundImagePath { get; set; }
         }
     }
 }
