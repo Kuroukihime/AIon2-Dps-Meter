@@ -1,3 +1,4 @@
+using AionDpsMeter.Core.Models;
 using AionDpsMeter.Services.Models;
 
 namespace AionDpsMeter.Services.Services.Session
@@ -22,6 +23,14 @@ namespace AionDpsMeter.Services.Services.Session
         public IReadOnlyDictionary<long, IReadOnlyCollection<BuffStats>> BuffStatsByPlayer { get; init; }
             = new Dictionary<long, IReadOnlyCollection<BuffStats>>();
 
+        /// <summary>Raw damage events per player — newest first, matching the live CombatLog order.</summary>
+        public IReadOnlyDictionary<long, IReadOnlyList<PlayerDamage>> HitsByPlayer { get; init; }
+            = new Dictionary<long, IReadOnlyList<PlayerDamage>>();
+
+        /// <summary>Raw buff events per player for graph timeline.</summary>
+        public IReadOnlyDictionary<long, IReadOnlyList<BuffEvent>> BuffEventsByPlayer { get; init; }
+            = new Dictionary<long, IReadOnlyList<BuffEvent>>();
+
         public static HistorySessionSnapshot From(TargetCombatSession session, BuffEventManager buffManager)
         {
             var playerStats = session.GetPlayerStats().ToList();
@@ -42,17 +51,27 @@ namespace AionDpsMeter.Services.Services.Session
                         .ToList();
                 });
 
+            var hitsByPlayer = playerStats.ToDictionary(
+                p => p.PlayerId,
+                p => session.GetCombatLog(p.PlayerId));
+
+            var buffEventsByPlayer = playerStats.ToDictionary(
+                p => p.PlayerId,
+                p => buffManager.GetBuffEvents((int)p.PlayerId, sessionStart, sessionEnd));
+
             return new HistorySessionSnapshot
             {
-                TargetId      = session.TargetId,
-                TargetName    = session.TargetInfo.Name,
-                TargetHpTotal = session.TargetInfo.HpTotal,
-                SessionStart  = session.SessionStart,
-                SessionEnd    = session.LastHitTime,
-                State         = session.State,
-                PlayerStats   = playerStats,
+                TargetId           = session.TargetId,
+                TargetName         = session.TargetInfo.Name,
+                TargetHpTotal      = session.TargetInfo.HpTotal,
+                SessionStart       = session.SessionStart,
+                SessionEnd         = session.LastHitTime,
+                State              = session.State,
+                PlayerStats        = playerStats,
                 SkillStatsByPlayer = skillStats,
                 BuffStatsByPlayer  = buffStats,
+                HitsByPlayer       = hitsByPlayer,
+                BuffEventsByPlayer = buffEventsByPlayer,
             };
         }
     }

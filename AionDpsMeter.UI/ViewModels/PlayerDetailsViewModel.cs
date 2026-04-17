@@ -1,4 +1,5 @@
 using AionDpsMeter.Core.Models;
+using AionDpsMeter.Services.Models;
 using AionDpsMeter.Services.Services.Session;
 using AionDpsMeter.Services.Services.Settings;
 using AionDpsMeter.UI.Utils;
@@ -34,7 +35,7 @@ namespace AionDpsMeter.UI.ViewModels
         [ObservableProperty] private string? _classIconDisplay;
         [ObservableProperty] private int _combatPower;
 
-        // ?? Summary stats ??????????????????????????????????????????????????????
+        // Summary stats
         [ObservableProperty] private string _totalDamageDisplay = "0";
         [ObservableProperty] private string _dpsDisplay = "0";
         [ObservableProperty] private int _totalHits;
@@ -48,16 +49,34 @@ namespace AionDpsMeter.UI.ViewModels
         [ObservableProperty] private int _skillCount;
         [ObservableProperty] private int _buffCount;
 
-        // ?? Active target ??????????????????????????????????????????????????????
+        // Active target
         [ObservableProperty] private string _activeTargetName = string.Empty;
         [ObservableProperty] private int _activeTargetHpTotal;
         [ObservableProperty] private string _activeTargetHpTotalDisplay = string.Empty;
         [ObservableProperty] private bool _hasActiveTarget;
 
-        // ?? View toggle ????????????????????????????????????????????????????????
+        // Graph data
+        [ObservableProperty] private IReadOnlyList<DpsDataPoint> _graphPoints = [];
+        [ObservableProperty] private IReadOnlyList<BuffTimelineEntry> _graphBuffTimeline = [];
+        [ObservableProperty] private double _graphTotalDurationSec;
+
+        // View toggle: 0=Skills, 1=Log, 2=Graph
         [ObservableProperty] private bool _showCombatLog;
-        public bool ShowSkills => !ShowCombatLog;
-        partial void OnShowCombatLogChanged(bool value) => OnPropertyChanged(nameof(ShowSkills));
+        [ObservableProperty] private bool _showGraph;
+
+        public bool ShowSkills => !ShowCombatLog && !ShowGraph;
+
+        partial void OnShowCombatLogChanged(bool value)
+        {
+            if (value) ShowGraph = false;
+            OnPropertyChanged(nameof(ShowSkills));
+        }
+
+        partial void OnShowGraphChanged(bool value)
+        {
+            if (value) ShowCombatLog = false;
+            OnPropertyChanged(nameof(ShowSkills));
+        }
 
         /// <summary>Nickname formatted as <c>Name[Server]</c> when server is known, otherwise just <c>Name</c>.</summary>
         public string PlayerNameWithServer
@@ -96,6 +115,7 @@ namespace AionDpsMeter.UI.ViewModels
                 combatPower: player.CombatPower,
                 serverName: player.ServerName,
                 isSnapshot: true);
+
             vm.TotalDamageDisplay        = player.TotalDamageDisplay;
             vm.DpsDisplay                = player.DpsDisplay;
             vm.TotalHits                 = player.HitCount;
@@ -107,8 +127,8 @@ namespace AionDpsMeter.UI.ViewModels
             vm.DamageContributionDisplay = player.DamagePercentDisplay;
             vm.CombatDurationDisplay     = player.DurationDisplay;
 
-            vm.HasActiveTarget            = !string.IsNullOrEmpty(targetName);
-            vm.ActiveTargetName           = targetName;
+            vm.HasActiveTarget  = !string.IsNullOrEmpty(targetName);
+            vm.ActiveTargetName = targetName;
 
             foreach (var skill in player.Skills)
                 vm.Skills.Add(skill);
@@ -117,6 +137,16 @@ namespace AionDpsMeter.UI.ViewModels
             foreach (var buff in player.Buffs)
                 vm.Buffs.Add(buff);
             vm.BuffCount = vm.Buffs.Count;
+
+            // Combat log from raw hits (newest first — same order as the live view)
+            foreach (var hit in player.RawHits)
+                vm.CombatLog.Add(new CombatLogEntryViewModel(hit));
+
+            // Graph data from raw hits + buff events
+            var (pts, buffTimeline, totalSec) = GraphDataCalculator.Compute(player.RawHits, player.RawBuffEvents);
+            vm.GraphPoints           = pts;
+            vm.GraphBuffTimeline     = buffTimeline;
+            vm.GraphTotalDurationSec = totalSec;
 
             return vm;
         }
@@ -163,7 +193,18 @@ namespace AionDpsMeter.UI.ViewModels
         }
 
         [RelayCommand]
-        private void ToggleCombatLog() => ShowCombatLog = !ShowCombatLog;
+        private void ToggleCombatLog()
+        {
+            if (ShowCombatLog) { ShowCombatLog = false; }
+            else if (ShowGraph) { ShowGraph = false; }
+            else { ShowCombatLog = true; }
+        }
+
+        [RelayCommand]
+        private void ShowGraphView()
+        {
+            ShowGraph = true;
+        }
 
         private void OnUpdateTimerTick(object? sender, EventArgs e) => RefreshData();
 
@@ -173,6 +214,16 @@ namespace AionDpsMeter.UI.ViewModels
             RefreshBuffs();
             RefreshCombatLog();
             RefreshPlayerSummary();
+            RefreshGraphData();
+        }
+
+        private void RefreshGraphData()
+        {
+            if (_sessionManager is null) return;
+            var (pts, buffTimeline, totalSec) = _sessionManager.GetPlayerGraphData(_playerId);
+            GraphPoints           = pts;
+            GraphBuffTimeline     = buffTimeline;
+            GraphTotalDurationSec = totalSec;
         }
 
         private void RefreshPlayerSummary()
@@ -260,9 +311,7 @@ namespace AionDpsMeter.UI.ViewModels
             var buffStats = _sessionManager.GetPlayerBuffStats(_playerId);
 
             if (Buffs.Count == buffStats.Count && BuffsMatch(buffStats))
-            {
                 return;
-            }
 
             Buffs.Clear();
             foreach (var buff in buffStats)
@@ -298,14 +347,11 @@ namespace AionDpsMeter.UI.ViewModels
                 SkillCount = 0;
             }
 
-        
             if (allEntries.Count > _knownCombatLogCount)
             {
                 int newCount = allEntries.Count - _knownCombatLogCount;
-              
                 for (int i = newCount - 1; i >= 0; i--)
                     CombatLog.Insert(0, new CombatLogEntryViewModel(allEntries[i]));
-
                 _knownCombatLogCount = allEntries.Count;
 
                 while (CombatLog.Count > 200)
