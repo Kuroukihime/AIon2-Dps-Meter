@@ -30,14 +30,16 @@ namespace AionDpsMeter.Core.Data
         {
             var basePath = AppDomain.CurrentDomain.BaseDirectory;
             var dataDir = Path.Combine(basePath, "Data");
-
+            var skillIconsPath = Path.Combine(dataDir, "skill_icons.json");
+            if (File.Exists(skillIconsPath))
+                SkillIconResolver.LoadSkillIconMap(File.ReadAllText(skillIconsPath));
             Classes.Load(Path.Combine(dataDir, "classes.json"));
             Skills.Load(Path.Combine(dataDir, "skills.json"));
             Skills.LoadDotSkillIds(Path.Combine(dataDir, "dot_skill_ids.json"));
             Skills.LoadHealingSkills(Path.Combine(dataDir, "healing_skill_ids.json"));
             Mobs.Load(Path.Combine(dataDir, "mobs.json"));
             Buffs.Load(Path.Combine(dataDir, "buffs.json"));
-
+            
         }
         public bool IsTheostone(int skillCode) => Skills.IsTheostone(skillCode);
         public bool IsHealingSkill(int skillCode) => Skills.IsHealingSkill(skillCode);

@@ -1,9 +1,9 @@
 {
   "classes": [
     {
-      "id": 11,
-      "name": "Gladiator",
-      "icon":"/Assets/Classes/gladiator.png"
+      "id": 10,
+      "name": "Elementalist spirit",
+      "icon": "/Assets/Classes/elementalist.png"
     },
     {
       "id": 18,
@@ -28,7 +28,7 @@
     {
       "id": 16,
       "name": "Elementalist",
-      "icon":  "/Assets/Classes/elementalist.png"
+      "icon": "/Assets/Classes/elementalist.png"
     },
     {
       "id": 17,

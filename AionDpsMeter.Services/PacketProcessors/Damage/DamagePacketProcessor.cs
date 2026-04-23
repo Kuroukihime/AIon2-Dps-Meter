@@ -94,7 +94,6 @@ namespace AionDpsMeter.Services.PacketProcessors.Damage
         private PlayerDamage? BuildPlayerDamage(DamagePacketData data)
         {
             if (gameData.IsHealingSkill(data.SkillCode)) return null;
-
             CharacterClass? characterClass;
             if (!gameData.IsTheostone(data.SkillCode))
             {

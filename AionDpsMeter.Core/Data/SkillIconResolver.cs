@@ -1,3 +1,4 @@
+using System.Collections.Frozen;
 using System.Text.Json;
 
 namespace AionDpsMeter.Core.Data
@@ -21,27 +22,49 @@ namespace AionDpsMeter.Core.Data
                 { "18", "CH" }, // Chanter
             };
 
-        private static readonly Dictionary<int, string> NameColorByCode = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> NameColorByCode = new()
         {
             { 0, "#52b35c" }, // green
             { 1, "#3d94d8" }, // blue
             { 2, "#e9a43a" }  // yellow
         };
 
-        private static IReadOnlyDictionary<string, string>? _skillIconMap;
+        private static FrozenDictionary<int, string> _skillIconOverrides = FrozenDictionary<int, string>.Empty;
 
         public static void LoadSkillIconMap(string json)
         {
-            _skillIconMap = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
+            var raw = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
+            if (raw is null)
+                return;
+
+            var parsed = new Dictionary<int, string>(raw.Count);
+            foreach (var (key, value) in raw)
+            {
+                if (int.TryParse(key, out int id))
+                    parsed[id] = value;
+            }
+
+            _skillIconOverrides = parsed.ToFrozenDictionary();
         }
 
         public static string? GetIconUrl(int skillCode, bool isTheostone)
         {
 
+            if (skillCode > 999)
+            {
+                if (int.TryParse(skillCode.ToString()[..4], out int overrideKey) &&
+                    _skillIconOverrides.TryGetValue(overrideKey, out string? overrideIcon) &&
+                    !string.IsNullOrEmpty(overrideIcon))
+                {
+                    return $"{BaseUrl}/{overrideIcon}.png";
+                }
+            }
+           
+
             if (isTheostone) return GetTheostoneIconUrl(skillCode.ToString());
 
-            if (skillCode is < 10_000_000 or > 19_999_999)
-                return null;
+            //if (skillCode is < 10_000_000 or > 19_999_999)
+            //    return null;
 
             string code = skillCode.ToString("D8")[..8];
 
@@ -61,13 +84,6 @@ namespace AionDpsMeter.Core.Data
                 return null;
 
             bool isPassive = sub >= 70;
-
-            string base4 = code[..4];
-            if (_skillIconMap?.TryGetValue(base4, out string? iconName) == true &&
-                !string.IsNullOrEmpty(iconName))
-            {
-                return $"{BaseUrl}/{iconName}.png";
-            }
 
             string suffix = "";
             if (isPassive)
