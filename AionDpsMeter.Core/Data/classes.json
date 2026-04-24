@@ -6,6 +6,11 @@
       "icon": "/Assets/Classes/elementalist.png"
     },
     {
+      "id": 11,
+      "name": "Gladiator",
+      "icon": "/Assets/Classes/gladiator.png"
+    },
+    {
       "id": 18,
       "name": "Chanter",
       "icon": "/Assets/Classes/chanter.png"
