@@ -116,5 +116,53 @@ namespace AionDpsMeter.Services.Services.Session
                 session.Reset();
             playerSessions.Clear();
         }
+
+        /// <summary>
+        /// Transfers all damage recorded under <paramref name="summonId"/> to the owner's player session.
+        /// Returns:
+        ///   -1  – no summon session found in this combat session (nothing to do)
+        ///    0  – summon session found but owner player entity is unknown; session kept as-is,
+        ///         a placeholder entity named "Summon_{summonId}" is registered in the tracker
+        ///   >0  – number of hits successfully transferred to the owner's session
+        /// </summary>
+        public int TransferSummonDamage(int summonId, int ownerId)
+        {
+            if (!playerSessions.TryGetValue(summonId, out var summonSession))
+                return -1;
+
+            var ownerEntity = entityTracker.GetPlayerEntity(ownerId);
+            if (ownerEntity is null)
+                return 0;
+
+            if (!playerSessions.TryGetValue(ownerId, out var ownerSession))
+            {
+                ownerSession = new PlayerSession(ownerId, entityTracker);
+                playerSessions[ownerId] = ownerSession;
+            }
+
+            foreach (var hit in summonSession.Hits)
+            {
+                var reStamped = new PlayerDamage
+                {
+                    DateTime       = hit.DateTime,
+                    SourceEntity   = ownerEntity,
+                    TargetEntity   = hit.TargetEntity,
+                    Skill          = hit.Skill,
+                    CharacterClass = hit.CharacterClass,
+                    Damage         = hit.Damage,
+                    IsCritical     = hit.IsCritical,
+                    IsBackAttack   = hit.IsBackAttack,
+                    IsPerfect      = hit.IsPerfect,
+                    IsDoubleDamage = hit.IsDoubleDamage,
+                    IsParry        = hit.IsParry,
+                    IsDot          = hit.IsDot,
+                };
+                ownerSession.AddDamage(reStamped);
+            }
+
+            var transferred = summonSession.Hits.Count;
+            playerSessions.Remove(summonId);
+            return transferred;
+        }
     }
 }

@@ -1,6 +1,8 @@
-using AionDpsMeter.Services.Extensions;
+﻿using AionDpsMeter.Services.Extensions;
 using AionDpsMeter.Services.Services.Entity;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Channels;
 
 namespace AionDpsMeter.Services.PacketProcessors.Mob
 {
@@ -8,6 +10,8 @@ namespace AionDpsMeter.Services.PacketProcessors.Mob
     {
         private static readonly byte[] SummonBoundaryMarker = [0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF];
         private static readonly byte[] SummonActorHeader = [0x07, 0x02, 0x06];
+        private static readonly byte[] SummonActorHeader2 = [0x07, 0x02, 0x01];
+        private static readonly byte[] SummonActorHeaderBackup = [0x07, 0x02];
         private const int MobTypeScanWindow = 60;
         private const int HpScanWindow = 64;
 
@@ -25,7 +29,7 @@ namespace AionDpsMeter.Services.PacketProcessors.Mob
 
         public void ProcessMobSpawn(byte[] packet)
         {
-            if (TryParseSummon(packet)) return;
+            TryParseSummon(packet);
             TryParseMobInfo(packet);
         }
 
@@ -97,7 +101,7 @@ namespace AionDpsMeter.Services.PacketProcessors.Mob
 
             int petId = data.ReadVarInt(pos).Value;
             if (petId == int.MaxValue) return false;
-
+            
             if (!TryFindSummonActorId(data, pos, end - pos, out ushort actorId)) return false;
 
             entityTracker.RegisterSummon(petId, actorId);
@@ -115,7 +119,7 @@ namespace AionDpsMeter.Services.PacketProcessors.Mob
             int afterBoundary = boundaryIndex + SummonBoundaryMarker.Length;
             if (afterBoundary >= length) return false;
 
-            int headerIndex = span.Slice(afterBoundary).IndexOf(SummonActorHeader);
+            int headerIndex = TryFindSummonActorHeader(span.Slice(afterBoundary));
             if (headerIndex == -1) return false;
 
             int actorOffset = afterBoundary + headerIndex;
@@ -127,5 +131,18 @@ namespace AionDpsMeter.Services.PacketProcessors.Mob
             actorId = candidate;
             return true;
         }
+
+
+        private static int TryFindSummonActorHeader(ReadOnlySpan<byte> data )
+        {
+            int headerIndex = -1;
+            headerIndex = data.IndexOf(SummonActorHeader);
+            if (headerIndex > -1) return headerIndex;
+            headerIndex = data.IndexOf(SummonActorHeader2);
+            if (headerIndex > -1) return headerIndex;
+            headerIndex = data.IndexOf(SummonActorHeaderBackup) +1;
+            return headerIndex;
+        }
     }
+
 }

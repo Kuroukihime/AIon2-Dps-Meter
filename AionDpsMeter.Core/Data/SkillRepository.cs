@@ -46,7 +46,6 @@ namespace AionDpsMeter.Core.Data
                     continue;
 
                 var classId = fullId / 1_000_000;
-
                 skillsByPrefix[prefix] = new Skill
                 {
                     Id = prefix,
