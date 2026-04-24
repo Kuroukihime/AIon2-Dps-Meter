@@ -29,7 +29,7 @@ namespace AionDpsMeter.Services.PacketProcessors.Mob
 
         public void ProcessMobSpawn(byte[] packet)
         {
-            if (TryParseSummon(packet)) return;
+            TryParseSummon(packet);
             TryParseMobInfo(packet);
         }
 
