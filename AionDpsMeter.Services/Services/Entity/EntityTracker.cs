@@ -6,6 +6,8 @@ namespace AionDpsMeter.Services.Services.Entity
 {
     public sealed class EntityTracker
     {
+        // Fired when a summon is registered: (summonId, ownerId)
+        public event Action<int, int>? SummonRegistered;
 
         public List<Player> PlayerEntities => playerEntities.Select(r => r.Value).ToList();
         public List<Mob> TargetEntities => targetEntities.Select(r => r.Value).ToList();
@@ -211,16 +213,7 @@ namespace AionDpsMeter.Services.Services.Entity
         public void RegisterSummon(int summonId, int ownerId)
         {
             summons[summonId] = ownerId;
-
-            //if (!entities.ContainsKey(summonId))
-            //{
-            //    entities[summonId] = new Entity
-            //    {
-            //        Id = summonId,
-            //        Name = $"Summon_{summonId}",
-            //        Icon = null
-            //    };
-            //}
+            SummonRegistered?.Invoke(summonId, ownerId);
         }
 
         public bool IsSummon(int entityId) => summons.ContainsKey(entityId);

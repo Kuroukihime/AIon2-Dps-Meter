@@ -21,6 +21,7 @@ namespace AionDpsMeter.Services.Services.Session
             this.entityTracker = entityTracker;
             targetResolver = new ActiveTargetResolver(entityTracker);
             logger = loggerFactory.CreateLogger<CombatSessionManager>();
+            entityTracker.SummonRegistered += OnSummonRegistered;
         }
 
       
@@ -225,6 +226,45 @@ namespace AionDpsMeter.Services.Services.Session
             targetEntries.Clear();
             targetResolver.Reset();
             buffEventManager.Reset();
+        }
+
+        private void OnSummonRegistered(int summonId, int ownerId)
+        {
+            lock (lockObject)
+            {
+                int totalTransferred = 0;
+                int entriesAffected  = 0;
+
+                foreach (var (targetId, entry) in targetEntries)
+                {
+                    if (entry.CurrentSession is not { } current) continue;
+
+                    int result = current.TransferSummonDamage(summonId, ownerId);
+                    if (result == 0)
+                    {
+                        logger.LogWarning(
+                            "Summon late-registration: summon {SummonId} found in target entry {TargetId} but owner player entity {OwnerId} is unknown. Skipping transfer.",
+                            summonId, targetId, ownerId);
+                    }
+                    else if (result > 0)
+                    {
+                        totalTransferred += result;
+                        entriesAffected++;
+                        logger.LogInformation(
+                            "Summon late-registration: transferred {Count} hit(s) from summon {SummonId} to owner {OwnerId} in target entry {TargetId}.",
+                            result, summonId, ownerId, targetId);
+                    }
+                }
+
+                if (totalTransferred == 0)
+                    logger.LogDebug(
+                        "Summon late-registration: summon {SummonId} registered with owner {OwnerId} — no prior damage hits found to transfer.",
+                        summonId, ownerId);
+                else
+                    logger.LogInformation(
+                        "Summon late-registration complete: summon {SummonId} → owner {OwnerId}. Total hits transferred: {Total} across {Entries} target entry(ies).",
+                        summonId, ownerId, totalTransferred, entriesAffected);
+            }
         }
     }
 }
