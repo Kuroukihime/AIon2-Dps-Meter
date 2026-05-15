@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using Microsoft.Extensions.Logging;
 using AionDpsMeter.Services.Models;
 using AionDpsMeter.Services.Services.Entity;
+using AionDpsMeter.Services.Services.Settings;
 
 namespace AionDpsMeter.Services.Services.Session
 {
@@ -14,11 +15,13 @@ namespace AionDpsMeter.Services.Services.Session
         private readonly BuffEventManager buffEventManager = new();
         private readonly ILogger<CombatSessionManager> logger;
         private readonly Lock lockObject = new();
+        private readonly IAppSettingsService settingsService;
 
 
-        public CombatSessionManager(EntityTracker entityTracker, ILoggerFactory loggerFactory)
+        public CombatSessionManager(EntityTracker entityTracker, ILoggerFactory loggerFactory, IAppSettingsService settingsService)
         {
             this.entityTracker = entityTracker;
+            this.settingsService = settingsService;
             targetResolver = new ActiveTargetResolver(entityTracker);
             logger = loggerFactory.CreateLogger<CombatSessionManager>();
             entityTracker.SummonRegistered += OnSummonRegistered;
@@ -143,6 +146,12 @@ namespace AionDpsMeter.Services.Services.Session
             {
                 lock (lockObject)
                 {
+                    if (settingsService.BossOnlyCapture)
+                    {
+                        var mob = entityTracker.GetTargetMob(damageEvent.TargetEntity.Id) ?? damageEvent.TargetEntity;
+                        if (!mob.IsBoss) return;
+                    }
+
                     if (entityTracker.IsSummon(damageEvent.SourceEntity.Id) &&
                         !ResolveSummonSource(damageEvent))
                         return;

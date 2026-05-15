@@ -48,6 +48,22 @@ namespace AionDpsMeter.Services.Services.Settings
             }
         }
 
+        public bool BossOnlyCapture
+        {
+            get { lock (_lock) return _data.BossOnlyCapture; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    changed = _data.BossOnlyCapture != value;
+                    _data.BossOnlyCapture = value;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public int HistoryDamageThreshold
         {
             get { lock (_lock) return _data.HistoryDamageThreshold; }
@@ -153,6 +169,9 @@ namespace AionDpsMeter.Services.Services.Settings
 
             [JsonPropertyName("isNicknameHidden")]
             public bool IsNicknameHidden { get; set; }
+
+            [JsonPropertyName("bossOnlyCapture")]
+            public bool BossOnlyCapture { get; set; }
 
             [JsonPropertyName("historyDamageThreshold")]
             public int HistoryDamageThreshold { get; set; } = 0;
