@@ -24630,5 +24630,53 @@
   "2921168": {
     "name": "Phantom Temple Priest",
     "isBoss": false
+  },
+  "2300259": {
+    "name": "Rotar ",
+    "isBoss": true
+  },
+  "2300299": {
+    "name": "Rotar ",
+    "isBoss": true
+  },
+  "2300334": {
+    "name": "Rotar ",
+    "isBoss": true
+  },
+  "2300353": {
+    "name": "Rotar ",
+    "isBoss": true
+  },
+  "2300260": {
+    "name": "Robstino ",
+    "isBoss": true
+  },
+  "2300300": {
+    "name": "Robstino ",
+    "isBoss": true
+  },
+  "2300335": {
+    "name": "Robstino ",
+    "isBoss": true
+  },
+  "2300354": {
+    "name": "Robstino ",
+    "isBoss": true
+  },
+  "2300261": {
+    "name": "Kromede's Desolation",
+    "isBoss": true
+  },
+  "2300317": {
+    "name": "Kromede's Desolation",
+    "isBoss": true
+  },
+  "2300336": {
+    "name": "Kromede's Desolation",
+    "isBoss": true
+  },
+  "2300355": {
+    "name": "Kromede's Desolation",
+    "isBoss": true
   }
 }
