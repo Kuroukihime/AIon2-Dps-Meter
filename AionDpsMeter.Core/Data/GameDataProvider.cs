@@ -51,6 +51,8 @@ namespace AionDpsMeter.Core.Data
 
         public string GetMobName(int mobId) => Mobs.GetName(mobId);
 
+        public bool IsBoss(int mobId) => Mobs.IsBoss(mobId);
+
         public bool IsBuff (int buffId) => Buffs.IsBuff(buffId);
         public BuffData? GetBuff(int buffId) => Buffs.GetBuff(buffId);
 

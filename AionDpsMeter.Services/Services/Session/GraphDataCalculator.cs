@@ -25,13 +25,26 @@ namespace AionDpsMeter.Services.Services.Session
                 bucketDamage[idx] += hit.Damage;
             }
 
+            // Apply a rolling average window to smooth per-second damage spikes
+            // caused by network packet batching 
+            const int SmoothRadius = 2; // ±2 sec → 5-second window
+            var smoothed = new long[buckets + 1];
+            for (int i = 0; i <= buckets; i++)
+            {
+                int lo  = Math.Max(0, i - SmoothRadius);
+                int hi  = Math.Min(buckets, i + SmoothRadius);
+                long sum = 0;
+                for (int j = lo; j <= hi; j++) sum += bucketDamage[j];
+                smoothed[i] = sum / (hi - lo + 1);
+            }
+
             var points = new List<DpsDataPoint>(buckets + 1);
             long cumDmg = 0;
             for (int i = 0; i <= buckets; i++)
             {
                 cumDmg += bucketDamage[i];
                 double elapsed = Math.Max(0.1, Math.Min(i + 1.0, totalSec));
-                points.Add(new DpsDataPoint(i, bucketDamage[i], cumDmg / elapsed));
+                points.Add(new DpsDataPoint(i, smoothed[i], cumDmg / elapsed));
             }
 
             var timeline = new List<BuffTimelineEntry>(buffEvents.Count);

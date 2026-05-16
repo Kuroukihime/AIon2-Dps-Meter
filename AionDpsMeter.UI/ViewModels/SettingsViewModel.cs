@@ -16,6 +16,9 @@ namespace AionDpsMeter.UI.ViewModels
         private bool _isNicknameHidden;
 
         [ObservableProperty]
+        private bool _bossOnlyCapture;
+
+        [ObservableProperty]
         private int _historyDamageThreshold;
 
         [ObservableProperty]
@@ -29,6 +32,7 @@ namespace AionDpsMeter.UI.ViewModels
             _settingsService = settingsService;
             _isPacketLoggingEnabled = settingsService.IsPacketLoggingEnabled;
             _isNicknameHidden = settingsService.IsNicknameHidden;
+            _bossOnlyCapture = settingsService.BossOnlyCapture;
             _historyDamageThreshold = settingsService.HistoryDamageThreshold;
             _windowOpacityPercent = (int)Math.Round(settingsService.WindowOpacity * 100);
             _backgroundImagePath = settingsService.BackgroundImagePath;
@@ -42,6 +46,11 @@ namespace AionDpsMeter.UI.ViewModels
         partial void OnIsNicknameHiddenChanged(bool value)
         {
             _settingsService.IsNicknameHidden = value;
+        }
+
+        partial void OnBossOnlyCaptureChanged(bool value)
+        {
+            _settingsService.BossOnlyCapture = value;
         }
 
         partial void OnHistoryDamageThresholdChanged(int value)

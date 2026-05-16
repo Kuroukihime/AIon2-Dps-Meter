@@ -6389,7 +6389,7 @@
   },
   "2300229": {
     "name": "Training Scarecrow",
-    "isBoss": false
+    "isBoss": true
   },
   "2300301": {
     "name": "Lava Eruption",
@@ -6877,7 +6877,7 @@
   },
   "2300919": {
     "name": "Training Scarecrow",
-    "isBoss": false
+    "isBoss": true
   },
   "2300920": {
     "name": "Abyssal Moss Crab",
@@ -7289,7 +7289,7 @@
   },
   "2310229": {
     "name": "Training Scarecrow",
-    "isBoss": false
+    "isBoss": true
   },
   "2310301": {
     "name": "Lava Eruption",
@@ -7721,7 +7721,7 @@
   },
   "2310919": {
     "name": "Training Scarecrow",
-    "isBoss": false
+    "isBoss": true
   },
   "2310920": {
     "name": "Abyssal Moss Crab",
@@ -8001,7 +8001,7 @@
   },
   "2320229": {
     "name": "Training Scarecrow",
-    "isBoss": false
+    "isBoss": true
   },
   "2320301": {
     "name": "Lava Eruption",
@@ -8457,7 +8457,7 @@
   },
   "2320919": {
     "name": "Training Scarecrow",
-    "isBoss": false
+    "isBoss": true
   },
   "2320920": {
     "name": "Abyssal Moss Crab",
@@ -13473,7 +13473,7 @@
   },
   "2400032": {
     "name": "Training Scarecrow",
-    "isBoss": false
+    "isBoss": true
   },
   "2400033": {
     "name": "Voldrik",
@@ -14189,7 +14189,7 @@
   },
   "2400392": {
     "name": "Training Scarecrow",
-    "isBoss": false
+    "isBoss": true
   },
   "2400401": {
     "name": "Blades Searcher",
@@ -16345,11 +16345,11 @@
   },
   "2500075": {
     "name": "Training Scarecrow",
-    "isBoss": false
+    "isBoss": true
   },
   "2500076": {
     "name": "Training Scarecrow",
-    "isBoss": false
+    "isBoss": true
   },
   "2500077": {
     "name": "Temple Laser",
@@ -20469,7 +20469,7 @@
   },
   "2701376": {
     "name": "Training Scarecrow (Specimen)",
-    "isBoss": false
+    "isBoss": true
   },
   "2701377": {
     "name": "Laser",
@@ -24630,5 +24630,53 @@
   "2921168": {
     "name": "Phantom Temple Priest",
     "isBoss": false
+  },
+  "2300259": {
+    "name": "Rotar ",
+    "isBoss": true
+  },
+  "2300299": {
+    "name": "Rotar ",
+    "isBoss": true
+  },
+  "2300334": {
+    "name": "Rotar ",
+    "isBoss": true
+  },
+  "2300353": {
+    "name": "Rotar ",
+    "isBoss": true
+  },
+  "2300260": {
+    "name": "Robstino ",
+    "isBoss": true
+  },
+  "2300300": {
+    "name": "Robstino ",
+    "isBoss": true
+  },
+  "2300335": {
+    "name": "Robstino ",
+    "isBoss": true
+  },
+  "2300354": {
+    "name": "Robstino ",
+    "isBoss": true
+  },
+  "2300261": {
+    "name": "Kromede's Desolation",
+    "isBoss": true
+  },
+  "2300317": {
+    "name": "Kromede's Desolation",
+    "isBoss": true
+  },
+  "2300336": {
+    "name": "Kromede's Desolation",
+    "isBoss": true
+  },
+  "2300355": {
+    "name": "Kromede's Desolation",
+    "isBoss": true
   }
 }

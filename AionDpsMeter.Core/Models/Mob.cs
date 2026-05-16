@@ -8,5 +8,6 @@ namespace AionDpsMeter.Core.Models
         public int HpTotal { get; set; }
         public int HpCurrent { get; set; }
         public new string Name => GameDataProvider.Instance.GetMobName(MobCode);
+        public bool IsBoss => GameDataProvider.Instance.IsBoss(MobCode);
     }
 }
