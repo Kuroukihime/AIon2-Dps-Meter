@@ -87,9 +87,6 @@ Go to the [**Releases**](../../releases) page and download the latest `.zip` arc
 
 ## ❓ FAQ
 
-**Q: What is the Assassin icon about?**
- - I think it fits better assassin playstyle xdx.
-
 **Q: Why is my nickname displayed as `Player_xxxx`?**
  - The server does not include player nicknames in damage packets. A nickname is only sent in specific events, such as teleporting or entering a dungeon. Until one of those events occurs, the meter displays a placeholder name.
 
