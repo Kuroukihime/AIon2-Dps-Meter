@@ -5,7 +5,7 @@ namespace AionDpsMeter.Services.PacketCapture;
 
 public sealed class PacketAccumulator
 {
-    private const int MaxValidPacketSize = 4096;
+    private const int MaxValidPacketSize = 4096*10;
     private const int InitialCapacity = 64 * 1024;
     private const int MaxBufferSize = 10 * 1024 * 1024;
 
