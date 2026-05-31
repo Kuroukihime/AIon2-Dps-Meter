@@ -1,0 +1,162 @@
+<Window x:Class="AionDpsMeter.UI.WhatsNewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="What's New"
+        Width="480"
+        Height="420"
+        MinWidth="320"
+        MinHeight="200"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="CanResizeWithGrip"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        ShowInTaskbar="False">
+
+    <Border Background="#EB0D1117"
+            BorderBrush="{StaticResource AccentBrush}"
+            BorderThickness="0"
+            CornerRadius="4">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Border Grid.Row="0"
+                    Background="#CC0D1117"
+                    CornerRadius="3,3,0,0"
+                    Padding="10,6">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0"
+                               Text="{Binding Title}"
+                               FontSize="13"
+                               FontWeight="SemiBold"
+                               Foreground="{StaticResource PrimaryTextBrush}"
+                               VerticalAlignment="Center"/>
+
+                    <Button Grid.Column="1"
+                            Content="✕"
+                            Width="22"
+                            Height="22"
+                            FontSize="10"
+                            Click="CloseButton_Click"
+                            Style="{StaticResource ModernButtonStyle}"
+                            Background="#B3C42B1C"
+                            Padding="0"/>
+                </Grid>
+            </Border>
+
+            <!-- Release Notes as formatted FlowDocument -->
+            <RichTextBox x:Name="NotesRichTextBox"
+                         Grid.Row="1"
+                         IsReadOnly="True"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         Padding="12,8"
+                         Foreground="{StaticResource PrimaryTextBrush}"
+                         FontSize="12"
+                         FontFamily="Segoe UI"
+                         VerticalScrollBarVisibility="Auto">
+                <RichTextBox.Style>
+                    <Style TargetType="RichTextBox">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="RichTextBox">
+                                    <ScrollViewer x:Name="PART_ContentHost"
+                                                  VerticalScrollBarVisibility="Auto"
+                                                  HorizontalScrollBarVisibility="Disabled"
+                                                  VerticalAlignment="Stretch"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </RichTextBox.Style>
+            </RichTextBox>
+
+            <!-- Footer: buttons + progress -->
+            <Border Grid.Row="2"
+                    Background="#CC0D1117"
+                    CornerRadius="0,0,3,3"
+                    Padding="10,7">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Progress bar (hidden until download starts) -->
+                    <Grid Grid.Row="0"
+                          x:Name="ProgressPanel"
+                          Visibility="Collapsed"
+                          Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ProgressBar Grid.Column="0"
+                                     x:Name="DownloadProgressBar"
+                                     Height="4"
+                                     Minimum="0"
+                                     Maximum="100"
+                                     Foreground="#4CAF50"
+                                     Background="#21262D"
+                                     BorderThickness="0"
+                                     VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="1"
+                                   x:Name="ProgressText"
+                                   FontSize="10"
+                                   FontFamily="Consolas"
+                                   Foreground="{StaticResource SecondaryTextBrush}"
+                                   VerticalAlignment="Center"
+                                   Margin="8,0,0,0"
+                                   Width="36"
+                                   Text="0%"/>
+                    </Grid>
+
+                    <!-- Status text -->
+                    <TextBlock Grid.Row="0"
+                               x:Name="StatusText"
+                               FontSize="10"
+                               Foreground="{StaticResource SecondaryTextBrush}"
+                               Visibility="Collapsed"
+                               Margin="0,0,0,6"/>
+
+                    <!-- Buttons -->
+                    <StackPanel Grid.Row="1"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Right">
+
+                        <Button x:Name="OpenGithubButton"
+                                Content="Open on GitHub"
+                                Height="24"
+                                FontSize="11"
+                                Padding="10,0"
+                                Margin="0,0,6,0"
+                                Click="OpenGithubButton_Click"
+                                Style="{StaticResource ModernButtonStyle}"
+                                Background="#21262D"
+                                Foreground="{StaticResource PrimaryTextBrush}"/>
+
+                        <Button x:Name="UpdateButton"
+                                Content="⬇  Update Now"
+                                Height="24"
+                                FontSize="11"
+                                Padding="10,0"
+                                Click="UpdateButton_Click"
+                                Style="{StaticResource ModernButtonStyle}"
+                                Background="#1F4D1F"
+                                Foreground="#A5D6A7"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

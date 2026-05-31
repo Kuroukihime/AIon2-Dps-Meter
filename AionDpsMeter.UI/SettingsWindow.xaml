@@ -113,13 +113,14 @@
 
     <Border Background="{StaticResource PrimaryBackgroundBrush}"
             BorderBrush="{StaticResource AccentBrush}"
-            BorderThickness="1"
+            BorderThickness="0"
             CornerRadius="4"
             Opacity="0.95">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <!-- Header -->
@@ -391,6 +392,18 @@
                     </StackPanel>
                 </Border>
             </ScrollViewer>
+
+            <!-- Version footer -->
+            <Border Grid.Row="2"
+                    Background="{StaticResource SecondaryBackgroundBrush}"
+                    CornerRadius="0,0,3,3"
+                    Padding="14,5">
+                <TextBlock x:Name="VersionTextBlock"
+                           FontSize="10"
+                           FontFamily="Consolas"
+                           Foreground="{StaticResource SecondaryTextBrush}"
+                           HorizontalAlignment="Right"/>
+            </Border>
         </Grid>
     </Border>
 </Window>

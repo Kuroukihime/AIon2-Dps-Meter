@@ -33,6 +33,12 @@
     <ProjectReference Include="..\AionDpsMeter.Services\AionDpsMeter.Services.csproj" />
   </ItemGroup>
 
+  <!-- After publish: publish Updater as single-file into the same output folder -->
+  <Target Name="PublishUpdater" AfterTargets="Publish">
+    <Exec Command="dotnet publish &quot;$(MSBuildThisFileDirectory)..\AionDpsMeter.Updater\AionDpsMeter.Updater.csproj&quot; --configuration $(Configuration) --runtime $(RuntimeIdentifier) --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true --output &quot;$(PublishDir.TrimEnd('\').TrimEnd('/'))&quot;"
+          WorkingDirectory="$(MSBuildThisFileDirectory)"/>
+  </Target>
+
   <ItemGroup>
     <Folder Include="Views\" />
   </ItemGroup>
@@ -44,7 +50,7 @@
     </None>
   </ItemGroup>
 
-  <!-- Автоматически включать все PNG как ресурсы -->
+
   <ItemGroup>
     <Resource Include="Assets\**\*.png" />
     <Resource Include="Assets\**\*.jpg" />

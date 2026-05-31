@@ -25,12 +25,13 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <!-- Global background image (behind everything) -->
             <Image x:Name="PlayersBackgroundImage"
-                   Grid.RowSpan="2"
+                   Grid.RowSpan="3"
                    Stretch="UniformToFill"
                    IsHitTestVisible="False"/>
 
@@ -194,8 +195,61 @@
                 </Grid>
             </Border>
 
+            <!-- Update Banner -->
+            <Border Grid.Row="1"
+                    Background="#1A2A1A"
+                    BorderBrush="#3A6B3A"
+                    BorderThickness="0,1,0,1"
+                    Padding="8,4"
+                    Visibility="{Binding UpdateAvailable, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Green dot indicator -->
+                    <Ellipse Grid.Column="0"
+                             Width="6" Height="6"
+                             Fill="#4CAF50"
+                             VerticalAlignment="Center"
+                             Margin="0,0,6,0"/>
+
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding UpdateVersionText}"
+                               FontSize="10"
+                               Foreground="#A5D6A7"
+                               VerticalAlignment="Center"
+                               TextTrimming="CharacterEllipsis"/>
+
+                    <Button Grid.Column="2"
+                            Content="What's New"
+                            Height="18"
+                            FontSize="10"
+                            Margin="6,0,4,0"
+                            Padding="6,0"
+                            Click="WhatsNewButton_Click"
+                            Style="{StaticResource ModernButtonStyle}"
+                            Background="#1F4D1F"
+                            Foreground="#A5D6A7"/>
+
+                    <Button Grid.Column="3"
+                            Content="✕"
+                            Width="18"
+                            Height="18"
+                            FontSize="9"
+                            Padding="0"
+                            Command="{Binding DismissUpdateCommand}"
+                            Style="{StaticResource ModernButtonStyle}"
+                            Background="Transparent"
+                            Foreground="#6A8F6A"/>
+                </Grid>
+            </Border>
+
             <!-- Players List - Compact & Virtualized -->
-            <Grid Grid.Row="1" ClipToBounds="True">
+            <Grid Grid.Row="2" ClipToBounds="True">
                 <!-- Dark overlay for readability over background image -->
                 <Border x:Name="PlayersBackgroundOverlay"
                         Background="#80000000"

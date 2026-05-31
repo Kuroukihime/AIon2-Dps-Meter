@@ -6,6 +6,7 @@ using AionDpsMeter.Services.Services;
 using AionDpsMeter.Services.Services.Entity;
 using AionDpsMeter.Services.Services.Session;
 using AionDpsMeter.Services.Services.Settings;
+using AionDpsMeter.Services.Services.Update;
 using AionDpsMeter.UI.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -38,6 +39,7 @@ namespace AionDpsMeter.UI
                 {
                    
                     services.AddSingleton<IAppSettingsService, AppSettingsService>();
+                    services.AddSingleton<UpdateCheckerService>();
                     services.AddSingleton<FilePacketWriter>();
                     services.AddSingleton<TcpStreamBuffer>();
 
