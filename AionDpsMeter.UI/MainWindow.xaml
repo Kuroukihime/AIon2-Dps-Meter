@@ -326,7 +326,7 @@
                                                 HorizontalAlignment="Left">
                                             <Border.Width>
                                                 <MultiBinding Converter="{StaticResource PercentageToWidthConverter}">
-                                                    <Binding Path="EffectiveAnimatedPercentage"/>
+                                                    <Binding Path="EffectivePercentage"/>
                                                     <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType=Grid}"/>
                                                 </MultiBinding>
                                             </Border.Width>
