@@ -9,21 +9,28 @@ namespace AionDpsMeter.UI.ViewModels
         private readonly PlayerStats _stats;
         private readonly IAppSettingsService _settingsService;
 
-        // Smoothly-animated percentage for the progress bar
-        private double _animatedPercentage;
-        public double AnimatedPercentage => _animatedPercentage;
+        // absolute: % of total damage
+        private double absoulutePercentage;
+        public double AbsolutePercentage => absoulutePercentage;
+        // relative to the top player (top = 100%)
+        private double relativePercentage;
+        public double RelativePercentage => relativePercentage;
+        public double EffectivePercentage => _settingsService.RelativeProgressBar
+            ? relativePercentage
+            : absoulutePercentage;
 
         public PlayerStatsViewModel(PlayerStats stats, IAppSettingsService settingsService)
         {
             _stats = stats;
             _settingsService = settingsService;
-            _animatedPercentage = stats.DamagePercentage;
+            absoulutePercentage = stats.DamagePercentage;
             _settingsService.SettingsChanged += OnSettingsChanged;
         }
 
         private void OnSettingsChanged(object? sender, EventArgs e)
         {
             OnPropertyChanged(nameof(PlayerNameDisplay));
+            OnPropertyChanged(nameof(EffectivePercentage));
         }
 
         public long    PlayerId          => _stats.PlayerId;
@@ -84,20 +91,21 @@ namespace AionDpsMeter.UI.ViewModels
             _stats.FirstHit          = updatedStats.FirstHit;
             _stats.LastHit           = updatedStats.LastHit;
 
-            // Smooth ease-towards animation for the progress bar
+            // Smooth ease-towards animation for the absolute progress bar
             double target = _stats.DamagePercentage;
-            double diff   = target - _animatedPercentage;
+            double diff   = target - absoulutePercentage;
             if (Math.Abs(diff) < 0.05)
-                _animatedPercentage = target;
+                absoulutePercentage = target;
             else
-                _animatedPercentage += diff * 0.25;
+                absoulutePercentage += diff * 0.25;
 
             OnPropertyChanged(nameof(TotalDamage));
             OnPropertyChanged(nameof(TotalDamageFormatted));
             OnPropertyChanged(nameof(DamagePerSecond));
             OnPropertyChanged(nameof(DpsFormatted));
             OnPropertyChanged(nameof(DamagePercentage));
-            OnPropertyChanged(nameof(AnimatedPercentage));
+            OnPropertyChanged(nameof(AbsolutePercentage));
+            OnPropertyChanged(nameof(EffectivePercentage));
             OnPropertyChanged(nameof(HitCount));
             OnPropertyChanged(nameof(CriticalRate));
             OnPropertyChanged(nameof(BackAttackRate));
@@ -110,6 +118,22 @@ namespace AionDpsMeter.UI.ViewModels
             OnPropertyChanged(nameof(ServerName));
             OnPropertyChanged(nameof(PlayerNameDisplay));
             OnPropertyChanged(nameof(IsUser));
+        }
+
+        /// <summary>
+        /// Called by MainViewModel each tick to animate the relative percentage
+        /// (top player = 100%, others proportional).
+        /// </summary>
+        public void UpdateRelativePercentage(double targetRelative)
+        {
+            double diff = targetRelative - relativePercentage;
+            if (Math.Abs(diff) < 0.05)
+                relativePercentage = targetRelative;
+            else
+                relativePercentage += diff * 0.25;
+
+            OnPropertyChanged(nameof(RelativePercentage));
+            OnPropertyChanged(nameof(EffectivePercentage));
         }
     }
 }

@@ -133,6 +133,16 @@ namespace AionDpsMeter.UI.ViewModels
                 if (current != i)
                     Players.Move(current, i);
             }
+
+            // Update relative percentages (top player = 100%)
+            long topDamage = sorted.Count > 0 ? sorted[0].TotalDamage : 0;
+            foreach (var player in sorted)
+            {
+                double relTarget = topDamage > 0
+                    ? (double)player.TotalDamage / topDamage * 100.0
+                    : 0;
+                player.UpdateRelativePercentage(relTarget);
+            }
         }
 
         private void UpdateCombatDuration()

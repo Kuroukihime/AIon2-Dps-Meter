@@ -27,6 +27,9 @@ namespace AionDpsMeter.UI.ViewModels
         [ObservableProperty]
         private string? _backgroundImagePath;
 
+        [ObservableProperty]
+        private bool _relativeProgressBar;
+
         public SettingsViewModel(IAppSettingsService settingsService)
         {
             _settingsService = settingsService;
@@ -36,6 +39,7 @@ namespace AionDpsMeter.UI.ViewModels
             _historyDamageThreshold = settingsService.HistoryDamageThreshold;
             _windowOpacityPercent = (int)Math.Round(settingsService.WindowOpacity * 100);
             _backgroundImagePath = settingsService.BackgroundImagePath;
+            _relativeProgressBar = settingsService.RelativeProgressBar;
         }
 
         partial void OnIsPacketLoggingEnabledChanged(bool value)
@@ -67,6 +71,11 @@ namespace AionDpsMeter.UI.ViewModels
         partial void OnBackgroundImagePathChanged(string? value)
         {
             _settingsService.BackgroundImagePath = value;
+        }
+
+        partial void OnRelativeProgressBarChanged(bool value)
+        {
+            _settingsService.RelativeProgressBar = value;
         }
 
         [RelayCommand]

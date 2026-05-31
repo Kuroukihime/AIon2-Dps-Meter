@@ -138,6 +138,22 @@ namespace AionDpsMeter.Services.Services.Settings
             }
         }
 
+        public bool RelativeProgressBar
+        {
+            get { lock (_lock) return _data.RelativeProgressBar; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    changed = _data.RelativeProgressBar != value;
+                    _data.RelativeProgressBar = value;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         private AppSettingsData Load()
         {
             try
@@ -193,6 +209,9 @@ namespace AionDpsMeter.Services.Services.Settings
 
             [JsonPropertyName("backgroundImagePath")]
             public string? BackgroundImagePath { get; set; }
+
+            [JsonPropertyName("relativeProgressBar")]
+            public bool RelativeProgressBar { get; set; }
         }
     }
 }

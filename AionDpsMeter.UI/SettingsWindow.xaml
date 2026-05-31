@@ -270,8 +270,32 @@
                     </StackPanel>
                 </Grid>
 
-            </StackPanel>
-            </Border>
-        </Grid>
-    </Border>
-</Window>
+                            <!-- Relative Progress Bar row -->
+                            <Grid Margin="0,10,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                    <TextBlock Text="Relative Damage Bar"
+                                               FontSize="12"
+                                               Foreground="{StaticResource PrimaryTextBrush}"/>
+                                    <TextBlock Text="Top player = 100%, others proportional"
+                                               FontSize="10"
+                                               Foreground="{StaticResource SecondaryTextBrush}"
+                                               Margin="0,2,0,0"/>
+                                </StackPanel>
+
+                                <ToggleButton Grid.Column="1"
+                                              IsChecked="{Binding RelativeProgressBar, Mode=TwoWay}"
+                                              Style="{StaticResource ToggleSwitchStyle}"
+                                              VerticalAlignment="Center"
+                                              Margin="12,0,0,0"/>
+                            </Grid>
+
+                        </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+            </Window>
