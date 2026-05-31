@@ -30,6 +30,9 @@ namespace AionDpsMeter.UI.ViewModels
         [ObservableProperty]
         private bool _relativeProgressBar;
 
+        [ObservableProperty]
+        private string _toggleVisibilityHotkey = string.Empty;
+
         public SettingsViewModel(IAppSettingsService settingsService)
         {
             _settingsService = settingsService;
@@ -40,6 +43,7 @@ namespace AionDpsMeter.UI.ViewModels
             _windowOpacityPercent = (int)Math.Round(settingsService.WindowOpacity * 100);
             _backgroundImagePath = settingsService.BackgroundImagePath;
             _relativeProgressBar = settingsService.RelativeProgressBar;
+            _toggleVisibilityHotkey = settingsService.ToggleVisibilityHotkey;
         }
 
         partial void OnIsPacketLoggingEnabledChanged(bool value)
@@ -76,6 +80,11 @@ namespace AionDpsMeter.UI.ViewModels
         partial void OnRelativeProgressBarChanged(bool value)
         {
             _settingsService.RelativeProgressBar = value;
+        }
+
+        partial void OnToggleVisibilityHotkeyChanged(string value)
+        {
+            _settingsService.ToggleVisibilityHotkey = value;
         }
 
         [RelayCommand]

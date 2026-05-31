@@ -285,6 +285,60 @@
                                           Margin="12,0,0,0"/>
                         </Grid>
 
+                        <!-- HOTKEYS section -->
+                        <Border Style="{StaticResource GroupSeparatorStyle}"/>
+                        <Grid Margin="0,0,0,6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Text="HOTKEYS"
+                                       Style="{StaticResource SectionHeaderStyle}"/>
+                            <Border Grid.Column="1"
+                                    Height="1"
+                                    Background="#1E2530"
+                                    VerticalAlignment="Center"
+                                    Margin="8,0,0,6"/>
+                        </Grid>
+
+                        <!-- Toggle Visibility Hotkey -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Text="Toggle Visibility"
+                                           FontSize="12"
+                                           Foreground="{StaticResource PrimaryTextBrush}"/>
+                                <TextBlock Text="Click the box and press the desired key combo"
+                                           FontSize="10"
+                                           Foreground="{StaticResource SecondaryTextBrush}"
+                                           Margin="0,2,0,0"/>
+                            </StackPanel>
+                            <TextBox x:Name="HotkeyBox"
+                                     Grid.Column="1"
+                                     Width="110"
+                                     Text="{Binding ToggleVisibilityHotkey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     IsReadOnly="True"
+                                     VerticalAlignment="Center"
+                                     HorizontalContentAlignment="Center"
+                                     Margin="12,0,0,0"
+                                     Padding="4,2"
+                                     FontSize="11"
+                                     FontFamily="Consolas"
+                                     Background="#21262D"
+                                     Foreground="{StaticResource PrimaryTextBrush}"
+                                     BorderBrush="#30363D"
+                                     BorderThickness="1"
+                                     CaretBrush="{StaticResource PrimaryTextBrush}"
+                                     PreviewKeyDown="HotkeyBox_PreviewKeyDown"
+                                     GotFocus="HotkeyBox_GotFocus"
+                                     LostFocus="HotkeyBox_LostFocus"
+                                     ToolTip="Click here then press a key combination"/>
+                        </Grid>
+
                         <!-- CAPTURE section separator + header -->
                         <Border Style="{StaticResource GroupSeparatorStyle}"/>
                         <Grid Margin="0,0,0,6">

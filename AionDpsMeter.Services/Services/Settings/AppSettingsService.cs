@@ -98,6 +98,22 @@ namespace AionDpsMeter.Services.Services.Settings
             }
         }
 
+        public string ToggleVisibilityHotkey
+        {
+            get { lock (_lock) return _data.ToggleVisibilityHotkey; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    changed = _data.ToggleVisibilityHotkey != value;
+                    _data.ToggleVisibilityHotkey = value;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public double? WindowLeft
         {
             get { lock (_lock) return _data.WindowLeft; }
@@ -194,6 +210,9 @@ namespace AionDpsMeter.Services.Services.Settings
 
             [JsonPropertyName("windowOpacity")]
             public double WindowOpacity { get; set; } = 0.92;
+
+            [JsonPropertyName("toggleVisibilityHotkey")]
+            public string ToggleVisibilityHotkey { get; set; } = "Ctrl+Shift+D";
 
             [JsonPropertyName("windowLeft")]
             public double? WindowLeft { get; set; }
