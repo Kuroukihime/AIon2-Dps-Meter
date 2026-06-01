@@ -1,4 +1,5 @@
 ﻿using AionDpsMeter.Services.Services.Settings;
+using AionDpsMeter.Services.Services.Update;
 using AionDpsMeter.UI.Utils;
 using AionDpsMeter.UI.ViewModels;
 using System.Windows;
@@ -13,16 +14,19 @@ namespace AionDpsMeter.UI
     {
         private readonly SettingsViewModel settingsViewModel;
         private readonly IAppSettingsService settingsService;
+        private readonly UpdateCheckerService updateCheckerService;
         private SettingsWindow? settingsWindow;
         private HistoryWindow? historyWindow;
         private DispatcherTimer? _saveBoundsTimer;
+        private GlobalHotkey? _globalHotkey;
 
-        public MainWindow(MainViewModel viewModel, SettingsViewModel settingsViewModel, IAppSettingsService settingsService)
+        public MainWindow(MainViewModel viewModel, SettingsViewModel settingsViewModel, IAppSettingsService settingsService, UpdateCheckerService updateCheckerService)
         {
             InitializeComponent();
             DataContext = viewModel;
-            this.settingsViewModel = settingsViewModel;
-            this.settingsService = settingsService;
+            this.settingsViewModel    = settingsViewModel;
+            this.settingsService      = settingsService;
+            this.updateCheckerService = updateCheckerService;
 
             _saveBoundsTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(500) };
             _saveBoundsTimer.Tick += (_, _) => { _saveBoundsTimer.Stop(); SaveWindowBounds(); };
@@ -37,7 +41,44 @@ namespace AionDpsMeter.UI
                 {
                     MainBorder.Opacity = settingsService.WindowOpacity;
                     ApplyBackgroundImage(settingsService.BackgroundImagePath);
+                    RegisterToggleHotkey();
                 });
+
+            Loaded += (_, _) => RegisterToggleHotkey();
+        }
+
+        private void RegisterToggleHotkey()
+        {
+            _globalHotkey ??= new GlobalHotkey(this);
+            _globalHotkey.HotkeyPressed -= ToggleWindowVisibility;
+            _globalHotkey.Unregister();
+
+            var (mods, vk) = HotkeyParser.Parse(settingsService.ToggleVisibilityHotkey);
+            if (vk != 0)
+            {
+                _globalHotkey.Register(mods, vk);
+                _globalHotkey.HotkeyPressed += ToggleWindowVisibility;
+            }
+        }
+
+        private void ToggleWindowVisibility()
+        {
+            var appWindows = Application.Current.Windows.OfType<Window>().ToList();
+
+            if (WindowState != WindowState.Minimized)
+            {
+                foreach (var window in appWindows)
+                    window.WindowState = WindowState.Minimized;
+            }
+            else
+            {
+                foreach (var window in appWindows)
+                {
+                    window.WindowState = WindowState.Normal;
+                    window.Activate();
+                }
+                Activate();
+            }
         }
 
         private void ApplyBackgroundImage(string? path)
@@ -199,9 +240,22 @@ namespace AionDpsMeter.UI
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
+            _globalHotkey?.Dispose();
             if (DataContext is MainViewModel viewModel)
                 viewModel.Dispose();
             Application.Current.Shutdown();
+        }
+
+        private void WhatsNewButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is not MainViewModel vm || vm.LatestRelease is null) return;
+
+            var win = new WhatsNewWindow(vm.LatestRelease, updateCheckerService)
+            {
+                Owner = this
+            };
+            PositionWindowToRight(win);
+            win.Show();
         }
 
         private void PlayerItem_Click(object sender, MouseButtonEventArgs e)

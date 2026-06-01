@@ -8,6 +8,9 @@ namespace AionDpsMeter.Services.Services.Settings
         int HistoryDamageThreshold { get; set; }
         double WindowOpacity { get; set; }
         string? BackgroundImagePath { get; set; }
+        bool RelativeProgressBar { get; set; }
+
+        string ToggleVisibilityHotkey { get; set; }
 
         // Main window position & size
         double? WindowLeft { get; set; }

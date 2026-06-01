@@ -2,6 +2,7 @@
 using AionDpsMeter.Services.Models;
 using AionDpsMeter.Services.Services.Session;
 using AionDpsMeter.Services.Services.Settings;
+using AionDpsMeter.Services.Services.Update;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
@@ -14,6 +15,7 @@ namespace AionDpsMeter.UI.ViewModels
         private readonly IPacketService _packetService;
         private readonly CombatSessionManager _sessionManager;
         private readonly IAppSettingsService _settingsService;
+        private readonly UpdateCheckerService _updateChecker;
         private readonly Dispatcher _dispatcher;
         private DispatcherTimer? _updateTimer;
 
@@ -28,14 +30,19 @@ namespace AionDpsMeter.UI.ViewModels
         [ObservableProperty] private string _activeTargetHpDisplay = string.Empty;
         [ObservableProperty] private double _activeTargetHpPercentage;
 
+        [ObservableProperty] private bool _updateAvailable;
+        [ObservableProperty] private string _updateVersionText = string.Empty;
+        [ObservableProperty] private ReleaseInfo? _latestRelease;
+
         /// <summary>Exposes the session manager for <c>PlayerDetailsWindow</c>.</summary>
         public CombatSessionManager SessionManager => _sessionManager;
 
-        public MainViewModel(IPacketService packetService, CombatSessionManager sessionManager, IAppSettingsService settingsService)
+        public MainViewModel(IPacketService packetService, CombatSessionManager sessionManager, IAppSettingsService settingsService, UpdateCheckerService updateChecker)
         {
             _packetService  = packetService;
             _sessionManager = sessionManager;
             _settingsService = settingsService;
+            _updateChecker  = updateChecker;
             _dispatcher     = Dispatcher.CurrentDispatcher;
 
             _packetService.DamageReceived    += OnPacketReceived;
@@ -47,7 +54,23 @@ namespace AionDpsMeter.UI.ViewModels
             _updateTimer.Tick += OnUpdateTimerTick;
 
             StartCapture();
+            _ = CheckForUpdateAsync();
         }
+
+        private async Task CheckForUpdateAsync()
+        {
+            var release = await _updateChecker.CheckForUpdateAsync();
+            if (release is null) return;
+            _dispatcher.Invoke(() =>
+            {
+                LatestRelease     = release;
+                UpdateVersionText = $"New version available: {release.Name}";
+                UpdateAvailable   = true;
+            });
+        }
+
+        [RelayCommand]
+        private void DismissUpdate() => UpdateAvailable = false;
 
         private void StartCapture()
         {
@@ -132,6 +155,16 @@ namespace AionDpsMeter.UI.ViewModels
                 int current = Players.IndexOf(sorted[i]);
                 if (current != i)
                     Players.Move(current, i);
+            }
+
+            // Update relative percentages (top player = 100%)
+            long topDamage = sorted.Count > 0 ? sorted[0].TotalDamage : 0;
+            foreach (var player in sorted)
+            {
+                double relTarget = topDamage > 0
+                    ? (double)player.TotalDamage / topDamage * 100.0
+                    : 0;
+                player.UpdateRelativePercentage(relTarget);
             }
         }
 
