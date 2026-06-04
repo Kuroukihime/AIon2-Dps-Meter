@@ -1,6 +1,7 @@
 ﻿using AionDpsMeter.Core.Models;
 using AionDpsMeter.Services.Models;
 using AionDpsMeter.Services.Services.Entity;
+using AionDpsMeter.Services.Services.Settings;
 
 namespace AionDpsMeter.Services.Services.Session
 {
@@ -25,10 +26,13 @@ namespace AionDpsMeter.Services.Services.Session
 
         public bool IsCompleted => State == SessionState.Completed;
 
-        public TargetCombatSession(Mob targetInfo, DateTime sessionStart, EntityTracker entityTracker)
+        private readonly IAppSettingsService settingsService;
+
+        public TargetCombatSession(Mob targetInfo, DateTime sessionStart, EntityTracker entityTracker, IAppSettingsService settingsService)
         {
             TargetId = targetInfo.Id;
             TargetInfo = targetInfo;
+            this.settingsService = settingsService;
             SessionStart = sessionStart;
             LastHitTime = sessionStart;
             this.entityTracker = entityTracker;
@@ -97,7 +101,7 @@ namespace AionDpsMeter.Services.Services.Session
             if (!playerSessions.TryGetValue(playerId, out var session))
                 return [];
 
-            return DamageStatisticsCalculator.ComputeSkillStats(session);
+            return DamageStatisticsCalculator.ComputeSkillStats(session, settingsService.GroupSummonDamage);
         }
 
         public int CountRecentHits(DateTime cutoff)
@@ -146,6 +150,7 @@ namespace AionDpsMeter.Services.Services.Session
                 {
                     DateTime       = hit.DateTime,
                     SourceEntity   = ownerEntity,
+                    SourceSummon   = hit.SourceEntity,
                     TargetEntity   = hit.TargetEntity,
                     Skill          = hit.Skill,
                     CharacterClass = hit.CharacterClass,

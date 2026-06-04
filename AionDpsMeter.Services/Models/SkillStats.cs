@@ -1,6 +1,6 @@
 ﻿namespace AionDpsMeter.Services.Models
 {
-    public sealed class SkillStats
+    public sealed class SkillStats : ICloneable
     {
         public long SkillId { get; init; }
         public string SkillName { get; init; } = string.Empty;
@@ -19,6 +19,12 @@
         public double DamagePerSecond { get; set; }
         public double DamagePercentage { get; set; }
         public bool IsDot { get; set; }
+        public bool IsClassSkill { get; set; }
+
+        /// <summary>True when this skill is a summon owner skill (has ClassId > 10) with grouped summon attacks.</summary>
+        public bool IsSummonGroup { get; set; }
+        /// <summary>Collection of child summon skill stats when IsSummonGroup is true.</summary>
+        public List<SkillStats> SummonChildren { get; set; } = [];
 
         // ── Derived stats ──────────────────────────────────────────────────────
 
@@ -31,5 +37,35 @@
         public double PerfectRate         => HitCount > 0 ? (double)PerfectHits     / HitCount * 100 : 0;
         public double DoubleDamageRate    => HitCount > 0 ? (double)DoubleDamageHits / HitCount * 100 : 0;
         public double ParryRate           => HitCount > 0 ? (double)ParryHits       / HitCount * 100 : 0;
+
+        public SkillStats Clone()
+        {
+            return new SkillStats
+            {
+                SkillId = SkillId,
+                SkillName = SkillName,
+                SkillIcon = SkillIcon,
+                SpecializationFlags = (bool[])SpecializationFlags.Clone(),
+                TotalDamage = TotalDamage,
+                HitCount = HitCount,
+                CriticalHits = CriticalHits,
+                BackAttacks = BackAttacks,
+                PerfectHits = PerfectHits,
+                DoubleDamageHits = DoubleDamageHits,
+                ParryHits = ParryHits,
+                MaxHit = MaxHit,
+                MinHit = MinHit,
+                DamagePerSecond = DamagePerSecond,
+                DamagePercentage = DamagePercentage,
+                IsDot = IsDot,
+                IsClassSkill = IsClassSkill,
+                IsSummonGroup = IsSummonGroup,
+                SummonChildren = SummonChildren
+                    .Select(x => x.Clone())
+                    .ToList()
+            };
+        }
+
+        object ICloneable.Clone() => Clone();
     }
 }

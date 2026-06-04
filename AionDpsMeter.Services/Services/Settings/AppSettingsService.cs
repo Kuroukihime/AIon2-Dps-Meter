@@ -170,6 +170,22 @@ namespace AionDpsMeter.Services.Services.Settings
             }
         }
 
+        public bool GroupSummonDamage
+        {
+            get { lock (_lock) return _data.GroupSummonDamage; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    changed = _data.GroupSummonDamage != value;
+                    _data.GroupSummonDamage = value;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         private AppSettingsData Load()
         {
             try
@@ -231,6 +247,9 @@ namespace AionDpsMeter.Services.Services.Settings
 
             [JsonPropertyName("relativeProgressBar")]
             public bool RelativeProgressBar { get; set; }
+
+            [JsonPropertyName("groupSummonDamage")]
+            public bool GroupSummonDamage { get; set; } = true;
         }
     }
 }

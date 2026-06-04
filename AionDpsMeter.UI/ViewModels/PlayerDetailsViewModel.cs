@@ -206,6 +206,20 @@ namespace AionDpsMeter.UI.ViewModels
             ShowGraph = true;
         }
 
+        [RelayCommand]
+        private void ToggleSkillExpansion(SkillStatsViewModel? skill)
+        {
+            if (skill is null || !skill.HasSummonChildren)
+                return;
+
+            bool shouldExpand = !skill.IsExpanded;
+
+            foreach (var other in Skills.Where(s => s.HasSummonChildren && !ReferenceEquals(s, skill) && s.IsExpanded))
+                other.IsExpanded = false;
+
+            skill.IsExpanded = shouldExpand;
+        }
+
         private void OnUpdateTimerTick(object? sender, EventArgs e) => RefreshData();
 
         private void RefreshData()

@@ -1,14 +1,28 @@
 ﻿using AionDpsMeter.Services.Models;
+using System.Collections.ObjectModel;
 
 namespace AionDpsMeter.UI.ViewModels
 {
     public sealed class SkillStatsViewModel : ViewModelBase
     {
         private readonly SkillStats _stats;
+        private bool _isExpanded;
 
         public SkillStatsViewModel(SkillStats stats)
         {
             _stats = stats;
+
+            // Initialize children collection for summon groups
+            if (_stats.IsSummonGroup && _stats.SummonChildren.Count > 0)
+            {
+                foreach (var child in _stats.SummonChildren)
+                {
+                    SummonChildren.Add(new SkillStatsViewModel(child));
+                }
+            }
+
+            // Summon children should be collapsed by default.
+            _isExpanded = false;
         }
 
         public long     SkillId            => _stats.SkillId;
@@ -16,6 +30,16 @@ namespace AionDpsMeter.UI.ViewModels
         public string?  SkillIcon          => _stats.SkillIcon;
         public bool     HasSkillIcon       => !string.IsNullOrEmpty(_stats.SkillIcon);
         public bool[]   SpecializationFlags => _stats.SpecializationFlags;
+
+        public bool IsSummonGroup => _stats.IsSummonGroup;
+        public bool HasSummonChildren => _stats.IsSummonGroup && SummonChildren.Count > 0;
+        public ObservableCollection<SkillStatsViewModel> SummonChildren { get; } = new();
+
+        public bool IsExpanded
+        {
+            get => _isExpanded;
+            set => SetProperty(ref _isExpanded, value);
+        }
 
         // ── Damage ────────────────────────────────────────────────────────────
         public long   TotalDamage          => _stats.TotalDamage;
@@ -70,6 +94,17 @@ namespace AionDpsMeter.UI.ViewModels
             _stats.DamagePercentage   = stats.DamagePercentage;
             _stats.IsDot              = stats.IsDot;
             _stats.SpecializationFlags = stats.SpecializationFlags;
+            _stats.IsSummonGroup      = stats.IsSummonGroup;
+
+            // Update summon children if needed
+            if (stats.IsSummonGroup && stats.SummonChildren.Count > 0)
+            {
+                SummonChildren.Clear();
+                foreach (var child in stats.SummonChildren)
+                {
+                    SummonChildren.Add(new SkillStatsViewModel(child));
+                }
+            }
 
             OnPropertyChanged(nameof(TotalDamage));
             OnPropertyChanged(nameof(TotalDamageFormatted));
@@ -102,6 +137,8 @@ namespace AionDpsMeter.UI.ViewModels
             OnPropertyChanged(nameof(ParryRateFormatted));
             OnPropertyChanged(nameof(SkillName));
             OnPropertyChanged(nameof(SpecializationFlags));
+            OnPropertyChanged(nameof(IsSummonGroup));
+            OnPropertyChanged(nameof(HasSummonChildren));
         }
     }
 }

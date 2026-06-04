@@ -4,6 +4,7 @@
     {
         public DateTime DateTime { get; init; }
         public Player SourceEntity { get; set; } = null!;
+        public Player? SourceSummon { get; set; }
         public Mob TargetEntity { get; init; } = null!;
         public Skill Skill { get; init; } = null!;
         public CharacterClass CharacterClass { get; init; } = null!;
@@ -14,6 +15,7 @@
         public bool IsDoubleDamage { get; init; }
         public bool IsParry { get; init; }
         public bool IsDot { get; init; }
+
 
         /// <summary>
         /// Space-separated label string of all active hit flags (e.g. "CRIT BACK").
