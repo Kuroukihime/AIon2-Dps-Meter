@@ -145,7 +145,7 @@ namespace AionDpsMeter.Services.Services.Session
             try
             {
                 lock (lockObject)
-                {
+                {            
                     if (settingsService.BossOnlyCapture)
                     {
                         var mob = entityTracker.GetTargetMob(damageEvent.TargetEntity.Id) ?? damageEvent.TargetEntity;
@@ -195,7 +195,7 @@ namespace AionDpsMeter.Services.Services.Session
         {
             var entry = targetEntries.GetOrAdd(
                 damageEvent.TargetEntity.Id,
-                id => new TargetEntry(id, entityTracker));
+                id => new TargetEntry(id, entityTracker, settingsService));
 
             entry.AddDamage(damageEvent);
         }
@@ -217,7 +217,13 @@ namespace AionDpsMeter.Services.Services.Session
                 logger.LogError("Summon owner not found for summon entity {SummonId}", damageEvent.SourceEntity.Id);
                 return false;
             }
-
+            damageEvent.SourceSummon = new Player
+            {
+                CharacterClass = damageEvent.SourceEntity.CharacterClass,
+                Icon = damageEvent.SourceEntity.Icon,
+                Name = damageEvent.SourceEntity.Name,
+                Id = damageEvent.SourceEntity.Id,
+            };
             damageEvent.SourceEntity = new Player
             {
                 CharacterClass = damageEvent.SourceEntity.CharacterClass,

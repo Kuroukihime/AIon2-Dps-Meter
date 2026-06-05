@@ -1,5 +1,6 @@
 ﻿using AionDpsMeter.Core.Models;
 using AionDpsMeter.Services.Services.Entity;
+using AionDpsMeter.Services.Services.Settings;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace AionDpsMeter.Services.Services.Session
@@ -26,10 +27,13 @@ namespace AionDpsMeter.Services.Services.Session
         public IEnumerable<TargetCombatSession> AllSessions =>
             CurrentSession is null ? history : [.. history, CurrentSession];
 
-        public TargetEntry(int targetId, EntityTracker entityTracker)
+        private readonly IAppSettingsService settingsService;
+
+        public TargetEntry(int targetId, EntityTracker entityTracker, IAppSettingsService settingsService)
         {
             TargetId = targetId;
             this.entityTracker = entityTracker;
+            this.settingsService = settingsService;
         }
 
         public void AddDamage(PlayerDamage damage)
@@ -103,7 +107,7 @@ namespace AionDpsMeter.Services.Services.Session
 
         private void StartNewSession(Mob mob, DateTime at)
         {
-            CurrentSession = new TargetCombatSession(mob, at, entityTracker);
+            CurrentSession = new TargetCombatSession(mob, at, entityTracker, settingsService);
         }
     }
 }
