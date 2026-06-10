@@ -17,9 +17,6 @@ namespace AionDpsMeter.Services.PacketProcessors.Nickname
         private const byte NameBlockMarker = 7;
         private const int MaxNameLength = 72;
 
-        private static readonly byte[] InfoTag1 = [0x33, 0x36];
-        private static readonly byte[] InfoTag2 = [0x44, 0x36];
-
         public NicknamePacketProcessor(EntityTracker entityTracker, ILogger<NicknamePacketProcessor> logger)
         {
             this.entityTracker = entityTracker;
@@ -148,10 +145,7 @@ namespace AionDpsMeter.Services.PacketProcessors.Nickname
         private bool TryParseInfoTag1(byte[] data, int endOffset, out PlayerInfoResult result)
         {
             result = default;
-            int tagPos = data.IndexOfArray(InfoTag1);
-            if (tagPos < 0) return false;
-
-            int pos = tagPos + 2;
+            var pos = data.ReadVarInt().Length + 2;    
             if (pos >= endOffset) return false;
 
             var entityVarInt = data.ReadVarInt(pos);
@@ -173,10 +167,7 @@ namespace AionDpsMeter.Services.PacketProcessors.Nickname
         private bool TryParseInfoTag2(byte[] data, int endOffset, out PlayerInfoResult result)
         {
             result = default;
-            int tagPos = data.IndexOfArray(InfoTag2);
-            if (tagPos < 0) return false;
-
-            int pos = tagPos + 2;
+            var pos = data.ReadVarInt().Length + 2;
             if (pos >= endOffset) return false;
 
             var entityVarInt = data.ReadVarInt(pos);
