@@ -21,11 +21,11 @@ namespace AionDpsMeter.Services.PacketProcessors
             { (0xFF, 0xFF), PacketTypeEnum.COMPRESSED_STREAM },
             { (0x03, 0x36), PacketTypeEnum.CURRENT_TIME },
             { (0x00, 0x8D), PacketTypeEnum.MOB_HP },
-            { (0x40, 0x36), PacketTypeEnum.MOB_SUMMON },
+            { (0x41, 0x36), PacketTypeEnum.MOB_SUMMON },
             { (0x2A, 0x38), PacketTypeEnum.BUFF_EFFECT },
             { (0x2B, 0x38), PacketTypeEnum.BUFF_EFFECT },
             { (0x33, 0x36), PacketTypeEnum.PLAYER_INFO },
-            { (0x44, 0x36), PacketTypeEnum.OTHER_PLAYERS_INFO },
+            { (0x45, 0x36), PacketTypeEnum.OTHER_PLAYERS_INFO },
             { (0x20, 0x36), PacketTypeEnum.GLOBAL_SESSID_LINKING },
             { (0x02, 0x97), PacketTypeEnum.PARTY_INFO },
         };

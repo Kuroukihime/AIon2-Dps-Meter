@@ -7892,6 +7892,12 @@
     "category": "Raid",
     "dungeonId": 620021
   },
+  "2301089": {
+    "name": "Iscariel",
+    "isBoss": true,
+    "category": "Raid",
+    "dungeonId": 620021
+  },
   "2301060": {
     "name": "Kaldrix",
     "isBoss": true,
@@ -7899,6 +7905,18 @@
     "dungeonId": 620021
   },
   "2301061": {
+    "name": "Kaldrix",
+    "isBoss": true,
+    "category": "Raid",
+    "dungeonId": 620021
+  },
+  "2301090": {
+    "name": "Kaldrix",
+    "isBoss": true,
+    "category": "Raid",
+    "dungeonId": 620021
+  },
+  "2301091": {
     "name": "Kaldrix",
     "isBoss": true,
     "category": "Raid",

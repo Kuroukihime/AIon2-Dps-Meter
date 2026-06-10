@@ -66,7 +66,7 @@ public sealed class PacketAccumulator
                     // === SYNCHRONIZATION SEARCH MODE (06 00 36) ===
 
                     // Search for pattern 06 00 36
-                    int syncIndex = buffer.IndexOfArray([0x06, 0x00, 0x36], length);
+                    int syncIndex = buffer.IndexOfArray([0x0E, 0x00, 0x36], length);
 
                     if (syncIndex == -1)
                     {
@@ -129,7 +129,7 @@ public sealed class PacketAccumulator
                         byte[] packet = new byte[packetSize];
                         Buffer.BlockCopy(buffer, 0, packet, 0, packetSize);
 
-                        if (packet.Length == 3 && packet[0] == 0x06 && packet[1] == 0x00 && packet[2] == 0x36)
+                        if (packet.Length == 11 && packet[0] == 0x0E && packet[1] == 0x00 && packet[2] == 0x36)
                         {
                             // This is our KeepAlive/Sync packet. No need to spam the log.
                         }
