@@ -24,7 +24,7 @@ namespace AionDpsMeter.Services.PacketCapture
         private const int KernelBufferSize = 64 * 1024 * 1024;
         private const int ReadTimeoutMs = 100;
 
-        private static readonly byte[] HeartbeatPattern = { 0x06, 0x00, 0x36 };
+        private static readonly byte[] HeartbeatPattern = { 0x0E, 0x00, 0x36 };
         private const int DetectionThreshold = 5;
 
         private volatile int appDroppedPackets;
