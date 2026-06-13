@@ -39,6 +39,9 @@ namespace AionDpsMeter.UI.ViewModels
         [ObservableProperty]
         private string _toggleVisibilityHotkey = string.Empty;
 
+        [ObservableProperty]
+        private int _uiStyle;
+
         public SettingsViewModel(IAppSettingsService settingsService)
         {
             _settingsService = settingsService;
@@ -52,6 +55,12 @@ namespace AionDpsMeter.UI.ViewModels
             _relativeProgressBar = settingsService.RelativeProgressBar;
             _toggleVisibilityHotkey = settingsService.ToggleVisibilityHotkey;
             _groupSummonDamage = settingsService.GroupSummonDamage;
+            _uiStyle = settingsService.UiStyle;
+        }
+
+        partial void OnUiStyleChanged(int value)
+        {
+            _settingsService.UiStyle = value;
         }
 
         partial void OnIsPacketLoggingEnabledChanged(bool value)

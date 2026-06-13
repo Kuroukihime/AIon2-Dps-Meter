@@ -65,6 +65,23 @@ namespace AionDpsMeter.Services.Services.Settings
             }
         }
 
+        public int UiStyle
+        {
+            get { lock (_lock) return _data.UiStyle; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    changed = _data.UiStyle != value;
+                    _data.UiStyle = value;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+
         public bool BossOnlyCapture
         {
             get { lock (_lock) return _data.BossOnlyCapture; }
@@ -270,6 +287,9 @@ namespace AionDpsMeter.Services.Services.Settings
 
             [JsonPropertyName("playerRowScale")]
             public double PlayerRowScale { get; set; } = 1.0;
+
+            [JsonPropertyName("uiStyle")]
+            public int UiStyle { get; set; } = 1;
         }
     }
 }

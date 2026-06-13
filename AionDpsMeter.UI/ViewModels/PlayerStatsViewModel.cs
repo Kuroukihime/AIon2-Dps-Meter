@@ -35,7 +35,6 @@ namespace AionDpsMeter.UI.ViewModels
             OnPropertyChanged(nameof(PlayerNameDisplay));
             OnPropertyChanged(nameof(EffectivePercentage));
         }
-
         public long    PlayerId          => _stats.PlayerId;
         public string  PlayerName        => _stats.PlayerName;
         public string  ServerName        => _stats.ServerName;
