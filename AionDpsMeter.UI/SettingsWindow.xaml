@@ -201,6 +201,38 @@
                             </StackPanel>
                         </Grid>
 
+                        <!-- Player Row Scale -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Text="Scale Factor"
+                                    FontSize="12"
+                                    Foreground="{StaticResource PrimaryTextBrush}"/>
+                                            <TextBlock Text="Scale factor of the player row (1-3)"  
+                                    FontSize="10"
+                                    Foreground="{StaticResource SecondaryTextBrush}"
+                                    Margin="0,2,0,0"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0,0,0">
+                                            <Slider Minimum="1" Maximum="3"
+                                 Value="{Binding PlayerRowScale, Mode=TwoWay}"
+                                 Width="100"
+                                 VerticalAlignment="Center"
+                                 IsSnapToTickEnabled="True"
+                                 TickFrequency="0.1"/>
+                                            <TextBlock Text="{Binding PlayerRowScale, StringFormat={}{0:F1}}"
+                                    FontSize="11"
+                                    FontFamily="Consolas"
+                                    Foreground="{StaticResource PrimaryTextBrush}"
+                                    VerticalAlignment="Center"
+                                    Margin="6,0,0,0"
+                                    Width="36"/>
+                            </StackPanel>
+                        </Grid>
+
                         <!-- Background Image -->
                         <Grid Margin="0,10,0,0">
                             <Grid.ColumnDefinitions>

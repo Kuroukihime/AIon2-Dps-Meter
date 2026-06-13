@@ -25,6 +25,9 @@ namespace AionDpsMeter.UI.ViewModels
         private int _windowOpacityPercent;
 
         [ObservableProperty]
+        private double _playerRowScale;
+
+        [ObservableProperty]
         private string? _backgroundImagePath;
 
         [ObservableProperty]
@@ -44,6 +47,7 @@ namespace AionDpsMeter.UI.ViewModels
             _bossOnlyCapture = settingsService.BossOnlyCapture;
             _historyDamageThreshold = settingsService.HistoryDamageThreshold;
             _windowOpacityPercent = (int)Math.Round(settingsService.WindowOpacity * 100);
+            _playerRowScale = settingsService.PlayerRowScale;
             _backgroundImagePath = settingsService.BackgroundImagePath;
             _relativeProgressBar = settingsService.RelativeProgressBar;
             _toggleVisibilityHotkey = settingsService.ToggleVisibilityHotkey;
@@ -74,6 +78,12 @@ namespace AionDpsMeter.UI.ViewModels
         {
             int clamped = Math.Clamp(value, 10, 100);
             _settingsService.WindowOpacity = clamped / 100.0;
+        }
+
+        partial void OnPlayerRowScaleChanged(double value)
+        {
+            double clamped = Math.Clamp(value, 1, 3);
+            _settingsService.PlayerRowScale = clamped;
         }
 
         partial void OnBackgroundImagePathChanged(string? value)

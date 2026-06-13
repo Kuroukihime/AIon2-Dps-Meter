@@ -18,6 +18,7 @@ namespace AionDpsMeter.Services.Services.Settings
         double? WindowTop { get; set; }
         double? WindowWidth { get; set; }
         double? WindowHeight { get; set; }
+        double PlayerRowScale { get; set; }
 
         event EventHandler SettingsChanged;
     }

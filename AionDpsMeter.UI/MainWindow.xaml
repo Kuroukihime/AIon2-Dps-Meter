@@ -291,7 +291,11 @@
                                     <Binding/>
                                 </Border.Tag>
 
-                                <Grid Height="24">
+                                <Grid>
+                                    <Grid.LayoutTransform>
+                                        <ScaleTransform ScaleX="{Binding PlayerRowScale}"
+                    ScaleY="{Binding PlayerRowScale}"/>
+                                    </Grid.LayoutTransform>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="26"/>
                                         <ColumnDefinition Width="*"/>

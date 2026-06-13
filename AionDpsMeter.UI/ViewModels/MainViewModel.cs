@@ -39,16 +39,15 @@ namespace AionDpsMeter.UI.ViewModels
 
         public MainViewModel(IPacketService packetService, CombatSessionManager sessionManager, IAppSettingsService settingsService, UpdateCheckerService updateChecker)
         {
-            _packetService  = packetService;
+            _packetService = packetService;
             _sessionManager = sessionManager;
             _settingsService = settingsService;
-            _updateChecker  = updateChecker;
-            _dispatcher     = Dispatcher.CurrentDispatcher;
+            _updateChecker = updateChecker;
+            _dispatcher = Dispatcher.CurrentDispatcher;
 
-            _packetService.DamageReceived    += OnPacketReceived;
-            _packetService.BuffReceived      += OnBuffReceived;
-            _packetService.PingUpdated       += OnPingUpdated;
-
+            _packetService.DamageReceived += OnPacketReceived;
+            _packetService.BuffReceived += OnBuffReceived;
+            _packetService.PingUpdated += OnPingUpdated;    
             // UI refresh at ~30 FPS
             _updateTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(33) };
             _updateTimer.Tick += OnUpdateTimerTick;

@@ -19,8 +19,11 @@ namespace AionDpsMeter.UI.ViewModels
             ? relativePercentage
             : absoulutePercentage;
 
+        public double PlayerRowScale => _settingsService.PlayerRowScale;
+
         public PlayerStatsViewModel(PlayerStats stats, IAppSettingsService settingsService)
         {
+            settingsService.SettingsChanged += (_, _) => OnPropertyChanged(nameof(PlayerRowScale));
             _stats = stats;
             _settingsService = settingsService;
             absoulutePercentage = stats.DamagePercentage;
