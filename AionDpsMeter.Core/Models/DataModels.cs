@@ -18,6 +18,7 @@ namespace AionDpsMeter.Core.Models
     {
         public string Name { get; set; } = string.Empty;
         public bool IsBoss { get; set; }
+        public bool isDummy { get; set; }
     }
 
 
