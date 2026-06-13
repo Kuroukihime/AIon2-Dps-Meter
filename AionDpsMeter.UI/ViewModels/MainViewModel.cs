@@ -18,6 +18,11 @@ namespace AionDpsMeter.UI.ViewModels
         private readonly UpdateCheckerService _updateChecker;
         private readonly Dispatcher _dispatcher;
         private DispatcherTimer? _updateTimer;
+        public bool IsStyle1 => _settingsService.UiStyle == 0;
+        public bool IsStyle2 => _settingsService.UiStyle == 1;
+        public bool IsDetailedStyleTransparent => IsStyle2;
+        [ObservableProperty] private string _totalRaidDamageFormatted ="";
+
 
         [ObservableProperty] private ObservableCollection<PlayerStatsViewModel> _players = new();
         [ObservableProperty] private string _combatDuration = "00:00";
@@ -39,16 +44,15 @@ namespace AionDpsMeter.UI.ViewModels
 
         public MainViewModel(IPacketService packetService, CombatSessionManager sessionManager, IAppSettingsService settingsService, UpdateCheckerService updateChecker)
         {
-            _packetService  = packetService;
+            _packetService = packetService;
             _sessionManager = sessionManager;
             _settingsService = settingsService;
-            _updateChecker  = updateChecker;
-            _dispatcher     = Dispatcher.CurrentDispatcher;
+            _updateChecker = updateChecker;
+            _dispatcher = Dispatcher.CurrentDispatcher;
 
-            _packetService.DamageReceived    += OnPacketReceived;
-            _packetService.BuffReceived      += OnBuffReceived;
-            _packetService.PingUpdated       += OnPingUpdated;
-
+            _packetService.DamageReceived += OnPacketReceived;
+            _packetService.BuffReceived += OnBuffReceived;
+            _packetService.PingUpdated += OnPingUpdated;    
             // UI refresh at ~30 FPS
             _updateTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(33) };
             _updateTimer.Tick += OnUpdateTimerTick;
@@ -76,6 +80,16 @@ namespace AionDpsMeter.UI.ViewModels
         {
             _packetService.Start();
             _updateTimer?.Start();
+        }
+
+        public void NotifyDisplayStyleChanged()
+        {
+            // When Style2 is active the main border should be transparent so
+            // the game shows through. Drive this from the ViewModel so
+            // MainWindow.xaml.cs can react to it too.
+            OnPropertyChanged(nameof(IsStyle1));
+            OnPropertyChanged(nameof(IsStyle2));
+            OnPropertyChanged(nameof(IsDetailedStyleTransparent));
         }
 
         private void OnPingUpdated(object? sender, int pingMs)
@@ -127,6 +141,13 @@ namespace AionDpsMeter.UI.ViewModels
             UpdatePlayerStats();
             UpdateCombatDuration();
             UpdateActiveTarget();
+            UpdateTotalRaidDps();
+        }
+
+        private void UpdateTotalRaidDps()
+        {
+            double totalDamage = _sessionManager.PlayerStats.Sum(r => r.DamagePerSecond);
+            TotalRaidDamageFormatted = DamageFormatter.Format(totalDamage) + "/s";
         }
 
         private void UpdatePlayerStats()

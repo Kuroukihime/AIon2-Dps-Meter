@@ -42,11 +42,38 @@ namespace AionDpsMeter.UI
                     MainBorder.Opacity = settingsService.WindowOpacity;
                     ApplyBackgroundImage(settingsService.BackgroundImagePath);
                     RegisterToggleHotkey();
+                    ApplyDisplayStyle();
                 });
 
             Loaded += (_, _) => RegisterToggleHotkey();
+            ApplyDisplayStyle();
         }
+        private void ApplyDisplayStyle()
+        {
+            if (DataContext is not MainViewModel vm) return;
 
+            vm.NotifyDisplayStyleChanged();
+
+          
+            if (settingsService.UiStyle == 1)
+            {
+                // Style 2: fully transparent window — game renders behind it
+                MainBorder.Background = Brushes.Transparent;
+                MainBorder.BorderThickness = new Thickness(0);
+
+                // Hide the background image; Style 2 has no backdrop
+                PlayersBackgroundImage.Source = null;
+                PlayersBackgroundOverlay.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                // Style 1: restore normal dark background + opacity
+                MainBorder.Background = (Brush)FindResource("PrimaryBackgroundBrush");
+                MainBorder.BorderThickness = new Thickness(0);   // keep your original value
+                MainBorder.Opacity = settingsService.WindowOpacity;
+                ApplyBackgroundImage(settingsService.BackgroundImagePath);
+            }
+        }
         private void RegisterToggleHotkey()
         {
             _globalHotkey ??= new GlobalHotkey(this);

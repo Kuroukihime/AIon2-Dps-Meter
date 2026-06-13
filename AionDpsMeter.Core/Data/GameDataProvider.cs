@@ -39,7 +39,7 @@ namespace AionDpsMeter.Core.Data
             Skills.LoadHealingSkills(Path.Combine(dataDir, "healing_skill_ids.json"));
             Mobs.Load(Path.Combine(dataDir, "mobs.json"));
             Buffs.Load(Path.Combine(dataDir, "buffs.json"));
-            
+
         }
         public bool IsTheostone(int skillCode) => Skills.IsTheostone(skillCode);
         public bool IsHealingSkill(int skillCode) => Skills.IsHealingSkill(skillCode);
@@ -51,7 +51,9 @@ namespace AionDpsMeter.Core.Data
 
         public string GetMobName(int mobId) => Mobs.GetName(mobId);
 
-        public bool IsBoss(int mobId) => Mobs.IsBoss(mobId);
+        public bool IsBoss(int mobId) => Mobs.IsBoss(mobId) || Mobs.IsDummy(mobId);
+
+        public bool IsDummy(int mobId) => Mobs.IsDummy(mobId);
 
         public bool IsBuff (int buffId) => Buffs.IsBuff(buffId);
         public BuffData? GetBuff(int buffId) => Buffs.GetBuff(buffId);

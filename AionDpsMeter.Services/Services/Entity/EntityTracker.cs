@@ -44,6 +44,10 @@ namespace AionDpsMeter.Services.Services.Entity
         {
             if (!targetEntities.TryGetValue(entityId, out var entity)) return false;
             entity.HpCurrent = hpCurrent;
+            if(entity.HpTotal > 0 && entity.HpCurrent > entity.HpTotal + 10_000_000)
+            {
+                entity.HpTotal = entity.HpCurrent;
+            }
             return true;
 
         }

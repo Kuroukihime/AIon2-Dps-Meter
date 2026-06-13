@@ -16,6 +16,23 @@ namespace AionDpsMeter.Services.Services.Settings
             _data = Load();
         }
 
+
+        public double PlayerRowScale
+        {
+            get { lock (_lock) return _data.PlayerRowScale; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    changed = _data.PlayerRowScale != value;
+                    _data.PlayerRowScale = value;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public bool IsPacketLoggingEnabled
         {
             get { lock (_lock) return _data.IsPacketLoggingEnabled; }
@@ -47,6 +64,23 @@ namespace AionDpsMeter.Services.Services.Settings
                 if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
             }
         }
+
+        public int UiStyle
+        {
+            get { lock (_lock) return _data.UiStyle; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    changed = _data.UiStyle != value;
+                    _data.UiStyle = value;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
 
         public bool BossOnlyCapture
         {
@@ -250,6 +284,12 @@ namespace AionDpsMeter.Services.Services.Settings
 
             [JsonPropertyName("groupSummonDamage")]
             public bool GroupSummonDamage { get; set; } = true;
+
+            [JsonPropertyName("playerRowScale")]
+            public double PlayerRowScale { get; set; } = 1.0;
+
+            [JsonPropertyName("uiStyle")]
+            public int UiStyle { get; set; } = 1;
         }
     }
 }

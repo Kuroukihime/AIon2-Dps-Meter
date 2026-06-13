@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Settings"
         Width="400"
-        Height="530"
+        Height="580"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
@@ -109,6 +109,97 @@
         </Style>
 
         <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+
+        <!-- Completely Rewritten Dark Dropdown Style -->
+        <Style x:Key="DarkComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
+            <Setter Property="Background" Value="#21262D"/>
+            <Setter Property="BorderBrush" Value="#30363D"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Height" Value="22"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ComboBoxItem">
+                        <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Padding" Value="8,4"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ComboBoxItem">
+                                    <Border x:Name="Border" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Border" Property="Background" Value="#30363D"/>
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="Border" Property="Background" Value="#30363D"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <!-- Main Button Background -->
+                            <ToggleButton x:Name="ToggleButton" 
+                                          Background="{TemplateBinding Background}" 
+                                          BorderBrush="{TemplateBinding BorderBrush}" 
+                                          BorderThickness="{TemplateBinding BorderThickness}" 
+                                          ClickMode="Press" 
+                                          Focusable="False" 
+                                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="{TemplateBinding Background}" 
+                                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                                CornerRadius="2">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="20" />
+                                                </Grid.ColumnDefinitions>
+                                                <!-- Arrow icon locked to the right side -->
+                                                <Path Grid.Column="1" Fill="#8B949E" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z"/>
+                                            </Grid>
+                                        </Border>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+
+                            <!-- Selected text locked inside the box -->
+                            <ContentPresenter x:Name="ContentSite" 
+                                              IsHitTestVisible="False" 
+                                              Content="{TemplateBinding SelectionBoxItem}" 
+                                              Margin="8,0,20,0" 
+                                              VerticalAlignment="Center" 
+                                              HorizontalAlignment="Left"
+                                              TextElement.Foreground="{TemplateBinding Foreground}"/>
+
+                            <!-- Dropdown Window -->
+                            <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
+                                <Border x:Name="DropDownBorder" Background="#21262D" BorderThickness="1" BorderBrush="#30363D" CornerRadius="2" Margin="0,2,0,0" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="150">
+                                    <ScrollViewer SnapsToDevicePixels="True" HorizontalScrollBarVisibility="Disabled">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <Border Background="{StaticResource PrimaryBackgroundBrush}"
@@ -201,6 +292,63 @@
                             </StackPanel>
                         </Grid>
 
+                        <!-- Player Row Scale -->
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Text="Scale Factor"
+                                           FontSize="12"
+                                           Foreground="{StaticResource PrimaryTextBrush}"/>
+                                <TextBlock Text="Scale factor of the player row (1-3)"  
+                                           FontSize="10"
+                                           Foreground="{StaticResource SecondaryTextBrush}"
+                                           Margin="0,2,0,0"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0,0,0">
+                                <Slider Minimum="1" Maximum="3"
+                                        Value="{Binding PlayerRowScale, Mode=TwoWay}"
+                                        Width="100"
+                                        VerticalAlignment="Center"
+                                        IsSnapToTickEnabled="True"
+                                        TickFrequency="0.1"/>
+                                <TextBlock Text="{Binding PlayerRowScale, StringFormat={}{0:F1}}"
+                                           FontSize="11"
+                                           FontFamily="Consolas"
+                                           Foreground="{StaticResource PrimaryTextBrush}"
+                                           VerticalAlignment="Center"
+                                           Margin="6,0,0,0"
+                                           Width="36"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- UI Style -->
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Text="UI Style"
+                                           FontSize="12"
+                                           Foreground="{StaticResource PrimaryTextBrush}"/>
+                                <TextBlock Text="Select the visual layout of main window"
+                                           FontSize="10"
+                                           Foreground="{StaticResource SecondaryTextBrush}"
+                                           Margin="0,2,0,0"/>
+                            </StackPanel>
+                            <ComboBox Grid.Column="1"
+                                      SelectedIndex="{Binding UiStyle, Mode=TwoWay}"
+                                      VerticalAlignment="Center"
+                                      Margin="20,0,0,0"
+                                      Style="{StaticResource DarkComboBoxStyle}">
+                                <ComboBoxItem Content="Style 1" />
+                                <ComboBoxItem Content="Style 2" />
+                            </ComboBox>
+                        </Grid>
+
                         <!-- Background Image -->
                         <Grid Margin="0,10,0,0">
                             <Grid.ColumnDefinitions>
@@ -262,9 +410,8 @@
                                           VerticalAlignment="Center"
                                           Margin="12,0,0,0"/>
                         </Grid>
-                        
-                        <!--<Group summon damage-->
 
+                        <!-- Group Summon Damage -->
                         <Grid Margin="0,10,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -272,22 +419,19 @@
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0" VerticalAlignment="Center">
                                 <TextBlock Text="Group Summon Damage"
-                                    FontSize="12"
-                                    Foreground="{StaticResource PrimaryTextBrush}"/>
-                                                <TextBlock Text="Collapse all summon damage skills into a single entry"
-                                    FontSize="10"
-                                    Foreground="{StaticResource SecondaryTextBrush}"
-                                    Margin="0,2,0,0"/>
-                                            </StackPanel>
-                                        <ToggleButton Grid.Column="1"
-                                   IsChecked="{Binding GroupSummonDamage, Mode=TwoWay}"
-                                   Style="{StaticResource ToggleSwitchStyle}"
-                                   VerticalAlignment="Center"
-                                   Margin="12,0,0,0"/>  
+                                           FontSize="12"
+                                           Foreground="{StaticResource PrimaryTextBrush}"/>
+                                <TextBlock Text="Collapse all summon damage skills into a single entry"
+                                           FontSize="10"
+                                           Foreground="{StaticResource SecondaryTextBrush}"
+                                           Margin="0,2,0,0"/>
+                            </StackPanel>
+                            <ToggleButton Grid.Column="1"
+                                          IsChecked="{Binding GroupSummonDamage, Mode=TwoWay}"
+                                          Style="{StaticResource ToggleSwitchStyle}"
+                                          VerticalAlignment="Center"
+                                          Margin="12,0,0,0"/>
                         </Grid>
-
-
-
 
                         <!-- Hide Nicknames -->
                         <Grid Margin="0,10,0,0">

@@ -1388,11 +1388,11 @@
     "isBoss": false
   },
   "2090672": {
-    "name": "Drakan Lookout",
+    "name": "Drakan Watcher",
     "isBoss": false
   },
   "2090673": {
-    "name": "Drakan Watchdog",
+    "name": "Drakan Guard Dog",
     "isBoss": false
   },
   "2090674": {
@@ -1836,7 +1836,7 @@
     "isBoss": false
   },
   "2100167": {
-    "name": "Astin Mercenaries Lookout",
+    "name": "Astin Mercenaries Watcher",
     "isBoss": false
   },
   "2100168": {
@@ -2000,7 +2000,7 @@
     "isBoss": false
   },
   "2100277": {
-    "name": "Krall Lookout",
+    "name": "Krall Watcher",
     "isBoss": false
   },
   "2100281": {
@@ -2008,7 +2008,7 @@
     "isBoss": false
   },
   "2100282": {
-    "name": "Enhanced Krall Lookout",
+    "name": "Enhanced Krall Watcher",
     "isBoss": false
   },
   "2100283": {
@@ -2216,7 +2216,7 @@
     "isBoss": false
   },
   "2100479": {
-    "name": "Kobold Lookout",
+    "name": "Kobold Watcher",
     "isBoss": false
   },
   "2100480": {
@@ -3108,7 +3108,7 @@
     "isBoss": false
   },
   "2100976": {
-    "name": "Aullaeu Forest Managing Mercenary",
+    "name": "Aullaeu Forest Warden Mercenary",
     "isBoss": false
   },
   "2100977": {
@@ -3196,7 +3196,7 @@
     "isBoss": false
   },
   "2100998": {
-    "name": "Aullaeu Managing Ranger",
+    "name": "Aullaeu Warden Ranger",
     "isBoss": false
   },
   "2100999": {
@@ -3212,7 +3212,7 @@
     "isBoss": false
   },
   "2101002": {
-    "name": "Drakan Watchdog",
+    "name": "Drakan Guard Dog",
     "isBoss": false
   },
   "2101003": {
@@ -3232,7 +3232,7 @@
     "isBoss": false
   },
   "2101007": {
-    "name": "Nahid Test Subject Lookout",
+    "name": "Nahid Test Subject Watcher",
     "isBoss": false
   },
   "2101008": {
@@ -3240,7 +3240,7 @@
     "isBoss": false
   },
   "2101009": {
-    "name": "Nahid Drakan Watchdog",
+    "name": "Nahid Drakan Guard Dog",
     "isBoss": false
   },
   "2101010": {
@@ -3296,7 +3296,7 @@
     "isBoss": false
   },
   "2101048": {
-    "name": "Gathering Managing Konutin Worker",
+    "name": "Gathering Manager Konutin Worker",
     "isBoss": false
   },
   "2101049": {
@@ -3304,7 +3304,7 @@
     "isBoss": false
   },
   "2101050": {
-    "name": "Ritualist's Shelter Managing Ranger",
+    "name": "Ritualist's Shelter Warden Ranger",
     "isBoss": false
   },
   "2101051": {
@@ -3312,7 +3312,7 @@
     "isBoss": false
   },
   "2101052": {
-    "name": "Aullaeu Management Totem Shaman",
+    "name": "Aullaeu Warden Totem Shaman",
     "isBoss": false
   },
   "2101053": {
@@ -3328,7 +3328,7 @@
     "isBoss": false
   },
   "2101056": {
-    "name": "Forest Worker Overseer Soldier",
+    "name": "Forest Worker Watch Soldier",
     "isBoss": false
   },
   "2101057": {
@@ -3352,7 +3352,7 @@
     "isBoss": false
   },
   "2101062": {
-    "name": "Forest Labor Managing Soldier",
+    "name": "Forest Labor Manager Soldier",
     "isBoss": false
   },
   "2101063": {
@@ -3976,7 +3976,7 @@
     "isBoss": false
   },
   "2101346": {
-    "name": "Lepharist Test Subject Administrator",
+    "name": "Lepharist Test Subject Manager",
     "isBoss": false
   },
   "2101347": {
@@ -4592,19 +4592,19 @@
     "isBoss": false
   },
   "2110461": {
-    "name": "Draconute Module Keeper",
+    "name": "Draconute Module Manager",
     "isBoss": false
   },
   "2110462": {
-    "name": "Draconute Module Keeper",
+    "name": "Draconute Module Manager",
     "isBoss": false
   },
   "2110463": {
-    "name": "Draconute Module Keeper",
+    "name": "Draconute Module Manager",
     "isBoss": false
   },
   "2110464": {
-    "name": "Draconute Module Keeper",
+    "name": "Draconute Module Manager",
     "isBoss": false
   },
   "2110500": {
@@ -5092,7 +5092,7 @@
     "isBoss": false
   },
   "2200127": {
-    "name": "Drakan Lookout",
+    "name": "Drakan Watcher",
     "isBoss": false
   },
   "2200128": {
@@ -5104,19 +5104,19 @@
     "isBoss": false
   },
   "2200130": {
-    "name": "Drakan Lookout",
+    "name": "Drakan Watcher",
     "isBoss": false
   },
   "2200131": {
-    "name": "Drakan Lookout",
+    "name": "Drakan Watcher",
     "isBoss": false
   },
   "2200132": {
-    "name": "Drakan Lookout",
+    "name": "Drakan Watcher",
     "isBoss": false
   },
   "2200133": {
-    "name": "Drakan Lookout",
+    "name": "Drakan Watcher",
     "isBoss": false
   },
   "2200134": {
@@ -5172,7 +5172,7 @@
     "isBoss": true
   },
   "2200147": {
-    "name": "Drakan Lookout",
+    "name": "Drakan Watcher",
     "isBoss": false
   },
   "2200148": {
@@ -5276,7 +5276,7 @@
     "isBoss": false
   },
   "2290046": {
-    "name": "Drana Overseer",
+    "name": "Drana Supervisor",
     "isBoss": false
   },
   "2290047": {
@@ -5284,7 +5284,7 @@
     "isBoss": false
   },
   "2290048": {
-    "name": "Power Tower Drakan Lookout",
+    "name": "Power Tower Drakan Watcher",
     "isBoss": false
   },
   "2290049": {
@@ -5644,7 +5644,7 @@
     "isBoss": false
   },
   "2290166": {
-    "name": "Astin Mercenaries Lookout",
+    "name": "Astin Mercenaries Watcher",
     "isBoss": false
   },
   "2290167": {
@@ -5721,15 +5721,15 @@
     "isBoss": false
   },
   "2300004": {
-    "name": "Flooded Shieldbearer",
+    "name": "Sunken Shieldbearer",
     "isBoss": false
   },
   "2300005": {
-    "name": "Flooded Combatant",
+    "name": "Sunken Combatant",
     "isBoss": false
   },
   "2300006": {
-    "name": "Flooded Lookout",
+    "name": "Sunken Watcher",
     "isBoss": false
   },
   "2300007": {
@@ -5745,11 +5745,11 @@
     "isBoss": false
   },
   "2300010": {
-    "name": "Flooded Guardian Tower",
+    "name": "Sunken Guardian Tower",
     "isBoss": false
   },
   "2300011": {
-    "name": "Flooded Jailor",
+    "name": "Sunken Jailor",
     "isBoss": false
   },
   "2300012": {
@@ -5790,15 +5790,15 @@
     "isBoss": false
   },
   "2300019": {
-    "name": "Flooded Shieldbearer",
+    "name": "Sunken Shieldbearer",
     "isBoss": false
   },
   "2300020": {
-    "name": "Flooded Combatant",
+    "name": "Sunken Combatant",
     "isBoss": false
   },
   "2300021": {
-    "name": "Flooded Lookout",
+    "name": "Sunken Watcher",
     "isBoss": false
   },
   "2300022": {
@@ -5814,11 +5814,11 @@
     "isBoss": false
   },
   "2300025": {
-    "name": "Flooded Guardian Tower",
+    "name": "Sunken Guardian Tower",
     "isBoss": false
   },
   "2300026": {
-    "name": "Flooded Jailor",
+    "name": "Sunken Jailor",
     "isBoss": false
   },
   "2300027": {
@@ -5859,15 +5859,15 @@
     "isBoss": false
   },
   "2300034": {
-    "name": "Flooded Shieldbearer",
+    "name": "Sunken Shieldbearer",
     "isBoss": false
   },
   "2300035": {
-    "name": "Flooded Combatant",
+    "name": "Sunken Combatant",
     "isBoss": false
   },
   "2300036": {
-    "name": "Flooded Lookout",
+    "name": "Sunken Watcher",
     "isBoss": false
   },
   "2300037": {
@@ -5883,11 +5883,11 @@
     "isBoss": false
   },
   "2300040": {
-    "name": "Flooded Guardian Tower",
+    "name": "Sunken Guardian Tower",
     "isBoss": false
   },
   "2300041": {
-    "name": "Flooded Jailor",
+    "name": "Sunken Jailor",
     "isBoss": false
   },
   "2300042": {
@@ -5919,15 +5919,15 @@
     "isBoss": false
   },
   "2300049": {
-    "name": "Flooded Shieldbearer",
+    "name": "Sunken Shieldbearer",
     "isBoss": false
   },
   "2300050": {
-    "name": "Flooded Combatant",
+    "name": "Sunken Combatant",
     "isBoss": false
   },
   "2300051": {
-    "name": "Flooded Lookout",
+    "name": "Sunken Watcher",
     "isBoss": false
   },
   "2300052": {
@@ -5943,11 +5943,11 @@
     "isBoss": false
   },
   "2300055": {
-    "name": "Flooded Guardian Tower",
+    "name": "Sunken Guardian Tower",
     "isBoss": false
   },
   "2300056": {
-    "name": "Flooded Jailor",
+    "name": "Sunken Jailor",
     "isBoss": false
   },
   "2300057": {
@@ -5979,15 +5979,15 @@
     "isBoss": false
   },
   "2300064": {
-    "name": "Flooded Shieldbearer",
+    "name": "Sunken Shieldbearer",
     "isBoss": false
   },
   "2300065": {
-    "name": "Flooded Combatant",
+    "name": "Sunken Combatant",
     "isBoss": false
   },
   "2300066": {
-    "name": "Flooded Lookout",
+    "name": "Sunken Watcher",
     "isBoss": false
   },
   "2300067": {
@@ -6003,11 +6003,11 @@
     "isBoss": false
   },
   "2300070": {
-    "name": "Flooded Guardian Tower",
+    "name": "Sunken Guardian Tower",
     "isBoss": false
   },
   "2300071": {
-    "name": "Flooded Jailor",
+    "name": "Sunken Jailor",
     "isBoss": false
   },
   "2300072": {
@@ -6039,15 +6039,15 @@
     "isBoss": false
   },
   "2300079": {
-    "name": "Flooded Shieldbearer",
+    "name": "Sunken Shieldbearer",
     "isBoss": false
   },
   "2300080": {
-    "name": "Flooded Combatant",
+    "name": "Sunken Combatant",
     "isBoss": false
   },
   "2300081": {
-    "name": "Flooded Lookout",
+    "name": "Sunken Watcher",
     "isBoss": false
   },
   "2300082": {
@@ -6063,11 +6063,11 @@
     "isBoss": false
   },
   "2300085": {
-    "name": "Flooded Guardian Tower",
+    "name": "Sunken Guardian Tower",
     "isBoss": false
   },
   "2300086": {
-    "name": "Flooded Jailor",
+    "name": "Sunken Jailor",
     "isBoss": false
   },
   "2300087": {
@@ -6099,15 +6099,15 @@
     "isBoss": false
   },
   "2300094": {
-    "name": "Flooded Shieldbearer",
+    "name": "Sunken Shieldbearer",
     "isBoss": false
   },
   "2300095": {
-    "name": "Flooded Combatant",
+    "name": "Sunken Combatant",
     "isBoss": false
   },
   "2300096": {
-    "name": "Flooded Lookout",
+    "name": "Sunken Watcher",
     "isBoss": false
   },
   "2300097": {
@@ -6123,7 +6123,7 @@
     "isBoss": false
   },
   "2300100": {
-    "name": "Flooded Guardian Tower",
+    "name": "Sunken Guardian Tower",
     "isBoss": false
   },
   "2300101": {
@@ -6146,7 +6146,7 @@
     "dungeonId": 600001
   },
   "2300105": {
-    "name": "Flooded Jailor",
+    "name": "Sunken Jailor",
     "isBoss": false
   },
   "2300106": {
@@ -6209,15 +6209,15 @@
     "isBoss": false
   },
   "2300120": {
-    "name": "Flooded Shieldbearer",
+    "name": "Sunken Shieldbearer",
     "isBoss": false
   },
   "2300121": {
-    "name": "Flooded Combatant",
+    "name": "Sunken Combatant",
     "isBoss": false
   },
   "2300122": {
-    "name": "Flooded Lookout",
+    "name": "Sunken Watcher",
     "isBoss": false
   },
   "2300123": {
@@ -6233,11 +6233,11 @@
     "isBoss": false
   },
   "2300126": {
-    "name": "Flooded Guardian Tower",
+    "name": "Sunken Guardian Tower",
     "isBoss": false
   },
   "2300127": {
-    "name": "Flooded Jailor",
+    "name": "Sunken Jailor",
     "isBoss": false
   },
   "2300128": {
@@ -6269,15 +6269,15 @@
     "isBoss": false
   },
   "2300135": {
-    "name": "Flooded Shieldbearer",
+    "name": "Sunken Shieldbearer",
     "isBoss": false
   },
   "2300136": {
-    "name": "Flooded Combatant",
+    "name": "Sunken Combatant",
     "isBoss": false
   },
   "2300137": {
-    "name": "Flooded Lookout",
+    "name": "Sunken Watcher",
     "isBoss": false
   },
   "2300138": {
@@ -6293,11 +6293,11 @@
     "isBoss": false
   },
   "2300141": {
-    "name": "Flooded Guardian Tower",
+    "name": "Sunken Guardian Tower",
     "isBoss": false
   },
   "2300142": {
-    "name": "Flooded Jailor",
+    "name": "Sunken Jailor",
     "isBoss": false
   },
   "2300143": {
@@ -6691,7 +6691,7 @@
   },
   "2300229": {
     "name": "Training Scarecrow",
-    "isBoss": true,
+    "isBoss": false,
     "isDummy": true
   },
   "2300230": {
@@ -7510,7 +7510,7 @@
     "isBoss": false
   },
   "2300611": {
-    "name": "Modified Krall Manager",
+    "name": "Modified Krall Warden",
     "isBoss": false
   },
   "2300612": {
@@ -7741,7 +7741,7 @@
   },
   "2300919": {
     "name": "Training Scarecrow",
-    "isBoss": true,
+    "isBoss": false,
     "isDummy": true
   },
   "2300920": {
@@ -7872,6 +7872,7 @@
     "name": "Blazing Guardian Sword",
     "isBoss": true,
     "category": "Raid",
+    "tier": "Hard",
     "dungeonId": 620021
   },
   "2301056": {
@@ -7890,36 +7891,21 @@
     "name": "Iscariel",
     "isBoss": true,
     "category": "Raid",
-    "dungeonId": 620021
-  },
-  "2301089": {
-    "name": "Iscariel",
-    "isBoss": true,
-    "category": "Raid",
+    "tier": "Hard",
     "dungeonId": 620021
   },
   "2301060": {
     "name": "Kaldrix",
     "isBoss": true,
     "category": "Raid",
+    "tier": "Hard",
     "dungeonId": 620021
   },
   "2301061": {
     "name": "Kaldrix",
     "isBoss": true,
     "category": "Raid",
-    "dungeonId": 620021
-  },
-  "2301090": {
-    "name": "Kaldrix",
-    "isBoss": true,
-    "category": "Raid",
-    "dungeonId": 620021
-  },
-  "2301091": {
-    "name": "Kaldrix",
-    "isBoss": true,
-    "category": "Raid",
+    "tier": "Hard",
     "dungeonId": 620021
   },
   "2301062": {
@@ -7946,9 +7932,101 @@
     "name": "Blazing Guardian Sword",
     "isBoss": true,
     "category": "Raid",
+    "tier": "Hard",
     "dungeonId": 620021
   },
   "2301068": {
+    "name": "Muspel Guardian Statue",
+    "isBoss": false
+  },
+  "2301080": {
+    "name": "Mutated Elite Commander",
+    "isBoss": false
+  },
+  "2301081": {
+    "name": "Mutated Scout",
+    "isBoss": false
+  },
+  "2301082": {
+    "name": "Sanctum Barghest",
+    "isBoss": false
+  },
+  "2301083": {
+    "name": "Flame Zone",
+    "isBoss": false
+  },
+  "2301084": {
+    "name": "Mutated Mender",
+    "isBoss": false
+  },
+  "2301085": {
+    "name": "Blazing Guardian Sword",
+    "isBoss": true,
+    "category": "Raid",
+    "tier": "Normal",
+    "dungeonId": 620022
+  },
+  "2301086": {
+    "name": "Muspel Abyss Lamphu",
+    "isBoss": false
+  },
+  "2301087": {
+    "name": "Muspel Lava",
+    "isBoss": false
+  },
+  "2301088": {
+    "name": "Muspel Giant Lava",
+    "isBoss": false
+  },
+  "2301089": {
+    "name": "Iscariel",
+    "isBoss": true,
+    "category": "Raid",
+    "tier": "Normal",
+    "dungeonId": 620022
+  },
+  "2301090": {
+    "name": "Kaldrix",
+    "isBoss": true,
+    "category": "Raid",
+    "tier": "Normal",
+    "dungeonId": 620022
+  },
+  "2301091": {
+    "name": "Kaldrix",
+    "isBoss": true,
+    "category": "Raid",
+    "tier": "Normal",
+    "dungeonId": 620022
+  },
+  "2301092": {
+    "name": "Muspel Guardian Statue",
+    "isBoss": false
+  },
+  "2301093": {
+    "name": "Fiery Eggs",
+    "isBoss": false
+  },
+  "2301094": {
+    "name": "Muspel Abyss Monster",
+    "isBoss": false
+  },
+  "2301095": {
+    "name": "Meteor",
+    "isBoss": false
+  },
+  "2301096": {
+    "name": "Flame",
+    "isBoss": false
+  },
+  "2301097": {
+    "name": "Blazing Guardian Sword",
+    "isBoss": true,
+    "category": "Raid",
+    "tier": "Normal",
+    "dungeonId": 620022
+  },
+  "2301098": {
     "name": "Muspel Guardian Statue",
     "isBoss": false
   },
@@ -8216,15 +8294,15 @@
     "isBoss": false
   },
   "2301505": {
-    "name": "Flooded Shieldbearer",
+    "name": "Sunken Shieldbearer",
     "isBoss": false
   },
   "2301506": {
-    "name": "Flooded Combatant",
+    "name": "Sunken Combatant",
     "isBoss": false
   },
   "2301507": {
-    "name": "Flooded Lookout",
+    "name": "Sunken Watcher",
     "isBoss": false
   },
   "2301508": {
@@ -8240,11 +8318,11 @@
     "isBoss": false
   },
   "2301511": {
-    "name": "Flooded Guardian Tower",
+    "name": "Sunken Guardian Tower",
     "isBoss": false
   },
   "2301512": {
-    "name": "Flooded Jailor",
+    "name": "Sunken Jailor",
     "isBoss": false
   },
   "2301513": {
@@ -8500,7 +8578,7 @@
   },
   "2310229": {
     "name": "Training Scarecrow",
-    "isBoss": true,
+    "isBoss": false,
     "isDummy": true
   },
   "2310301": {
@@ -8815,7 +8893,7 @@
     "isBoss": false
   },
   "2310611": {
-    "name": "Modified Krall Manager",
+    "name": "Modified Krall Warden",
     "isBoss": false
   },
   "2310612": {
@@ -9002,7 +9080,7 @@
   },
   "2310919": {
     "name": "Training Scarecrow",
-    "isBoss": true,
+    "isBoss": false,
     "isDummy": true
   },
   "2310920": {
@@ -9424,7 +9502,7 @@
   },
   "2320229": {
     "name": "Training Scarecrow",
-    "isBoss": true,
+    "isBoss": false,
     "isDummy": true
   },
   "2320301": {
@@ -9740,7 +9818,7 @@
     "isBoss": false
   },
   "2320611": {
-    "name": "Modified Krall Manager",
+    "name": "Modified Krall Warden",
     "isBoss": false
   },
   "2320612": {
@@ -9941,7 +10019,7 @@
   },
   "2320919": {
     "name": "Training Scarecrow",
-    "isBoss": true,
+    "isBoss": false,
     "isDummy": true
   },
   "2320920": {
@@ -11239,7 +11317,7 @@
     "isBoss": false
   },
   "2330611": {
-    "name": "Modified Krall Manager",
+    "name": "Modified Krall Warden",
     "isBoss": false
   },
   "2330612": {
@@ -11424,7 +11502,7 @@
     "isBoss": false
   },
   "2340107": {
-    "name": "Thieves Lookout",
+    "name": "Thieves Watcher",
     "isBoss": false
   },
   "2340108": {
@@ -11783,7 +11861,7 @@
     "isBoss": false
   },
   "2340611": {
-    "name": "Modified Krall Manager",
+    "name": "Modified Krall Warden",
     "isBoss": false
   },
   "2340612": {
@@ -11897,7 +11975,7 @@
     "isBoss": false
   },
   "2341611": {
-    "name": "Modified Krall Manager",
+    "name": "Modified Krall Warden",
     "isBoss": false
   },
   "2341612": {
@@ -11969,7 +12047,7 @@
     "isBoss": false
   },
   "2342611": {
-    "name": "Modified Krall Manager",
+    "name": "Modified Krall Warden",
     "isBoss": false
   },
   "2342612": {
@@ -12044,7 +12122,7 @@
     "isBoss": false
   },
   "2343611": {
-    "name": "Modified Krall Manager",
+    "name": "Modified Krall Warden",
     "isBoss": false
   },
   "2343612": {
@@ -12122,7 +12200,7 @@
     "isBoss": false
   },
   "2344611": {
-    "name": "Modified Krall Manager",
+    "name": "Modified Krall Warden",
     "isBoss": false
   },
   "2344612": {
@@ -12282,7 +12360,7 @@
     "isBoss": false
   },
   "2345611": {
-    "name": "Modified Krall Manager",
+    "name": "Modified Krall Warden",
     "isBoss": false
   },
   "2345612": {
@@ -12357,7 +12435,7 @@
     "isBoss": false
   },
   "2346611": {
-    "name": "Modified Krall Manager",
+    "name": "Modified Krall Warden",
     "isBoss": false
   },
   "2346612": {
@@ -12435,7 +12513,7 @@
     "isBoss": false
   },
   "2347611": {
-    "name": "Modified Krall Manager",
+    "name": "Modified Krall Warden",
     "isBoss": false
   },
   "2347612": {
@@ -14058,7 +14136,7 @@
     "isBoss": false
   },
   "2370412": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370413": {
@@ -14070,7 +14148,7 @@
     "isBoss": false
   },
   "2370415": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370416": {
@@ -14082,7 +14160,7 @@
     "isBoss": false
   },
   "2370418": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370419": {
@@ -14094,7 +14172,7 @@
     "isBoss": false
   },
   "2370421": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370422": {
@@ -14106,7 +14184,7 @@
     "isBoss": false
   },
   "2370424": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370425": {
@@ -14118,7 +14196,7 @@
     "isBoss": false
   },
   "2370427": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370428": {
@@ -14174,7 +14252,7 @@
     "isBoss": false
   },
   "2370441": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370442": {
@@ -14186,7 +14264,7 @@
     "isBoss": false
   },
   "2370444": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370445": {
@@ -14198,7 +14276,7 @@
     "isBoss": false
   },
   "2370447": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370448": {
@@ -14210,7 +14288,7 @@
     "isBoss": false
   },
   "2370450": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370451": {
@@ -14222,7 +14300,7 @@
     "isBoss": false
   },
   "2370453": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370454": {
@@ -14234,7 +14312,7 @@
     "isBoss": false
   },
   "2370456": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370457": {
@@ -14290,7 +14368,7 @@
     "isBoss": false
   },
   "2370471": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370472": {
@@ -14302,7 +14380,7 @@
     "isBoss": false
   },
   "2370474": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370475": {
@@ -14314,7 +14392,7 @@
     "isBoss": false
   },
   "2370477": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370478": {
@@ -14326,7 +14404,7 @@
     "isBoss": false
   },
   "2370480": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370481": {
@@ -14338,7 +14416,7 @@
     "isBoss": false
   },
   "2370483": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370484": {
@@ -14350,7 +14428,7 @@
     "isBoss": false
   },
   "2370486": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370487": {
@@ -14782,7 +14860,7 @@
     "isBoss": false
   },
   "2370711": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370712": {
@@ -14794,7 +14872,7 @@
     "isBoss": false
   },
   "2370714": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370715": {
@@ -14806,7 +14884,7 @@
     "isBoss": false
   },
   "2370717": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370718": {
@@ -14818,7 +14896,7 @@
     "isBoss": false
   },
   "2370720": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370721": {
@@ -14830,7 +14908,7 @@
     "isBoss": false
   },
   "2370723": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370724": {
@@ -14842,7 +14920,7 @@
     "isBoss": false
   },
   "2370726": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370727": {
@@ -14898,7 +14976,7 @@
     "isBoss": false
   },
   "2370746": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370747": {
@@ -14910,7 +14988,7 @@
     "isBoss": false
   },
   "2370749": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370750": {
@@ -14922,7 +15000,7 @@
     "isBoss": false
   },
   "2370752": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370753": {
@@ -14934,7 +15012,7 @@
     "isBoss": false
   },
   "2370755": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370756": {
@@ -14946,7 +15024,7 @@
     "isBoss": false
   },
   "2370758": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370759": {
@@ -14958,7 +15036,7 @@
     "isBoss": false
   },
   "2370761": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370762": {
@@ -15014,7 +15092,7 @@
     "isBoss": false
   },
   "2370781": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370782": {
@@ -15026,7 +15104,7 @@
     "isBoss": false
   },
   "2370784": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370785": {
@@ -15038,7 +15116,7 @@
     "isBoss": false
   },
   "2370787": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370788": {
@@ -15050,7 +15128,7 @@
     "isBoss": false
   },
   "2370790": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370791": {
@@ -15062,7 +15140,7 @@
     "isBoss": false
   },
   "2370793": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370794": {
@@ -15074,7 +15152,7 @@
     "isBoss": false
   },
   "2370796": {
-    "name": "Dratona Manager",
+    "name": "Dratona Warden",
     "isBoss": false
   },
   "2370797": {
@@ -15515,7 +15593,7 @@
   },
   "2400032": {
     "name": "Training Scarecrow",
-    "isBoss": true,
+    "isBoss": false,
     "isDummy": true
   },
   "2400033": {
@@ -15679,7 +15757,7 @@
     "isBoss": false
   },
   "2400113": {
-    "name": "Drakan Keeper",
+    "name": "Drakan Warden",
     "isBoss": false
   },
   "2400114": {
@@ -15695,7 +15773,7 @@
     "isBoss": false
   },
   "2400117": {
-    "name": "Dratona Lookout",
+    "name": "Dratona Watcher",
     "isBoss": false
   },
   "2400118": {
@@ -16111,7 +16189,7 @@
     "isBoss": false
   },
   "2400356": {
-    "name": "Drakan Lookout",
+    "name": "Drakan Watcher",
     "isBoss": false
   },
   "2400358": {
@@ -16119,7 +16197,7 @@
     "isBoss": true
   },
   "2400359": {
-    "name": "Drakan Watchdog",
+    "name": "Drakan Guard Dog",
     "isBoss": false
   },
   "2400360": {
@@ -16155,7 +16233,7 @@
     "isBoss": false
   },
   "2400372": {
-    "name": "Dratona Lookout",
+    "name": "Dratona Watcher",
     "isBoss": false
   },
   "2400373": {
@@ -16232,7 +16310,7 @@
   },
   "2400392": {
     "name": "Training Scarecrow",
-    "isBoss": true,
+    "isBoss": false,
     "isDummy": true
   },
   "2400401": {
@@ -16604,7 +16682,7 @@
     "isBoss": false
   },
   "2400606": {
-    "name": "Mumu Lookout",
+    "name": "Mumu Watcher",
     "isBoss": false
   },
   "2400607": {
@@ -16660,7 +16738,7 @@
     "isBoss": false
   },
   "2400653": {
-    "name": "Lagta Brigade Lookout",
+    "name": "Lagta Brigade Watcher",
     "isBoss": false
   },
   "2400654": {
@@ -17756,7 +17834,7 @@
     "isBoss": false
   },
   "2405214": {
-    "name": "Thieves Administrator",
+    "name": "Thieves Warden",
     "isBoss": false
   },
   "2405215": {
@@ -17872,7 +17950,7 @@
     "isBoss": false
   },
   "2405273": {
-    "name": "Forward Base Lookout",
+    "name": "Forward Base Watcher",
     "isBoss": false
   },
   "2405274": {
@@ -18401,12 +18479,12 @@
   },
   "2500075": {
     "name": "Training Scarecrow",
-    "isBoss": true,
+    "isBoss": false,
     "isDummy": true
   },
   "2500076": {
     "name": "Training Scarecrow",
-    "isBoss": true,
+    "isBoss": false,
     "isDummy": true
   },
   "2500077": {
@@ -18474,7 +18552,7 @@
     "isBoss": false
   },
   "2500095": {
-    "name": "Blades Watchdog",
+    "name": "Blades Guard Dog",
     "isBoss": false
   },
   "2500096": {
@@ -18538,11 +18616,11 @@
     "isBoss": false
   },
   "2500111": {
-    "name": "Drakan Watchdog",
+    "name": "Drakan Guard Dog",
     "isBoss": false
   },
   "2500112": {
-    "name": "Drakan Lookout",
+    "name": "Drakan Watcher",
     "isBoss": false
   },
   "2500113": {
@@ -18614,7 +18692,7 @@
     "isBoss": false
   },
   "2500130": {
-    "name": "Black Claw Lookout",
+    "name": "Black Claw Watcher",
     "isBoss": false
   },
   "2500131": {
@@ -18898,7 +18976,7 @@
     "isBoss": false
   },
   "2590061": {
-    "name": "Black Claw Guard Troopers Lookout",
+    "name": "Black Claw Guard Troopers Watcher",
     "isBoss": false
   },
   "2590062": {
@@ -18906,7 +18984,7 @@
     "isBoss": false
   },
   "2590063": {
-    "name": "Black Claw Guard Troopers Lookout",
+    "name": "Black Claw Guard Troopers Watcher",
     "isBoss": false
   },
   "2590064": {
@@ -18922,11 +19000,11 @@
     "isBoss": false
   },
   "2590067": {
-    "name": "Lagta Brigade Lookout",
+    "name": "Lagta Brigade Watcher",
     "isBoss": false
   },
   "2590068": {
-    "name": "Black Claw Guard Troopers Administrator",
+    "name": "Black Claw Guard Troopers Warden",
     "isBoss": false
   },
   "2590071": {
@@ -19002,7 +19080,7 @@
     "isBoss": false
   },
   "2590093": {
-    "name": "Draconute Storage Keeper",
+    "name": "Draconute Storage Manager",
     "isBoss": false
   },
   "2590105": {
@@ -19038,7 +19116,7 @@
     "isBoss": false
   },
   "2590115": {
-    "name": "Draconute Storage Keeper",
+    "name": "Draconute Storage Manager",
     "isBoss": false
   },
   "2590116": {
@@ -19074,11 +19152,11 @@
     "isBoss": false
   },
   "2590125": {
-    "name": "Draconute Storage Keeper",
+    "name": "Draconute Storage Manager",
     "isBoss": false
   },
   "2590126": {
-    "name": "Draconute Storage Keeper",
+    "name": "Draconute Storage Manager",
     "isBoss": false
   },
   "2590127": {
@@ -19182,7 +19260,7 @@
     "isBoss": false
   },
   "2590154": {
-    "name": "Mumu Lookout",
+    "name": "Mumu Watcher",
     "isBoss": false
   },
   "2590155": {
@@ -20310,7 +20388,7 @@
     "isBoss": false
   },
   "2600352": {
-    "name": "Takshaka Drakan Watchdog",
+    "name": "Takshaka Drakan Guard Dog",
     "isBoss": false
   },
   "2600353": {
@@ -21246,7 +21324,7 @@
     "isBoss": false
   },
   "2700239": {
-    "name": "Dream Lookout",
+    "name": "Dream Watcher",
     "isBoss": false
   },
   "2700240": {
@@ -21826,7 +21904,7 @@
     "isBoss": true
   },
   "2700909": {
-    "name": "Storage Guard Squad",
+    "name": "Storage Sentry",
     "isBoss": false
   },
   "2700912": {
@@ -22070,7 +22148,7 @@
     "isBoss": false
   },
   "2700994": {
-    "name": "Klaw Den Lookout",
+    "name": "Klaw Den Watcher",
     "isBoss": false
   },
   "2700995": {
@@ -22098,7 +22176,7 @@
     "isBoss": false
   },
   "2701001": {
-    "name": "Basement Krall Lookout",
+    "name": "Basement Krall Watcher",
     "isBoss": false
   },
   "2701002": {
@@ -22134,7 +22212,7 @@
     "isBoss": false
   },
   "2701011": {
-    "name": "Basement Krall Lookout",
+    "name": "Basement Krall Watcher",
     "isBoss": false
   },
   "2701012": {
@@ -22506,7 +22584,7 @@
     "isBoss": true
   },
   "2701143": {
-    "name": "Raid Squad Draconute Lookout",
+    "name": "Raid Squad Draconute Watcher",
     "isBoss": false
   },
   "2701144": {
@@ -22614,7 +22692,7 @@
     "isBoss": false
   },
   "2701177": {
-    "name": "Aullaeu Lookout",
+    "name": "Aullaeu Watcher",
     "isBoss": false
   },
   "2701178": {
@@ -23174,7 +23252,7 @@
     "isBoss": false
   },
   "2701363": {
-    "name": "Lepharist Elite Administrator",
+    "name": "Lepharist Elite Warden",
     "isBoss": false
   },
   "2701364": {
@@ -23219,7 +23297,7 @@
   },
   "2701376": {
     "name": "Training Scarecrow (Specimen)",
-    "isBoss": true,
+    "isBoss": false,
     "isDummy": true
   },
   "2701377": {
@@ -23635,7 +23713,7 @@
     "isBoss": false
   },
   "2701510": {
-    "name": "Outpost Lookout",
+    "name": "Outpost Watcher",
     "isBoss": false
   },
   "2701511": {
@@ -23875,7 +23953,7 @@
     "isBoss": false
   },
   "2701572": {
-    "name": "Dratona Egg Keeper",
+    "name": "Dratona Egg Warden",
     "isBoss": false
   },
   "2701573": {
@@ -23903,7 +23981,7 @@
     "isBoss": true
   },
   "2701579": {
-    "name": "Dratona Egg Keeper",
+    "name": "Dratona Egg Warden",
     "isBoss": false
   },
   "2701580": {
@@ -24003,7 +24081,7 @@
     "isBoss": false
   },
   "2701608": {
-    "name": "Prison Compound Keeper",
+    "name": "Prison Compound Warden",
     "isBoss": false
   },
   "2701609": {
@@ -24079,7 +24157,7 @@
     "isBoss": false
   },
   "2701627": {
-    "name": "Drana Mutant Mute",
+    "name": "Drana Mutant Sylphen",
     "isBoss": false
   },
   "2701628": {
@@ -24139,11 +24217,11 @@
     "isBoss": false
   },
   "2701642": {
-    "name": "Dratona Outpost Lookout",
+    "name": "Dratona Outpost Watcher",
     "isBoss": false
   },
   "2701643": {
-    "name": "Dratona Outpost Lookout",
+    "name": "Dratona Outpost Watcher",
     "isBoss": false
   },
   "2701644": {
@@ -24519,7 +24597,7 @@
     "isBoss": true
   },
   "2701737": {
-    "name": "Fafnium Laboratory Watcher Weapon",
+    "name": "Fafnium Laboratory Sentinel",
     "isBoss": true
   },
   "2701738": {
@@ -24527,11 +24605,11 @@
     "isBoss": true
   },
   "2701739": {
-    "name": "Fafnium Laboratory Watcher Weapon",
+    "name": "Fafnium Laboratory Sentinel",
     "isBoss": true
   },
   "2701740": {
-    "name": "Fafnium Laboratory Watcher Weapon",
+    "name": "Fafnium Laboratory Sentinel",
     "isBoss": true
   },
   "2701741": {
@@ -24547,15 +24625,15 @@
     "isBoss": true
   },
   "2701744": {
-    "name": "Fafnium Laboratory Watcher Weapon",
+    "name": "Fafnium Laboratory Sentinel",
     "isBoss": true
   },
   "2701745": {
-    "name": "Fafnium Laboratory Watcher Weapon",
+    "name": "Fafnium Laboratory Sentinel",
     "isBoss": true
   },
   "2701746": {
-    "name": "Fafnium Laboratory Watcher Weapon",
+    "name": "Fafnium Laboratory Sentinel",
     "isBoss": true
   },
   "2701747": {
@@ -24578,7 +24656,7 @@
     "isBoss": false
   },
   "2701757": {
-    "name": "Altar Lookout",
+    "name": "Altar Watcher",
     "isBoss": false
   },
   "2701758": {
@@ -24695,7 +24773,7 @@
     "isBoss": false
   },
   "2701797": {
-    "name": "Distorted Lookout",
+    "name": "Distorted Watcher",
     "isBoss": false
   },
   "2701798": {
@@ -24734,7 +24812,7 @@
     "isBoss": false
   },
   "2701815": {
-    "name": "Nightmare Lookout",
+    "name": "Nightmare Watcher",
     "isBoss": false
   },
   "2701816": {
@@ -24762,7 +24840,7 @@
     "isBoss": false
   },
   "2701825": {
-    "name": "Nightmare Lookout",
+    "name": "Nightmare Watcher",
     "isBoss": false
   },
   "2701826": {
@@ -24955,7 +25033,7 @@
     "isBoss": false
   },
   "2701874": {
-    "name": "Furious Lookout",
+    "name": "Furious Watcher",
     "isBoss": false
   },
   "2701875": {
@@ -24983,7 +25061,7 @@
     "isBoss": false
   },
   "2701884": {
-    "name": "Furious Lookout",
+    "name": "Furious Watcher",
     "isBoss": false
   },
   "2701885": {
@@ -26022,7 +26100,7 @@
     "isBoss": false
   },
   "2702398": {
-    "name": "Despairing Lookout",
+    "name": "Despairing Watcher",
     "isBoss": false
   },
   "2702399": {
@@ -26050,7 +26128,7 @@
     "isBoss": false
   },
   "2702405": {
-    "name": "Despairing Lookout",
+    "name": "Despairing Watcher",
     "isBoss": false
   },
   "2702406": {
@@ -26077,7 +26155,7 @@
     "isBoss": false
   },
   "2702411": {
-    "name": "Doom Lookout",
+    "name": "Doom Watcher",
     "isBoss": false
   },
   "2702412": {
@@ -26105,7 +26183,7 @@
     "isBoss": false
   },
   "2702418": {
-    "name": "Doom Lookout",
+    "name": "Doom Watcher",
     "isBoss": false
   },
   "2702419": {
@@ -26456,6 +26534,10 @@
     "isBoss": false
   },
   "2921274": {
+    "name": "Muspel Guardian Statue",
+    "isBoss": false
+  },
+  "2921315": {
     "name": "Muspel Guardian Statue",
     "isBoss": false
   },

@@ -25,6 +25,9 @@ namespace AionDpsMeter.UI.ViewModels
         private int _windowOpacityPercent;
 
         [ObservableProperty]
+        private double _playerRowScale;
+
+        [ObservableProperty]
         private string? _backgroundImagePath;
 
         [ObservableProperty]
@@ -36,6 +39,9 @@ namespace AionDpsMeter.UI.ViewModels
         [ObservableProperty]
         private string _toggleVisibilityHotkey = string.Empty;
 
+        [ObservableProperty]
+        private int _uiStyle;
+
         public SettingsViewModel(IAppSettingsService settingsService)
         {
             _settingsService = settingsService;
@@ -44,10 +50,17 @@ namespace AionDpsMeter.UI.ViewModels
             _bossOnlyCapture = settingsService.BossOnlyCapture;
             _historyDamageThreshold = settingsService.HistoryDamageThreshold;
             _windowOpacityPercent = (int)Math.Round(settingsService.WindowOpacity * 100);
+            _playerRowScale = settingsService.PlayerRowScale;
             _backgroundImagePath = settingsService.BackgroundImagePath;
             _relativeProgressBar = settingsService.RelativeProgressBar;
             _toggleVisibilityHotkey = settingsService.ToggleVisibilityHotkey;
             _groupSummonDamage = settingsService.GroupSummonDamage;
+            _uiStyle = settingsService.UiStyle;
+        }
+
+        partial void OnUiStyleChanged(int value)
+        {
+            _settingsService.UiStyle = value;
         }
 
         partial void OnIsPacketLoggingEnabledChanged(bool value)
@@ -74,6 +87,12 @@ namespace AionDpsMeter.UI.ViewModels
         {
             int clamped = Math.Clamp(value, 10, 100);
             _settingsService.WindowOpacity = clamped / 100.0;
+        }
+
+        partial void OnPlayerRowScaleChanged(double value)
+        {
+            double clamped = Math.Clamp(value, 1, 3);
+            _settingsService.PlayerRowScale = clamped;
         }
 
         partial void OnBackgroundImagePathChanged(string? value)

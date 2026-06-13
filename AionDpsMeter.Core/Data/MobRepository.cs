@@ -29,5 +29,8 @@ namespace AionDpsMeter.Core.Data
 
         public bool IsBoss(int mobId) =>
             mobsById.TryGetValue(mobId, out var mob) && mob.IsBoss;
+
+        public bool IsDummy(int mobId) =>
+          mobsById.TryGetValue(mobId, out var mob) && mob.isDummy;
     }
 }

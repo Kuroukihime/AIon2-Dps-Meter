@@ -29,17 +29,21 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <!-- Global background image (behind everything) -->
+            <!-- Global background image (behind everything, Style 1 only) -->
             <Image x:Name="PlayersBackgroundImage"
                    Grid.RowSpan="3"
                    Stretch="UniformToFill"
-                   IsHitTestVisible="False"/>
+                   IsHitTestVisible="False"
+                   Visibility="{Binding IsStyle1, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
-            <!-- Compact Header -->
+            <!-- ═══════════════════════════════════════════════════════════ -->
+            <!--  STYLE 1 – Compact Header (original, unchanged)           -->
+            <!-- ═══════════════════════════════════════════════════════════ -->
             <Border Grid.Row="0"
                     Background="#CC0D1117"
                     CornerRadius="3,3,0,0"
-                    Padding="6,4">
+                    Padding="6,4"
+                    Visibility="{Binding IsStyle1, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -52,76 +56,50 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <!-- Combat Duration -->
                     <Border Grid.Column="0"
                             Background="#B321262D"
                             CornerRadius="3"
                             Padding="6,2"
                             VerticalAlignment="Center">
                         <TextBlock Text="{Binding CombatDuration}"
-                                   FontSize="11"
-                                   FontFamily="Consolas"
-                                   FontWeight="Bold"
+                                   FontSize="11" FontFamily="Consolas" FontWeight="Bold"
                                    Foreground="{StaticResource PrimaryTextBrush}"/>
                     </Border>
 
-                    <!-- Ping Display -->
                     <Border Grid.Column="1"
                             Background="#B321262D"
-                            CornerRadius="3"
-                            Padding="6,2"
-                            Margin="4,0,0,0"
+                            CornerRadius="3" Padding="6,2" Margin="4,0,0,0"
                             VerticalAlignment="Center">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <TextBlock Text="{Binding PingDisplay}"
-                                       FontSize="10"
-                                       FontFamily="Consolas"
-                                       FontWeight="Bold"
-                                       Foreground="{Binding PingColor, Converter={StaticResource StringToBrushConverter}}"
-                                       VerticalAlignment="Center"/>
-                        </StackPanel>
+                        <TextBlock Text="{Binding PingDisplay}"
+                                   FontSize="10" FontFamily="Consolas" FontWeight="Bold"
+                                   Foreground="{Binding PingColor, Converter={StaticResource StringToBrushConverter}}"
+                                   VerticalAlignment="Center"/>
                     </Border>
 
-                    <!-- Boss Name + HP Bar (between Ping and Reset) -->
-                    <Grid Grid.Column="2"
-                          Margin="6,0"
-                          VerticalAlignment="Center"
+                    <Grid Grid.Column="2" Margin="6,0" VerticalAlignment="Center"
                           Visibility="{Binding HasActiveTarget, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-
-                        <!-- Boss name and HP text -->
                         <Grid Grid.Row="0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0"
-                                       Text="{Binding ActiveTargetName}"
-                                       FontSize="10"
-                                       FontWeight="SemiBold"
+                            <TextBlock Grid.Column="0" Text="{Binding ActiveTargetName}"
+                                       FontSize="10" FontWeight="SemiBold"
                                        Foreground="{StaticResource PrimaryTextBrush}"
-                                       VerticalAlignment="Center"
-                                       TextTrimming="CharacterEllipsis"/>
-                            <TextBlock Grid.Column="1"
-                                       Text="{Binding ActiveTargetHpDisplay}"
-                                       FontSize="9"
-                                       FontFamily="Consolas"
+                                       VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                            <TextBlock Grid.Column="1" Text="{Binding ActiveTargetHpDisplay}"
+                                       FontSize="9" FontFamily="Consolas"
                                        Foreground="{StaticResource SecondaryTextBrush}"
-                                       VerticalAlignment="Center"
-                                       Margin="4,0,0,0"/>
+                                       VerticalAlignment="Center" Margin="4,0,0,0"/>
                         </Grid>
-
-                        <!-- HP Bar -->
                         <Grid Grid.Row="1" Height="3" Margin="0,2,0,0"
                               Visibility="{Binding ActiveTargetHpTotal, Converter={StaticResource IntToVisibilityConverter}}">
-                            <Border Background="{StaticResource PrimaryBackgroundBrush}"
-                                    CornerRadius="2"/>
-                            <Border Background="#C84040"
-                                    CornerRadius="2"
-                                    HorizontalAlignment="Left">
+                            <Border Background="{StaticResource PrimaryBackgroundBrush}" CornerRadius="2"/>
+                            <Border Background="#C84040" CornerRadius="2" HorizontalAlignment="Left">
                                 <Border.Width>
                                     <MultiBinding Converter="{StaticResource PercentageToWidthConverter}">
                                         <Binding Path="ActiveTargetHpPercentage"/>
@@ -132,74 +110,110 @@
                         </Grid>
                     </Grid>
 
-                    <!-- History Button -->
-                    <Button Grid.Column="3"
-                         Content="☰"
-                         Width="22"
-                         Height="22"
-                         FontSize="12"
-                         Margin="2,0"
-                         ToolTip="History"
-                         Click="HistoryButton_Click"
-                         Style="{StaticResource ModernButtonStyle}"
-                         Background="#B321262D"
-                         Padding="0"/>
-                    <!-- Reset Button -->
-                    <Button Grid.Column="4"
-                            Content="↺"
-                            Command="{Binding ResetDataCommand}"
-                            Width="22"
-                            Height="22"
-                            FontSize="14"
-                            Margin="4,0"
-                            ToolTip="Reset"
-                            Style="{StaticResource ModernButtonStyle}"
-                            Background="#B321262D"
-                            Padding="0"/>
-
-                    <!-- Settings Button -->
-                    <Button Grid.Column="5"
-                            Content="⚙"
-                            Width="22"
-                            Height="22"
-                            FontSize="12"
-                            Margin="2,0"
-                            ToolTip="Settings"
-                            Click="SettingsButton_Click"
-                            Style="{StaticResource ModernButtonStyle}"
-                            Background="#B321262D"
-                            Padding="0"/>
-
-                    <!-- Minimize Button -->
-                    <Button Grid.Column="6"
-                            Content="━"
-                            Width="22"
-                            Height="22"
-                            FontSize="10"
-                            Margin="2,0"
-                            Click="MinimizeButton_Click"
-                            Style="{StaticResource ModernButtonStyle}"
-                            Background="#B321262D"
-                            Padding="0"/>
-
-                    <!-- Close Button -->
-                    <Button Grid.Column="7"
-                            Content="✕"
-                            Width="22"
-                            Height="22"
-                            FontSize="10"
+                    <Button Grid.Column="3" Content="☰" Width="22" Height="22" FontSize="12"
+                            Margin="2,0" ToolTip="History" Click="HistoryButton_Click"
+                            Style="{StaticResource ModernButtonStyle}" Background="#B321262D" Padding="0"/>
+                    <Button Grid.Column="4" Content="↺" Command="{Binding ResetDataCommand}"
+                            Width="22" Height="22" FontSize="14" Margin="4,0" ToolTip="Reset"
+                            Style="{StaticResource ModernButtonStyle}" Background="#B321262D" Padding="0"/>
+                    <Button Grid.Column="5" Content="⚙" Width="22" Height="22" FontSize="12"
+                            Margin="2,0" ToolTip="Settings" Click="SettingsButton_Click"
+                            Style="{StaticResource ModernButtonStyle}" Background="#B321262D" Padding="0"/>
+                    <Button Grid.Column="6" Content="━" Width="22" Height="22" FontSize="10"
+                            Margin="2,0" Click="MinimizeButton_Click"
+                            Style="{StaticResource ModernButtonStyle}" Background="#B321262D" Padding="0"/>
+                    <Button Grid.Column="7" Content="✕" Width="22" Height="22" FontSize="10"
                             Click="CloseButton_Click"
-                            Style="{StaticResource ModernButtonStyle}"
-                            Background="#B3C42B1C"
-                            Padding="0"/>
+                            Style="{StaticResource ModernButtonStyle}" Background="#B3C42B1C" Padding="0"/>
                 </Grid>
             </Border>
 
-            <!-- Update Banner -->
+            <!-- ═══════════════════════════════════════════════════════════ -->
+            <!--  STYLE 2 – Detailed Header                                  -->
+            <!-- ═══════════════════════════════════════════════════════════ -->
+            <Border Grid.Row="0"
+                    Margin="0,0,0,6"
+                    Padding="8,6"
+                    CornerRadius="4"
+                    Background="#E615161A"
+                    BorderBrush="#22FFFFFF"
+                    BorderThickness="1"
+                    Visibility="{Binding IsStyle2, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="4"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="6"/>
+                        <RowDefinition Height="2"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Top Row: Boss Name & Controls -->
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="{Binding ActiveTargetName}"
+                                   FontSize="12" FontWeight="Bold" Foreground="White"
+                                   TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                            <!-- Style 2 Ping & Timer -->
+                            <TextBlock Text="{Binding PingDisplay}"
+                                       FontSize="11" FontFamily="Consolas" FontWeight="Bold"
+                                       Foreground="{Binding PingColor, Converter={StaticResource StringToBrushConverter}}"
+                                       VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <TextBlock Text="{Binding CombatDuration}"
+                                       FontSize="11" FontFamily="Consolas" Foreground="#9BA1A6"
+                                       VerticalAlignment="Center" Margin="0,0,8,0"/>
+
+                            <!-- Style 2 Controls -->
+                            <Button Content="☰" Width="18" Height="18" FontSize="10" Margin="1,0" ToolTip="History" Click="HistoryButton_Click" Style="{StaticResource ModernButtonStyle}" Background="Transparent" Foreground="#888" Padding="0"/>
+                            <Button Content="↺" Command="{Binding ResetDataCommand}" Width="18" Height="18" FontSize="12" Margin="1,0" ToolTip="Reset" Style="{StaticResource ModernButtonStyle}" Background="Transparent" Foreground="#888" Padding="0"/>
+                            <Button Content="⚙" Width="18" Height="18" FontSize="10" Margin="1,0" ToolTip="Settings" Click="SettingsButton_Click" Style="{StaticResource ModernButtonStyle}" Background="Transparent" Foreground="#888" Padding="0"/>
+                            <Button Content="━" Width="18" Height="18" FontSize="8" Margin="1,0" Click="MinimizeButton_Click" Style="{StaticResource ModernButtonStyle}" Background="Transparent" Foreground="#888" Padding="0"/>
+                            <Button Content="✕" Width="18" Height="18" FontSize="8" Margin="1,0,0,0" Click="CloseButton_Click" Style="{StaticResource ModernButtonStyle}" Background="Transparent" Foreground="#888" Padding="0"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Middle Row: HP Text & Total Damage -->
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding ActiveTargetHpDisplay}" FontSize="10" FontFamily="Consolas" Foreground="#D96464"/>
+                        </StackPanel>
+
+                        <TextBlock Grid.Column="1" Text="{Binding TotalRaidDamageFormatted}"
+                                   FontSize="14" FontWeight="Bold" Foreground="#52E0C4"
+                                   VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <!-- Bottom Row: Thin Red HP Bar -->
+                    <Grid Grid.Row="4" Visibility="{Binding HasActiveTarget, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Border Background="#33FFFFFF" CornerRadius="1"/>
+                        <Border Background="#D96464" CornerRadius="1" HorizontalAlignment="Left">
+                            <Border.Width>
+                                <MultiBinding Converter="{StaticResource PercentageToWidthConverter}">
+                                    <Binding Path="ActiveTargetHpPercentage"/>
+                                    <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType=Grid}"/>
+                                </MultiBinding>
+                            </Border.Width>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <!-- ═══════════════════════════════════════════════════════════ -->
+            <!--  Update Banner (shared, both styles)                       -->
+            <!-- ═══════════════════════════════════════════════════════════ -->
             <Border Grid.Row="1"
-                    Background="#1A2A1A"
-                    BorderBrush="#3A6B3A"
-                    BorderThickness="0,1,0,1"
+                    Background="#1A2A1A" BorderBrush="#3A6B3A" BorderThickness="0,1,0,1"
                     Padding="8,4"
                     Visibility="{Binding UpdateAvailable, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid>
@@ -209,62 +223,46 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-
-                    <!-- Green dot indicator -->
-                    <Ellipse Grid.Column="0"
-                             Width="6" Height="6"
-                             Fill="#4CAF50"
-                             VerticalAlignment="Center"
-                             Margin="0,0,6,0"/>
-
-                    <TextBlock Grid.Column="1"
-                               Text="{Binding UpdateVersionText}"
-                               FontSize="10"
-                               Foreground="#A5D6A7"
-                               VerticalAlignment="Center"
-                               TextTrimming="CharacterEllipsis"/>
-
-                    <Button Grid.Column="2"
-                            Content="What's New"
-                            Height="18"
-                            FontSize="10"
-                            Margin="6,0,4,0"
-                            Padding="6,0"
-                            Click="WhatsNewButton_Click"
+                    <Ellipse Grid.Column="0" Width="6" Height="6" Fill="#4CAF50"
+                             VerticalAlignment="Center" Margin="0,0,6,0"/>
+                    <TextBlock Grid.Column="1" Text="{Binding UpdateVersionText}"
+                               FontSize="10" Foreground="#A5D6A7"
+                               VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                    <Button Grid.Column="2" Content="What's New" Height="18" FontSize="10"
+                            Margin="6,0,4,0" Padding="6,0" Click="WhatsNewButton_Click"
                             Style="{StaticResource ModernButtonStyle}"
-                            Background="#1F4D1F"
-                            Foreground="#A5D6A7"/>
-
-                    <Button Grid.Column="3"
-                            Content="✕"
-                            Width="18"
-                            Height="18"
-                            FontSize="9"
-                            Padding="0"
-                            Command="{Binding DismissUpdateCommand}"
+                            Background="#1F4D1F" Foreground="#A5D6A7"/>
+                    <Button Grid.Column="3" Content="✕" Width="18" Height="18" FontSize="9"
+                            Padding="0" Command="{Binding DismissUpdateCommand}"
                             Style="{StaticResource ModernButtonStyle}"
-                            Background="Transparent"
-                            Foreground="#6A8F6A"/>
+                            Background="Transparent" Foreground="#6A8F6A"/>
                 </Grid>
             </Border>
 
-            <!-- Players List - Compact & Virtualized -->
+            <!-- ═══════════════════════════════════════════════════════════ -->
+            <!--  Players List area                                         -->
+            <!-- ═══════════════════════════════════════════════════════════ -->
             <Grid Grid.Row="2" ClipToBounds="True">
-                <!-- Dark overlay for readability over background image -->
+
+                <!-- Dark overlay for bg image (Style 1 only) -->
                 <Border x:Name="PlayersBackgroundOverlay"
                         Background="#80000000"
                         IsHitTestVisible="False"
                         Visibility="Collapsed"/>
 
+                <!-- ─────────────────────────────────────────────────────── -->
+                <!--  STYLE 1 LIST – original compact rows (unchanged)       -->
+                <!-- ─────────────────────────────────────────────────────── -->
                 <ListBox ItemsSource="{Binding Players}"
-                     Background="Transparent"
-                     BorderThickness="0"
-                     Grid.IsSharedSizeScope="True"
-                     VirtualizingPanel.IsVirtualizing="True"
-                     VirtualizingPanel.VirtualizationMode="Recycling"
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                     ScrollViewer.VerticalScrollBarVisibility="Auto"
-                     Padding="4,1,4,2">
+                         Background="Transparent"
+                         BorderThickness="0"
+                         Grid.IsSharedSizeScope="True"
+                         VirtualizingPanel.IsVirtualizing="True"
+                         VirtualizingPanel.VirtualizationMode="Recycling"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                         Padding="4,1,4,2"
+                         Visibility="{Binding IsStyle1, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="Padding" Value="0"/>
@@ -281,17 +279,16 @@
                     </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Border Background="Transparent"
-                                    Margin="0,0"
-                                    Padding="0"
-                                    Cursor="Hand"
-                                    MouseLeftButtonDown="PlayerItem_Click">
-
+                            <Border Background="Transparent" Margin="0,0" Padding="0"
+                                    Cursor="Hand" MouseLeftButtonDown="PlayerItem_Click">
                                 <Border.Tag>
                                     <Binding/>
                                 </Border.Tag>
-
-                                <Grid Height="24">
+                                <Grid>
+                                    <Grid.LayoutTransform>
+                                        <ScaleTransform ScaleX="{Binding PlayerRowScale}"
+                                                        ScaleY="{Binding PlayerRowScale}"/>
+                                    </Grid.LayoutTransform>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="26"/>
                                         <ColumnDefinition Width="*"/>
@@ -299,30 +296,17 @@
                                         <ColumnDefinition SharedSizeGroup="PctCol" Width="Auto"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <!-- Class Icon -->
-                                    <Border Grid.Column="0"
-                                            Width="22"
-                                            Height="22"
-                                            CornerRadius="2"
-                                            Background="#BF21262D"
-                                            VerticalAlignment="Center">
+                                    <Border Grid.Column="0" Width="22" Height="22" CornerRadius="2"
+                                            Background="#BF21262D" VerticalAlignment="Center">
                                         <Image Source="{Binding ClassIcon, Converter={StaticResource SafeImageSourceConverter}}"
-                                               Stretch="Uniform"
-                                               RenderOptions.BitmapScalingMode="LowQuality"/>
+                                               Stretch="Uniform" RenderOptions.BitmapScalingMode="LowQuality"/>
                                     </Border>
 
-                                    <!-- Damage Bar with Player Name and Total Damage -->
                                     <Grid Grid.Column="1" Margin="4,2,4,2" VerticalAlignment="Center">
-                                        <!-- Track (background) -->
                                         <Border Background="{StaticResource TertiaryBackgroundBrush}"
-                                                CornerRadius="2"
-                                                Height="20"
-                                                Opacity="0.4"/>
-                                        <!-- Fill -->
+                                                CornerRadius="2" Height="20" Opacity="0.4"/>
                                         <Border Background="{Binding IsUser, Converter={StaticResource BoolToProgressBrushConverter}}"
-                                                CornerRadius="2"
-                                                Height="20"
-                                                Opacity="0.55"
+                                                CornerRadius="2" Height="20" Opacity="0.55"
                                                 HorizontalAlignment="Left">
                                             <Border.Width>
                                                 <MultiBinding Converter="{StaticResource PercentageToWidthConverter}">
@@ -331,15 +315,10 @@
                                                 </MultiBinding>
                                             </Border.Width>
                                         </Border>
-
-                                        <!-- Player Name on left, Total Damage in center -->
                                         <Grid>
-                                            <StackPanel Orientation="Vertical"
-                                                        HorizontalAlignment="Left"
-                                                        VerticalAlignment="Center"
-                                                        Margin="6,0,0,0">
-                                                <TextBlock Text="{Binding PlayerNameDisplay}"
-                                                           FontSize="10"
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Left"
+                                                        VerticalAlignment="Center" Margin="6,0,0,0">
+                                                <TextBlock Text="{Binding PlayerNameDisplay}" FontSize="10"
                                                            FontWeight="SemiBold"
                                                            Foreground="{StaticResource PrimaryTextBrush}"
                                                            TextTrimming="CharacterEllipsis"/>
@@ -348,25 +327,16 @@
                                                            Foreground="{StaticResource SecondaryTextBrush}"
                                                            Visibility="{Binding CombatPower, Converter={StaticResource IntToVisibilityConverter}}"/>
                                             </StackPanel>
-
-                                            <TextBlock Text="{Binding TotalDamageFormatted}"
-                                                       FontSize="10"
+                                            <TextBlock Text="{Binding TotalDamageFormatted}" FontSize="10"
                                                        FontWeight="Bold"
                                                        Foreground="{StaticResource PrimaryTextBrush}"
-                                                       VerticalAlignment="Center"
-                                                       HorizontalAlignment="Center"/>
+                                                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                         </Grid>
                                     </Grid>
 
-                                    <!-- DPS -->
-                                    <Border Grid.Column="2"
-                                            Background="#8C21262D"
-                                            CornerRadius="2"
-                                            Padding="4,2"
-                                            Margin="0,2"
-                                            VerticalAlignment="Center">
-                                        <TextBlock FontSize="10"
-                                                   FontWeight="Bold"
+                                    <Border Grid.Column="2" Background="#8C21262D" CornerRadius="2"
+                                            Padding="4,2" Margin="0,2" VerticalAlignment="Center">
+                                        <TextBlock FontSize="10" FontWeight="Bold"
                                                    Foreground="{StaticResource DpsColorBrush}"
                                                    VerticalAlignment="Center">
                                             <Run Text="{Binding DpsFormatted, Mode=OneWay}"/>
@@ -374,21 +344,137 @@
                                         </TextBlock>
                                     </Border>
 
-                                    <!-- Percentage -->
                                     <TextBlock Grid.Column="3"
                                                Text="{Binding DamagePercentage, StringFormat={}{0:F1}%}"
-                                               FontSize="10"
-                                               FontWeight="SemiBold"
+                                               FontSize="10" FontWeight="SemiBold"
                                                Foreground="{StaticResource SecondaryTextBrush}"
-                                               VerticalAlignment="Center"
-                                               Margin="4,0,2,0"
-                                               Width="36"
-                                               TextAlignment="Right"/>
+                                               VerticalAlignment="Center" Margin="4,0,2,0"
+                                               Width="36" TextAlignment="Right"/>
                                 </Grid>
                             </Border>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+
+                <!-- ─────────────────────────────────────────────────────── -->
+                <!--  STYLE 2 LIST – Detailed Panel Rows                    -->
+                <!-- ─────────────────────────────────────────────────────── -->
+                <ListBox ItemsSource="{Binding Players}"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         VirtualizingPanel.IsVirtualizing="True"
+                         VirtualizingPanel.VirtualizationMode="Recycling"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                         Padding="0"
+                         Visibility="{Binding IsStyle2, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="Margin" Value="0"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <ContentPresenter/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="Transparent" Cursor="Hand" MouseLeftButtonDown="PlayerItem_Click">
+                                <Border.Tag>
+                                    <Binding/>
+                                </Border.Tag>
+                                <Grid>
+                                    <Grid.LayoutTransform>
+                                        <ScaleTransform ScaleX="{Binding PlayerRowScale}" ScaleY="{Binding PlayerRowScale}"/>
+                                    </Grid.LayoutTransform>
+
+                                    <!-- Row Wrapper -->
+                                    <Border Margin="0,0,0,4" Background="#CC15161A" CornerRadius="4" BorderBrush="#22FFFFFF" BorderThickness="1" ClipToBounds="True">
+                                        <Grid>
+
+                                            <!-- Gradient Fill Bar (Spans full width so it sits under the transparent icon block) -->
+                                            <Border HorizontalAlignment="Left"
+                                                    Background="{Binding IsUser, Converter={StaticResource BoolToProgressBrushConverter}}"
+                                                    Opacity="0.55">
+                                                <Border.Width>
+                                                    <MultiBinding Converter="{StaticResource PercentageToWidthConverter}">
+                                                        <Binding Path="EffectivePercentage"/>
+                                                        <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType=Grid}"/>
+                                                    </MultiBinding>
+                                                </Border.Width>
+                                            </Border>
+
+                                            <!-- Content Grid overlaying the Fill Bar -->
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="48"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <!-- Left side: Icon Block (Now fully transparent) -->
+                                                <Border Grid.Column="0" Background="Transparent">
+                                                    <Grid>
+
+                                                        <!-- Center Class Icon -->
+                                                        <Image Source="{Binding ClassIcon, Converter={StaticResource SafeImageSourceConverter}}"
+                                                               Width="35" Height="35" VerticalAlignment="Center" Margin="0,-4,0,0" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+
+                                                        <!-- Combat Power at the bottom -->
+                                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,3" Visibility="{Binding CombatPower, Converter={StaticResource IntToVisibilityConverter}}">
+                                                            <TextBlock Text="{Binding CombatPower}" FontSize="8" Foreground="#B0BEC5" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </Border>
+
+                                                <!-- Right side: Stats Block -->
+                                                <Grid Grid.Column="1" Margin="8,5,8,5">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <!-- Top Left: Player Name -->
+                                                    <TextBlock Grid.Row="0" Grid.Column="0"
+                                                               Text="{Binding PlayerNameDisplay}"
+                                                               FontSize="11" FontWeight="Bold" Foreground="White"
+                                                               TextTrimming="CharacterEllipsis"/>
+
+                                                    <!-- Bottom Left: CRIT Stat -->
+                                                    <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="0,2,0,0">
+                                                        <TextBlock Text="CRIT " FontSize="9" Foreground="#7A8085" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="{Binding CriticalRate, StringFormat={}{0:F1}%}" FontSize="9" Foreground="#9BA1A6" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                                    </StackPanel>
+
+                                                    <!-- Top Right: DPS and Percent -->
+                                                    <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                                        <TextBlock Text="{Binding DpsFormatted, StringFormat={}{0:F1}/s}" FontSize="11" FontWeight="Bold" Foreground="#E0E0E0" Margin="0,0,6,0"/>
+                                                        <TextBlock Text="{Binding DamagePercentage, StringFormat={}{0:F1}%}" FontSize="11" FontWeight="Bold" Foreground="White" Width="38" TextAlignment="Right"/>
+                                                    </StackPanel>
+
+                                                    <!-- Bottom Right: Total Damage -->
+                                                    <TextBlock Grid.Row="1" Grid.Column="1"
+                                                               Text="{Binding TotalDamageFormatted}"
+                                                               FontSize="10" FontWeight="SemiBold" Foreground="#9BA1A6"
+                                                               HorizontalAlignment="Right" Margin="0,2,0,0"/>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
             </Grid>
         </Grid>
     </Border>
