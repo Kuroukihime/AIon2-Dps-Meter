@@ -302,13 +302,13 @@
                                 <TextBlock Text="Scale Factor"
                                            FontSize="12"
                                            Foreground="{StaticResource PrimaryTextBrush}"/>
-                                <TextBlock Text="Scale factor of the player row (1-3)"  
+                                <TextBlock Text="Scale factor of the player row (0.5-3)"  
                                            FontSize="10"
                                            Foreground="{StaticResource SecondaryTextBrush}"
                                            Margin="0,2,0,0"/>
                             </StackPanel>
                             <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0,0,0">
-                                <Slider Minimum="1" Maximum="3"
+                                <Slider Minimum="0.5" Maximum="3"
                                         Value="{Binding PlayerRowScale, Mode=TwoWay}"
                                         Width="100"
                                         VerticalAlignment="Center"

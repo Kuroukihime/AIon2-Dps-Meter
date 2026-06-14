@@ -91,7 +91,7 @@ namespace AionDpsMeter.UI.ViewModels
 
         partial void OnPlayerRowScaleChanged(double value)
         {
-            double clamped = Math.Clamp(value, 1, 3);
+            double clamped = Math.Clamp(value, 0.5, 3);
             _settingsService.PlayerRowScale = clamped;
         }
 
