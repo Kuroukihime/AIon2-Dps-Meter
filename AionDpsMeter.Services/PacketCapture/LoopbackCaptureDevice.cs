@@ -157,21 +157,25 @@ namespace AionDpsMeter.Services.PacketCapture
 
         private void ProcessingLoop()
         {
-            foreach (var raw in packetQueue.GetConsumingEnumerable(cts.Token))
+            try
             {
-                try
+                foreach (var raw in packetQueue.GetConsumingEnumerable(cts.Token))
                 {
-                    ProcessPacket(raw);
-                }
-                catch (Exception ex)
-                {
-                    logger.LogError($"Error processing packet: {ex.Message}");
-                }
-                finally
-                {
-                    raw.Dispose();
+                    try
+                    {
+                        ProcessPacket(raw);
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.LogError($"Error processing packet: {ex.Message}");
+                    }
+                    finally
+                    {
+                        raw.Dispose();
+                    }
                 }
             }
+            catch(OperationCanceledException) { }
         }
 
         private void ProcessPacket(PooledRawPacket raw)
