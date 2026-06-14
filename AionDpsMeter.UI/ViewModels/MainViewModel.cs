@@ -146,7 +146,7 @@ namespace AionDpsMeter.UI.ViewModels
 
         private void UpdateTotalRaidDps()
         {
-            double totalDamage = _sessionManager.PlayerStats.Sum(r => r.DamagePerSecond);
+            double totalDamage = _sessionManager.GetPartyDps();
             TotalRaidDamageFormatted = DamageFormatter.Format(totalDamage) + "/s";
         }
 
