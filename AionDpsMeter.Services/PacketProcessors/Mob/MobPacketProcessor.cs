@@ -126,7 +126,7 @@ namespace AionDpsMeter.Services.PacketProcessors.Mob
             if (actorOffset + 5 > length) return false;
 
             ushort candidate = (ushort)(data[offset + actorOffset + 3] | (data[offset + actorOffset + 4] << 8));
-            if (candidate <= 99) return false;
+            if (candidate <= 1) return false;
 
             actorId = candidate;
             return true;
