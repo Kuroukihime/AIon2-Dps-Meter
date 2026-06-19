@@ -195,13 +195,16 @@
                     </Grid>
 
                     <!-- Bottom Row: Thin Red HP Bar -->
-                    <Grid Grid.Row="4" Visibility="{Binding HasActiveTarget, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <Border Background="#33FFFFFF" CornerRadius="1"/>
-                        <Border Background="#D96464" CornerRadius="1" HorizontalAlignment="Left">
+                    <Grid x:Name="Style2HpBarContainer"
+                          Grid.Row="4"
+                          Height="3"
+                          Visibility="{Binding ActiveTargetHpTotal, Converter={StaticResource IntToVisibilityConverter}}">
+                        <Border x:Name="HpBarBackground" Background="#4D4D4D" CornerRadius="1"/>
+                        <Border Background="#C84040" CornerRadius="1" HorizontalAlignment="Left">
                             <Border.Width>
                                 <MultiBinding Converter="{StaticResource PercentageToWidthConverter}">
                                     <Binding Path="ActiveTargetHpPercentage"/>
-                                    <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType=Grid}"/>
+                                    <Binding ElementName="Style2HpBarContainer" Path="ActualWidth"/>
                                 </MultiBinding>
                             </Border.Width>
                         </Border>
