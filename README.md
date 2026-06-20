@@ -2,7 +2,7 @@
 
 A lightweight, **network-based** DPS meter for **Aion 2**. It passively reads game packets off the network interface — it does **not** modify, intercept, or interact with the game client or server in any way.
 
-> **⚠️ Disclaimer:** This tool only reads network traffic on your local machine. It does not inject code, modify memory, or communicate with any external service. Use at your own discretion and in accordance with the game's terms of service.
+> **⚠️ Disclaimer:** This tool only reads network traffic on your local machine. It does not inject code, modify memory, or communicate with any external service. All combat logs and data remain strictly on your local machine; this tool does not share, upload, or transmit any data to external resources. Use at your own discretion and in accordance with the game's terms of service.
 
 > **ℹ️ VPN Required:** The meter currently captures traffic only on the loopback interface, so a VPN is required for it to work. Tested and confirmed working with **ExitLag** and **GearUP**.
 
