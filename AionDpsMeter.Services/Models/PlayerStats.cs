@@ -5,6 +5,7 @@
         public long PlayerId { get; init; }
         public string PlayerName { get; init; } = string.Empty;
         public bool IsUser { get; init; }
+        public bool IsIdentified { get; init;  }
         public string? PlayerIcon { get; set; }
         public string ClassName { get; set; } = string.Empty;
         public string? ClassIcon { get; set; }

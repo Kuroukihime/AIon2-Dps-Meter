@@ -20,7 +20,7 @@ namespace AionDpsMeter.UI.ViewModels.History
         public bool   IsCompleted   => Snapshot.State == SessionState.Completed;
         public string StateDisplay  => IsCompleted ? "?" : "?";
         public string StateColor    => IsCompleted ? "#888888" : "#4EC9B0";
-        public int    PlayerCount   => Snapshot.PlayerStats.Count;
+        public int PlayerCount => Snapshot.PlayerStats.Count(r => r.IsIdentified || r.DamagePercentage > 1);
 
         public string TotalDamageDisplay
         {

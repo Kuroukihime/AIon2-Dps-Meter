@@ -9,6 +9,7 @@ namespace AionDpsMeter.Services.Services.Session
         private readonly List<PlayerDamage> hits = new();
 
         public int PlayerId { get; }
+        public bool IsIdentified => entityTaTracker.GetPlayerEntity(PlayerId)?.IsIndetified ?? false;
         public string PlayerName => entityTaTracker.GetPlayerEntity(PlayerId)?.Name ?? $"Unknown player {PlayerId}";
         public string? PlayerIcon => entityTaTracker.GetPlayerEntity(PlayerId)?.Icon;
         public string ClassName => entityTaTracker.GetPlayerEntity(PlayerId)?.CharacterClass?.Name ?? "";
