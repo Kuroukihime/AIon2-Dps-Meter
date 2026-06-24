@@ -148,6 +148,8 @@ namespace AionDpsMeter.Services.Services.Session
             merged.PerfectHits = stats.Sum(s => s.PerfectHits);
             merged.DoubleDamageHits = stats.Sum(s => s.DoubleDamageHits);
             merged.ParryHits = stats.Sum(s => s.ParryHits);
+            merged.AdpcDamage = stats.Sum(s => s.AdpcDamage);
+            merged.AdpcHitCount = stats.Sum(s => s.AdpcHitCount);
 
             merged.MinHit = stats.Min(s => s.MinHit);
             merged.MaxHit = stats.Max(s => s.MaxHit);
@@ -183,6 +185,8 @@ namespace AionDpsMeter.Services.Services.Session
             merged.PerfectHits = skillStats.Sum(s => s.PerfectHits);
             merged.DoubleDamageHits = skillStats.Sum(s => s.DoubleDamageHits);
             merged.ParryHits = skillStats.Sum(s => s.ParryHits);
+            merged.AdpcDamage = skillStats.Sum(s => s.AdpcDamage);
+            merged.AdpcHitCount = skillStats.Sum(s => s.AdpcHitCount);
 
             merged.MinHit = skillStats.Min(s => s.MinHit);
             merged.MaxHit = skillStats.Max(s => s.MaxHit);
@@ -205,6 +209,7 @@ namespace AionDpsMeter.Services.Services.Session
             long sessionTotalDamage)
         {
             var nonDot = group.Where(h => !h.IsDot).ToList();
+            var adpcHits = nonDot.Where(h => h is { IsCritical: true, IsDoubleDamage: true, IsPerfect: true }).ToList();
             var totalDamage = group.Sum(h => h.Damage);
             var first = group.First();
 
@@ -224,6 +229,8 @@ namespace AionDpsMeter.Services.Services.Session
                 PerfectHits = nonDot.Count(h => h.IsPerfect),
                 DoubleDamageHits = nonDot.Count(h => h.IsDoubleDamage),
                 ParryHits = nonDot.Count(h => h.IsParry),
+                AdpcDamage = adpcHits.Sum(h => h.Damage),
+                AdpcHitCount = adpcHits.Count,
 
                 MinHit = group.Min(h => h.Damage),
                 MaxHit = group.Max(h => h.Damage),

@@ -59,6 +59,7 @@ namespace AionDpsMeter.UI.ViewModels
         public int    ParryHits            => _stats.ParryHits;
 
         // ── Per-hit values ────────────────────────────────────────────────────
+        public string AdpcFormatted        => _stats.AdpcHitCount > 0 ? DamageFormatter.Format(_stats.Adpc) : "-";
         public double AverageDamage        => _stats.AverageDamage;
         public string AverageDamageFormatted => DamageFormatter.Format(_stats.AverageDamage);
         public long   MaxHit               => _stats.MaxHit;
@@ -88,6 +89,8 @@ namespace AionDpsMeter.UI.ViewModels
             _stats.PerfectHits        = stats.PerfectHits;
             _stats.DoubleDamageHits   = stats.DoubleDamageHits;
             _stats.ParryHits          = stats.ParryHits;
+            _stats.AdpcDamage         = stats.AdpcDamage;
+            _stats.AdpcHitCount       = stats.AdpcHitCount;
             _stats.MaxHit             = stats.MaxHit;
             _stats.MinHit             = stats.MinHit;
             _stats.DamagePerSecond    = stats.DamagePerSecond;
@@ -119,6 +122,7 @@ namespace AionDpsMeter.UI.ViewModels
             OnPropertyChanged(nameof(PerfectHits));
             OnPropertyChanged(nameof(DoubleDamageHits));
             OnPropertyChanged(nameof(ParryHits));
+            OnPropertyChanged(nameof(AdpcFormatted));
             OnPropertyChanged(nameof(AverageDamage));
             OnPropertyChanged(nameof(AverageDamageFormatted));
             OnPropertyChanged(nameof(MaxHit));

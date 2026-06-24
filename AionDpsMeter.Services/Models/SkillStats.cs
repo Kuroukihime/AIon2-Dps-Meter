@@ -13,6 +13,8 @@
         public int PerfectHits { get; set; }
         public int DoubleDamageHits { get; set; }
         public int ParryHits { get; set; }
+        public long AdpcDamage { get; set; }
+        public int AdpcHitCount { get; set; }
         public long MaxHit { get; set; }
         /// <summary>Raw minimum hit. Initialised to <see cref="long.MaxValue"/> as a sentinel meaning "no hit yet".</summary>
         public long MinHit { get; set; } = long.MaxValue;
@@ -21,6 +23,7 @@
         public bool IsDot { get; set; }
         public bool IsClassSkill { get; set; }
 
+        public double Adpc => AdpcHitCount > 0 ? (double)AdpcDamage / AdpcHitCount : 0;
         /// <summary>True when this skill is a summon owner skill (has ClassId > 10) with grouped summon attacks.</summary>
         public bool IsSummonGroup { get; set; }
         /// <summary>Collection of child summon skill stats when IsSummonGroup is true.</summary>
@@ -53,6 +56,8 @@
                 PerfectHits = PerfectHits,
                 DoubleDamageHits = DoubleDamageHits,
                 ParryHits = ParryHits,
+                AdpcDamage = AdpcDamage,
+                AdpcHitCount = AdpcHitCount,
                 MaxHit = MaxHit,
                 MinHit = MinHit,
                 DamagePerSecond = DamagePerSecond,
