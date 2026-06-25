@@ -255,8 +255,58 @@
                 </Grid>
                 <!-- LOG VIEW -->
                 <Grid Visibility="{Binding ShowCombatLog, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
-                    <Border Grid.Row="0" Background="{StaticResource TertiaryBackgroundBrush}" BorderBrush="#21262D" BorderThickness="0,0,0,1" Padding="10,6">
+                    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="{StaticResource PrimaryBackgroundBrush}" BorderBrush="#21262D" BorderThickness="0,0,0,1" Padding="10,6">
+                        <WrapPanel VerticalAlignment="Center">
+                            <TextBlock Text="Skill:" Foreground="{StaticResource SecondaryTextBrush}" FontSize="10" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                            <ComboBox Width="260" Height="24" Margin="0,0,12,0"
+                                      Background="{StaticResource TertiaryBackgroundBrush}"
+                                      Foreground="{StaticResource PrimaryTextBrush}"
+                                      BorderBrush="#30363D"
+                                      ItemsSource="{Binding CombatLogSkills}"
+                                      SelectedItem="{Binding SelectedCombatLogSkill, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <ComboBox.ItemContainerStyle>
+                                    <Style TargetType="ComboBoxItem">
+                                        <Setter Property="Background" Value="{StaticResource SecondaryBackgroundBrush}"/>
+                                        <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
+                                        <Setter Property="Padding" Value="4,2"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ComboBoxItem">
+                                                    <Border x:Name="ItemBorder" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                                                        <ContentPresenter VerticalAlignment="Center"/>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsHighlighted" Value="True">
+                                                            <Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource TertiaryBackgroundBrush}"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsSelected" Value="True">
+                                                            <Setter TargetName="ItemBorder" Property="Background" Value="#2B3440"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ComboBox.ItemContainerStyle>
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border Width="16" Height="16" CornerRadius="2" Background="{StaticResource PrimaryBackgroundBrush}" Margin="0,0,6,0">
+                                                <Image Source="{Binding SkillIcon, Converter={StaticResource SafeImageSourceConverter}}" Stretch="Uniform" RenderOptions.BitmapScalingMode="LowQuality"/>
+                                            </Border>
+                                            <TextBlock Text="{Binding SkillName}" Foreground="{StaticResource PrimaryTextBrush}" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            <CheckBox Content="Critical" IsChecked="{Binding FilterCriticalHits, Mode=TwoWay}" Foreground="{StaticResource CriticalColorBrush}" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <CheckBox Content="Back" IsChecked="{Binding FilterBackAttacks, Mode=TwoWay}" Foreground="{StaticResource BackAttackColorBrush}" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <CheckBox Content="Perfect" IsChecked="{Binding FilterPerfectHits, Mode=TwoWay}" Foreground="{StaticResource PerfectColorBrush}" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <CheckBox Content="x2" IsChecked="{Binding FilterDoubleDamageHits, Mode=TwoWay}" Foreground="{StaticResource DoubleDamageColorBrush}" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                        </WrapPanel>
+                    </Border>
+                    <Border Grid.Row="1" Background="{StaticResource TertiaryBackgroundBrush}" BorderBrush="#21262D" BorderThickness="0,0,0,1" Padding="10,6">
                         <Grid>
                             <Grid.ColumnDefinitions><ColumnDefinition Width="70"/><ColumnDefinition Width="28"/><ColumnDefinition Width="2*"/><ColumnDefinition Width="1.5*"/><ColumnDefinition Width="65"/><ColumnDefinition Width="100"/></Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Text="Time" Style="{StaticResource ColHeader}"/>
@@ -267,7 +317,7 @@
                             <TextBlock Grid.Column="5" Text="Flags" Style="{StaticResource ColHeader}" HorizontalAlignment="Right"/>
                         </Grid>
                     </Border>
-                    <ListBox Grid.Row="1" ItemsSource="{Binding CombatLog}" Style="{StaticResource TableListBox}">
+                    <ListBox Grid.Row="2" ItemsSource="{Binding FilteredCombatLog}" Style="{StaticResource TableListBox}">
                         <ListBox.Resources><Style TargetType="ScrollBar" BasedOn="{StaticResource SlimScrollBarStyle}"/></ListBox.Resources>
                         <ListBox.ItemContainerStyle><Style TargetType="ListBoxItem" BasedOn="{StaticResource AltRowItem}"/></ListBox.ItemContainerStyle>
                         <ListBox.ItemTemplate>

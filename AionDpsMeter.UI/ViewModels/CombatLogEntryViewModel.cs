@@ -15,6 +15,7 @@ namespace AionDpsMeter.UI.ViewModels
         public string TimeFormatted   => _damageEvent.DateTime.ToString("HH:mm:ss.fff");
         public string SourceName      => _damageEvent.SourceEntity.Name;
         public string TargetName      => _damageEvent.TargetEntity.Name;
+        public int SkillId            => _damageEvent.Skill.Id;
         public string SkillName       => _damageEvent.Skill.Name;
         public string? SkillIcon      => _damageEvent.Skill.Icon;
         public bool HasSkillIcon      => _damageEvent.Skill.HasIcon;
