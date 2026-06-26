@@ -26,6 +26,13 @@ namespace AionDpsMeter.UI.ViewModels
 
         [ObservableProperty] private ObservableCollection<SkillStatsViewModel> _skills = new();
         [ObservableProperty] private ObservableCollection<CombatLogEntryViewModel> _combatLog = new();
+        [ObservableProperty] private ObservableCollection<CombatLogEntryViewModel> _filteredCombatLog = new();
+        private ObservableCollection<CombatLogSkillFilterItem> _combatLogSkills = new();
+        private CombatLogSkillFilterItem? _selectedCombatLogSkill;
+        [ObservableProperty] private bool _filterCriticalHits;
+        [ObservableProperty] private bool _filterBackAttacks;
+        [ObservableProperty] private bool _filterPerfectHits;
+        [ObservableProperty] private bool _filterDoubleDamageHits;
         [ObservableProperty] private ObservableCollection<BuffStatsViewModel> _buffs = new();
         [ObservableProperty] private int _selectedTabIndex;
         [ObservableProperty] private string _playerNameDisplay;
@@ -60,6 +67,8 @@ namespace AionDpsMeter.UI.ViewModels
         [ObservableProperty] private IReadOnlyList<BuffTimelineEntry> _graphBuffTimeline = [];
         [ObservableProperty] private double _graphTotalDurationSec;
 
+        private const string AllSkillsFilter = "All Skills";
+
         // View toggle: 0=Skills, 1=Log, 2=Graph
         [ObservableProperty] private bool _showCombatLog;
         [ObservableProperty] private bool _showGraph;
@@ -77,6 +86,27 @@ namespace AionDpsMeter.UI.ViewModels
             if (value) ShowCombatLog = false;
             OnPropertyChanged(nameof(ShowSkills));
         }
+
+        public ObservableCollection<CombatLogSkillFilterItem> CombatLogSkills
+        {
+            get => _combatLogSkills;
+            private set => SetProperty(ref _combatLogSkills, value);
+        }
+
+        public CombatLogSkillFilterItem? SelectedCombatLogSkill
+        {
+            get => _selectedCombatLogSkill;
+            set
+            {
+                if (SetProperty(ref _selectedCombatLogSkill, value))
+                    ApplyCombatLogFilters();
+            }
+        }
+
+        partial void OnFilterCriticalHitsChanged(bool value) => ApplyCombatLogFilters();
+        partial void OnFilterBackAttacksChanged(bool value) => ApplyCombatLogFilters();
+        partial void OnFilterPerfectHitsChanged(bool value) => ApplyCombatLogFilters();
+        partial void OnFilterDoubleDamageHitsChanged(bool value) => ApplyCombatLogFilters();
 
         /// <summary>Nickname formatted as <c>Name[Server]</c> when server is known, otherwise just <c>Name</c>.</summary>
         public string PlayerNameWithServer
@@ -142,6 +172,9 @@ namespace AionDpsMeter.UI.ViewModels
             foreach (var hit in player.RawHits)
                 vm.CombatLog.Add(new CombatLogEntryViewModel(hit));
 
+            vm.RefreshCombatLogSkillOptions();
+            vm.ApplyCombatLogFilters();
+
             // Graph data from raw hits + buff events
             var (pts, buffTimeline, totalSec) = GraphDataCalculator.Compute(player.RawHits, player.RawBuffEvents);
             vm.GraphPoints           = pts;
@@ -177,6 +210,10 @@ namespace AionDpsMeter.UI.ViewModels
             _serverName        = serverName;
 
             _settingsService.SettingsChanged += OnSettingsChanged;
+
+            var allSkillsItem = new CombatLogSkillFilterItem(null, AllSkillsFilter, null);
+            CombatLogSkills.Add(allSkillsItem);
+            SelectedCombatLogSkill = allSkillsItem;
 
             if (!isSnapshot)
             {
@@ -352,6 +389,7 @@ namespace AionDpsMeter.UI.ViewModels
             if (_sessionManager is null) return;
 
             var allEntries = _sessionManager.GetPlayerCombatLog(_playerId);
+            bool combatLogChanged = false;
 
             if (allEntries.Count < _knownCombatLogCount)
             {
@@ -359,6 +397,7 @@ namespace AionDpsMeter.UI.ViewModels
                 _knownCombatLogCount = 0;
                 Skills.Clear();
                 SkillCount = 0;
+                combatLogChanged = true;
             }
 
             if (allEntries.Count > _knownCombatLogCount)
@@ -367,10 +406,79 @@ namespace AionDpsMeter.UI.ViewModels
                 for (int i = newCount - 1; i >= 0; i--)
                     CombatLog.Insert(0, new CombatLogEntryViewModel(allEntries[i]));
                 _knownCombatLogCount = allEntries.Count;
+                combatLogChanged = true;
 
                 while (CombatLog.Count > 200)
+                {
                     CombatLog.RemoveAt(CombatLog.Count - 1);
+                    combatLogChanged = true;
+                }
             }
+
+            if (combatLogChanged)
+            {
+                RefreshCombatLogSkillOptions();
+                ApplyCombatLogFilters();
+            }
+        }
+
+        private void RefreshCombatLogSkillOptions()
+        {
+            int? previouslySelectedSkillId = SelectedCombatLogSkill?.SkillId;
+
+            var skills = CombatLog
+                .Where(entry => !string.IsNullOrWhiteSpace(entry.SkillName))
+                .GroupBy(entry => entry.SkillId)
+                .Select(group => group.First())
+                .OrderBy(entry => entry.SkillName, StringComparer.Ordinal)
+                .Select(entry => new CombatLogSkillFilterItem(entry.SkillId, entry.SkillName, entry.SkillIcon))
+                .ToList();
+
+            CombatLogSkills.Clear();
+            var allSkillsItem = new CombatLogSkillFilterItem(null, AllSkillsFilter, null);
+            CombatLogSkills.Add(allSkillsItem);
+
+            foreach (var skill in skills)
+                CombatLogSkills.Add(skill);
+
+            if (previouslySelectedSkillId is null)
+            {
+                SelectedCombatLogSkill = allSkillsItem;
+                return;
+            }
+
+            SelectedCombatLogSkill = CombatLogSkills.FirstOrDefault(skill => skill.SkillId == previouslySelectedSkillId) ?? allSkillsItem;
+        }
+
+        private void ApplyCombatLogFilters()
+        {
+            FilteredCombatLog.Clear();
+
+            foreach (var entry in CombatLog)
+            {
+                if (MatchesCombatLogFilters(entry))
+                    FilteredCombatLog.Add(entry);
+            }
+        }
+
+        private bool MatchesCombatLogFilters(CombatLogEntryViewModel entry)
+        {
+            if (SelectedCombatLogSkill?.SkillId is int selectedSkillId && entry.SkillId != selectedSkillId)
+                return false;
+
+            if (FilterCriticalHits && !entry.IsCritical)
+                return false;
+
+            if (FilterBackAttacks && !entry.IsBackAttack)
+                return false;
+
+            if (FilterPerfectHits && !entry.IsPerfect)
+                return false;
+
+            if (FilterDoubleDamageHits && !entry.IsDoubleDamage)
+                return false;
+
+            return true;
         }
 
         public void Dispose()
@@ -378,5 +486,21 @@ namespace AionDpsMeter.UI.ViewModels
             _settingsService.SettingsChanged -= OnSettingsChanged;
             _updateTimer?.Stop();
         }
+    }
+
+    public sealed class CombatLogSkillFilterItem
+    {
+        public CombatLogSkillFilterItem(int? skillId, string skillName, string? skillIcon)
+        {
+            SkillId = skillId;
+            SkillName = skillName;
+            SkillIcon = skillIcon;
+        }
+
+        public int? SkillId { get; }
+        public string SkillName { get; }
+        public string? SkillIcon { get; }
+
+        public override string ToString() => SkillName;
     }
 }

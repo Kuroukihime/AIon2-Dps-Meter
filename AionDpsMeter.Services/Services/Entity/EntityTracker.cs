@@ -113,6 +113,7 @@ namespace AionDpsMeter.Services.Services.Entity
                     CombatPower = basePlayerEntity?.CombatPower ?? 0,
                     ServerId = basePlayerEntity?.ServerId ?? 0,
                     IsUser = isCurrentUser,
+                    IsIndetified = true
                 };
             }
             else
@@ -127,6 +128,7 @@ namespace AionDpsMeter.Services.Services.Entity
                     CombatPower = basePlayerEntity?.CombatPower ?? 0,
                     ServerId = basePlayerEntity?.ServerId ?? 0,
                     IsUser = isCurrentUser,
+                    IsIndetified = true
                 };
             }
         }
@@ -155,7 +157,8 @@ namespace AionDpsMeter.Services.Services.Entity
                     CombatPower = baseEntity.CombatPower,
                     ServerId = baseEntity.ServerId,
                     ServerName = baseEntity.ServerName,
-                    IsUser = isCurrentUser
+                    IsUser = isCurrentUser,
+                    IsIndetified = true
                 };
             }
             else
@@ -170,7 +173,8 @@ namespace AionDpsMeter.Services.Services.Entity
                     CombatPower = baseEntity.CombatPower,
                     ServerId = baseEntity.ServerId,
                     ServerName = baseEntity.ServerName,
-                    IsUser = isCurrentUser
+                    IsUser = isCurrentUser,
+                    IsIndetified = true
 
                 };
             }
@@ -194,7 +198,8 @@ namespace AionDpsMeter.Services.Services.Entity
                     CombatPower = player.CombatPower,
                     ServerId = player.ServerId,
                     ServerName = player.ServerName, 
-                    IsUser = isCurrentUser
+                    IsUser = isCurrentUser,
+                    IsIndetified = true
                 };
             }
             else
@@ -209,7 +214,8 @@ namespace AionDpsMeter.Services.Services.Entity
                     CombatPower = player.CombatPower,
                     ServerId = player.ServerId,
                     ServerName = player.ServerName,
-                    IsUser = isCurrentUser
+                    IsUser = isCurrentUser,
+                    IsIndetified = true
                 };
             }
         }

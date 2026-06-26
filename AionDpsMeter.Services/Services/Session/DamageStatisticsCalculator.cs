@@ -18,6 +18,7 @@ namespace AionDpsMeter.Services.Services.Session
             {
                 PlayerId = session.PlayerId,
                 PlayerName = session.PlayerName,
+                IsIdentified = session.IsIdentified,
                 PlayerIcon = session.PlayerIcon,
                 ClassName = session.ClassName,
                 ClassIcon = session.ClassIcon,

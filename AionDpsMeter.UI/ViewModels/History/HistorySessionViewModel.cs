@@ -22,9 +22,8 @@ namespace AionDpsMeter.UI.ViewModels.History
 
         public HistorySessionViewModel(HistorySessionSnapshot snapshot, IAppSettingsService settingsService)
         {
-            _snapshot = snapshot;
-
-            Players = snapshot.PlayerStats
+            _snapshot = snapshot;     
+            Players = snapshot.PlayerStats.Where(r => r.IsIdentified || r.DamagePercentage > 1)
                 .OrderByDescending(p => p.TotalDamage)
                 .Select(p => new HistoryPlayerViewModel(
                     p,

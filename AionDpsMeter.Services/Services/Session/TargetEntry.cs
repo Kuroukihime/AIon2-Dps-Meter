@@ -12,7 +12,7 @@ namespace AionDpsMeter.Services.Services.Session
     /// </summary>
     public sealed class TargetEntry
     {
-        private static readonly TimeSpan IdleTimeout = TimeSpan.FromSeconds(20);
+        private static readonly TimeSpan IdleTimeout = TimeSpan.FromSeconds(45);
         private static readonly TimeSpan ScarecrowIdleTimeout = TimeSpan.FromSeconds(5);
 
         private readonly EntityTracker entityTracker;

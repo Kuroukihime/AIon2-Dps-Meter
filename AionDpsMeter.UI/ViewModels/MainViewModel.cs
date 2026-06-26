@@ -152,7 +152,7 @@ namespace AionDpsMeter.UI.ViewModels
 
         private void UpdatePlayerStats()
         {
-            var currentStats = _sessionManager.PlayerStats;
+            var currentStats = _sessionManager.PlayerStats.Where(r=>r.IsIdentified || r.DamagePercentage > 1);
             var currentIds   = currentStats.Select(s => s.PlayerId).ToHashSet();
 
             foreach (var stats in currentStats)
