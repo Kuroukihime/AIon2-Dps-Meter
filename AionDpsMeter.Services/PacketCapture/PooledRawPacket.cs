@@ -3,26 +3,30 @@ using PacketDotNet;
 
 namespace AionDpsMeter.Services.PacketCapture;
 
-public readonly struct PooledRawPacket : IDisposable
+internal sealed class PooledRawPacket : IDisposable
 {
     public LinkLayers LinkLayerType { get; }
     public byte[] Buffer { get; }
-    public int DataLength { get; }
+    public int Length { get; }
     public DateTime Timestamp { get; }
 
-    public PooledRawPacket(LinkLayers linkLayer, byte[] buffer, int length, DateTime time)
+    public AdapterContext? SourceAdapter { get; }
+
+    private bool disposed;
+
+    public PooledRawPacket(LinkLayers linkLayerType, byte[] buffer, int length, DateTime timestamp, AdapterContext? sourceAdapter = null)
     {
-        LinkLayerType = linkLayer;
+        LinkLayerType = linkLayerType;
         Buffer = buffer;
-        DataLength = length;
-        Timestamp = time;
+        Length = length;
+        Timestamp = timestamp;
+        SourceAdapter = sourceAdapter;
     }
 
     public void Dispose()
     {
-        if (Buffer != null)
-        {
-            ArrayPool<byte>.Shared.Return(Buffer);
-        }
+        if (disposed) return;
+        disposed = true;
+        ArrayPool<byte>.Shared.Return(Buffer);
     }
 }

@@ -44,7 +44,7 @@ namespace AionDpsMeter.UI
                     services.AddSingleton<TcpStreamBuffer>();
 
                     //services.AddSingleton<IPacketCaptureDevice, FilePacketCaptureDevice>();
-                    services.AddSingleton<IPacketCaptureDevice, LoopbackCaptureDevice>();
+                    services.AddSingleton<IPacketCaptureDevice, CaptureDevice>();
 
                     services.AddSingleton<EntityTracker>();
                     services.AddSingleton<IPacketService, AionPacketService>();
