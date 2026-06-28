@@ -24,9 +24,10 @@ A lightweight, **network-based** DPS meter for **Aion 2**. It passively reads ga
 ### 📊 Real-Time DPS Tracking
 - Displays live **DPS** and **total damage** for every player in the session.
 - Animated **damage contribution bars** showing each player's share of total damage.
+- Party DPS
 - Automatic session reset between fights.
 
-![Main Window](ReadmeAssets/MainWindow.png)
+![Main Window](ReadmeAssets/MainWindow2.png)
 
 ### 🔍 Detailed Player Statistics
 Click any player row to open a detailed breakdown:
