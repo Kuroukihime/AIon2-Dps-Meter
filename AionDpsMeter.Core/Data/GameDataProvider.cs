@@ -53,7 +53,7 @@ namespace AionDpsMeter.Core.Data
 
         public bool IsDummy(int mobId) => Mobs.IsDummy(mobId);
 
-        public bool IsBuff (int buffId) => Skills.ContainsNormalized(buffId);
+        public bool IsBuff (int buffId) => Skills.IsBuff(buffId);
 
     }
 }

@@ -110,6 +110,14 @@ namespace AionDpsMeter.Core.Data
 
         public string? GetName(int skillCode) => skillsByPrefix.TryGetValue(skillCode, out var s) ? s.Name : null;
 
+        public bool IsBuff(int skillCode)
+        {
+            if (skillCode < 1_000_000_0) return false;
+            var prefix = NormalizeSkillCode(skillCode);
+            var result = skillsByPrefix.TryGetValue(prefix, out var skill) && skill.ClassId != 0;
+            return result;
+        }
+
 
         public Skill GetOrDefault(int skillCode)
         {
