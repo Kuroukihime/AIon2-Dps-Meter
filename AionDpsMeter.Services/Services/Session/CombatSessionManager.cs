@@ -126,7 +126,7 @@ namespace AionDpsMeter.Services.Services.Session
 
                 var sessionStart = session.SessionStart;
                 var sessionEnd   = session.LastHitTime;
-                var buffEvents   = buffEventManager.GetBuffEvents((int)playerId, sessionStart, sessionEnd);
+                var buffEvents   = buffEventManager.GetBuffEvents((int)playerId, sessionStart, sessionEnd);           
 
                 return GraphDataCalculator.Compute(hits, buffEvents);
             }
