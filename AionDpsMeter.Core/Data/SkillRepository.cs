@@ -105,6 +105,7 @@ namespace AionDpsMeter.Core.Data
         }
 
 
+        public bool ContainsNormalized(int skillCode) => skillsByPrefix.ContainsKey(NormalizeSkillCode(skillCode));
         public bool Contains(int skillCode) => skillsByPrefix.ContainsKey(skillCode);
 
         public string? GetName(int skillCode) => skillsByPrefix.TryGetValue(skillCode, out var s) ? s.Name : null;
