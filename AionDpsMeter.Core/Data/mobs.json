@@ -28,11 +28,11 @@
     "isBoss": false,
     "isDummy": true
   },
-  "2000412": {
-    "name": "Fafnir's Poison Blood (Specimen)",
-    "isBoss": true
-  },
   "2000745": {
+    "name": "Monster (Specimen)",
+    "isBoss": false
+  },
+  "2000757": {
     "name": "Monster (Specimen)",
     "isBoss": false
   },
@@ -167,7 +167,7 @@
     "isBoss": false
   },
   "2090026": {
-    "name": "Draconute Archer",
+    "name": "Draconute Ranger",
     "isBoss": false
   },
   "2090027": {
@@ -758,7 +758,7 @@
     "isBoss": false
   },
   "2090167": {
-    "name": "Abandoned Sura Archer",
+    "name": "Abandoned Sura Ranger",
     "isBoss": false
   },
   "2090168": {
@@ -862,11 +862,11 @@
     "isBoss": false
   },
   "2090198": {
-    "name": "Kobold Worker Female",
+    "name": "Kobold Female Worker",
     "isBoss": false
   },
   "2090199": {
-    "name": "Kobold Worker Male",
+    "name": "Kobold Male Worker",
     "isBoss": false
   },
   "2090216": {
@@ -1916,7 +1916,7 @@
     "isBoss": false
   },
   "2100205": {
-    "name": "Ellun River Krall Archer",
+    "name": "Ellun River Krall Ranger",
     "isBoss": false
   },
   "2100206": {
@@ -2340,7 +2340,7 @@
     "isBoss": false
   },
   "2100578": {
-    "name": "Abandoned Sura Archer",
+    "name": "Abandoned Sura Ranger",
     "isBoss": false
   },
   "2100579": {
@@ -2560,7 +2560,7 @@
     "isBoss": false
   },
   "2100707": {
-    "name": "Wandering Archer's Soul",
+    "name": "Wandering Ranger's Soul",
     "isBoss": false
   },
   "2100708": {
@@ -2844,7 +2844,7 @@
     "isBoss": false
   },
   "2100855": {
-    "name": "Modified Krall Mender",
+    "name": "Modified Krall Healer",
     "isBoss": false
   },
   "2100856": {
@@ -2964,7 +2964,7 @@
     "isBoss": false
   },
   "2100905": {
-    "name": "Wandering Sura Archer",
+    "name": "Wandering Sura Ranger",
     "isBoss": false
   },
   "2100906": {
@@ -2992,7 +2992,7 @@
     "isBoss": false
   },
   "2100912": {
-    "name": "Modified Krall Archer",
+    "name": "Modified Krall Ranger",
     "isBoss": false
   },
   "2100913": {
@@ -3044,7 +3044,7 @@
     "isBoss": false
   },
   "2100960": {
-    "name": "Wandering Aullaeu Archer",
+    "name": "Wandering Aullaeu Ranger",
     "isBoss": false
   },
   "2100961": {
@@ -3660,159 +3660,219 @@
     "isBoss": false
   },
   "2101200": {
-    "name": "Hilloster Scouter",
+    "name": "Hilsrother Thief",
     "isBoss": false
   },
   "2101201": {
-    "name": "Hilloster Worker",
+    "name": "Hilsrother Robber",
     "isBoss": false
   },
   "2101202": {
-    "name": "Hilloster Fighter",
+    "name": "Hilsrother Outlaw",
     "isBoss": false
   },
   "2101203": {
-    "name": "Hilloster Patrol",
+    "name": "Hilsrother Tracker",
     "isBoss": false
   },
   "2101204": {
-    "name": "Highland Nepenthes",
+    "name": "Highland Gravarax",
     "isBoss": false
   },
   "2101205": {
-    "name": "Spikey Head Sylphen",
+    "name": "Highland Yellow Bee",
     "isBoss": false
   },
   "2101206": {
-    "name": "Hilloster Spring Watcher",
+    "name": "Hilsrother Reaver",
     "isBoss": false
   },
   "2101207": {
-    "name": "Hilloster Spring Worker",
+    "name": "Hilsrother Looter",
     "isBoss": false
   },
   "2101208": {
-    "name": "Hilloster Spring Sentry",
+    "name": "Hilsrother Sentry",
     "isBoss": false
   },
   "2101209": {
-    "name": "Hook Skama",
+    "name": "Highland Skama",
     "isBoss": false
   },
   "2101210": {
-    "name": "Poison Scale Skyray",
+    "name": "Poison Scale Ghula",
     "isBoss": false
   },
   "2101211": {
-    "name": "Hilloster Watcher",
+    "name": "Hilsrother Watcher",
     "isBoss": false
   },
   "2101212": {
-    "name": "Hilloster Hunter",
+    "name": "Hilsrother Wanted Criminal",
     "isBoss": false
   },
   "2101213": {
-    "name": "Hilloster Mercenary",
+    "name": "Hilsrother Mercenary",
     "isBoss": false
   },
   "2101214": {
-    "name": "Hilloster Searcher",
+    "name": "Hilsrother Searcher",
     "isBoss": false
   },
   "2101215": {
-    "name": "Hilloster Tamed Zaif",
+    "name": "Hilsrother Tamed Zaif",
     "isBoss": false
   },
   "2101216": {
-    "name": "Contamination Dionae",
+    "name": "Highland Debry",
     "isBoss": false
   },
   "2101217": {
-    "name": "Ruberein Mutated Insectoid",
+    "name": "Agglomerated Verenom",
     "isBoss": true
   },
   "2101218": {
-    "name": "Hilloster Marauder Captain",
+    "name": "Old Boss Vigor",
     "isBoss": true
   },
+  "2101219": {
+    "name": "Hilsrother Defense Cannon",
+    "isBoss": false
+  },
+  "2101220": {
+    "name": "Baby Highland Skama",
+    "isBoss": false
+  },
   "2101230": {
-    "name": "Lepharist Hill Searcher",
+    "name": "Suspicious Hill Searcher",
     "isBoss": false
   },
   "2101231": {
-    "name": "Eiron Scouter Arca",
-    "isBoss": false
-  },
-  "2101232": {
-    "name": "Poison Sac Insectoid",
-    "isBoss": false
-  },
-  "2101233": {
     "name": "Hungry Tog",
     "isBoss": false
   },
-  "2101234": {
+  "2101232": {
     "name": "Hungry Young Tog",
     "isBoss": false
   },
+  "2101233": {
+    "name": "Withered Poison Flower",
+    "isBoss": false
+  },
+  "2101234": {
+    "name": "Ruins Vivel",
+    "isBoss": false
+  },
   "2101235": {
-    "name": "Pale Vines",
+    "name": "Hill Trogas",
     "isBoss": false
   },
   "2101236": {
-    "name": "Eiron Poison Flower",
+    "name": "Ruins Cleaner",
     "isBoss": false
   },
   "2101237": {
-    "name": "Lepharist Hill Searcher",
+    "name": "Ruins Zirka",
     "isBoss": false
   },
   "2101238": {
-    "name": "Lepharist Collector",
+    "name": "Baby Ruins Zirka",
     "isBoss": false
   },
   "2101239": {
-    "name": "Lepharist Ruin Researcher",
+    "name": "Hill Ashen Basilisk",
     "isBoss": false
   },
   "2101240": {
-    "name": "Eiron Search Arca",
+    "name": "Hill Scorpion",
     "isBoss": false
   },
   "2101241": {
-    "name": "Ruin Kalgolem",
+    "name": "Hill Driznak",
     "isBoss": false
   },
   "2101242": {
-    "name": "Corrupted Eiron Daeva Gladiator",
+    "name": "Eiron Scouter Arca",
     "isBoss": false
   },
   "2101243": {
-    "name": "Corrupted Eiron Daeva Templar",
+    "name": "Ruin Kalgolem",
     "isBoss": false
   },
   "2101244": {
-    "name": "Corrupted Daeva Elite Soldier",
+    "name": "Corrupted Daeva Gladiator",
+    "isBoss": false
+  },
+  "2101245": {
+    "name": "Ferocious Fossa",
+    "isBoss": false
+  },
+  "2101246": {
+    "name": "Suspicious Scouter",
+    "isBoss": false
+  },
+  "2101247": {
+    "name": "Suspicious Scout",
+    "isBoss": false
+  },
+  "2101248": {
+    "name": "Suspicious Collector",
+    "isBoss": false
+  },
+  "2101249": {
+    "name": "Corrupted Daeva Templar",
+    "isBoss": false
+  },
+  "2101250": {
+    "name": "Eiron Record Arca",
+    "isBoss": false
+  },
+  "2101251": {
+    "name": "Suspicious Ruin Sentry",
+    "isBoss": false
+  },
+  "2101252": {
+    "name": "Suspicious Ruin Scouter",
+    "isBoss": false
+  },
+  "2101253": {
+    "name": "Suspicious Ruin Searcher",
+    "isBoss": false
+  },
+  "2101254": {
+    "name": "Suspicious Ruin Graverobber",
+    "isBoss": false
+  },
+  "2101255": {
+    "name": "Suspicious Ruin Researcher",
+    "isBoss": false
+  },
+  "2101256": {
+    "name": "Ruin Guardian Device",
+    "isBoss": false
+  },
+  "2101257": {
+    "name": "Severed Wings Zvein",
     "isBoss": true
   },
   "2101260": {
-    "name": "Pretor Errand Runner",
+    "name": "Mutated Barrier Tower Wriggler",
     "isBoss": false
   },
   "2101261": {
-    "name": "Barrier Tower Contaminated Manduri",
+    "name": "Mutated Barrier Tower Guardian",
     "isBoss": false
   },
   "2101262": {
-    "name": "Barrier Tower Drana Floater",
+    "name": "Mutated Barrier Tower Floater",
     "isBoss": false
   },
   "2101263": {
-    "name": "Observant Oculazen",
+    "name": "Pretor Test Subject",
     "isBoss": false
   },
   "2101264": {
-    "name": "Vigilant Oculazen",
+    "name": "Mutated Fang Karnif",
     "isBoss": false
   },
   "2101265": {
@@ -3820,55 +3880,99 @@
     "isBoss": false
   },
   "2101266": {
-    "name": "Barrier Tower Arca",
+    "name": "Withered Debry",
     "isBoss": false
   },
   "2101267": {
-    "name": "Barrier Tower Search Arca",
+    "name": "Mutated Vine Spirit",
     "isBoss": false
   },
   "2101268": {
-    "name": "Red Mane Karnif",
+    "name": "Pretor Quarry Worker",
     "isBoss": false
   },
   "2101269": {
-    "name": "Watchful Oculazen",
+    "name": "Barrier Tower Record Arca",
     "isBoss": false
   },
   "2101270": {
-    "name": "Pretor Test Subject",
+    "name": "Pretor Searcher",
     "isBoss": false
   },
   "2101271": {
-    "name": "Barrier Tower Scouter Arca",
+    "name": "Pretor Thrower",
     "isBoss": false
   },
   "2101272": {
-    "name": "Stripe Manduri",
+    "name": "Barrier Tower Scouter Arca",
     "isBoss": false
   },
   "2101273": {
-    "name": "Steel Fang Karnif",
+    "name": "Withered Trogas",
     "isBoss": false
   },
   "2101274": {
-    "name": "Pretor Elite Test Subject",
-    "isBoss": true
+    "name": "Wasteland Manduri Fighter",
+    "isBoss": false
   },
   "2101275": {
-    "name": "White Fang Karnif",
+    "name": "Wasteland Manduri Thrower",
+    "isBoss": false
+  },
+  "2101277": {
+    "name": "Wasteland Tuka",
+    "isBoss": false
+  },
+  "2101278": {
+    "name": "Gluttonous Egetis",
     "isBoss": true
   },
+  "2101279": {
+    "name": "Superbia, Sacred Beast of Life",
+    "isBoss": true
+  },
+  "2101280": {
+    "name": "Broken Ruins Device",
+    "isBoss": false
+  },
+  "2101281": {
+    "name": "Decomposed Claw Lupyllini",
+    "isBoss": false
+  },
+  "2101282": {
+    "name": "Barrier Tower Fragment Kalgolem",
+    "isBoss": false
+  },
+  "2101283": {
+    "name": "Withered Driznak",
+    "isBoss": false
+  },
+  "2101284": {
+    "name": "Wasteland Torba",
+    "isBoss": false
+  },
+  "2101285": {
+    "name": "Wasteland Scorpion",
+    "isBoss": false
+  },
+  "2101286": {
+    "name": "Wasteland Slink",
+    "isBoss": false
+  },
+  "2101287": {
+    "name": "Wasteland Young Slink",
+    "isBoss": false
+  },
   "2101290": {
-    "name": "Lepharist Search Party Warrior",
+    "name": "Lepharist Search Party Worker",
     "isBoss": false
   },
   "2101291": {
-    "name": "Lepharist Search Party Mage",
+    "name": "Lepharist Search Party Watcher",
     "isBoss": false
   },
   "2101292": {
-    "name": "Lepharist Search Party Pugilist",
+    "name": "Lepharist Search Party Mercenary",
     "isBoss": false
   },
   "2101293": {
@@ -3876,83 +3980,123 @@
     "isBoss": false
   },
   "2101294": {
-    "name": "Red Feather Lupyllini",
+    "name": "Mystic Spring Armadon",
     "isBoss": false
   },
   "2101295": {
-    "name": "Sticky Slime",
+    "name": "Lepharist Search Party Warrior",
     "isBoss": false
   },
   "2101296": {
-    "name": "Lepharist Scouters Warrior",
+    "name": "Mystic Spring Poison Blood Clot",
     "isBoss": false
   },
   "2101297": {
-    "name": "Lepharist Scouters Mage",
+    "name": "Mystic Spring Boiling Poison Blood",
     "isBoss": false
   },
   "2101298": {
-    "name": "Lepharist Scouters Researcher",
+    "name": "Lepharist Search Party Researcher",
     "isBoss": false
   },
   "2101299": {
-    "name": "Lepharist Modified Guardite",
+    "name": "Lepharist Scouters Warrior",
     "isBoss": false
   },
   "2101300": {
-    "name": "Lepharist Scouters Scout",
+    "name": "Lepharist Scouters Mage",
     "isBoss": false
   },
   "2101301": {
-    "name": "Trained Lepharist Karnif",
+    "name": "Lepharist Scouters Researcher",
     "isBoss": false
   },
   "2101302": {
-    "name": "Meltlim",
+    "name": "Mystic Spring Contaminated Slime",
+    "isBoss": false
+  },
+  "2101303": {
+    "name": "Lepharist Scouters Scout",
+    "isBoss": false
+  },
+  "2101304": {
+    "name": "Lepharist Scouters Karnif",
+    "isBoss": false
+  },
+  "2101305": {
+    "name": "Mystic Spring Contaminated Zelophi",
+    "isBoss": false
+  },
+  "2101306": {
+    "name": "Rotten Root Meltlim",
     "isBoss": true
   },
+  "2101307": {
+    "name": "Mystic Spring Poison Blood",
+    "isBoss": false
+  },
+  "2101308": {
+    "name": "Lepharist Search Party Karnif",
+    "isBoss": false
+  },
+  "2101326": {
+    "name": "Unleashed Zaif",
+    "isBoss": false
+  },
+  "2101327": {
+    "name": "Unleashed Baby Zaif",
+    "isBoss": false
+  },
+  "2101328": {
+    "name": "Unleashed Vivel",
+    "isBoss": false
+  },
+  "2101329": {
+    "name": "Unleashed Mutated Fairy",
+    "isBoss": false
+  },
   "2101330": {
-    "name": "Lephar Research Group Mage",
+    "name": "Test Subject Imp",
     "isBoss": false
   },
   "2101331": {
-    "name": "Small Horn Hoka",
+    "name": "Test Subject Hoka",
     "isBoss": false
   },
   "2101332": {
-    "name": "Drana Predator Test Subject",
+    "name": "Test Subject Trogas",
     "isBoss": false
   },
   "2101333": {
-    "name": "Crushed Test Subject Imp",
+    "name": "Corrupting Spiral",
     "isBoss": false
   },
   "2101334": {
-    "name": "Lephar Research Group Pugilist",
+    "name": "Lepharist Camp Bodyguard",
     "isBoss": false
   },
   "2101335": {
-    "name": "Experiment Log Arca",
+    "name": "Lepharist Camp Administrator",
     "isBoss": false
   },
   "2101336": {
-    "name": "Lepharist Security Force Warrior",
+    "name": "Test Subject Record Arca",
     "isBoss": false
   },
   "2101337": {
-    "name": "Lepharist Security Force Mage",
+    "name": "Lepharist Security Force Warrior",
     "isBoss": false
   },
   "2101338": {
-    "name": "Lepharist Drana Researcher",
+    "name": "Lepharist Security Force Mage",
     "isBoss": false
   },
   "2101339": {
-    "name": "Lepharist Drana Research Commander",
+    "name": "Lepharist Drana Researcher",
     "isBoss": false
   },
   "2101340": {
-    "name": "Lepharist Security Force Pugilist",
+    "name": "Lepharist Drana Manager",
     "isBoss": false
   },
   "2101341": {
@@ -3960,36 +4104,420 @@
     "isBoss": false
   },
   "2101342": {
-    "name": "Decaying Test Subject Lupyllini",
+    "name": "Lepharist Security Force Pugilist",
     "isBoss": false
   },
   "2101343": {
-    "name": "Nihogg",
-    "isBoss": true
-  },
-  "2101344": {
-    "name": "Imperfect K'tima",
-    "isBoss": true
-  },
-  "2101345": {
-    "name": "Broken Arca",
+    "name": "Security Watchtower",
     "isBoss": false
   },
-  "2101346": {
-    "name": "Lepharist Test Subject Manager",
+  "2101344": {
+    "name": "Lepharist Security Force Pugilist",
+    "isBoss": false
+  },
+  "2101345": {
+    "name": "Unleashed Torba",
     "isBoss": false
   },
   "2101347": {
-    "name": "Test Subject Manduri",
+    "name": "Unleashed Floofy",
     "isBoss": false
   },
   "2101348": {
-    "name": "Contaminated Drana Test Subject",
+    "name": "Decaying Test Subject Lupyllini",
     "isBoss": false
   },
   "2101349": {
-    "name": "Contaminated Drana Manduri",
+    "name": "Rabid Nihogg",
+    "isBoss": true
+  },
+  "2101350": {
+    "name": "First Test Subject K'tima",
+    "isBoss": true
+  },
+  "2101351": {
+    "name": "Withered Sylphen",
     "isBoss": false
+  },
+  "2101352": {
+    "name": "Chaser Tamed Zaif",
+    "isBoss": false
+  },
+  "2101353": {
+    "name": "Sturdy Sac Spider",
+    "isBoss": false
+  },
+  "2101354": {
+    "name": "Withered Dionae",
+    "isBoss": false
+  },
+  "2101355": {
+    "name": "Highland Tuka",
+    "isBoss": false
+  },
+  "2101356": {
+    "name": "Highland Floofy",
+    "isBoss": false
+  },
+  "2101357": {
+    "name": "Highland Pointy Tuka",
+    "isBoss": false
+  },
+  "2101358": {
+    "name": "Spikey Head Sylphen",
+    "isBoss": false
+  },
+  "2101359": {
+    "name": "Highland Slink",
+    "isBoss": false
+  },
+  "2101360": {
+    "name": "Highland Young Slink",
+    "isBoss": false
+  },
+  "2101361": {
+    "name": "Highland Biruta Herbalist",
+    "isBoss": false
+  },
+  "2101362": {
+    "name": "Highland Biruta Fighter",
+    "isBoss": false
+  },
+  "2101363": {
+    "name": "Highland Biruta Wanderer",
+    "isBoss": false
+  },
+  "2101364": {
+    "name": "Highland Dionae",
+    "isBoss": false
+  },
+  "2101365": {
+    "name": "Highland Papis",
+    "isBoss": false
+  },
+  "2101366": {
+    "name": "Highland Frugon",
+    "isBoss": false
+  },
+  "2101367": {
+    "name": "Highland Earth Spirit",
+    "isBoss": false
+  },
+  "2101368": {
+    "name": "Highland Pokus",
+    "isBoss": false
+  },
+  "2101369": {
+    "name": "Wilds Coradon",
+    "isBoss": false
+  },
+  "2101370": {
+    "name": "Yellow Hill Lupyllini",
+    "isBoss": false
+  },
+  "2101371": {
+    "name": "Modified Hill Lupyllini",
+    "isBoss": false
+  },
+  "2101372": {
+    "name": "Hill Durgal",
+    "isBoss": false
+  },
+  "2101373": {
+    "name": "Highland Sylphen",
+    "isBoss": false
+  },
+  "2101374": {
+    "name": "Highland Crestlich",
+    "isBoss": false
+  },
+  "2101375": {
+    "name": "Highland Crestlich Male",
+    "isBoss": false
+  },
+  "2101376": {
+    "name": "Wildgrass Herb",
+    "isBoss": false
+  },
+  "2101377": {
+    "name": "Wilds Young Coradon",
+    "isBoss": false
+  },
+  "2101380": {
+    "name": "Canyon Lupyllini",
+    "isBoss": false
+  },
+  "2101381": {
+    "name": "Decomposed Canyon Lupyllini",
+    "isBoss": false
+  },
+  "2101382": {
+    "name": "Canyon Pachyron",
+    "isBoss": false
+  },
+  "2101383": {
+    "name": "Canyon Frugon",
+    "isBoss": false
+  },
+  "2101384": {
+    "name": "Canyon Gravarax",
+    "isBoss": false
+  },
+  "2101385": {
+    "name": "Canyon Durgal",
+    "isBoss": false
+  },
+  "2101386": {
+    "name": "Canyon Lagur",
+    "isBoss": false
+  },
+  "2101387": {
+    "name": "Wasteland Ashen Agrint",
+    "isBoss": false
+  },
+  "2101388": {
+    "name": "Wasteland Bomb Insectoid",
+    "isBoss": false
+  },
+  "2101389": {
+    "name": "Wasteland Sylphen",
+    "isBoss": false
+  },
+  "2101390": {
+    "name": "Wasteland Zirka",
+    "isBoss": false
+  },
+  "2101391": {
+    "name": "Wasteland Driznak",
+    "isBoss": false
+  },
+  "2101400": {
+    "name": "Shriveling Gravarax",
+    "isBoss": false
+  },
+  "2101401": {
+    "name": "Plains Kailin",
+    "isBoss": false
+  },
+  "2101402": {
+    "name": "Plains Pokus",
+    "isBoss": false
+  },
+  "2101403": {
+    "name": "Plains Starturtle",
+    "isBoss": false
+  },
+  "2101404": {
+    "name": "Plains Sparkie",
+    "isBoss": false
+  },
+  "2101405": {
+    "name": "Sturdy Lagur",
+    "isBoss": false
+  },
+  "2101406": {
+    "name": "Plains Torba",
+    "isBoss": false
+  },
+  "2101407": {
+    "name": "Sturdy Driznak",
+    "isBoss": false
+  },
+  "2101408": {
+    "name": "Plains Pachyron",
+    "isBoss": false
+  },
+  "2101409": {
+    "name": "Plains Ashen Basilisk",
+    "isBoss": false
+  },
+  "2101410": {
+    "name": "Plains Floofy",
+    "isBoss": false
+  },
+  "2101411": {
+    "name": "Sturdy Odyle Spider",
+    "isBoss": false
+  },
+  "2101412": {
+    "name": "Plains Sylphen",
+    "isBoss": false
+  },
+  "2101413": {
+    "name": "Shriveling Tuka",
+    "isBoss": false
+  },
+  "2101414": {
+    "name": "Plains Frugon",
+    "isBoss": false
+  },
+  "2101415": {
+    "name": "Three-Horned Mino",
+    "isBoss": true
+  },
+  "2101416": {
+    "name": "Lamphus of Agony",
+    "isBoss": true
+  },
+  "2101417": {
+    "name": "Plains Airon",
+    "isBoss": false
+  },
+  "2101418": {
+    "name": "Shriveling Gravi",
+    "isBoss": false
+  },
+  "2101419": {
+    "name": "Shriveling Magic Gravi",
+    "isBoss": false
+  },
+  "2101420": {
+    "name": "Shriveling Bigleaf Gravi",
+    "isBoss": false
+  },
+  "2101421": {
+    "name": "Solid Kalgolem",
+    "isBoss": false
+  },
+  "2101422": {
+    "name": "Solid Stone Spirit",
+    "isBoss": false
+  },
+  "2101423": {
+    "name": "Sturdy Lupyllini",
+    "isBoss": false
+  },
+  "2101424": {
+    "name": "Plains Young Kailin",
+    "isBoss": false
+  },
+  "2101425": {
+    "name": "Sturdy Vivel",
+    "isBoss": false
+  },
+  "2101426": {
+    "name": "Tenacious Daeva Assassin",
+    "isBoss": false
+  },
+  "2101427": {
+    "name": "Tenacious Daeva Patrol",
+    "isBoss": false
+  },
+  "2101428": {
+    "name": "Sturdy Karnif",
+    "isBoss": false
+  },
+  "2101429": {
+    "name": "Plains Cactus Spider",
+    "isBoss": false
+  },
+  "2101450": {
+    "name": "Plains Brax",
+    "isBoss": false
+  },
+  "2101451": {
+    "name": "Shriveling Agrint",
+    "isBoss": false
+  },
+  "2101500": {
+    "name": "Spikey Scale Ghula",
+    "isBoss": false
+  },
+  "2101501": {
+    "name": "Coastal Trogas",
+    "isBoss": false
+  },
+  "2101502": {
+    "name": "Coastal Slink",
+    "isBoss": false
+  },
+  "2101503": {
+    "name": "Coastal Young Slink",
+    "isBoss": false
+  },
+  "2101504": {
+    "name": "Highland Scorpion",
+    "isBoss": false
+  },
+  "2101505": {
+    "name": "Highland Tuka",
+    "isBoss": false
+  },
+  "2101506": {
+    "name": "Wilds Sylphen",
+    "isBoss": false
+  },
+  "2101507": {
+    "name": "Highland Durgal",
+    "isBoss": false
+  },
+  "2101508": {
+    "name": "Highland Soldier Bee",
+    "isBoss": false
+  },
+  "2101509": {
+    "name": "Highland Worker Bee",
+    "isBoss": false
+  },
+  "2101510": {
+    "name": "Highland Torba",
+    "isBoss": false
+  },
+  "2101511": {
+    "name": "Wilds Fossa",
+    "isBoss": false
+  },
+  "2101512": {
+    "name": "Wilds Thieves Watcher",
+    "isBoss": false
+  },
+  "2101513": {
+    "name": "Wilds Thieves Reaver",
+    "isBoss": false
+  },
+  "2101514": {
+    "name": "Wilds Thieves Patrol",
+    "isBoss": false
+  },
+  "2101515": {
+    "name": "Exiled Cave Bat",
+    "isBoss": false
+  },
+  "2101516": {
+    "name": "Wilds Frugon",
+    "isBoss": false
+  },
+  "2101517": {
+    "name": "Dull Kalgolem",
+    "isBoss": false
+  },
+  "2101518": {
+    "name": "Rigid Kalgolem",
+    "isBoss": false
+  },
+  "2101519": {
+    "name": "Coastal Coradon",
+    "isBoss": false
+  },
+  "2101520": {
+    "name": "Coastal Young Coradon",
+    "isBoss": false
+  },
+  "2101521": {
+    "name": "Coastal Starturtle",
+    "isBoss": false
+  },
+  "2101600": {
+    "name": "Third Unit Commander Karkoti",
+    "isBoss": true
+  },
+  "2101601": {
+    "name": "Deputy Commander Vivajra",
+    "isBoss": true
+  },
+  "2101602": {
+    "name": "High Commander Taruna",
+    "isBoss": true
   },
   "2110000": {
     "name": "Old Commander Mardel",
@@ -4012,7 +4540,7 @@
     "isBoss": false
   },
   "2110005": {
-    "name": "Daeva Archer's Soul",
+    "name": "Daeva Ranger's Soul",
     "isBoss": false
   },
   "2110006": {
@@ -4464,7 +4992,7 @@
     "isBoss": false
   },
   "2110420": {
-    "name": "Prison Compound Draconute Archer",
+    "name": "Prison Compound Draconute Ranger",
     "isBoss": false
   },
   "2110421": {
@@ -4524,7 +5052,7 @@
     "isBoss": false
   },
   "2110439": {
-    "name": "Draconute Archer",
+    "name": "Draconute Ranger",
     "isBoss": false
   },
   "2110440": {
@@ -4544,7 +5072,7 @@
     "isBoss": false
   },
   "2110445": {
-    "name": "Draconute Archer",
+    "name": "Draconute Ranger",
     "isBoss": false
   },
   "2110446": {
@@ -4580,7 +5108,7 @@
     "isBoss": false
   },
   "2110455": {
-    "name": "Draconute Archer",
+    "name": "Draconute Ranger",
     "isBoss": false
   },
   "2110456": {
@@ -4605,6 +5133,90 @@
   },
   "2110464": {
     "name": "Draconute Module Manager",
+    "isBoss": false
+  },
+  "2110465": {
+    "name": "Raider Paitron",
+    "isBoss": true
+  },
+  "2110466": {
+    "name": "Stronghold Ruins Marauder",
+    "isBoss": false
+  },
+  "2110467": {
+    "name": "Stronghold Ruins Reaver",
+    "isBoss": false
+  },
+  "2110468": {
+    "name": "Stronghold Ruins Wanted Criminal",
+    "isBoss": false
+  },
+  "2110469": {
+    "name": "Stronghold Ruins Fossa",
+    "isBoss": false
+  },
+  "2110470": {
+    "name": "Leader Hernon",
+    "isBoss": true
+  },
+  "2110471": {
+    "name": "Hernon Thieves Marauder",
+    "isBoss": false
+  },
+  "2110472": {
+    "name": "Hernon Thieves Reaver",
+    "isBoss": false
+  },
+  "2110473": {
+    "name": "Hernon Thieves Wanted Criminal",
+    "isBoss": false
+  },
+  "2110474": {
+    "name": "Hernon Thieves Reaver",
+    "isBoss": false
+  },
+  "2110475": {
+    "name": "Hernon Thieves Leader",
+    "isBoss": false
+  },
+  "2110478": {
+    "name": "Hernon Thieves Defense Cannon",
+    "isBoss": false
+  },
+  "2110479": {
+    "name": "Stronghold Ruins Watchtower",
+    "isBoss": false
+  },
+  "2110480": {
+    "name": "Magic Device",
+    "isBoss": false
+  },
+  "2110481": {
+    "name": "Veil Console",
+    "isBoss": false
+  },
+  "2110482": {
+    "name": "Hernon Thieves Marauder",
+    "isBoss": false
+  },
+  "2110483": {
+    "name": "Hernon Thieves Wanted Criminal",
+    "isBoss": false
+  },
+  "2110484": {
+    "name": "Hernon Thieves Leader",
+    "isBoss": false
+  },
+  "2110485": {
+    "name": "Hernon Thieves Reaver",
+    "isBoss": false
+  },
+  "2110486": {
+    "name": "Hernon Thieves Wanted Criminal",
+    "isBoss": false
+  },
+  "2110487": {
+    "name": "Hernon Thieves Leader",
     "isBoss": false
   },
   "2110500": {
@@ -4665,6 +5277,274 @@
   },
   "2110514": {
     "name": "Electromagnetic Field",
+    "isBoss": false
+  },
+  "2110515": {
+    "name": "Fanatic Dvahn",
+    "isBoss": true
+  },
+  "2110516": {
+    "name": "Ascetic Narat",
+    "isBoss": true
+  },
+  "2110517": {
+    "name": "Truthseeker Taneetch",
+    "isBoss": true
+  },
+  "2110518": {
+    "name": "Executioner Varkash",
+    "isBoss": true
+  },
+  "2110519": {
+    "name": "Gruesome Moratya",
+    "isBoss": true
+  },
+  "2110520": {
+    "name": "Unyielding Batagon",
+    "isBoss": true
+  },
+  "2110521": {
+    "name": "Swift Xanag",
+    "isBoss": true
+  },
+  "2110600": {
+    "name": "Lunatic Researcher Sellutey",
+    "isBoss": true
+  },
+  "2110601": {
+    "name": "Lepharist Assistant Researcher",
+    "isBoss": false
+  },
+  "2110602": {
+    "name": "Lepharist Researcher",
+    "isBoss": false
+  },
+  "2110603": {
+    "name": "Lepharist Superior Researcher",
+    "isBoss": false
+  },
+  "2110604": {
+    "name": "Lepharist Bodyguard",
+    "isBoss": false
+  },
+  "2110605": {
+    "name": "Mutant Karnif",
+    "isBoss": false
+  },
+  "2110606": {
+    "name": "Sorcery-Touched Mutant",
+    "isBoss": false
+  },
+  "2110607": {
+    "name": "Lepharist Sorcery Device",
+    "isBoss": false
+  },
+  "2110608": {
+    "name": "Mighty Leumas",
+    "isBoss": false
+  },
+  "2110609": {
+    "name": "Sky Fortress Marauder",
+    "isBoss": false
+  },
+  "2110610": {
+    "name": "Sky Fortress Reaver",
+    "isBoss": false
+  },
+  "2110611": {
+    "name": "Sky Fortress Watcher",
+    "isBoss": false
+  },
+  "2110612": {
+    "name": "Sky Fortress Watcher",
+    "isBoss": false
+  },
+  "2110613": {
+    "name": "Sky Fortress Overseer",
+    "isBoss": false
+  },
+  "2110614": {
+    "name": "Sky Fortress Alarm Device",
+    "isBoss": false
+  },
+  "2110615": {
+    "name": "Sky Fortress Explosion Trap",
+    "isBoss": false
+  },
+  "2110616": {
+    "name": "Large Sorcery Device",
+    "isBoss": false
+  },
+  "2110617": {
+    "name": "Sorcery-Touched Enhanced Mutant",
+    "isBoss": false
+  },
+  "2110618": {
+    "name": "Lepharist Superior Researcher",
+    "isBoss": false
+  },
+  "2110619": {
+    "name": "Digunaka",
+    "isBoss": true
+  },
+  "2110620": {
+    "name": "Digunaka",
+    "isBoss": true
+  },
+  "2110621": {
+    "name": "Digunaka Charger",
+    "isBoss": false
+  },
+  "2110622": {
+    "name": "Draconute Guard",
+    "isBoss": false
+  },
+  "2110623": {
+    "name": "Draconute Guard",
+    "isBoss": false
+  },
+  "2110624": {
+    "name": "Draconute Tinkerer",
+    "isBoss": false
+  },
+  "2110625": {
+    "name": "Draconute Guard",
+    "isBoss": false
+  },
+  "2110626": {
+    "name": "Digunaka Charger",
+    "isBoss": false
+  },
+  "2110627": {
+    "name": "Digunaka Charger",
+    "isBoss": false
+  },
+  "2110628": {
+    "name": "Furious Experimental Mutants",
+    "isBoss": false
+  },
+  "2110629": {
+    "name": "Noxious Gas",
+    "isBoss": false
+  },
+  "2110630": {
+    "name": "Furious Experimental Mutants",
+    "isBoss": false
+  },
+  "2110631": {
+    "name": "Furious Modified Krall",
+    "isBoss": false
+  },
+  "2110632": {
+    "name": "Noxious Gas",
+    "isBoss": false
+  },
+  "2110634": {
+    "name": "Base Scout",
+    "isBoss": false
+  },
+  "2110635": {
+    "name": "Base Self-Destruction Device",
+    "isBoss": false
+  },
+  "2110636": {
+    "name": "Furious Modified Krall",
+    "isBoss": false
+  },
+  "2110637": {
+    "name": "Base Watcher",
+    "isBoss": false
+  },
+  "2110638": {
+    "name": "Noxious Gas",
+    "isBoss": false
+  },
+  "2110639": {
+    "name": "Noxious Gas",
+    "isBoss": false
+  },
+  "2110640": {
+    "name": "Outpost Captain Tarakha",
+    "isBoss": true
+  },
+  "2110641": {
+    "name": "Draconute Battle Commander",
+    "isBoss": false
+  },
+  "2110642": {
+    "name": "Draconute Ranger",
+    "isBoss": false
+  },
+  "2110643": {
+    "name": "Draconute Warrior",
+    "isBoss": false
+  },
+  "2110644": {
+    "name": "Draconute Tinkerer",
+    "isBoss": false
+  },
+  "2110645": {
+    "name": "Shulak Gatherer",
+    "isBoss": false
+  },
+  "2110646": {
+    "name": "Shulak Tinkerer",
+    "isBoss": false
+  },
+  "2110647": {
+    "name": "Defender Test Subject",
+    "isBoss": false
+  },
+  "2110648": {
+    "name": "Defender Test Subject",
+    "isBoss": false
+  },
+  "2110649": {
+    "name": "Explosive Mine",
+    "isBoss": false
+  },
+  "2110650": {
+    "name": "Withered Spider",
+    "isBoss": false
+  },
+  "2110651": {
+    "name": "Sorcery-Touched Mutant",
+    "isBoss": false
+  },
+  "2110652": {
+    "name": "Lepharist Assistant Researcher",
+    "isBoss": false
+  },
+  "2110653": {
+    "name": "Lepharist Researcher",
+    "isBoss": false
+  },
+  "2110654": {
+    "name": "Draconute Defender",
+    "isBoss": false
+  },
+  "2110670": {
+    "name": "Sky Fortress Slave Brawler",
+    "isBoss": false
+  },
+  "2110671": {
+    "name": "Sky Fortress Slave Ranger",
+    "isBoss": false
+  },
+  "2110672": {
+    "name": "Laser",
+    "isBoss": false
+  },
+  "2110673": {
+    "name": "Laser",
+    "isBoss": false
+  },
+  "2110674": {
+    "name": "Sky Fortress Burly Rogue",
+    "isBoss": false
+  },
+  "2110675": {
+    "name": "Sky Fortress Rogue",
     "isBoss": false
   },
   "2200001": {
@@ -4736,7 +5616,7 @@
     "isBoss": false
   },
   "2200030": {
-    "name": "Bandit Archer",
+    "name": "Bandit Ranger",
     "isBoss": false
   },
   "2200031": {
@@ -5076,7 +5956,7 @@
     "isBoss": false
   },
   "2200123": {
-    "name": "Wandering Archer Apparition",
+    "name": "Wandering Ranger Apparition",
     "isBoss": false
   },
   "2200124": {
@@ -5177,6 +6057,298 @@
   },
   "2200148": {
     "name": "Drakan Researcher",
+    "isBoss": false
+  },
+  "2200149": {
+    "name": "Hilsrother Fighter",
+    "isBoss": false
+  },
+  "2200150": {
+    "name": "Hilsrother Scouter",
+    "isBoss": false
+  },
+  "2200151": {
+    "name": "Hilsrother Fighter",
+    "isBoss": false
+  },
+  "2200152": {
+    "name": "Hilsrother Fighter",
+    "isBoss": false
+  },
+  "2200153": {
+    "name": "Hilsrother Scouter",
+    "isBoss": false
+  },
+  "2200155": {
+    "name": "Hilsrother Fighter",
+    "isBoss": false
+  },
+  "2200156": {
+    "name": "Hilsrother Worker",
+    "isBoss": false
+  },
+  "2200157": {
+    "name": "Tsenka Merchants Betrayer",
+    "isBoss": false
+  },
+  "2200158": {
+    "name": "Tsenka Merchants Betrayer",
+    "isBoss": false
+  },
+  "2200159": {
+    "name": "Tsenka Merchants Betrayer",
+    "isBoss": false
+  },
+  "2200160": {
+    "name": "Tsenka Merchants Betrayer",
+    "isBoss": false
+  },
+  "2200161": {
+    "name": "Wadan's Bomb",
+    "isBoss": false
+  },
+  "2200162": {
+    "name": "Contamination Zone",
+    "isBoss": false
+  },
+  "2200163": {
+    "name": "Contaminated Slime",
+    "isBoss": false
+  },
+  "2200164": {
+    "name": "Contamination Clot",
+    "isBoss": false
+  },
+  "2200165": {
+    "name": "Suspicious Storage Scout",
+    "isBoss": false
+  },
+  "2200166": {
+    "name": "Suspicious Storage Scouter",
+    "isBoss": false
+  },
+  "2200167": {
+    "name": "Suspicious Storage Searcher",
+    "isBoss": false
+  },
+  "2200168": {
+    "name": "Hilsrother Fighter",
+    "isBoss": false
+  },
+  "2200169": {
+    "name": "Hilsrother Scouter",
+    "isBoss": false
+  },
+  "2200170": {
+    "name": "Hilsrother Worker",
+    "isBoss": false
+  },
+  "2200171": {
+    "name": "Suspicious Lepharist",
+    "isBoss": false
+  },
+  "2200172": {
+    "name": "Lepharist Warrior",
+    "isBoss": false
+  },
+  "2200173": {
+    "name": "Lepharist Mage",
+    "isBoss": false
+  },
+  "2200174": {
+    "name": "Lepharist Pugilist",
+    "isBoss": false
+  },
+  "2200175": {
+    "name": "Lepharist Administrator",
+    "isBoss": false
+  },
+  "2200176": {
+    "name": "Lepharist Guard Karnif",
+    "isBoss": false
+  },
+  "2200178": {
+    "name": "Lepharist Artificial Test Subject",
+    "isBoss": false
+  },
+  "2200179": {
+    "name": "Hilsrother Fighter",
+    "isBoss": false
+  },
+  "2200180": {
+    "name": "Hilsrother Fighter",
+    "isBoss": false
+  },
+  "2200181": {
+    "name": "Hilsrother Fighter",
+    "isBoss": false
+  },
+  "2200182": {
+    "name": "Hilsrother Scouter",
+    "isBoss": false
+  },
+  "2200183": {
+    "name": "Hilsrother Scouter",
+    "isBoss": false
+  },
+  "2200184": {
+    "name": "Hilsrother Worker",
+    "isBoss": false
+  },
+  "2200191": {
+    "name": "Hilsrother Worker",
+    "isBoss": false
+  },
+  "2200192": {
+    "name": "Hilsrother Scouter",
+    "isBoss": false
+  },
+  "2200193": {
+    "name": "Hilsrother Hunter",
+    "isBoss": false
+  },
+  "2200194": {
+    "name": "Hilsrother Worker",
+    "isBoss": false
+  },
+  "2200195": {
+    "name": "Hilsrother Marauder",
+    "isBoss": false
+  },
+  "2200196": {
+    "name": "Kirilion",
+    "isBoss": false
+  },
+  "2200197": {
+    "name": "Petrification Trap",
+    "isBoss": false
+  },
+  "2200198": {
+    "name": "Petrification Trap",
+    "isBoss": false
+  },
+  "2200199": {
+    "name": "Suspicious Library Scout",
+    "isBoss": false
+  },
+  "2200200": {
+    "name": "Suspicious Library Seeker",
+    "isBoss": false
+  },
+  "2200201": {
+    "name": "Suspicious Library Searcher",
+    "isBoss": false
+  },
+  "2200202": {
+    "name": "Lepharist Artificial Test Subject",
+    "isBoss": false
+  },
+  "2200203": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2200204": {
+    "name": "Evgenir's Trial",
+    "isBoss": false
+  },
+  "2200205": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2200206": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2200207": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2200208": {
+    "name": "Basement Zirka",
+    "isBoss": false
+  },
+  "2200209": {
+    "name": "Petrification Trap",
+    "isBoss": false
+  },
+  "2200210": {
+    "name": "Lepharist Laboratory Mage",
+    "isBoss": false
+  },
+  "2200211": {
+    "name": "Lepharist Laboratory Pugilist",
+    "isBoss": false
+  },
+  "2200212": {
+    "name": "Lepharist Laboratory Warrior",
+    "isBoss": false
+  },
+  "2200213": {
+    "name": "Lepharist Laboratory Researcher",
+    "isBoss": false
+  },
+  "2200214": {
+    "name": "Laser",
+    "isBoss": false
+  },
+  "2200215": {
+    "name": "Disposed Test Subject",
+    "isBoss": false
+  },
+  "2200216": {
+    "name": "Disposed Test Subject",
+    "isBoss": false
+  },
+  "2200217": {
+    "name": "Disposed Test Subject",
+    "isBoss": false
+  },
+  "2200218": {
+    "name": "Defective Test Subject",
+    "isBoss": false
+  },
+  "2200219": {
+    "name": "Defective Test Subject",
+    "isBoss": false
+  },
+  "2200220": {
+    "name": "Defective Test Subject",
+    "isBoss": false
+  },
+  "2200221": {
+    "name": "Lepharist Test Subject Manager",
+    "isBoss": false
+  },
+  "2200222": {
+    "name": "Maze Spider",
+    "isBoss": false
+  },
+  "2200223": {
+    "name": "Hilsrother Fighter",
+    "isBoss": false
+  },
+  "2200224": {
+    "name": "Hilsrother Scouter",
+    "isBoss": false
+  },
+  "2200225": {
+    "name": "Spider Insectoid",
+    "isBoss": false
+  },
+  "2200226": {
+    "name": "Defective Test Subject",
+    "isBoss": false
+  },
+  "2200227": {
+    "name": "Defective Test Subject",
+    "isBoss": false
+  },
+  "2200228": {
+    "name": "Defective Test Subject",
+    "isBoss": false
+  },
+  "2200229": {
+    "name": "Lepharist Laboratory Pugilist",
     "isBoss": false
   },
   "2290000": {
@@ -5416,7 +6588,7 @@
     "isBoss": false
   },
   "2290085": {
-    "name": "Krall Shaman",
+    "name": "Krall Warshaman",
     "isBoss": false
   },
   "2290087": {
@@ -5693,6 +6865,314 @@
   },
   "2290180": {
     "name": "Aullaeu Lightning Totem",
+    "isBoss": false
+  },
+  "2290181": {
+    "name": "Hilsrother Scouter",
+    "isBoss": false
+  },
+  "2290182": {
+    "name": "Hilsrother Fighter",
+    "isBoss": false
+  },
+  "2290184": {
+    "name": "Hilsrother Elite Chaser",
+    "isBoss": false
+  },
+  "2290185": {
+    "name": "Hilsrother Fighter",
+    "isBoss": false
+  },
+  "2290186": {
+    "name": "Hilsrother Scouter",
+    "isBoss": false
+  },
+  "2290195": {
+    "name": "Suspicious Ruin Chaser",
+    "isBoss": false
+  },
+  "2290196": {
+    "name": "Suspicious Ruin Scout",
+    "isBoss": false
+  },
+  "2290198": {
+    "name": "Suspicious Ruin Overseer",
+    "isBoss": false
+  },
+  "2290199": {
+    "name": "Hilsrother",
+    "isBoss": false
+  },
+  "2290200": {
+    "name": "Suspicious Rooting Device",
+    "isBoss": false
+  },
+  "2290201": {
+    "name": "Highland Zirka",
+    "isBoss": false
+  },
+  "2290202": {
+    "name": "Tamed Zaif",
+    "isBoss": false
+  },
+  "2290204": {
+    "name": "Tamed Zaif",
+    "isBoss": false
+  },
+  "2290205": {
+    "name": "Highland Zirka",
+    "isBoss": false
+  },
+  "2290206": {
+    "name": "Hilsrother Petrification Trap",
+    "isBoss": false
+  },
+  "2290207": {
+    "name": "Hilsrother Petrification Trap",
+    "isBoss": false
+  },
+  "2290239": {
+    "name": "Hilsrother Petrification Trap",
+    "isBoss": false
+  },
+  "2290243": {
+    "name": "Camera Shake",
+    "isBoss": false
+  },
+  "2290244": {
+    "name": "Explosion",
+    "isBoss": false
+  },
+  "2290247": {
+    "name": "Drana Predator Test Subject",
+    "isBoss": false
+  },
+  "2290248": {
+    "name": "Crushed Test Subject Imp",
+    "isBoss": false
+  },
+  "2290250": {
+    "name": "Lepharist Watchtower Mage",
+    "isBoss": false
+  },
+  "2290251": {
+    "name": "Lepharist Watchtower Pugilist",
+    "isBoss": false
+  },
+  "2290252": {
+    "name": "Lepharist Watchtower Warrior",
+    "isBoss": false
+  },
+  "2290253": {
+    "name": "Lepharist Watchtower Researcher",
+    "isBoss": false
+  },
+  "2290254": {
+    "name": "Lepharist Watchtower Mage",
+    "isBoss": false
+  },
+  "2290255": {
+    "name": "Lepharist Watchtower Pugilist",
+    "isBoss": false
+  },
+  "2290256": {
+    "name": "Lepharist Watchtower Warrior",
+    "isBoss": false
+  },
+  "2290257": {
+    "name": "Lepharist Watchtower Researcher",
+    "isBoss": false
+  },
+  "2290262": {
+    "name": "Explosion",
+    "isBoss": false
+  },
+  "2290263": {
+    "name": "Ruins Arca",
+    "isBoss": false
+  },
+  "2290264": {
+    "name": "Ruins Arca",
+    "isBoss": false
+  },
+  "2290265": {
+    "name": "Lepharist Guard",
+    "isBoss": false
+  },
+  "2290266": {
+    "name": "Lepharist Sentry",
+    "isBoss": false
+  },
+  "2290267": {
+    "name": "Lepharist Searcher",
+    "isBoss": false
+  },
+  "2290268": {
+    "name": "Lepharist Sentry",
+    "isBoss": false
+  },
+  "2290270": {
+    "name": "Lepharist Sentinel",
+    "isBoss": false
+  },
+  "2290271": {
+    "name": "Lepharist Sentry",
+    "isBoss": false
+  },
+  "2290274": {
+    "name": "Lepharist Warrior",
+    "isBoss": false
+  },
+  "2290275": {
+    "name": "Lepharist Mage",
+    "isBoss": false
+  },
+  "2290276": {
+    "name": "Lepharist Pugilist",
+    "isBoss": false
+  },
+  "2290277": {
+    "name": "Lepharist Administrator",
+    "isBoss": false
+  },
+  "2290280": {
+    "name": "Lepharist Watchtower Overseer",
+    "isBoss": false
+  },
+  "2290281": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2290282": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2290283": {
+    "name": "Explosion",
+    "isBoss": false
+  },
+  "2290285": {
+    "name": "Camera Shake",
+    "isBoss": false
+  },
+  "2290287": {
+    "name": "Ferocious Test Subject Hoka",
+    "isBoss": false
+  },
+  "2290288": {
+    "name": "Lepharist Chaser Warrior",
+    "isBoss": false
+  },
+  "2290289": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2290290": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2290291": {
+    "name": "Explosion",
+    "isBoss": false
+  },
+  "2290292": {
+    "name": "Aerial Bomb",
+    "isBoss": false
+  },
+  "2290293": {
+    "name": "Ruins Arca",
+    "isBoss": false
+  },
+  "2290300": {
+    "name": "Hilsrother Patrol",
+    "isBoss": false
+  },
+  "2290301": {
+    "name": "Hilsrother Worker",
+    "isBoss": false
+  },
+  "2290302": {
+    "name": "Hilsrother Scouter",
+    "isBoss": false
+  },
+  "2290303": {
+    "name": "Hilsrother Patrol",
+    "isBoss": false
+  },
+  "2290304": {
+    "name": "Hilsrother Patrol",
+    "isBoss": false
+  },
+  "2290305": {
+    "name": "Hilsrother Scouter",
+    "isBoss": false
+  },
+  "2290306": {
+    "name": "Hilsrother Worker",
+    "isBoss": false
+  },
+  "2290308": {
+    "name": "Suspicious Ruin Chaser",
+    "isBoss": false
+  },
+  "2290309": {
+    "name": "Hilsrother Patrol",
+    "isBoss": false
+  },
+  "2290310": {
+    "name": "Hilsrother Scouter",
+    "isBoss": false
+  },
+  "2290311": {
+    "name": "Ruins Arca",
+    "isBoss": false
+  },
+  "2290312": {
+    "name": "Ruins Arca",
+    "isBoss": false
+  },
+  "2290313": {
+    "name": "Ruins Arca",
+    "isBoss": false
+  },
+  "2290315": {
+    "name": "Suspicious Rooting Device",
+    "isBoss": false
+  },
+  "2290318": {
+    "name": "Hilsrother Petrification Trap",
+    "isBoss": false
+  },
+  "2290319": {
+    "name": "Hilsrother Petrification Trap",
+    "isBoss": false
+  },
+  "2290322": {
+    "name": "Suspicious Ruin Scribe",
+    "isBoss": false
+  },
+  "2290323": {
+    "name": "Suspicious Ruin Poacher",
+    "isBoss": false
+  },
+  "2290324": {
+    "name": "Suspicious Ruin Scribe",
+    "isBoss": false
+  },
+  "2290325": {
+    "name": "Suspicious Ruin Poacher",
+    "isBoss": false
+  },
+  "2290326": {
+    "name": "Suspicious Rooting Device",
+    "isBoss": false
+  },
+  "2290327": {
+    "name": "Suspicious Rooting Device",
+    "isBoss": false
+  },
+  "2290328": {
+    "name": "Suspicious Rooting Device",
     "isBoss": false
   },
   "2300000": {
@@ -7364,6 +8844,26 @@
     "name": "Heartbound Tender",
     "isBoss": false
   },
+  "2300465": {
+    "name": "Abyssal Horn Mau Sentry",
+    "isBoss": false
+  },
+  "2300466": {
+    "name": "Abyssal Horn Mau Healer",
+    "isBoss": false
+  },
+  "2300467": {
+    "name": "Abyssal Horn Mau Brawler",
+    "isBoss": false
+  },
+  "2300468": {
+    "name": "Fullmoon Ritual Managing Supervisor",
+    "isBoss": false
+  },
+  "2300469": {
+    "name": "Abyssal Horn Mau Totem Shaman",
+    "isBoss": false
+  },
   "2300470": {
     "name": "Afflicted Bakarma",
     "isBoss": false
@@ -7374,6 +8874,106 @@
     "category": "Dungeon",
     "tier": "Conquest [Normal]",
     "dungeonId": 600032
+  },
+  "2300473": {
+    "name": "Kapu",
+    "isBoss": true
+  },
+  "2300474": {
+    "name": "Dhakan",
+    "isBoss": true
+  },
+  "2300475": {
+    "name": "Gargaum",
+    "isBoss": true
+  },
+  "2300476": {
+    "name": "Addicted Shulak Laborer",
+    "isBoss": false
+  },
+  "2300477": {
+    "name": "Addicted Shulak Miner",
+    "isBoss": false
+  },
+  "2300478": {
+    "name": "Addicted Shulak Sentinel",
+    "isBoss": false
+  },
+  "2300479": {
+    "name": "Addicted Shulak Overseer",
+    "isBoss": false
+  },
+  "2300480": {
+    "name": "Addicted Shulak Cart Worker",
+    "isBoss": false
+  },
+  "2300482": {
+    "name": "Abyssal Horn Duduka Worker",
+    "isBoss": false
+  },
+  "2300483": {
+    "name": "Abyssal Horn Duduka Slinger",
+    "isBoss": false
+  },
+  "2300484": {
+    "name": "Abyssal Horn Lupyllini",
+    "isBoss": false
+  },
+  "2300485": {
+    "name": "Abyssal Horn Mau Sentry",
+    "isBoss": false
+  },
+  "2300486": {
+    "name": "Abyssal Horn Mau Healer",
+    "isBoss": false
+  },
+  "2300487": {
+    "name": "Abyssal Horn Mau Brawler",
+    "isBoss": false
+  },
+  "2300488": {
+    "name": "Fullmoon Ritual Managing Supervisor",
+    "isBoss": false
+  },
+  "2300489": {
+    "name": "Abyssal Horn Mau Totem Shaman",
+    "isBoss": false
+  },
+  "2300491": {
+    "name": "Kapu",
+    "isBoss": true
+  },
+  "2300492": {
+    "name": "Dhakan",
+    "isBoss": true
+  },
+  "2300493": {
+    "name": "Gargaum",
+    "isBoss": true
+  },
+  "2300494": {
+    "name": "Addicted Shulak Laborer",
+    "isBoss": false
+  },
+  "2300495": {
+    "name": "Addicted Shulak Miner",
+    "isBoss": false
+  },
+  "2300496": {
+    "name": "Addicted Shulak Sentinel",
+    "isBoss": false
+  },
+  "2300497": {
+    "name": "Addicted Shulak Overseer",
+    "isBoss": false
+  },
+  "2300498": {
+    "name": "Addicted Shulak Cart Worker",
+    "isBoss": false
+  },
+  "2300499": {
+    "name": "Abyssal Horn Duduka Worker",
+    "isBoss": false
   },
   "2300500": {
     "name": "Dratona",
@@ -7465,8 +9065,148 @@
     "tier": "Exploration",
     "dungeonId": 600041
   },
+  "2300518": {
+    "name": "Abyssal Horn Duduka Slinger",
+    "isBoss": false
+  },
   "2300519": {
     "name": "Durvati's Poison Fluid",
+    "isBoss": false
+  },
+  "2300520": {
+    "name": "Abyssal Horn Lupyllini",
+    "isBoss": false
+  },
+  "2300521": {
+    "name": "Abyssal Horn Mau Sentry",
+    "isBoss": false
+  },
+  "2300522": {
+    "name": "Abyssal Horn Mau Healer",
+    "isBoss": false
+  },
+  "2300523": {
+    "name": "Abyssal Horn Mau Brawler",
+    "isBoss": false
+  },
+  "2300524": {
+    "name": "Fullmoon Ritual Managing Supervisor",
+    "isBoss": false
+  },
+  "2300525": {
+    "name": "Abyssal Horn Mau Totem Shaman",
+    "isBoss": false
+  },
+  "2300527": {
+    "name": "Kapu",
+    "isBoss": true
+  },
+  "2300528": {
+    "name": "Dhakan",
+    "isBoss": true
+  },
+  "2300529": {
+    "name": "Gargaum",
+    "isBoss": true
+  },
+  "2300530": {
+    "name": "Addicted Shulak Laborer",
+    "isBoss": false
+  },
+  "2300531": {
+    "name": "Addicted Shulak Miner",
+    "isBoss": false
+  },
+  "2300532": {
+    "name": "Addicted Shulak Sentinel",
+    "isBoss": false
+  },
+  "2300533": {
+    "name": "Addicted Shulak Overseer",
+    "isBoss": false
+  },
+  "2300534": {
+    "name": "Addicted Shulak Cart Worker",
+    "isBoss": false
+  },
+  "2300535": {
+    "name": "Abyssal Horn Duduka Worker",
+    "isBoss": false
+  },
+  "2300536": {
+    "name": "Abyssal Horn Duduka Slinger",
+    "isBoss": false
+  },
+  "2300537": {
+    "name": "Abyssal Horn Lupyllini",
+    "isBoss": false
+  },
+  "2300538": {
+    "name": "Abyssal Horn Mau Sentry",
+    "isBoss": false
+  },
+  "2300539": {
+    "name": "Abyssal Horn Mau Healer",
+    "isBoss": false
+  },
+  "2300540": {
+    "name": "Abyssal Horn Mau Brawler",
+    "isBoss": false
+  },
+  "2300541": {
+    "name": "Fullmoon Ritual Managing Supervisor",
+    "isBoss": false
+  },
+  "2300542": {
+    "name": "Abyssal Horn Mau Totem Shaman",
+    "isBoss": false
+  },
+  "2300544": {
+    "name": "Kapu",
+    "isBoss": true
+  },
+  "2300545": {
+    "name": "Dhakan",
+    "isBoss": true
+  },
+  "2300546": {
+    "name": "Gargaum",
+    "isBoss": true
+  },
+  "2300547": {
+    "name": "Addicted Shulak Laborer",
+    "isBoss": false
+  },
+  "2300548": {
+    "name": "Addicted Shulak Miner",
+    "isBoss": false
+  },
+  "2300549": {
+    "name": "Addicted Shulak Sentinel",
+    "isBoss": false
+  },
+  "2300550": {
+    "name": "Addicted Shulak Overseer",
+    "isBoss": false
+  },
+  "2300551": {
+    "name": "Addicted Shulak Cart Worker",
+    "isBoss": false
+  },
+  "2300552": {
+    "name": "Abyssal Horn Duduka Worker",
+    "isBoss": false
+  },
+  "2300553": {
+    "name": "Abyssal Horn Duduka Slinger",
+    "isBoss": false
+  },
+  "2300554": {
+    "name": "Abyssal Horn Lupyllini",
+    "isBoss": false
+  },
+  "2300595": {
+    "name": "Alluring Dionae",
     "isBoss": false
   },
   "2300601": {
@@ -7514,7 +9254,7 @@
     "isBoss": false
   },
   "2300612": {
-    "name": "Modified Krall Mender",
+    "name": "Modified Krall Healer",
     "isBoss": false
   },
   "2300613": {
@@ -7558,7 +9298,7 @@
     "isBoss": false
   },
   "2300706": {
-    "name": "Arkanis Elite Defender",
+    "name": "Arkanis Elite Guardian",
     "isBoss": false
   },
   "2300707": {
@@ -7594,7 +9334,7 @@
     "isBoss": false
   },
   "2300806": {
-    "name": "Island Guardian Archer",
+    "name": "Island Guardian Ranger",
     "isBoss": false
   },
   "2300807": {
@@ -7736,7 +9476,7 @@
     "isBoss": false
   },
   "2300918": {
-    "name": "Ferocious Duduka Trebuchet Worker",
+    "name": "Ferocious Duduka Slinger",
     "isBoss": false
   },
   "2300919": {
@@ -7865,7 +9605,7 @@
     "isBoss": false
   },
   "2301054": {
-    "name": "Mutated Mender",
+    "name": "Mutated Healer",
     "isBoss": false
   },
   "2301055": {
@@ -7956,7 +9696,7 @@
     "isBoss": false
   },
   "2301084": {
-    "name": "Mutated Mender",
+    "name": "Mutated Healer",
     "isBoss": false
   },
   "2301085": {
@@ -8335,6 +10075,217 @@
   },
   "2301515": {
     "name": "Temple Apparition",
+    "isBoss": false
+  },
+  "2301601": {
+    "name": "Willful Turgen",
+    "isBoss": true,
+    "category": "Dungeon",
+    "tier": "Exploration",
+    "dungeonId": 600144
+  },
+  "2301602": {
+    "name": "Forbidden Hexbeast Griosa",
+    "isBoss": true,
+    "category": "Dungeon",
+    "tier": "Exploration",
+    "dungeonId": 600144
+  },
+  "2301603": {
+    "name": "Basilus the False",
+    "isBoss": true,
+    "category": "Dungeon",
+    "tier": "Exploration",
+    "dungeonId": 600144
+  },
+  "2301604": {
+    "name": "Corrupted Daeva Cleric",
+    "isBoss": false
+  },
+  "2301605": {
+    "name": "Corrupted Daeva Watcher",
+    "isBoss": false
+  },
+  "2301606": {
+    "name": "Corrupted Daeva Executioner",
+    "isBoss": false
+  },
+  "2301607": {
+    "name": "Legion Guardite",
+    "isBoss": false
+  },
+  "2301608": {
+    "name": "Legion Watcher Guardite",
+    "isBoss": false
+  },
+  "2301609": {
+    "name": "Legion Elite Guardite",
+    "isBoss": false
+  },
+  "2301610": {
+    "name": "Corrupted Daeva Knight",
+    "isBoss": false
+  },
+  "2301611": {
+    "name": "Corrupted Daeva Elite Sorcerer",
+    "isBoss": false
+  },
+  "2301612": {
+    "name": "Blades Gimmick",
+    "isBoss": false
+  },
+  "2301613": {
+    "name": "Citadel Odyle Spider",
+    "isBoss": false
+  },
+  "2301614": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2301701": {
+    "name": "Willful Turgen",
+    "isBoss": true,
+    "category": "Dungeon",
+    "tier": "Conquest [Normal]",
+    "dungeonId": 600145
+  },
+  "2301702": {
+    "name": "Forbidden Hexbeast Griosa",
+    "isBoss": true,
+    "category": "Dungeon",
+    "tier": "Conquest [Normal]",
+    "dungeonId": 600145
+  },
+  "2301703": {
+    "name": "Basilus the False",
+    "isBoss": true,
+    "category": "Dungeon",
+    "tier": "Conquest [Normal]",
+    "dungeonId": 600145
+  },
+  "2301704": {
+    "name": "Corrupted Daeva Cleric",
+    "isBoss": false
+  },
+  "2301705": {
+    "name": "Corrupted Daeva Watcher",
+    "isBoss": false
+  },
+  "2301706": {
+    "name": "Corrupted Daeva Executioner",
+    "isBoss": false
+  },
+  "2301707": {
+    "name": "Legion Guardite",
+    "isBoss": false
+  },
+  "2301708": {
+    "name": "Legion Watcher Guardite",
+    "isBoss": false
+  },
+  "2301709": {
+    "name": "Legion Elite Guardite",
+    "isBoss": false
+  },
+  "2301710": {
+    "name": "Corrupted Daeva Knight",
+    "isBoss": false
+  },
+  "2301711": {
+    "name": "Corrupted Daeva Elite Sorcerer",
+    "isBoss": false
+  },
+  "2301712": {
+    "name": "Blades Gimmick",
+    "isBoss": false
+  },
+  "2301713": {
+    "name": "Floating Tourmaline",
+    "isBoss": false
+  },
+  "2301714": {
+    "name": "Floating Tourmaline",
+    "isBoss": false
+  },
+  "2301715": {
+    "name": "Citadel Odyle Spider",
+    "isBoss": false
+  },
+  "2301716": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2301717": {
+    "name": "Citadel Magic Weapon",
+    "isBoss": false
+  },
+  "2301721": {
+    "name": "Willful Turgen",
+    "isBoss": true,
+    "category": "Dungeon",
+    "tier": "Conquest [Hard]",
+    "dungeonId": 600146
+  },
+  "2301722": {
+    "name": "Forbidden Hexbeast Griosa",
+    "isBoss": true,
+    "category": "Dungeon",
+    "tier": "Conquest [Hard]",
+    "dungeonId": 600146
+  },
+  "2301723": {
+    "name": "Basilus the False",
+    "isBoss": true,
+    "category": "Dungeon",
+    "tier": "Conquest [Hard]",
+    "dungeonId": 600146
+  },
+  "2301724": {
+    "name": "Corrupted Daeva Cleric",
+    "isBoss": false
+  },
+  "2301725": {
+    "name": "Corrupted Daeva Watcher",
+    "isBoss": false
+  },
+  "2301726": {
+    "name": "Corrupted Daeva Executioner",
+    "isBoss": false
+  },
+  "2301727": {
+    "name": "Legion Guardite",
+    "isBoss": false
+  },
+  "2301728": {
+    "name": "Legion Watcher Guardite",
+    "isBoss": false
+  },
+  "2301729": {
+    "name": "Legion Elite Guardite",
+    "isBoss": false
+  },
+  "2301730": {
+    "name": "Corrupted Daeva Knight",
+    "isBoss": false
+  },
+  "2301731": {
+    "name": "Corrupted Daeva Elite Sorcerer",
+    "isBoss": false
+  },
+  "2301732": {
+    "name": "Blades Gimmick",
+    "isBoss": false
+  },
+  "2301734": {
+    "name": "Citadel Magic Weapon",
+    "isBoss": false
+  },
+  "2301735": {
+    "name": "Citadel Odyle Spider",
+    "isBoss": false
+  },
+  "2301736": {
+    "name": "None",
     "isBoss": false
   },
   "2310101": {
@@ -8897,7 +10848,7 @@
     "isBoss": false
   },
   "2310612": {
-    "name": "Modified Krall Mender",
+    "name": "Modified Krall Healer",
     "isBoss": false
   },
   "2310613": {
@@ -8941,7 +10892,7 @@
     "isBoss": false
   },
   "2310806": {
-    "name": "Island Guardian Archer",
+    "name": "Island Guardian Ranger",
     "isBoss": false
   },
   "2310807": {
@@ -9075,7 +11026,7 @@
     "isBoss": false
   },
   "2310918": {
-    "name": "Ferocious Duduka Trebuchet Worker",
+    "name": "Ferocious Duduka Slinger",
     "isBoss": false
   },
   "2310919": {
@@ -9822,7 +11773,7 @@
     "isBoss": false
   },
   "2320612": {
-    "name": "Modified Krall Mender",
+    "name": "Modified Krall Healer",
     "isBoss": false
   },
   "2320613": {
@@ -9872,7 +11823,7 @@
     "isBoss": false
   },
   "2320806": {
-    "name": "Island Guardian Archer",
+    "name": "Island Guardian Ranger",
     "isBoss": false
   },
   "2320807": {
@@ -10014,7 +11965,7 @@
     "isBoss": false
   },
   "2320918": {
-    "name": "Ferocious Duduka Trebuchet Worker",
+    "name": "Ferocious Duduka Slinger",
     "isBoss": false
   },
   "2320919": {
@@ -11321,7 +13272,7 @@
     "isBoss": false
   },
   "2330612": {
-    "name": "Modified Krall Mender",
+    "name": "Modified Krall Healer",
     "isBoss": false
   },
   "2330613": {
@@ -11365,7 +13316,7 @@
     "isBoss": false
   },
   "2330706": {
-    "name": "Arkanis Elite Defender",
+    "name": "Arkanis Elite Guardian",
     "isBoss": false
   },
   "2330707": {
@@ -11865,7 +13816,7 @@
     "isBoss": false
   },
   "2340612": {
-    "name": "Modified Krall Mender",
+    "name": "Modified Krall Healer",
     "isBoss": false
   },
   "2340613": {
@@ -11915,7 +13866,7 @@
     "isBoss": false
   },
   "2340706": {
-    "name": "Arkanis Elite Defender",
+    "name": "Arkanis Elite Guardian",
     "isBoss": false
   },
   "2340707": {
@@ -11932,6 +13883,14 @@
   },
   "2340710": {
     "name": "Spinning Magnetic Field",
+    "isBoss": false
+  },
+  "2341001": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2341002": {
+    "name": "None",
     "isBoss": false
   },
   "2341601": {
@@ -11979,7 +13938,7 @@
     "isBoss": false
   },
   "2341612": {
-    "name": "Modified Krall Mender",
+    "name": "Modified Krall Healer",
     "isBoss": false
   },
   "2341613": {
@@ -12051,7 +14010,7 @@
     "isBoss": false
   },
   "2342612": {
-    "name": "Modified Krall Mender",
+    "name": "Modified Krall Healer",
     "isBoss": false
   },
   "2342613": {
@@ -12126,7 +14085,7 @@
     "isBoss": false
   },
   "2343612": {
-    "name": "Modified Krall Mender",
+    "name": "Modified Krall Healer",
     "isBoss": false
   },
   "2343613": {
@@ -12204,7 +14163,7 @@
     "isBoss": false
   },
   "2344612": {
-    "name": "Modified Krall Mender",
+    "name": "Modified Krall Healer",
     "isBoss": false
   },
   "2344613": {
@@ -12364,7 +14323,7 @@
     "isBoss": false
   },
   "2345612": {
-    "name": "Modified Krall Mender",
+    "name": "Modified Krall Healer",
     "isBoss": false
   },
   "2345613": {
@@ -12439,7 +14398,7 @@
     "isBoss": false
   },
   "2346612": {
-    "name": "Modified Krall Mender",
+    "name": "Modified Krall Healer",
     "isBoss": false
   },
   "2346613": {
@@ -12517,7 +14476,7 @@
     "isBoss": false
   },
   "2347612": {
-    "name": "Modified Krall Mender",
+    "name": "Modified Krall Healer",
     "isBoss": false
   },
   "2347613": {
@@ -12565,7 +14524,7 @@
     "isBoss": false
   },
   "2350706": {
-    "name": "Arkanis Elite Defender",
+    "name": "Arkanis Elite Guardian",
     "isBoss": false
   },
   "2350707": {
@@ -12614,7 +14573,7 @@
     "isBoss": false
   },
   "2351706": {
-    "name": "Arkanis Elite Defender",
+    "name": "Arkanis Elite Guardian",
     "isBoss": false
   },
   "2351707": {
@@ -12658,7 +14617,7 @@
     "isBoss": false
   },
   "2352706": {
-    "name": "Arkanis Elite Defender",
+    "name": "Arkanis Elite Guardian",
     "isBoss": false
   },
   "2352707": {
@@ -12702,7 +14661,7 @@
     "isBoss": false
   },
   "2353706": {
-    "name": "Arkanis Elite Defender",
+    "name": "Arkanis Elite Guardian",
     "isBoss": false
   },
   "2353707": {
@@ -12755,7 +14714,7 @@
     "isBoss": false
   },
   "2354706": {
-    "name": "Arkanis Elite Defender",
+    "name": "Arkanis Elite Guardian",
     "isBoss": false
   },
   "2354707": {
@@ -12799,7 +14758,7 @@
     "isBoss": false
   },
   "2355706": {
-    "name": "Arkanis Elite Defender",
+    "name": "Arkanis Elite Guardian",
     "isBoss": false
   },
   "2355707": {
@@ -12843,7 +14802,7 @@
     "isBoss": false
   },
   "2356706": {
-    "name": "Arkanis Elite Defender",
+    "name": "Arkanis Elite Guardian",
     "isBoss": false
   },
   "2356707": {
@@ -12896,7 +14855,7 @@
     "isBoss": false
   },
   "2357706": {
-    "name": "Arkanis Elite Defender",
+    "name": "Arkanis Elite Guardian",
     "isBoss": false
   },
   "2357707": {
@@ -12948,7 +14907,7 @@
     "isBoss": false
   },
   "2360107": {
-    "name": "Daeva Archer's Soul",
+    "name": "Daeva Ranger's Soul",
     "isBoss": false
   },
   "2360108": {
@@ -13036,15 +14995,15 @@
     "isBoss": false
   },
   "2360143": {
-    "name": "Biruta Ascetic",
+    "name": "Biruta Warrior",
     "isBoss": false
   },
   "2360144": {
-    "name": "Biruta Mediator",
+    "name": "Biruta Decimator",
     "isBoss": false
   },
   "2360145": {
-    "name": "Biruta Rake",
+    "name": "Biruta Searcher",
     "isBoss": false
   },
   "2360146": {
@@ -13208,7 +15167,7 @@
     "isBoss": false
   },
   "2360187": {
-    "name": "Daeva Archer's Soul",
+    "name": "Daeva Ranger's Soul",
     "isBoss": false
   },
   "2360188": {
@@ -13332,7 +15291,7 @@
     "isBoss": false
   },
   "2360228": {
-    "name": "Nagarant Elite Defender",
+    "name": "Nagarant Elite Guardian",
     "isBoss": false
   },
   "2360229": {
@@ -13372,7 +15331,7 @@
     "isBoss": false
   },
   "2370007": {
-    "name": "Draconute Lesser Archer",
+    "name": "Draconute Lesser Ranger",
     "isBoss": false
   },
   "2370008": {
@@ -13388,7 +15347,7 @@
     "isBoss": false
   },
   "2370011": {
-    "name": "Draconute Lesser Archer",
+    "name": "Draconute Lesser Ranger",
     "isBoss": false
   },
   "2370012": {
@@ -13404,7 +15363,7 @@
     "isBoss": false
   },
   "2370015": {
-    "name": "Draconute Lesser Archer",
+    "name": "Draconute Lesser Ranger",
     "isBoss": false
   },
   "2370016": {
@@ -13420,7 +15379,7 @@
     "isBoss": false
   },
   "2370019": {
-    "name": "Draconute Lesser Archer",
+    "name": "Draconute Lesser Ranger",
     "isBoss": false
   },
   "2370020": {
@@ -13436,7 +15395,7 @@
     "isBoss": false
   },
   "2370023": {
-    "name": "Draconute Lesser Archer",
+    "name": "Draconute Lesser Ranger",
     "isBoss": false
   },
   "2370024": {
@@ -13452,7 +15411,7 @@
     "isBoss": false
   },
   "2370027": {
-    "name": "Draconute Lesser Archer",
+    "name": "Draconute Lesser Ranger",
     "isBoss": false
   },
   "2370028": {
@@ -13520,7 +15479,7 @@
     "isBoss": false
   },
   "2370044": {
-    "name": "Draconute Lesser Archer",
+    "name": "Draconute Lesser Ranger",
     "isBoss": false
   },
   "2370045": {
@@ -13536,7 +15495,7 @@
     "isBoss": false
   },
   "2370048": {
-    "name": "Draconute Lesser Archer",
+    "name": "Draconute Lesser Ranger",
     "isBoss": false
   },
   "2370049": {
@@ -13552,7 +15511,7 @@
     "isBoss": false
   },
   "2370052": {
-    "name": "Draconute Lesser Archer",
+    "name": "Draconute Lesser Ranger",
     "isBoss": false
   },
   "2370053": {
@@ -13568,7 +15527,7 @@
     "isBoss": false
   },
   "2370056": {
-    "name": "Draconute Lesser Archer",
+    "name": "Draconute Lesser Ranger",
     "isBoss": false
   },
   "2370057": {
@@ -13584,7 +15543,7 @@
     "isBoss": false
   },
   "2370060": {
-    "name": "Draconute Lesser Archer",
+    "name": "Draconute Lesser Ranger",
     "isBoss": false
   },
   "2370061": {
@@ -13600,7 +15559,7 @@
     "isBoss": false
   },
   "2370064": {
-    "name": "Draconute Lesser Archer",
+    "name": "Draconute Lesser Ranger",
     "isBoss": false
   },
   "2370065": {
@@ -13656,7 +15615,7 @@
     "isBoss": false
   },
   "2370078": {
-    "name": "Draconute Lesser Archer",
+    "name": "Draconute Lesser Ranger",
     "isBoss": false
   },
   "2370079": {
@@ -13672,7 +15631,7 @@
     "isBoss": false
   },
   "2370082": {
-    "name": "Draconute Lesser Archer",
+    "name": "Draconute Lesser Ranger",
     "isBoss": false
   },
   "2370083": {
@@ -13688,7 +15647,7 @@
     "isBoss": false
   },
   "2370086": {
-    "name": "Draconute Lesser Archer",
+    "name": "Draconute Lesser Ranger",
     "isBoss": false
   },
   "2370087": {
@@ -13704,7 +15663,7 @@
     "isBoss": false
   },
   "2370090": {
-    "name": "Draconute Lesser Archer",
+    "name": "Draconute Lesser Ranger",
     "isBoss": false
   },
   "2370091": {
@@ -13720,7 +15679,7 @@
     "isBoss": false
   },
   "2370094": {
-    "name": "Draconute Lesser Archer",
+    "name": "Draconute Lesser Ranger",
     "isBoss": false
   },
   "2370095": {
@@ -13736,7 +15695,7 @@
     "isBoss": false
   },
   "2370098": {
-    "name": "Draconute Lesser Archer",
+    "name": "Draconute Lesser Ranger",
     "isBoss": false
   },
   "2370099": {
@@ -15649,7 +17608,7 @@
     "isBoss": false
   },
   "2400068": {
-    "name": "Daeva Archer's Soul",
+    "name": "Daeva Ranger's Soul",
     "isBoss": false
   },
   "2400069": {
@@ -15729,7 +17688,7 @@
     "isBoss": false
   },
   "2400106": {
-    "name": "Draconute Archer",
+    "name": "Draconute Ranger",
     "isBoss": false
   },
   "2400107": {
@@ -16013,7 +17972,7 @@
     "isBoss": false
   },
   "2400268": {
-    "name": "Mind-Controlled Ancient Archer",
+    "name": "Mind-Controlled Ancient Ranger",
     "isBoss": false
   },
   "2400269": {
@@ -16342,7 +18301,7 @@
     "isBoss": false
   },
   "2400408": {
-    "name": "Marauder Archer",
+    "name": "Marauder Ranger",
     "isBoss": false
   },
   "2400409": {
@@ -16674,7 +18633,7 @@
     "isBoss": false
   },
   "2400604": {
-    "name": "Black Claw Mender",
+    "name": "Black Claw Healer",
     "isBoss": false
   },
   "2400605": {
@@ -17338,7 +19297,7 @@
     "isBoss": false
   },
   "2405001": {
-    "name": "Rubek Thieves Archer",
+    "name": "Rubek Thieves Ranger",
     "isBoss": false
   },
   "2405002": {
@@ -17362,7 +19321,7 @@
     "isBoss": true
   },
   "2405007": {
-    "name": "Rubek Thieves Archer",
+    "name": "Rubek Thieves Ranger",
     "isBoss": false
   },
   "2405008": {
@@ -17526,7 +19485,7 @@
     "isBoss": false
   },
   "2405069": {
-    "name": "Corrupted Forester Archer Wraith",
+    "name": "Corrupted Forester Ranger Wraith",
     "isBoss": false
   },
   "2405070": {
@@ -17550,7 +19509,7 @@
     "isBoss": true
   },
   "2405086": {
-    "name": "Ruins Bandit Archer",
+    "name": "Ruins Bandit Ranger",
     "isBoss": false
   },
   "2405087": {
@@ -17626,7 +19585,7 @@
     "isBoss": true
   },
   "2405121": {
-    "name": "Forest Marauder Archer",
+    "name": "Forest Marauder Ranger",
     "isBoss": false
   },
   "2405122": {
@@ -17738,7 +19697,7 @@
     "isBoss": false
   },
   "2405172": {
-    "name": "Smuggler Archer",
+    "name": "Smuggler Ranger",
     "isBoss": false
   },
   "2405173": {
@@ -17766,7 +19725,7 @@
     "isBoss": false
   },
   "2405179": {
-    "name": "Smuggler Archer",
+    "name": "Smuggler Ranger",
     "isBoss": false
   },
   "2405180": {
@@ -17782,7 +19741,7 @@
     "isBoss": false
   },
   "2405183": {
-    "name": "Smuggler Archer",
+    "name": "Smuggler Ranger",
     "isBoss": false
   },
   "2405184": {
@@ -17858,7 +19817,7 @@
     "isBoss": false
   },
   "2405231": {
-    "name": "Extermination Unit Archer",
+    "name": "Extermination Unit Ranger",
     "isBoss": false
   },
   "2405232": {
@@ -17886,7 +19845,7 @@
     "isBoss": false
   },
   "2405251": {
-    "name": "Amurahta Watch Archer",
+    "name": "Amurahta Watch Ranger",
     "isBoss": false
   },
   "2405252": {
@@ -17906,7 +19865,7 @@
     "isBoss": false
   },
   "2405256": {
-    "name": "Watch Commander Amurahta",
+    "name": "Watch Captain Amurahta",
     "isBoss": true
   },
   "2405257": {
@@ -17926,7 +19885,7 @@
     "isBoss": false
   },
   "2405261": {
-    "name": "Amurahta Watch Archer",
+    "name": "Amurahta Watch Ranger",
     "isBoss": false
   },
   "2405262": {
@@ -17971,11 +19930,11 @@
     "isDummy": true
   },
   "2406001": {
-    "name": "Daeva Knight Soul",
+    "name": "Plains Papis",
     "isBoss": false
   },
   "2406002": {
-    "name": "Daeva Archer Soul",
+    "name": "Melted Snowfield Spider",
     "isBoss": false
   },
   "2406003": {
@@ -17983,39 +19942,187 @@
     "isBoss": false
   },
   "2406004": {
-    "name": "Dratona Scout",
+    "name": "Balaur Communication Tower",
     "isBoss": false
   },
   "2406005": {
-    "name": "Forest Guardian Warrior",
+    "name": "Dratona Laborer",
     "isBoss": false
   },
   "2406006": {
-    "name": "Borkan",
+    "name": "Draconute Shaman",
     "isBoss": false
   },
   "2406007": {
-    "name": "Young Borkan",
+    "name": "Draconute Defender",
     "isBoss": false
   },
   "2406008": {
-    "name": "Lumina",
+    "name": "Icecap Pachyron",
     "isBoss": false
   },
   "2406009": {
-    "name": "Windrage",
+    "name": "Soulless Priest",
     "isBoss": false
   },
   "2406010": {
-    "name": "Young Windrage",
+    "name": "Icecap Torba",
     "isBoss": false
   },
   "2406011": {
-    "name": "Cerebro",
+    "name": "Docile Ice Fang Fossa",
     "isBoss": false
   },
   "2406012": {
-    "name": "Young Cerebro",
+    "name": "Soulless Vigilante",
+    "isBoss": false
+  },
+  "2406013": {
+    "name": "Dratona Guardian",
+    "isBoss": false
+  },
+  "2406014": {
+    "name": "Decomposed Soulless Warrior",
+    "isBoss": false
+  },
+  "2406015": {
+    "name": "Consumed Patamor Villager",
+    "isBoss": false
+  },
+  "2406016": {
+    "name": "Midsize Fafnium",
+    "isBoss": false
+  },
+  "2406017": {
+    "name": "Veil Jewel",
+    "isBoss": false
+  },
+  "2406018": {
+    "name": "Midsize Fafnium",
+    "isBoss": false
+  },
+  "2406019": {
+    "name": "Icecap Tuka",
+    "isBoss": false
+  },
+  "2406020": {
+    "name": "Snowfield Lagur",
+    "isBoss": false
+  },
+  "2406021": {
+    "name": "Ice Fang Fossa",
+    "isBoss": false
+  },
+  "2406022": {
+    "name": "Patamor Garrison Troopers Explorer",
+    "isBoss": false
+  },
+  "2406023": {
+    "name": "Wild Lagur",
+    "isBoss": false
+  },
+  "2406024": {
+    "name": "Patamor Garrison Troopers Ranger",
+    "isBoss": false
+  },
+  "2406025": {
+    "name": "Tracker Oculazen",
+    "isBoss": false
+  },
+  "2406026": {
+    "name": "Frost Spirit",
+    "isBoss": false
+  },
+  "2406027": {
+    "name": "Ridge Marauder Slayer",
+    "isBoss": false
+  },
+  "2406028": {
+    "name": "Patamor Garrison Troopers Warrior",
+    "isBoss": false
+  },
+  "2406029": {
+    "name": "Draconute Searcher",
+    "isBoss": false
+  },
+  "2406030": {
+    "name": "Patamor Durgal",
+    "isBoss": false
+  },
+  "2406031": {
+    "name": "Frost Frugon",
+    "isBoss": false
+  },
+  "2406032": {
+    "name": "Ridge Marauder Sniper",
+    "isBoss": false
+  },
+  "2406033": {
+    "name": "Draconute Assault Trooper",
+    "isBoss": false
+  },
+  "2406034": {
+    "name": "Edgewalker Pargon",
+    "isBoss": true
+  },
+  "2406035": {
+    "name": "Predator Colossus Balakh",
+    "isBoss": true
+  },
+  "2406036": {
+    "name": "Frost Spider",
+    "isBoss": false
+  },
+  "2406037": {
+    "name": "Frost Trogas",
+    "isBoss": false
+  },
+  "2406038": {
+    "name": "Icecap Kailin",
+    "isBoss": false
+  },
+  "2406039": {
+    "name": "Icecap Young Kailin",
+    "isBoss": false
+  },
+  "2406040": {
+    "name": "Ridge Marauder Reaver",
+    "isBoss": false
+  },
+  "2406041": {
+    "name": "Icecap Lake Ghula",
+    "isBoss": false
+  },
+  "2406042": {
+    "name": "Ridge Marauder Twoblade Warrior",
+    "isBoss": false
+  },
+  "2406043": {
+    "name": "Icecap Durgal",
+    "isBoss": false
+  },
+  "2406044": {
+    "name": "Frost Armadon",
+    "isBoss": false
+  },
+  "2406045": {
+    "name": "Mutant Agrint",
+    "isBoss": false
+  },
+  "2406046": {
+    "name": "Icecap Spider Insectoid",
+    "isBoss": false
+  },
+  "2406047": {
+    "name": "Icecap Withered Agrint",
+    "isBoss": false
+  },
+  "2406048": {
+    "name": "Snow Kabloom",
+    "isBoss": false
+  },
+  "2406049": {
+    "name": "Frost Spider",
     "isBoss": false
   },
   "2406050": {
@@ -18024,67 +20131,195 @@
     "isDummy": true
   },
   "2406051": {
-    "name": "Ice Claw Mau Brawler",
+    "name": "Soulless Snowfield Templar",
     "isBoss": false
   },
   "2406052": {
-    "name": "Ice Claw Mau Healer",
+    "name": "Soulless Snowfield Gladiator",
     "isBoss": false
   },
   "2406053": {
-    "name": "Ice Claw Mau Sentry",
+    "name": "Veil Jewel",
     "isBoss": false
   },
   "2406054": {
-    "name": "Duduka Orderly",
+    "name": "Frost Drakan Trooper",
     "isBoss": false
   },
   "2406055": {
-    "name": "Duduka Watch Warrior",
+    "name": "Frost Drakan Ranger",
     "isBoss": false
   },
   "2406056": {
-    "name": "Frost Fang",
+    "name": "Frost Drakan Watcher",
     "isBoss": false
   },
   "2406057": {
-    "name": "Biruta Ascetic",
+    "name": "Snowfield Zaif",
     "isBoss": false
   },
   "2406058": {
-    "name": "Biruta Mediator",
+    "name": "Baby Snowfield Zaif",
     "isBoss": false
   },
   "2406059": {
-    "name": "Biruta Rake",
-    "isBoss": false
-  },
-  "2406060": {
-    "name": "Rayge",
-    "isBoss": false
-  },
-  "2406061": {
-    "name": "Young Rayge",
-    "isBoss": false
-  },
-  "2406062": {
     "name": "Snowfield Stone Spirit",
     "isBoss": false
   },
+  "2406060": {
+    "name": "Snowfield Drakan Watcher",
+    "isBoss": false
+  },
+  "2406061": {
+    "name": "Snowfield Drakan Probe",
+    "isBoss": false
+  },
+  "2406062": {
+    "name": "Snowfield Drakan Guard Dog",
+    "isBoss": false
+  },
   "2406063": {
-    "name": "Kuru Wanderer",
+    "name": "Fate Archon Hunter",
     "isBoss": false
   },
   "2406064": {
-    "name": "Wandering Specter",
+    "name": "Fate Archon Priest",
     "isBoss": false
   },
   "2406065": {
-    "name": "Rooted Spirit",
+    "name": "Fate Archon Berserker",
     "isBoss": false
   },
   "2406066": {
-    "name": "Wandering Daeva Wraith",
+    "name": "Fate Archon Tracker",
+    "isBoss": false
+  },
+  "2406067": {
+    "name": "Fate Archon Executioner",
+    "isBoss": false
+  },
+  "2406068": {
+    "name": "Fate Archon Decapitator",
+    "isBoss": false
+  },
+  "2406069": {
+    "name": "Snowfield Torba",
+    "isBoss": false
+  },
+  "2406070": {
+    "name": "Balaur Skirmish Tower",
+    "isBoss": false
+  },
+  "2406071": {
+    "name": "Crimson Blizzard Renulf",
+    "isBoss": true
+  },
+  "2406072": {
+    "name": "Snowfield Trogas",
+    "isBoss": false
+  },
+  "2406073": {
+    "name": "Snowfield Drakan Magic Supporter",
+    "isBoss": false
+  },
+  "2406074": {
+    "name": "Snowfield Drakan Totem",
+    "isBoss": false
+  },
+  "2406076": {
+    "name": "Preserved Medium Fafnium",
+    "isBoss": false
+  },
+  "2406077": {
+    "name": "Snowfield Medium Fafnium",
+    "isBoss": false
+  },
+  "2406078": {
+    "name": "Glacial Breath Lamphu",
+    "isBoss": false
+  },
+  "2406079": {
+    "name": "Glacial Crystal Lamphu",
+    "isBoss": false
+  },
+  "2406080": {
+    "name": "Executed Archon Warrior",
+    "isBoss": false
+  },
+  "2406081": {
+    "name": "Executed Archon Ranger",
+    "isBoss": false
+  },
+  "2406082": {
+    "name": "Mad Snowfield Daeva",
+    "isBoss": false
+  },
+  "2406083": {
+    "name": "Snowfield Debry",
+    "isBoss": false
+  },
+  "2406084": {
+    "name": "Snowfield Kalgolem",
+    "isBoss": false
+  },
+  "2406085": {
+    "name": "Snowfield Lamphu",
+    "isBoss": false
+  },
+  "2406086": {
+    "name": "Snowfield Frugon",
+    "isBoss": false
+  },
+  "2406087": {
+    "name": "Snowfield Corpse Gnat",
+    "isBoss": false
+  },
+  "2406088": {
+    "name": "Snowfield Ghost",
+    "isBoss": false
+  },
+  "2406089": {
+    "name": "Frozen Lake Ghula",
+    "isBoss": false
+  },
+  "2406090": {
+    "name": "Lost Snowfield Specter",
+    "isBoss": false
+  },
+  "2406091": {
+    "name": "Snowfield Tuka",
+    "isBoss": false
+  },
+  "2406092": {
+    "name": "Snowfield Floofy",
+    "isBoss": false
+  },
+  "2406093": {
+    "name": "Frostarmor Harkhan",
+    "isBoss": true
+  },
+  "2406094": {
+    "name": "Azure Tear Glacia",
+    "isBoss": true
+  },
+  "2406095": {
+    "name": "Snowfield Durgal",
+    "isBoss": false
+  },
+  "2406096": {
+    "name": "Frost Spider",
+    "isBoss": false
+  },
+  "2406097": {
+    "name": "Snowfield Floofy",
+    "isBoss": false
+  },
+  "2406098": {
+    "name": "Snowfield Stone Spirit",
+    "isBoss": false
+  },
+  "2406099": {
+    "name": "Snowfield Ghost",
     "isBoss": false
   },
   "2406100": {
@@ -18093,7 +20328,7 @@
     "isDummy": true
   },
   "2406101": {
-    "name": "Iralcig Naga Guardian",
+    "name": "Iralcig Nagarant Guardian Warrior",
     "isBoss": false
   },
   "2406102": {
@@ -18101,15 +20336,155 @@
     "isBoss": false
   },
   "2406103": {
-    "name": "Fate Daeva Infantry",
+    "name": "Fate Archon Guard",
     "isBoss": false
   },
   "2406104": {
-    "name": "Fate Daeva Priest",
+    "name": "Fate Archon Archpriest",
     "isBoss": false
   },
   "2406105": {
-    "name": "Fate Daeva Bomber",
+    "name": "Fate Archon Brawler",
+    "isBoss": false
+  },
+  "2406106": {
+    "name": "Tamed Mutated Karnif",
+    "isBoss": false
+  },
+  "2406107": {
+    "name": "Kurpak Krall Warrior",
+    "isBoss": false
+  },
+  "2406108": {
+    "name": "Kurpak Krall Striker",
+    "isBoss": false
+  },
+  "2406109": {
+    "name": "Kurpak Krall Healer",
+    "isBoss": false
+  },
+  "2406110": {
+    "name": "Kurpak Krall Assault Trooper",
+    "isBoss": false
+  },
+  "2406111": {
+    "name": "Lava Barghest",
+    "isBoss": false
+  },
+  "2406112": {
+    "name": "Fate Archon Tracker",
+    "isBoss": false
+  },
+  "2406113": {
+    "name": "Fate Archon Priest",
+    "isBoss": false
+  },
+  "2406114": {
+    "name": "Fate Archon Scout",
+    "isBoss": false
+  },
+  "2406115": {
+    "name": "Fate Archon Battle Sorcerer",
+    "isBoss": false
+  },
+  "2406116": {
+    "name": "Fate Archon Advisor",
+    "isBoss": false
+  },
+  "2406117": {
+    "name": "Archon Karnif",
+    "isBoss": false
+  },
+  "2406118": {
+    "name": "Lava Mutant Flower",
+    "isBoss": false
+  },
+  "2406119": {
+    "name": "Lava Kindling Lamphu",
+    "isBoss": false
+  },
+  "2406120": {
+    "name": "Highland Lupyllini",
+    "isBoss": false
+  },
+  "2406121": {
+    "name": "Iralcig North Sea Moss Crab",
+    "isBoss": false
+  },
+  "2406122": {
+    "name": "Iralcig North Sea Starturtle",
+    "isBoss": false
+  },
+  "2406123": {
+    "name": "Crimson Armadon",
+    "isBoss": false
+  },
+  "2406124": {
+    "name": "Lava-Maned Kailin",
+    "isBoss": false
+  },
+  "2406125": {
+    "name": "Highland Lava Pokus",
+    "isBoss": false
+  },
+  "2406126": {
+    "name": "Lava Spider",
+    "isBoss": false
+  },
+  "2406127": {
+    "name": "Seething Lava Barghest",
+    "isBoss": false
+  },
+  "2406128": {
+    "name": "Kaulynx",
+    "isBoss": false
+  },
+  "2406129": {
+    "name": "Wings of Hellfire Fios",
+    "isBoss": true
+  },
+  "2406130": {
+    "name": "Overheated Surveillance Device",
+    "isBoss": false
+  },
+  "2406131": {
+    "name": "Lava Heart Batu",
+    "isBoss": true
+  },
+  "2406132": {
+    "name": "Elite Inquisitor Verant",
+    "isBoss": true
+  },
+  "2406133": {
+    "name": "Iralcig Small Latoha",
+    "isBoss": false
+  },
+  "2406134": {
+    "name": "Iralcig Swift Latoha",
+    "isBoss": false
+  },
+  "2406135": {
+    "name": "Iralcig Magic Latoha",
+    "isBoss": false
+  },
+  "2406136": {
+    "name": "Ashpile Kalgolem",
+    "isBoss": false
+  },
+  "2406137": {
+    "name": "Fate Archon Alarm Device",
+    "isBoss": false
+  },
+  "2406138": {
+    "name": "Iralcig Cadaver Cleaner",
+    "isBoss": false
+  },
+  "2406139": {
+    "name": "Ashpile Basilisk",
+    "isBoss": false
+  },
+  "2406140": {
+    "name": "Ashpile Driznak",
     "isBoss": false
   },
   "2406150": {
@@ -18118,24 +20493,128 @@
     "isDummy": true
   },
   "2406151": {
-    "name": "Fate Daeva Gladiator",
+    "name": "Lava-holder Basilisk",
     "isBoss": false
   },
   "2406152": {
-    "name": "Fate Daeva Monk",
+    "name": "Enraged Fire Spirit",
     "isBoss": false
   },
   "2406153": {
-    "name": "Fate Daeva Torturer",
+    "name": "Enraged Fire Spirit Guardian",
     "isBoss": false
   },
   "2406154": {
-    "name": "Muspel Balgest",
+    "name": "Lava Slime",
     "isBoss": false
   },
   "2406155": {
+    "name": "Muspel Lavafiend",
+    "isBoss": false
+  },
+  "2406156": {
     "name": "Unruly Fire Spirit",
     "isBoss": false
+  },
+  "2406157": {
+    "name": "Unruly Fire Spirit Guardian",
+    "isBoss": false
+  },
+  "2406158": {
+    "name": "Fire Temple Guardian Statue",
+    "isBoss": false
+  },
+  "2406159": {
+    "name": "Ashpile Forester",
+    "isBoss": false
+  },
+  "2406160": {
+    "name": "Lava Starturtle",
+    "isBoss": false
+  },
+  "2406161": {
+    "name": "Lava Durgal",
+    "isBoss": false
+  },
+  "2406162": {
+    "name": "Ashpile Lupyllini",
+    "isBoss": false
+  },
+  "2406163": {
+    "name": "Twisted Rotan",
+    "isBoss": false
+  },
+  "2406164": {
+    "name": "Lava Stone Spirit",
+    "isBoss": false
+  },
+  "2406165": {
+    "name": "Kurpak Krall's Shackles",
+    "isBoss": false
+  },
+  "2406166": {
+    "name": "Lava Gravarax",
+    "isBoss": false
+  },
+  "2406167": {
+    "name": "Broken Ancient Totem",
+    "isBoss": false
+  },
+  "2406168": {
+    "name": "Kurpak Krall's Suppressors",
+    "isBoss": false
+  },
+  "2406170": {
+    "name": "Firebreath Barghest",
+    "isBoss": false
+  },
+  "2406171": {
+    "name": "Lava Bloom",
+    "isBoss": false
+  },
+  "2406172": {
+    "name": "Giant Lava Bloom",
+    "isBoss": false
+  },
+  "2406173": {
+    "name": "Lava Breath Lamphu",
+    "isBoss": false
+  },
+  "2406174": {
+    "name": "Kurpak Krall Enforcer",
+    "isBoss": false
+  },
+  "2406175": {
+    "name": "Kurpak Krall Tracker",
+    "isBoss": false
+  },
+  "2406176": {
+    "name": "Kurpak Krall Supporter",
+    "isBoss": false
+  },
+  "2406177": {
+    "name": "Kurpak Krall Scout",
+    "isBoss": false
+  },
+  "2406178": {
+    "name": "Volcano Spider",
+    "isBoss": false
+  },
+  "2406179": {
+    "name": "Lava Zirka",
+    "isBoss": false
+  },
+  "2406180": {
+    "name": "Baby Lava Zirka",
+    "isBoss": false
+  },
+  "2406181": {
+    "name": "Mad Watcher Bulagan",
+    "isBoss": true
+  },
+  "2406182": {
+    "name": "Vulcanarch Grymnir",
+    "isBoss": true
   },
   "2406200": {
     "name": "Punching Bag",
@@ -18204,6 +20683,462 @@
     "name": "Punching Bag",
     "isBoss": false,
     "isDummy": true
+  },
+  "2406351": {
+    "name": "Cliff Pachyron",
+    "isBoss": false
+  },
+  "2406352": {
+    "name": "Ashpile Durgal",
+    "isBoss": false
+  },
+  "2406353": {
+    "name": "Obsidian Driznak",
+    "isBoss": false
+  },
+  "2406354": {
+    "name": "Canyon Lava Pokus",
+    "isBoss": false
+  },
+  "2406355": {
+    "name": "Lava Spider",
+    "isBoss": false
+  },
+  "2406356": {
+    "name": "Volcanic Ash Kalgolem",
+    "isBoss": false
+  },
+  "2406990": {
+    "name": "Third Unit Commander Minasara",
+    "isBoss": true
+  },
+  "2406991": {
+    "name": "Deputy Commander Sarvakha",
+    "isBoss": true
+  },
+  "2406992": {
+    "name": "High Commander Taytra",
+    "isBoss": true
+  },
+  "2407000": {
+    "name": "Revenant Alegos",
+    "isBoss": true
+  },
+  "2407002": {
+    "name": "Snowfield Outlaw Ranger",
+    "isBoss": false
+  },
+  "2407003": {
+    "name": "Snowfield Outlaw Warrior",
+    "isBoss": false
+  },
+  "2407004": {
+    "name": "Snowfield Outlaw Thief",
+    "isBoss": false
+  },
+  "2407006": {
+    "name": "Tamed Zaif",
+    "isBoss": false
+  },
+  "2407007": {
+    "name": "Unidentified Wraith",
+    "isBoss": false
+  },
+  "2407008": {
+    "name": "Unidentified Wraith",
+    "isBoss": false
+  },
+  "2407009": {
+    "name": "Unidentified Wraith",
+    "isBoss": false
+  },
+  "2407011": {
+    "name": "Cursed Mark",
+    "isBoss": false
+  },
+  "2407012": {
+    "name": "Cursed Mark",
+    "isBoss": false
+  },
+  "2407013": {
+    "name": "Cursed Mark",
+    "isBoss": false
+  },
+  "2407020": {
+    "name": "Decomposed Karas",
+    "isBoss": false
+  },
+  "2407021": {
+    "name": "Decomposed Karas",
+    "isBoss": false
+  },
+  "2407022": {
+    "name": "Grudge Bearing Wraith",
+    "isBoss": false
+  },
+  "2407023": {
+    "name": "Fully Mutated Steinun",
+    "isBoss": true
+  },
+  "2407024": {
+    "name": "Grudge Bearing Wraith",
+    "isBoss": false
+  },
+  "2407025": {
+    "name": "Grudge Bearing Wraith",
+    "isBoss": false
+  },
+  "2407026": {
+    "name": "Grudge Bearing Wraith",
+    "isBoss": false
+  },
+  "2407027": {
+    "name": "Snowfield Karas Corpse",
+    "isBoss": false
+  },
+  "2407028": {
+    "name": "Snowfield Karas Warrior",
+    "isBoss": false
+  },
+  "2407029": {
+    "name": "Snowfield Karas Elite",
+    "isBoss": false
+  },
+  "2407030": {
+    "name": "Snowfield Karas Priest",
+    "isBoss": false
+  },
+  "2407031": {
+    "name": "Grudge Bearing Wraith",
+    "isBoss": false
+  },
+  "2407032": {
+    "name": "Grudge Bearing Wraith",
+    "isBoss": false
+  },
+  "2407033": {
+    "name": "Grudge Bearing Wraith",
+    "isBoss": false
+  },
+  "2407034": {
+    "name": "Grudge Bearing Wraith",
+    "isBoss": false
+  },
+  "2407035": {
+    "name": "Grudge Bearing Wraith",
+    "isBoss": false
+  },
+  "2407036": {
+    "name": "Grudge Bearing Wraith",
+    "isBoss": false
+  },
+  "2407040": {
+    "name": "Fafnium Sentry",
+    "isBoss": false
+  },
+  "2407041": {
+    "name": "Fafnium Supporter",
+    "isBoss": false
+  },
+  "2407042": {
+    "name": "Fafnium Overseer",
+    "isBoss": false
+  },
+  "2407043": {
+    "name": "Dharvata Praetorian Duelist",
+    "isBoss": false
+  },
+  "2407044": {
+    "name": "Dharvata Praetorian Ranger",
+    "isBoss": false
+  },
+  "2407045": {
+    "name": "Dharvata Praetorian Assault Trooper",
+    "isBoss": false
+  },
+  "2407046": {
+    "name": "Watch Captain Dharvata",
+    "isBoss": true
+  },
+  "2407047": {
+    "name": "Fafnium Supporter",
+    "isBoss": false
+  },
+  "2407048": {
+    "name": "Fafnium Overseer",
+    "isBoss": false
+  },
+  "2407049": {
+    "name": "Dharvata Praetorian Duelist",
+    "isBoss": false
+  },
+  "2407050": {
+    "name": "Dharvata Praetorian Duelist",
+    "isBoss": false
+  },
+  "2407051": {
+    "name": "Dharvata Praetorian Assault Trooper",
+    "isBoss": false
+  },
+  "2407052": {
+    "name": "Dharvata Praetorian Assault Trooper",
+    "isBoss": false
+  },
+  "2407053": {
+    "name": "Fafnium Overseer",
+    "isBoss": false
+  },
+  "2407054": {
+    "name": "Fafnium Overseer",
+    "isBoss": false
+  },
+  "2407055": {
+    "name": "Fafnium Supporter",
+    "isBoss": false
+  },
+  "2407056": {
+    "name": "Fafnium Supporter",
+    "isBoss": false
+  },
+  "2407057": {
+    "name": "Fafnium Overseer",
+    "isBoss": false
+  },
+  "2407058": {
+    "name": "Fafnium Supporter",
+    "isBoss": false
+  },
+  "2407059": {
+    "name": "Captor Kalahanta",
+    "isBoss": true
+  },
+  "2407060": {
+    "name": "Terminator Antakhara",
+    "isBoss": true
+  },
+  "2407061": {
+    "name": "Crusher Vajradant",
+    "isBoss": true
+  },
+  "2407062": {
+    "name": "Patalajya the Scourged",
+    "isBoss": true
+  },
+  "2407063": {
+    "name": "Archivist Varnaksha",
+    "isBoss": true
+  },
+  "2407064": {
+    "name": "Arbiter Meganodh",
+    "isBoss": true
+  },
+  "2407065": {
+    "name": "Sunderer Ugravahu",
+    "isBoss": true
+  },
+  "2407066": {
+    "name": "Fafnium",
+    "isBoss": false
+  },
+  "2407067": {
+    "name": "Draconute Aerial Bomb",
+    "isBoss": false
+  },
+  "2407068": {
+    "name": "Draconute Tinkerer",
+    "isBoss": false
+  },
+  "2407069": {
+    "name": "Draconute Superior Warrior",
+    "isBoss": false
+  },
+  "2407070": {
+    "name": "Draconute Aerial Bomb",
+    "isBoss": false
+  },
+  "2407071": {
+    "name": "Aerial Bomb Generator",
+    "isBoss": false
+  },
+  "2407072": {
+    "name": "Dharvata Praetorian Duelist",
+    "isBoss": false
+  },
+  "2407073": {
+    "name": "Dharvata Praetorian Assault Trooper",
+    "isBoss": false
+  },
+  "2407074": {
+    "name": "Dharvata Praetorian Assault Trooper",
+    "isBoss": false
+  },
+  "2407075": {
+    "name": "Pulke",
+    "isBoss": true
+  },
+  "2407076": {
+    "name": "Daeva Renegade Follower",
+    "isBoss": false
+  },
+  "2407077": {
+    "name": "Daeva Renegade Follower",
+    "isBoss": false
+  },
+  "2407078": {
+    "name": "Daeva Renegade Follower",
+    "isBoss": false
+  },
+  "2407079": {
+    "name": "Daeva Renegade Follower",
+    "isBoss": false
+  },
+  "2407080": {
+    "name": "Following Exploding Insectoid",
+    "isBoss": false
+  },
+  "2407081": {
+    "name": "Heretic Fanatic",
+    "isBoss": false
+  },
+  "2407082": {
+    "name": "Heretic Fanatic",
+    "isBoss": false
+  },
+  "2407083": {
+    "name": "Heretic Fanatic",
+    "isBoss": false
+  },
+  "2407084": {
+    "name": "Heretic Fanatic",
+    "isBoss": false
+  },
+  "2407085": {
+    "name": "Heretic Fanatic",
+    "isBoss": false
+  },
+  "2407086": {
+    "name": "Heretic Instructor",
+    "isBoss": false
+  },
+  "2407087": {
+    "name": "Heretic Leader",
+    "isBoss": false
+  },
+  "2407088": {
+    "name": "Heretic Leader",
+    "isBoss": false
+  },
+  "2407089": {
+    "name": "Heretic Pet Fossa",
+    "isBoss": false
+  },
+  "2407090": {
+    "name": "Heretic Fanatic",
+    "isBoss": false
+  },
+  "2407091": {
+    "name": "Heretic Fanatic",
+    "isBoss": false
+  },
+  "2407092": {
+    "name": "Heretic Fanatic",
+    "isBoss": false
+  },
+  "2407093": {
+    "name": "Heretic Leader",
+    "isBoss": false
+  },
+  "2407094": {
+    "name": "Dinakra",
+    "isBoss": true
+  },
+  "2407095": {
+    "name": "Vigilant Oculazen",
+    "isBoss": false
+  },
+  "2407096": {
+    "name": "Drakan Warden",
+    "isBoss": false
+  },
+  "2407097": {
+    "name": "Drakan Warden",
+    "isBoss": false
+  },
+  "2407098": {
+    "name": "Outpost Self-Destruction Device",
+    "isBoss": false
+  },
+  "2407099": {
+    "name": "Draconute Tinkerer",
+    "isBoss": false
+  },
+  "2407100": {
+    "name": "Draconute Sentinel",
+    "isBoss": false
+  },
+  "2407101": {
+    "name": "Draconute Sentinel",
+    "isBoss": false
+  },
+  "2407102": {
+    "name": "Draconute Superior Sentinel",
+    "isBoss": false
+  },
+  "2407103": {
+    "name": "Drakan Superior Warden",
+    "isBoss": false
+  },
+  "2407104": {
+    "name": "Draconute Lazy Sentinel",
+    "isBoss": false
+  },
+  "2407105": {
+    "name": "Draconute Lazy Sentinel",
+    "isBoss": false
+  },
+  "2407106": {
+    "name": "Outpost Protection Totem",
+    "isBoss": false
+  },
+  "2407108": {
+    "name": "Outpost Banner",
+    "isBoss": false
+  },
+  "2407109": {
+    "name": "Outpost Underground Totem",
+    "isBoss": false
+  },
+  "2407110": {
+    "name": "Follower Assassin Daeva Renegade",
+    "isBoss": false
+  },
+  "2407111": {
+    "name": "Trap Device",
+    "isBoss": false
+  },
+  "2407112": {
+    "name": "Trap Poison Sac",
+    "isBoss": false
+  },
+  "2407113": {
+    "name": "Superior Daeva Renegade Follower",
+    "isBoss": false
+  },
+  "2407114": {
+    "name": "Superior Daeva Renegade Follower",
+    "isBoss": false
+  },
+  "2407115": {
+    "name": "Superior Daeva Renegade Follower",
+    "isBoss": false
+  },
+  "2407116": {
+    "name": "Superior Daeva Renegade Follower",
+    "isBoss": false
+  },
+  "2407117": {
+    "name": "Drakan Superior Warden",
+    "isBoss": false
   },
   "2500000": {
     "name": "Thieves Watcher",
@@ -18636,7 +21571,7 @@
     "isBoss": false
   },
   "2500116": {
-    "name": "Marauder Archer",
+    "name": "Marauder Ranger",
     "isBoss": false
   },
   "2500117": {
@@ -18765,6 +21700,122 @@
   },
   "2500148": {
     "name": "Addicted Shulak",
+    "isBoss": false
+  },
+  "2500149": {
+    "name": "Draconute Tracker",
+    "isBoss": false
+  },
+  "2500150": {
+    "name": "Draconute Sentry",
+    "isBoss": false
+  },
+  "2500151": {
+    "name": "Dratona Scout",
+    "isBoss": false
+  },
+  "2500152": {
+    "name": "Mysterious Daeva",
+    "isBoss": false
+  },
+  "2500153": {
+    "name": "Conclave Orator",
+    "isBoss": false
+  },
+  "2500154": {
+    "name": "Conclave Officer",
+    "isBoss": false
+  },
+  "2500155": {
+    "name": "Cursed Mark",
+    "isBoss": false
+  },
+  "2500156": {
+    "name": "Distorted Soul Remnant",
+    "isBoss": false
+  },
+  "2500157": {
+    "name": "Weakened Mark of Curse",
+    "isBoss": false
+  },
+  "2500158": {
+    "name": "Distorted Soul",
+    "isBoss": false
+  },
+  "2500159": {
+    "name": "Weakened Mark of Curse",
+    "isBoss": false
+  },
+  "2500160": {
+    "name": "Conclave Guard",
+    "isBoss": false
+  },
+  "2500161": {
+    "name": "Conclave Guard",
+    "isBoss": false
+  },
+  "2500162": {
+    "name": "Conclave Guard",
+    "isBoss": false
+  },
+  "2500163": {
+    "name": "Conclave Guard",
+    "isBoss": false
+  },
+  "2500164": {
+    "name": "Daeva Warrior Revenant",
+    "isBoss": false
+  },
+  "2500165": {
+    "name": "Furious Daeva Warrior Revenant",
+    "isBoss": false
+  },
+  "2500166": {
+    "name": "Kalsek",
+    "isBoss": false
+  },
+  "2500169": {
+    "name": "Frost Tayga",
+    "isBoss": false
+  },
+  "2500170": {
+    "name": "Frost Tayga",
+    "isBoss": false
+  },
+  "2500171": {
+    "name": "Frost Tayga",
+    "isBoss": false
+  },
+  "2500172": {
+    "name": "Frost Tayga",
+    "isBoss": false
+  },
+  "2500173": {
+    "name": "Frost Tayga",
+    "isBoss": false
+  },
+  "2500174": {
+    "name": "Frost Tayga",
+    "isBoss": false
+  },
+  "2500175": {
+    "name": "Frost Tayga",
+    "isBoss": false
+  },
+  "2500177": {
+    "name": "Giant Fire Spirit",
+    "isBoss": false
+  },
+  "2500178": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2500179": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2500180": {
+    "name": "Valter's Obsession",
     "isBoss": false
   },
   "2590000": {
@@ -19279,6 +22330,274 @@
     "name": "Furious Subspace Wraith",
     "isBoss": false
   },
+  "2590160": {
+    "name": "Mysterious Fate Archon",
+    "isBoss": false
+  },
+  "2590161": {
+    "name": "Kalsek",
+    "isBoss": false
+  },
+  "2590162": {
+    "name": "Bomb",
+    "isBoss": false
+  },
+  "2590163": {
+    "name": "Frost Tayga",
+    "isBoss": false
+  },
+  "2590165": {
+    "name": "Fate Archon Decimator",
+    "isBoss": false
+  },
+  "2590166": {
+    "name": "Fate Archon Executioner",
+    "isBoss": false
+  },
+  "2590190": {
+    "name": "Fate Archon Battle Sorcerer",
+    "isBoss": false
+  },
+  "2590198": {
+    "name": "Fire Spirit",
+    "isBoss": false
+  },
+  "2590199": {
+    "name": "Fire Spirit",
+    "isBoss": false
+  },
+  "2590207": {
+    "name": "Naga Cave Priest",
+    "isBoss": false
+  },
+  "2590211": {
+    "name": "Fire Spirit",
+    "isBoss": false
+  },
+  "2590214": {
+    "name": "Draconute Scout",
+    "isBoss": false
+  },
+  "2590215": {
+    "name": "Draconute Defender",
+    "isBoss": false
+  },
+  "2590216": {
+    "name": "Dratona Worker",
+    "isBoss": false
+  },
+  "2590217": {
+    "name": "Draconute Warrior",
+    "isBoss": false
+  },
+  "2590218": {
+    "name": "Draconute Scout",
+    "isBoss": false
+  },
+  "2590219": {
+    "name": "Draconute Defender",
+    "isBoss": false
+  },
+  "2590220": {
+    "name": "Jewel Consumed Daeva",
+    "isBoss": false
+  },
+  "2590221": {
+    "name": "Jewel Consumed Daeva",
+    "isBoss": false
+  },
+  "2590224": {
+    "name": "Veil Jewel",
+    "isBoss": false
+  },
+  "2590225": {
+    "name": "Dratona Combatant",
+    "isBoss": false
+  },
+  "2590226": {
+    "name": "Draconute Scout",
+    "isBoss": false
+  },
+  "2590227": {
+    "name": "Drakan Scout",
+    "isBoss": false
+  },
+  "2590228": {
+    "name": "Drakan Skirmisher",
+    "isBoss": false
+  },
+  "2590229": {
+    "name": "Fafnium",
+    "isBoss": false
+  },
+  "2590230": {
+    "name": "Kalakhar",
+    "isBoss": false
+  },
+  "2590231": {
+    "name": "Kalakhar's Minion",
+    "isBoss": false
+  },
+  "2590232": {
+    "name": "Kalakhar's Minion",
+    "isBoss": false
+  },
+  "2590233": {
+    "name": "Indnath",
+    "isBoss": false
+  },
+  "2590234": {
+    "name": "Deceived Follower",
+    "isBoss": false
+  },
+  "2590235": {
+    "name": "Deceived Follower",
+    "isBoss": false
+  },
+  "2590236": {
+    "name": "Deceived Follower",
+    "isBoss": false
+  },
+  "2590237": {
+    "name": "Deceived Follower",
+    "isBoss": false
+  },
+  "2590242": {
+    "name": "Fire Spirit",
+    "isBoss": false
+  },
+  "2590244": {
+    "name": "Fate Archon Priest",
+    "isBoss": false
+  },
+  "2590245": {
+    "name": "Fate Archon Skirmisher",
+    "isBoss": false
+  },
+  "2590246": {
+    "name": "Fate Archon Judge",
+    "isBoss": false
+  },
+  "2590250": {
+    "name": "Nagarant Chaser",
+    "isBoss": false
+  },
+  "2590251": {
+    "name": "Naga Shaman",
+    "isBoss": false
+  },
+  "2590252": {
+    "name": "Wounded Ranger Daeva",
+    "isBoss": false
+  },
+  "2590253": {
+    "name": "Wounded Gladiator Daeva",
+    "isBoss": false
+  },
+  "2590254": {
+    "name": "Drakan Soldier Apparition",
+    "isBoss": false
+  },
+  "2590255": {
+    "name": "Drakan Cleric Apparition",
+    "isBoss": false
+  },
+  "2590256": {
+    "name": "Rampaging Specter",
+    "isBoss": false
+  },
+  "2590259": {
+    "name": "Draconute Scout",
+    "isBoss": false
+  },
+  "2590260": {
+    "name": "Draconute Defender",
+    "isBoss": false
+  },
+  "2590261": {
+    "name": "Naga Cave Priest",
+    "isBoss": false
+  },
+  "2590264": {
+    "name": "Fate Archon Sentry",
+    "isBoss": false
+  },
+  "2590265": {
+    "name": "Fate Archon Sentry",
+    "isBoss": false
+  },
+  "2590267": {
+    "name": "Fate Archon Sentry",
+    "isBoss": false
+  },
+  "2590269": {
+    "name": "Explosion",
+    "isBoss": false
+  },
+  "2590270": {
+    "name": "Lava Glob",
+    "isBoss": false
+  },
+  "2590271": {
+    "name": "Giant Lava Glob",
+    "isBoss": false
+  },
+  "2590272": {
+    "name": "Rampaging Fire Spirit",
+    "isBoss": false
+  },
+  "2590273": {
+    "name": "Explosion",
+    "isBoss": false
+  },
+  "2590274": {
+    "name": "Ganetri of Lava",
+    "isBoss": false
+  },
+  "2590275": {
+    "name": "Ganetri of Lava",
+    "isBoss": false
+  },
+  "2590276": {
+    "name": "Nikolai",
+    "isBoss": false
+  },
+  "2590277": {
+    "name": "Milora's Subordinate",
+    "isBoss": false
+  },
+  "2590278": {
+    "name": "Milora's Subordinate",
+    "isBoss": false
+  },
+  "2590279": {
+    "name": "Robzev",
+    "isBoss": false
+  },
+  "2590280": {
+    "name": "Milora's Subordinate",
+    "isBoss": false
+  },
+  "2590281": {
+    "name": "Milora's Subordinate",
+    "isBoss": false
+  },
+  "2590282": {
+    "name": "Milora's Subordinate",
+    "isBoss": false
+  },
+  "2590283": {
+    "name": "Balaur Communication Tower",
+    "isBoss": false
+  },
+  "2590284": {
+    "name": "Balaur Communication Tower",
+    "isBoss": false
+  },
+  "2590285": {
+    "name": "Fate Archon Priest",
+    "isBoss": false
+  },
   "2600001": {
     "name": "Abyss Swarm",
     "isBoss": false
@@ -19288,7 +22607,7 @@
     "isBoss": false
   },
   "2600003": {
-    "name": "Abyss Old Rotan",
+    "name": "Abyss Rusty Rotan",
     "isBoss": false
   },
   "2600004": {
@@ -19336,7 +22655,7 @@
     "isBoss": false
   },
   "2600016": {
-    "name": "Abyss Krall Search Party Archer",
+    "name": "Abyss Krall Search Party Ranger",
     "isBoss": false
   },
   "2600017": {
@@ -19748,7 +23067,7 @@
     "isBoss": false
   },
   "2600126": {
-    "name": "Underground Temple Defender",
+    "name": "Underground Temple Guardian",
     "isBoss": false
   },
   "2600127": {
@@ -19844,11 +23163,11 @@
     "isBoss": true
   },
   "2600154": {
-    "name": "Latesran Western Skyway Guardian",
+    "name": "Dukysas Skyway Guardian",
     "isBoss": false
   },
   "2600155": {
-    "name": "Latesran Eastern Skyway Guardian",
+    "name": "Krotan Skyway Guardian",
     "isBoss": false
   },
   "2600156": {
@@ -20216,7 +23535,7 @@
     "isBoss": false
   },
   "2600306": {
-    "name": "Takshaka Krall Archer",
+    "name": "Takshaka Krall Ranger",
     "isBoss": false
   },
   "2600307": {
@@ -20252,7 +23571,7 @@
     "isBoss": false
   },
   "2600316": {
-    "name": "Takshaka Krall Archer",
+    "name": "Takshaka Krall Ranger",
     "isBoss": false
   },
   "2600317": {
@@ -20536,7 +23855,7 @@
     "isBoss": false
   },
   "2600406": {
-    "name": "Abyss Krall Archer",
+    "name": "Abyss Krall Ranger",
     "isBoss": false
   },
   "2600407": {
@@ -20572,7 +23891,7 @@
     "isBoss": false
   },
   "2600416": {
-    "name": "Abyss Krall Archer",
+    "name": "Abyss Krall Ranger",
     "isBoss": false
   },
   "2600417": {
@@ -20832,7 +24151,7 @@
     "isBoss": false
   },
   "2600485": {
-    "name": "Abyss Krall Archer",
+    "name": "Abyss Krall Ranger",
     "isBoss": false
   },
   "2600486": {
@@ -20868,7 +24187,7 @@
     "isBoss": false
   },
   "2600495": {
-    "name": "Abyss Krall Archer",
+    "name": "Abyss Krall Ranger",
     "isBoss": false
   },
   "2600496": {
@@ -21135,6 +24454,350 @@
     "name": "Varg Berserker",
     "isBoss": false
   },
+  "2600601": {
+    "name": "Abyss Swarm",
+    "isBoss": false
+  },
+  "2600602": {
+    "name": "Abyss Klaw",
+    "isBoss": false
+  },
+  "2600603": {
+    "name": "Abyss Rusty Rotan",
+    "isBoss": false
+  },
+  "2600604": {
+    "name": "Abyss Rusty Rotan",
+    "isBoss": false
+  },
+  "2600605": {
+    "name": "Chandala Krall Karnif",
+    "isBoss": false
+  },
+  "2600606": {
+    "name": "Chandala Krall Karnif",
+    "isBoss": false
+  },
+  "2600607": {
+    "name": "Chandala Krall Karnif",
+    "isBoss": false
+  },
+  "2600608": {
+    "name": "Chandala Drakan Scout",
+    "isBoss": false
+  },
+  "2600609": {
+    "name": "Chandala Drakan Scout",
+    "isBoss": false
+  },
+  "2600610": {
+    "name": "Chandala Krall Ranger",
+    "isBoss": false
+  },
+  "2600611": {
+    "name": "Chandala Krall Ranger",
+    "isBoss": false
+  },
+  "2600612": {
+    "name": "Chandala Drakan Assault Trooper",
+    "isBoss": false
+  },
+  "2600613": {
+    "name": "Renegade Daeva",
+    "isBoss": false
+  },
+  "2600614": {
+    "name": "Renegade Daeva",
+    "isBoss": false
+  },
+  "2600615": {
+    "name": "Renegade Daeva",
+    "isBoss": false
+  },
+  "2600616": {
+    "name": "Undying Guard",
+    "isBoss": false
+  },
+  "2600617": {
+    "name": "Undying Guard",
+    "isBoss": false
+  },
+  "2600618": {
+    "name": "Undying Guard",
+    "isBoss": false
+  },
+  "2600621": {
+    "name": "Abyss Swarm",
+    "isBoss": false
+  },
+  "2600622": {
+    "name": "Abyss Klaw",
+    "isBoss": false
+  },
+  "2600623": {
+    "name": "Abyss Rusty Rotan",
+    "isBoss": false
+  },
+  "2600624": {
+    "name": "Abyss Rusty Rotan",
+    "isBoss": false
+  },
+  "2600625": {
+    "name": "Chandala Krall Karnif",
+    "isBoss": false
+  },
+  "2600626": {
+    "name": "Chandala Krall Karnif",
+    "isBoss": false
+  },
+  "2600627": {
+    "name": "Chandala Krall Karnif",
+    "isBoss": false
+  },
+  "2600628": {
+    "name": "Chandala Drakan Scout",
+    "isBoss": false
+  },
+  "2600629": {
+    "name": "Chandala Drakan Scout",
+    "isBoss": false
+  },
+  "2600630": {
+    "name": "Chandala Krall Ranger",
+    "isBoss": false
+  },
+  "2600631": {
+    "name": "Chandala Krall Ranger",
+    "isBoss": false
+  },
+  "2600632": {
+    "name": "Chandala Drakan Assault Trooper",
+    "isBoss": false
+  },
+  "2600633": {
+    "name": "Renegade Daeva",
+    "isBoss": false
+  },
+  "2600634": {
+    "name": "Renegade Daeva",
+    "isBoss": false
+  },
+  "2600635": {
+    "name": "Renegade Daeva",
+    "isBoss": false
+  },
+  "2600636": {
+    "name": "Undying Guard",
+    "isBoss": false
+  },
+  "2600637": {
+    "name": "Undying Guard",
+    "isBoss": false
+  },
+  "2600638": {
+    "name": "Undying Guard",
+    "isBoss": false
+  },
+  "2600641": {
+    "name": "Abyss Swarm",
+    "isBoss": false
+  },
+  "2600642": {
+    "name": "Abyss Klaw",
+    "isBoss": false
+  },
+  "2600643": {
+    "name": "Abyss Rusty Rotan",
+    "isBoss": false
+  },
+  "2600644": {
+    "name": "Abyss Rusty Rotan",
+    "isBoss": false
+  },
+  "2600645": {
+    "name": "Makarah Krall Karnif",
+    "isBoss": false
+  },
+  "2600646": {
+    "name": "Makarah Krall Karnif",
+    "isBoss": false
+  },
+  "2600647": {
+    "name": "Makarah Krall Karnif",
+    "isBoss": false
+  },
+  "2600648": {
+    "name": "Makarah Drakan Scout",
+    "isBoss": false
+  },
+  "2600649": {
+    "name": "Makarah Drakan Scout",
+    "isBoss": false
+  },
+  "2600650": {
+    "name": "Makarah Krall Ranger",
+    "isBoss": false
+  },
+  "2600651": {
+    "name": "Makarah Krall Ranger",
+    "isBoss": false
+  },
+  "2600652": {
+    "name": "Makarah Drakan Assault Trooper",
+    "isBoss": false
+  },
+  "2600653": {
+    "name": "Renegade Daeva",
+    "isBoss": false
+  },
+  "2600654": {
+    "name": "Renegade Daeva",
+    "isBoss": false
+  },
+  "2600655": {
+    "name": "Renegade Daeva",
+    "isBoss": false
+  },
+  "2600656": {
+    "name": "Undying Guard",
+    "isBoss": false
+  },
+  "2600657": {
+    "name": "Undying Guard",
+    "isBoss": false
+  },
+  "2600658": {
+    "name": "Undying Guard",
+    "isBoss": false
+  },
+  "2600661": {
+    "name": "Abyss Swarm",
+    "isBoss": false
+  },
+  "2600662": {
+    "name": "Abyss Klaw",
+    "isBoss": false
+  },
+  "2600663": {
+    "name": "Abyss Rusty Rotan",
+    "isBoss": false
+  },
+  "2600664": {
+    "name": "Abyss Rusty Rotan",
+    "isBoss": false
+  },
+  "2600665": {
+    "name": "Makarah Krall Karnif",
+    "isBoss": false
+  },
+  "2600666": {
+    "name": "Makarah Krall Karnif",
+    "isBoss": false
+  },
+  "2600667": {
+    "name": "Makarah Krall Karnif",
+    "isBoss": false
+  },
+  "2600668": {
+    "name": "Makarah Drakan Scout",
+    "isBoss": false
+  },
+  "2600669": {
+    "name": "Makarah Drakan Scout",
+    "isBoss": false
+  },
+  "2600670": {
+    "name": "Makarah Krall Ranger",
+    "isBoss": false
+  },
+  "2600671": {
+    "name": "Makarah Krall Ranger",
+    "isBoss": false
+  },
+  "2600672": {
+    "name": "Makarah Drakan Assault Trooper",
+    "isBoss": false
+  },
+  "2600673": {
+    "name": "Renegade Daeva",
+    "isBoss": false
+  },
+  "2600674": {
+    "name": "Renegade Daeva",
+    "isBoss": false
+  },
+  "2600675": {
+    "name": "Renegade Daeva",
+    "isBoss": false
+  },
+  "2600676": {
+    "name": "Undying Guard",
+    "isBoss": false
+  },
+  "2600677": {
+    "name": "Undying Guard",
+    "isBoss": false
+  },
+  "2600678": {
+    "name": "Undying Guard",
+    "isBoss": false
+  },
+  "2600681": {
+    "name": "Abyss Swarm",
+    "isBoss": false
+  },
+  "2600682": {
+    "name": "Abyss Swarm Colony",
+    "isBoss": false
+  },
+  "2600683": {
+    "name": "Abyss Drana Slime",
+    "isBoss": false
+  },
+  "2600684": {
+    "name": "Abyss Drana Skama",
+    "isBoss": false
+  },
+  "2600685": {
+    "name": "Abyss Drana Cannibal Plant",
+    "isBoss": false
+  },
+  "2600686": {
+    "name": "Abyss Drana Mutant",
+    "isBoss": false
+  },
+  "2600687": {
+    "name": "Abyss Drana Greedwillow",
+    "isBoss": false
+  },
+  "2600688": {
+    "name": "Abyss Mutated Klaw",
+    "isBoss": false
+  },
+  "2600689": {
+    "name": "Abyss Drana Mutant",
+    "isBoss": false
+  },
+  "2600690": {
+    "name": "Unavarun Draconute Sniper",
+    "isBoss": false
+  },
+  "2600691": {
+    "name": "Abyss Drana Giant Mutant",
+    "isBoss": false
+  },
+  "2600692": {
+    "name": "Unavarun Nagarant Praetorian",
+    "isBoss": false
+  },
+  "2600701": {
+    "name": "Latesran Southern Skyway Guardian",
+    "isBoss": false
+  },
+  "2600702": {
+    "name": "Latesran Northern Skyway Guardian",
+    "isBoss": false
+  },
   "2680000": {
     "name": "Odyle Shard Storm",
     "isBoss": false
@@ -21244,6 +24907,70 @@
     "isBoss": false
   },
   "2680028": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2680032": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2680033": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2680034": {
+    "name": "Sandstorm",
+    "isBoss": false
+  },
+  "2680035": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2680036": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2680037": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2680038": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2680039": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2680040": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2680041": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2680042": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2680043": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2680044": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2680045": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2680046": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2680047": {
     "name": "None",
     "isBoss": false
   },
@@ -21708,23 +25435,23 @@
     "isBoss": true
   },
   "2700849": {
-    "name": "Destruction Archons Gladiator Apparition",
+    "name": "Destruction Archon Gladiator Apparition",
     "isBoss": false
   },
   "2700850": {
-    "name": "Destruction Archons Templar Apparition",
+    "name": "Destruction Archon Templar Apparition",
     "isBoss": false
   },
   "2700851": {
-    "name": "Destruction Archons Gladiator Apparition",
+    "name": "Destruction Archon Gladiator Apparition",
     "isBoss": false
   },
   "2700852": {
-    "name": "Odylium Cave Sura Archer",
+    "name": "Odylium Cave Sura Ranger",
     "isBoss": false
   },
   "2700853": {
-    "name": "Odylium Cave Sura Archer",
+    "name": "Odylium Cave Sura Ranger",
     "isBoss": false
   },
   "2700854": {
@@ -21756,7 +25483,7 @@
     "isBoss": false
   },
   "2700863": {
-    "name": "Akilo Thieves Archer",
+    "name": "Akilo Thieves Ranger",
     "isBoss": false
   },
   "2700864": {
@@ -21892,7 +25619,7 @@
     "isBoss": false
   },
   "2700905": {
-    "name": "Akilo Thieves Archer",
+    "name": "Akilo Thieves Ranger",
     "isBoss": false
   },
   "2700906": {
@@ -21932,7 +25659,7 @@
     "isBoss": false
   },
   "2700918": {
-    "name": "Poacher Archer",
+    "name": "Poacher Ranger",
     "isBoss": false
   },
   "2700919": {
@@ -22047,14 +25774,6 @@
     "name": "Soulless Follower",
     "isBoss": false
   },
-  "2700958": {
-    "name": "Mutated Pilgrim",
-    "isBoss": false
-  },
-  "2700959": {
-    "name": "Mutated Pilgrim",
-    "isBoss": false
-  },
   "2700960": {
     "name": "Sura Wraith",
     "isBoss": false
@@ -22112,7 +25831,7 @@
     "isBoss": false
   },
   "2700978": {
-    "name": "Krall Mender",
+    "name": "Krall Healer",
     "isBoss": false
   },
   "2700980": {
@@ -22172,7 +25891,7 @@
     "isBoss": false
   },
   "2701000": {
-    "name": "Basement Krall Mender",
+    "name": "Basement Krall Healer",
     "isBoss": false
   },
   "2701001": {
@@ -22208,7 +25927,7 @@
     "isBoss": false
   },
   "2701010": {
-    "name": "Basement Krall Mender",
+    "name": "Basement Krall Healer",
     "isBoss": false
   },
   "2701011": {
@@ -22252,7 +25971,7 @@
     "isBoss": true
   },
   "2701022": {
-    "name": "Nartis Balaur Archer",
+    "name": "Nartis Balaur Ranger",
     "isBoss": false
   },
   "2701023": {
@@ -22336,7 +26055,7 @@
     "isBoss": true
   },
   "2701052": {
-    "name": "Kaisinel Sanctuary Guardian Archer",
+    "name": "Kaisinel Sanctuary Guardian Ranger",
     "isBoss": false
   },
   "2701053": {
@@ -22355,32 +26074,12 @@
     "name": "Library Kerubian",
     "isBoss": false
   },
-  "2701061": {
-    "name": "Wetland Rafflesia",
-    "isBoss": false
-  },
-  "2701062": {
-    "name": "Cave Octaside",
-    "isBoss": false
-  },
-  "2701063": {
-    "name": "Cave Vivel",
-    "isBoss": false
-  },
   "2701065": {
     "name": "Poisonous Plant",
     "isBoss": false
   },
   "2701066": {
     "name": "Poison Contaminated Agrint",
-    "isBoss": false
-  },
-  "2701067": {
-    "name": "Withered Poisonous Plant Agrint",
-    "isBoss": false
-  },
-  "2701068": {
-    "name": "Young Poisonous Plant Agrint",
     "isBoss": false
   },
   "2701069": {
@@ -22459,10 +26158,6 @@
     "name": "Forgotten Lenara",
     "isBoss": true
   },
-  "2701097": {
-    "name": "Konutin Worker",
-    "isBoss": false
-  },
   "2701098": {
     "name": "Konutin",
     "isBoss": false
@@ -22496,7 +26191,7 @@
     "isBoss": false
   },
   "2701112": {
-    "name": "Hidden Karas Archer",
+    "name": "Hidden Karas Ranger",
     "isBoss": false
   },
   "2701113": {
@@ -22795,20 +26490,8 @@
     "name": "Krall Jailor",
     "isBoss": false
   },
-  "2701207": {
-    "name": "Krall Jailor",
-    "isBoss": false
-  },
-  "2701208": {
-    "name": "Captured Elyos Resident",
-    "isBoss": false
-  },
-  "2701209": {
-    "name": "Captured Elyos Resident",
-    "isBoss": false
-  },
   "2701210": {
-    "name": "Wandering Archer's Soul",
+    "name": "Wandering Ranger's Soul",
     "isBoss": false
   },
   "2701211": {
@@ -22876,19 +26559,7 @@
     "isBoss": false
   },
   "2701232": {
-    "name": "Legion Outlaws Archer",
-    "isBoss": false
-  },
-  "2701233": {
-    "name": "Legion Outlaws Archer",
-    "isBoss": false
-  },
-  "2701234": {
-    "name": "Legion Outlaws Warrior",
-    "isBoss": false
-  },
-  "2701235": {
-    "name": "Legion Outlaws Warrior",
+    "name": "Legion Outlaws Ranger",
     "isBoss": false
   },
   "2701236": {
@@ -22903,12 +26574,8 @@
     "name": "Hatched Sparkle",
     "isBoss": false
   },
-  "2701241": {
-    "name": "Hatched Sparkie",
-    "isBoss": false
-  },
   "2701245": {
-    "name": "Twisted Archer Soul",
+    "name": "Twisted Ranger Soul",
     "isBoss": false
   },
   "2701246": {
@@ -23012,7 +26679,7 @@
     "isBoss": false
   },
   "2701286": {
-    "name": "Moslan Thieves Archer",
+    "name": "Moslan Thieves Ranger",
     "isBoss": false
   },
   "2701287": {
@@ -23064,7 +26731,7 @@
     "isBoss": false
   },
   "2701302": {
-    "name": "Hideout Karas Archer",
+    "name": "Hideout Karas Ranger",
     "isBoss": false
   },
   "2701305": {
@@ -23095,10 +26762,6 @@
     "name": "Fanatics' Den Zealot",
     "isBoss": false
   },
-  "2701316": {
-    "name": "Fanatics' Den Zealot",
-    "isBoss": false
-  },
   "2701317": {
     "name": "Fanatics' Den Guard",
     "isBoss": false
@@ -23121,10 +26784,6 @@
   },
   "2701322": {
     "name": "Library Kerubian Watcher",
-    "isBoss": false
-  },
-  "2701323": {
-    "name": "Fanatics' Den Guard",
     "isBoss": false
   },
   "2701324": {
@@ -23155,10 +26814,6 @@
     "name": "Contaminated Earth Spirit",
     "isBoss": false
   },
-  "2701337": {
-    "name": "Contaminated Water Spirit",
-    "isBoss": false
-  },
   "2701338": {
     "name": "Contaminated Water Spirit",
     "isBoss": false
@@ -23184,63 +26839,55 @@
     "isBoss": true
   },
   "2701345": {
-    "name": "Crash Site Lepharist Warrior",
+    "name": "Lepharists Defender",
     "isBoss": false
   },
   "2701346": {
-    "name": "Crash Site Lepharist Warrior",
+    "name": "Lepharists Defender",
     "isBoss": false
   },
   "2701347": {
-    "name": "Crash Site Lepharist Pugilist",
+    "name": "Lepharist Special Operator",
     "isBoss": false
   },
   "2701348": {
-    "name": "Crash Site Lepharist Mage",
+    "name": "Lepharist Mage",
     "isBoss": false
   },
   "2701349": {
-    "name": "Crash Site Lepharist Mage",
-    "isBoss": false
-  },
-  "2701350": {
-    "name": "Crash Site Lepharist Researcher",
+    "name": "Lepharist Mage",
     "isBoss": false
   },
   "2701351": {
-    "name": "Crash Site Lepharist Warrior",
-    "isBoss": false
-  },
-  "2701352": {
-    "name": "Crash Site Lepharist Pugilist",
+    "name": "Lepharists Defender",
     "isBoss": false
   },
   "2701353": {
-    "name": "Crash Site Lepharist Mage",
+    "name": "Lepharist Mage",
     "isBoss": false
   },
   "2701354": {
-    "name": "Crash Site Lepharist Researcher",
+    "name": "Lepharist Scholar",
     "isBoss": false
   },
   "2701355": {
-    "name": "Crash Site Lepharist Researcher",
+    "name": "Lepharist Scholar",
     "isBoss": false
   },
   "2701356": {
-    "name": "Crash Site Lepharist Warrior",
+    "name": "Lepharists Defender",
     "isBoss": false
   },
   "2701357": {
-    "name": "Crash Site Lepharist Pugilist",
+    "name": "Lepharist Special Operator",
     "isBoss": false
   },
   "2701359": {
-    "name": "Ruins Security Device",
+    "name": "Temple Defense Device",
     "isBoss": false
   },
   "2701360": {
-    "name": "Ruins Security Device",
+    "name": "Temple Defense Device",
     "isBoss": false
   },
   "2701361": {
@@ -23248,31 +26895,39 @@
     "isBoss": true
   },
   "2701362": {
-    "name": "Lepharist Laboratory Mage",
+    "name": "Lepharist Mage",
     "isBoss": false
   },
   "2701363": {
-    "name": "Lepharist Elite Warden",
+    "name": "Lepharist Administrator",
     "isBoss": false
   },
   "2701364": {
-    "name": "Lepharist Research Center Warrior",
+    "name": "Lepharist Warrior",
     "isBoss": false
   },
   "2701365": {
-    "name": "Lepharist Laboratory Mage",
+    "name": "Lepharist Mage",
     "isBoss": false
   },
   "2701366": {
-    "name": "Lepharist Research Center Warrior",
+    "name": "Lepharist Warrior",
     "isBoss": false
   },
   "2701367": {
-    "name": "Lepharist Research Center Researcher",
+    "name": "Lepharist Researcher",
     "isBoss": false
   },
   "2701368": {
-    "name": "Lepharist Research Center Researcher",
+    "name": "Lepharist Researcher",
+    "isBoss": false
+  },
+  "2701369": {
+    "name": "Suspicious Spring Scout",
+    "isBoss": false
+  },
+  "2701370": {
+    "name": "Suspicious Spring Chaser",
     "isBoss": false
   },
   "2701371": {
@@ -23288,7 +26943,7 @@
     "isBoss": true
   },
   "2701374": {
-    "name": "Sinister Atheron",
+    "name": "Ascended Atheron",
     "isBoss": true
   },
   "2701375": {
@@ -23305,7 +26960,7 @@
     "isBoss": false
   },
   "2701378": {
-    "name": "Scouts Captain Ked",
+    "name": "Scout Captain Ked",
     "isBoss": true
   },
   "2701379": {
@@ -23353,19 +27008,19 @@
     "isBoss": false
   },
   "2701391": {
-    "name": "Crash Site Lepharist Pugilist",
+    "name": "Lepharist Special Operator",
     "isBoss": false
   },
   "2701392": {
-    "name": "Crash Site Lepharist Researcher",
+    "name": "Lepharist Scholar",
     "isBoss": false
   },
   "2701393": {
-    "name": "Ruins Security Device",
+    "name": "Temple Defense Device",
     "isBoss": false
   },
   "2701394": {
-    "name": "Ruins Security Device",
+    "name": "Temple Defense Device",
     "isBoss": false
   },
   "2701395": {
@@ -23377,7 +27032,7 @@
     "isBoss": false
   },
   "2701397": {
-    "name": "Consumed Daeva Archer",
+    "name": "Consumed Daeva Ranger",
     "isBoss": false
   },
   "2701398": {
@@ -23397,11 +27052,11 @@
     "isBoss": true
   },
   "2701403": {
-    "name": "Secret Storage Mysterious Daeva Chanter",
+    "name": "Secret Storage Mysterious Daeva Patrol",
     "isBoss": false
   },
   "2701404": {
-    "name": "Secret Storage Mysterious Daeva Chanter",
+    "name": "Secret Storage Mysterious Daeva Patrol",
     "isBoss": false
   },
   "2701405": {
@@ -23422,6 +27077,14 @@
   },
   "2701412": {
     "name": "Secret Storage Mysterious Daeva Watcher",
+    "isBoss": false
+  },
+  "2701413": {
+    "name": "Secret Storage Mysterious Daeva Observer",
+    "isBoss": false
+  },
+  "2701414": {
+    "name": "Secret Storage Mysterious Daeva Patrol",
     "isBoss": false
   },
   "2701415": {
@@ -23460,14 +27123,6 @@
     "name": "Sura Bioweapon",
     "isBoss": false
   },
-  "2701424": {
-    "name": "Drana Bioweapon",
-    "isBoss": false
-  },
-  "2701425": {
-    "name": "Bomb",
-    "isBoss": false
-  },
   "2701426": {
     "name": "Laser",
     "isBoss": false
@@ -23492,56 +27147,44 @@
     "name": "Sura Magic Bioweapon",
     "isBoss": false
   },
-  "2701434": {
-    "name": "Floating Temple Fate Daeva Chanter",
-    "isBoss": false
-  },
   "2701435": {
-    "name": "Floating Temple Fate Daeva Observer",
+    "name": "Sigebert Praetorian",
     "isBoss": false
   },
   "2701436": {
-    "name": "Floating Temple Fate Daeva Watcher",
+    "name": "Sigebert Praetorian",
     "isBoss": false
   },
   "2701439": {
-    "name": "Floating Temple Fate Daeva Cleric",
+    "name": "Sigebert Praetorian",
     "isBoss": false
   },
   "2701440": {
-    "name": "Temple Guardian Hugin",
+    "name": "Attendant Hugin",
     "isBoss": true
   },
   "2701441": {
-    "name": "Floating Temple Fate Daeva Instructor",
+    "name": "Sigebert Praetorian",
     "isBoss": false
   },
   "2701442": {
     "name": "Blades Bodyguard Warrior",
     "isBoss": false
   },
-  "2701444": {
-    "name": "Frozen Fate Cleric",
-    "isBoss": false
-  },
   "2701445": {
-    "name": "Frozen Fate Observer",
+    "name": "Frozen Fate Archon Observer",
     "isBoss": false
   },
   "2701446": {
-    "name": "Frozen Fate Instructor",
-    "isBoss": false
-  },
-  "2701447": {
-    "name": "Frozen Fate Chanter",
+    "name": "Frozen Fate Archon Observer",
     "isBoss": false
   },
   "2701448": {
-    "name": "Frozen Fate Warrior",
+    "name": "Frozen Fate Archon Watcher",
     "isBoss": false
   },
   "2701449": {
-    "name": "Executed Fate Daeva",
+    "name": "Frozen Executor Erne",
     "isBoss": true
   },
   "2701450": {
@@ -23552,20 +27195,20 @@
     "name": "Drakan Transportation Module",
     "isBoss": false
   },
-  "2701452": {
-    "name": "Frozen Fate Cleric",
-    "isBoss": false
-  },
-  "2701453": {
-    "name": "Frozen Fate Observer",
-    "isBoss": false
-  },
   "2701454": {
     "name": "Warrior Wasti",
     "isBoss": true
   },
+  "2701455": {
+    "name": "Frozen Daeva",
+    "isBoss": false
+  },
+  "2701456": {
+    "name": "Frozen Daeva",
+    "isBoss": false
+  },
   "2701463": {
-    "name": "Deceived Kromede",
+    "name": "Kromede's Desire",
     "isBoss": true
   },
   "2701469": {
@@ -23800,10 +27443,6 @@
     "name": "Storage Room Drakan Skirmisher",
     "isBoss": false
   },
-  "2701533": {
-    "name": "Storage Room Drakan Commander",
-    "isBoss": false
-  },
   "2701534": {
     "name": "Balaur Security Device",
     "isBoss": false
@@ -23929,11 +27568,11 @@
     "isBoss": false
   },
   "2701566": {
-    "name": "Watchful Balaur Superior Archer",
+    "name": "Watchful Balaur Superior Ranger",
     "isBoss": false
   },
   "2701567": {
-    "name": "Watchful Balaur Archer",
+    "name": "Watchful Balaur Ranger",
     "isBoss": false
   },
   "2701568": {
@@ -23945,7 +27584,7 @@
     "isBoss": true
   },
   "2701570": {
-    "name": "Watchful Balaur Archer",
+    "name": "Watchful Balaur Ranger",
     "isBoss": false
   },
   "2701571": {
@@ -24124,10 +27763,6 @@
     "name": "Altar Spider",
     "isBoss": false
   },
-  "2701619": {
-    "name": "Herb Rafflesia",
-    "isBoss": false
-  },
   "2701620": {
     "name": "Herb Eating Tog",
     "isBoss": false
@@ -24137,11 +27772,11 @@
     "isBoss": false
   },
   "2701622": {
-    "name": "Anguish Archer Soul",
+    "name": "Anguish Ranger Soul",
     "isBoss": false
   },
   "2701623": {
-    "name": "Anguish Archer Soul",
+    "name": "Anguish Ranger Soul",
     "isBoss": false
   },
   "2701624": {
@@ -24150,10 +27785,6 @@
   },
   "2701625": {
     "name": "Anguish Knight Soul",
-    "isBoss": false
-  },
-  "2701626": {
-    "name": "Drana Mutant Spider",
     "isBoss": false
   },
   "2701627": {
@@ -24184,24 +27815,12 @@
     "name": "Cave Dratona Larva",
     "isBoss": false
   },
-  "2701634": {
-    "name": "None",
-    "isBoss": false
-  },
   "2701635": {
     "name": "Poison Sac",
     "isBoss": false
   },
   "2701636": {
     "name": "Library Kerubian",
-    "isBoss": false
-  },
-  "2701637": {
-    "name": "Herb Cave Bat",
-    "isBoss": false
-  },
-  "2701638": {
-    "name": "Herb Cave Rat",
     "isBoss": false
   },
   "2701639": {
@@ -24285,7 +27904,7 @@
     "isBoss": false
   },
   "2701659": {
-    "name": "Wandering Treasure Hunter Archer",
+    "name": "Wandering Treasure Hunter Ranger",
     "isBoss": false
   },
   "2701660": {
@@ -24310,10 +27929,6 @@
   },
   "2701665": {
     "name": "Fanatics' Den Zealot",
-    "isBoss": false
-  },
-  "2701666": {
-    "name": "Dark Root Cave Poison Grass",
     "isBoss": false
   },
   "2701667": {
@@ -24392,12 +28007,8 @@
     "name": "Defense Turret",
     "isBoss": false
   },
-  "2701686": {
-    "name": "Blades Bodyguard Mage",
-    "isBoss": false
-  },
   "2701687": {
-    "name": "Wandering Treasure Hunter Archer",
+    "name": "Wandering Treasure Hunter Ranger",
     "isBoss": false
   },
   "2701688": {
@@ -24468,182 +28079,6 @@
     "name": "Ferocious Tayga",
     "isBoss": false
   },
-  "2701705": {
-    "name": "Wandering Wraith Warrior",
-    "isBoss": false
-  },
-  "2701706": {
-    "name": "Wandering Wraith Warrior",
-    "isBoss": false
-  },
-  "2701707": {
-    "name": "Wandering Revenant Priest",
-    "isBoss": false
-  },
-  "2701708": {
-    "name": "Wandering Revenant Knight",
-    "isBoss": false
-  },
-  "2701709": {
-    "name": "Wandering Wraith Mage",
-    "isBoss": false
-  },
-  "2701710": {
-    "name": "Wandering Wraith Warrior",
-    "isBoss": false
-  },
-  "2701711": {
-    "name": "Wandering Revenant Knight",
-    "isBoss": false
-  },
-  "2701712": {
-    "name": "Wandering Revenant Knight",
-    "isBoss": false
-  },
-  "2701713": {
-    "name": "Hateful Undead Warrior",
-    "isBoss": false
-  },
-  "2701714": {
-    "name": "Hateful Armor Knight",
-    "isBoss": false
-  },
-  "2701715": {
-    "name": "Hateful Revenant Knight",
-    "isBoss": false
-  },
-  "2701716": {
-    "name": "Hateful Wraith Knight",
-    "isBoss": false
-  },
-  "2701717": {
-    "name": "Hateful Specter",
-    "isBoss": false
-  },
-  "2701718": {
-    "name": "Special Monster",
-    "isBoss": false
-  },
-  "2701719": {
-    "name": "Fafnium Laboratory Dratona",
-    "isBoss": false
-  },
-  "2701720": {
-    "name": "Fafnium Laboratory Sentry",
-    "isBoss": false
-  },
-  "2701721": {
-    "name": "Fafnium Laboratory Guard",
-    "isBoss": false
-  },
-  "2701722": {
-    "name": "Fafnium Laboratory Guard",
-    "isBoss": false
-  },
-  "2701723": {
-    "name": "Fafnium Laboratory Researcher",
-    "isBoss": false
-  },
-  "2701724": {
-    "name": "Fafnium Laboratory Guard",
-    "isBoss": false
-  },
-  "2701725": {
-    "name": "Fafnium Laboratory Overseer",
-    "isBoss": false
-  },
-  "2701726": {
-    "name": "Fafnium Laboratory Overseer",
-    "isBoss": false
-  },
-  "2701727": {
-    "name": "Fafnium Laboratory Overseer",
-    "isBoss": false
-  },
-  "2701728": {
-    "name": "Beritra Combat Engineer",
-    "isBoss": false
-  },
-  "2701729": {
-    "name": "Drakan Vanguard Commander",
-    "isBoss": false
-  },
-  "2701730": {
-    "name": "Beritra Air Raiders Weapon",
-    "isBoss": false
-  },
-  "2701731": {
-    "name": "Laser",
-    "isBoss": false
-  },
-  "2701732": {
-    "name": "Laser",
-    "isBoss": false
-  },
-  "2701733": {
-    "name": "Guide Turret",
-    "isBoss": false
-  },
-  "2701734": {
-    "name": "Laser",
-    "isBoss": false
-  },
-  "2701735": {
-    "name": "Laser",
-    "isBoss": false
-  },
-  "2701736": {
-    "name": "Fafnium Laboratory Chief",
-    "isBoss": true
-  },
-  "2701737": {
-    "name": "Fafnium Laboratory Sentinel",
-    "isBoss": true
-  },
-  "2701738": {
-    "name": "Fafnium Laboratory Chief",
-    "isBoss": true
-  },
-  "2701739": {
-    "name": "Fafnium Laboratory Sentinel",
-    "isBoss": true
-  },
-  "2701740": {
-    "name": "Fafnium Laboratory Sentinel",
-    "isBoss": true
-  },
-  "2701741": {
-    "name": "Fafnium Laboratory Chief",
-    "isBoss": true
-  },
-  "2701742": {
-    "name": "Fafnium Laboratory Chief",
-    "isBoss": true
-  },
-  "2701743": {
-    "name": "Fafnium Laboratory Chief",
-    "isBoss": true
-  },
-  "2701744": {
-    "name": "Fafnium Laboratory Sentinel",
-    "isBoss": true
-  },
-  "2701745": {
-    "name": "Fafnium Laboratory Sentinel",
-    "isBoss": true
-  },
-  "2701746": {
-    "name": "Fafnium Laboratory Sentinel",
-    "isBoss": true
-  },
-  "2701747": {
-    "name": "Fafnium Laboratory Chief",
-    "isBoss": true
-  },
-  "2701748": {
-    "name": "Special Monster",
-    "isBoss": false
-  },
   "2701753": {
     "name": "Divided Aponos",
     "isBoss": true,
@@ -24652,7 +28087,7 @@
     "dungeonId": 910011
   },
   "2701756": {
-    "name": "Altar Defender",
+    "name": "Altar Guardian",
     "isBoss": false
   },
   "2701757": {
@@ -24719,7 +28154,7 @@
     "isBoss": false
   },
   "2701777": {
-    "name": "Furious Beritra Commander",
+    "name": "Furious Drakan Chief",
     "isBoss": false
   },
   "2701778": {
@@ -24769,7 +28204,7 @@
     "dungeonId": 910012
   },
   "2701796": {
-    "name": "Distorted Defender",
+    "name": "Distorted Guardian",
     "isBoss": false
   },
   "2701797": {
@@ -24808,7 +28243,7 @@
     "dungeonId": 910013
   },
   "2701814": {
-    "name": "Nightmare Defender",
+    "name": "Nightmare Guardian",
     "isBoss": false
   },
   "2701815": {
@@ -24878,7 +28313,7 @@
     "isBoss": false
   },
   "2701833": {
-    "name": "Loathing Beritra Commander",
+    "name": "Loathing Drakan Chief",
     "isBoss": false
   },
   "2701834": {
@@ -24906,7 +28341,7 @@
     "isBoss": false
   },
   "2701840": {
-    "name": "Loathing Mutated Warrior",
+    "name": "Loathing Elite Watcher",
     "isBoss": false
   },
   "2701841": {
@@ -24932,7 +28367,7 @@
     "isBoss": false
   },
   "2701845": {
-    "name": "Enhanced Beritra Commander",
+    "name": "Enhanced Drakan Chief",
     "isBoss": false
   },
   "2701846": {
@@ -24960,7 +28395,7 @@
     "isBoss": false
   },
   "2701852": {
-    "name": "Enhanced Mutated Warrior",
+    "name": "Enhanced Elite Watcher",
     "isBoss": false
   },
   "2701853": {
@@ -24986,7 +28421,7 @@
     "isBoss": false
   },
   "2701857": {
-    "name": "Sanctum Beritra Commander",
+    "name": "Sanctum Drakan Chief",
     "isBoss": false
   },
   "2701858": {
@@ -25014,7 +28449,7 @@
     "isBoss": false
   },
   "2701864": {
-    "name": "Sanctum Mutated Warrior",
+    "name": "Sanctum Elite Watcher",
     "isBoss": false
   },
   "2701865": {
@@ -25029,7 +28464,7 @@
     "dungeonId": 910014
   },
   "2701873": {
-    "name": "Furious Defender",
+    "name": "Furious Guardian",
     "isBoss": false
   },
   "2701874": {
@@ -25108,7 +28543,7 @@
     "isBoss": false
   },
   "2701901": {
-    "name": "Depository Raptor Archer",
+    "name": "Depository Raptor Ranger",
     "isBoss": false
   },
   "2701902": {
@@ -25151,7 +28586,7 @@
     "isBoss": false
   },
   "2701922": {
-    "name": "Impetuous Raptor Archer",
+    "name": "Impetuous Raptor Ranger",
     "isBoss": false
   },
   "2701923": {
@@ -25182,7 +28617,7 @@
     "isBoss": false
   },
   "2701939": {
-    "name": "Fates Aullaeu Archer",
+    "name": "Fates Aullaeu Ranger",
     "isBoss": false
   },
   "2701940": {
@@ -25213,7 +28648,7 @@
     "isBoss": false
   },
   "2701956": {
-    "name": "Furious Raptor Archer",
+    "name": "Furious Raptor Ranger",
     "isBoss": false
   },
   "2701957": {
@@ -25252,7 +28687,7 @@
     "isBoss": false
   },
   "2701969": {
-    "name": "Hideout Undead Archer",
+    "name": "Hideout Undead Ranger",
     "isBoss": false
   },
   "2701970": {
@@ -25264,7 +28699,7 @@
     "isBoss": false
   },
   "2701972": {
-    "name": "Hideout Wraith Archer",
+    "name": "Hideout Wraith Ranger",
     "isBoss": false
   },
   "2701973": {
@@ -25296,7 +28731,7 @@
     "isBoss": false
   },
   "2701983": {
-    "name": "Fates Aullaeu Archer",
+    "name": "Fates Aullaeu Ranger",
     "isBoss": false
   },
   "2701986": {
@@ -25335,7 +28770,7 @@
     "isBoss": false
   },
   "2701995": {
-    "name": "Ascended Undead Archer",
+    "name": "Ascended Undead Ranger",
     "isBoss": false
   },
   "2701996": {
@@ -25347,7 +28782,7 @@
     "isBoss": false
   },
   "2701998": {
-    "name": "Ascended Wraith Archer",
+    "name": "Ascended Wraith Ranger",
     "isBoss": false
   },
   "2701999": {
@@ -25382,7 +28817,7 @@
     "isBoss": false
   },
   "2702006": {
-    "name": "Tyrant Undead Archer",
+    "name": "Tyrant Undead Ranger",
     "isBoss": false
   },
   "2702007": {
@@ -25394,7 +28829,7 @@
     "isBoss": false
   },
   "2702009": {
-    "name": "Tyrant Wraith Archer",
+    "name": "Tyrant Wraith Ranger",
     "isBoss": false
   },
   "2702010": {
@@ -25429,7 +28864,7 @@
     "isBoss": false
   },
   "2702017": {
-    "name": "Furious Undead Archer",
+    "name": "Furious Undead Ranger",
     "isBoss": false
   },
   "2702018": {
@@ -25441,7 +28876,7 @@
     "isBoss": false
   },
   "2702020": {
-    "name": "Furious Wraith Archer",
+    "name": "Furious Wraith Ranger",
     "isBoss": false
   },
   "2702021": {
@@ -25449,7 +28884,7 @@
     "isBoss": false
   },
   "2702023": {
-    "name": "Mau Mender",
+    "name": "Mau Healer",
     "isBoss": false
   },
   "2702024": {
@@ -25465,23 +28900,23 @@
     "isBoss": true
   },
   "2702027": {
-    "name": "Marauders Warrior",
+    "name": "Marauder Warrior",
     "isBoss": false
   },
   "2702028": {
-    "name": "Marauders Bomber",
+    "name": "Marauder Bomber",
     "isBoss": false
   },
   "2702029": {
-    "name": "Marauders Guard",
+    "name": "Marauder Guard",
     "isBoss": false
   },
   "2702030": {
-    "name": "Marauders Warmage",
+    "name": "Marauder Warmage",
     "isBoss": false
   },
   "2702031": {
-    "name": "Defense Cannon",
+    "name": "Marauder Defense Cannon",
     "isBoss": false
   },
   "2702032": {
@@ -25493,19 +28928,19 @@
     "isBoss": false
   },
   "2702034": {
-    "name": "Tragic Daeva Commander",
+    "name": "Executed Archon Instructor",
     "isBoss": false
   },
   "2702035": {
-    "name": "Tragic Daeva Patrol",
+    "name": "Executed Archon Candidate",
     "isBoss": false
   },
   "2702036": {
-    "name": "Tragic Daeva Assassin",
+    "name": "Executed Archon Candidate",
     "isBoss": false
   },
   "2702037": {
-    "name": "Tragic Daeva Wraith",
+    "name": "Executed Archon Wraith",
     "isBoss": false
   },
   "2702041": {
@@ -25537,7 +28972,7 @@
     "isBoss": false
   },
   "2702049": {
-    "name": "Defense Cannon",
+    "name": "Marauder Defense Cannon",
     "isBoss": false
   },
   "2702050": {
@@ -25577,27 +29012,27 @@
     "isBoss": false
   },
   "2702059": {
-    "name": "Mutated Fate Assassin",
+    "name": "Mutated Fate Archon",
     "isBoss": false
   },
   "2702060": {
-    "name": "Mutated Fate Patrol",
+    "name": "Mutated Fate Archon",
     "isBoss": false
   },
   "2702061": {
-    "name": "Consumed Fate Patrol",
+    "name": "Consumed Fate Archon",
     "isBoss": false
   },
   "2702062": {
-    "name": "Brainwashed Fate Wraith",
+    "name": "Fate Archon Wraith",
     "isBoss": false
   },
   "2702063": {
-    "name": "Brainwashed Fate Outrunner",
+    "name": "Fate Archon Revenant",
     "isBoss": false
   },
   "2702064": {
-    "name": "Brainwashed Fate Knight",
+    "name": "Fate Archon Revenant",
     "isBoss": false
   },
   "2702065": {
@@ -25633,39 +29068,39 @@
     "isBoss": false
   },
   "2702073": {
-    "name": "Water Spirit",
+    "name": "Boiling Water Spirit",
     "isBoss": false
   },
   "2702074": {
-    "name": "Pure Water Spirit",
+    "name": "Boiling Water Spirit",
     "isBoss": false
   },
   "2702075": {
-    "name": "Pure Water Spirit",
+    "name": "Boiling Water Spirit",
     "isBoss": false
   },
   "2702076": {
-    "name": "Arbellun",
-    "isBoss": false
+    "name": "Steaming Arbellune",
+    "isBoss": true
   },
   "2702078": {
-    "name": "Missile",
+    "name": "Sentry Totem",
     "isBoss": false
   },
   "2702079": {
-    "name": "Sigebert's Minion",
+    "name": "Fate Archon Watcher",
     "isBoss": false
   },
   "2702080": {
-    "name": "Sigebert's Minion",
+    "name": "Fate Archon Cleric",
     "isBoss": false
   },
   "2702081": {
-    "name": "Sigebert's Minion",
+    "name": "Fate Archon Chief Instructor",
     "isBoss": false
   },
   "2702082": {
-    "name": "Sigebert's Minion",
+    "name": "Fate Archon Chief Instructor",
     "isBoss": false
   },
   "2702085": {
@@ -25697,11 +29132,11 @@
     "isBoss": false
   },
   "2702092": {
-    "name": "Drakan Archer",
+    "name": "Drakan Ranger",
     "isBoss": false
   },
   "2702093": {
-    "name": "Drakan Beast",
+    "name": "Drakan Warhound",
     "isBoss": false
   },
   "2702094": {
@@ -25733,39 +29168,39 @@
     "isBoss": false
   },
   "2702101": {
-    "name": "Aerial Bomb",
+    "name": "Balaur Aerial Bomb",
     "isBoss": false
   },
   "2702102": {
-    "name": "Aerial Bomb",
+    "name": "Balaur Aerial Bomb",
     "isBoss": false
   },
   "2702103": {
-    "name": "Fallen Daeva Outcast",
+    "name": "Dead Warrior's Silhouette",
     "isBoss": false
   },
   "2702104": {
-    "name": "Fallen Daeva Gladiator",
+    "name": "Dead Gladiator's Silhouette",
     "isBoss": false
   },
   "2702105": {
-    "name": "Fallen Daeva Gladiator",
+    "name": "Dead Gladiator's Silhouette",
     "isBoss": false
   },
   "2702106": {
-    "name": "Fallen Daeva Gladiator",
+    "name": "Dead Gladiator's Silhouette",
     "isBoss": false
   },
   "2702107": {
-    "name": "Fallen Daeva Ranger",
+    "name": "Dead Ranger's Silhouette",
     "isBoss": false
   },
   "2702108": {
-    "name": "Fallen Daeva Ranger",
+    "name": "Dead Ranger's Silhouette",
     "isBoss": false
   },
   "2702109": {
-    "name": "Fallen Daeva Ranger",
+    "name": "Dead Ranger's Silhouette",
     "isBoss": false
   },
   "2702110": {
@@ -25773,7 +29208,7 @@
     "isBoss": true
   },
   "2702111": {
-    "name": "Ghostwriter Kardon",
+    "name": "Scribe Vellum",
     "isBoss": true
   },
   "2702112": {
@@ -25796,8 +29231,488 @@
     "name": "None",
     "isBoss": false
   },
+  "2702117": {
+    "name": "Drakan Vanguard Armed Beast",
+    "isBoss": false
+  },
+  "2702118": {
+    "name": "Drakan Armed Soldier",
+    "isBoss": false
+  },
+  "2702120": {
+    "name": "Drakan Skirmisher",
+    "isBoss": false
+  },
+  "2702121": {
+    "name": "Drakan Watcher",
+    "isBoss": false
+  },
+  "2702122": {
+    "name": "Drakan Magic Supporter",
+    "isBoss": false
+  },
+  "2702123": {
+    "name": "Sigebert",
+    "isBoss": false
+  },
+  "2702124": {
+    "name": "Hebera",
+    "isBoss": false
+  },
+  "2702125": {
+    "name": "Corrupted Fate Daeva Chanter",
+    "isBoss": false
+  },
+  "2702126": {
+    "name": "Corrupted Fate Daeva Watcher",
+    "isBoss": false
+  },
+  "2702127": {
+    "name": "Corrupted Fate Daeva Watcher",
+    "isBoss": false
+  },
+  "2702128": {
+    "name": "Corrupted Fate Daeva Chief Instructor",
+    "isBoss": false
+  },
+  "2702129": {
+    "name": "Corrupted Fate Daeva Observer",
+    "isBoss": false
+  },
+  "2702130": {
+    "name": "Mind-Controlled Daeva Soul",
+    "isBoss": false
+  },
+  "2702131": {
+    "name": "Dripping Poison Blood",
+    "isBoss": false
+  },
+  "2702132": {
+    "name": "Marchutan's Shell",
+    "isBoss": true
+  },
+  "2702133": {
+    "name": "Enraged Avelcatus",
+    "isBoss": true
+  },
+  "2702134": {
+    "name": "Void Helicoid",
+    "isBoss": false
+  },
+  "2702135": {
+    "name": "Void Helicoid",
+    "isBoss": false
+  },
+  "2702136": {
+    "name": "Void Helicoid",
+    "isBoss": false
+  },
+  "2702137": {
+    "name": "Forgotten Rekhorn",
+    "isBoss": true
+  },
+  "2702138": {
+    "name": "Flooded Drakan Vanguard Sapper",
+    "isBoss": false
+  },
+  "2702140": {
+    "name": "Flooded Drakan Air Raiders Weapon",
+    "isBoss": false
+  },
+  "2702141": {
+    "name": "Flooded Drakan Training Captain",
+    "isBoss": false
+  },
+  "2702142": {
+    "name": "Flooded Drakan Common Soldier",
+    "isBoss": false
+  },
+  "2702143": {
+    "name": "Flooded Drakan Armed Beast",
+    "isBoss": false
+  },
+  "2702144": {
+    "name": "Flooded Drakan Magic Supporter",
+    "isBoss": false
+  },
+  "2702145": {
+    "name": "Rockfall",
+    "isBoss": false
+  },
+  "2702146": {
+    "name": "Rockfall",
+    "isBoss": false
+  },
+  "2702147": {
+    "name": "Hiding Blades Warrior",
+    "isBoss": false
+  },
+  "2702148": {
+    "name": "Hiding Blades Supporter",
+    "isBoss": false
+  },
+  "2702149": {
+    "name": "Hiding Blades Bomber",
+    "isBoss": false
+  },
+  "2702151": {
+    "name": "Servant of Fafnir",
+    "isBoss": false
+  },
+  "2702152": {
+    "name": "Servant of Fafnir",
+    "isBoss": false
+  },
+  "2702153": {
+    "name": "Servant of Fafnir",
+    "isBoss": false
+  },
+  "2702154": {
+    "name": "Unstable Veil Jewel",
+    "isBoss": false
+  },
+  "2702158": {
+    "name": "Void Helicoid",
+    "isBoss": false
+  },
+  "2702159": {
+    "name": "Void Helicoid",
+    "isBoss": false
+  },
+  "2702160": {
+    "name": "Void Helicoid",
+    "isBoss": false
+  },
+  "2702161": {
+    "name": "Idris",
+    "isBoss": true
+  },
+  "2702162": {
+    "name": "Draconute Warrior",
+    "isBoss": false
+  },
+  "2702163": {
+    "name": "Draconute Combatant",
+    "isBoss": false
+  },
+  "2702164": {
+    "name": "Draconute Ranger",
+    "isBoss": false
+  },
+  "2702165": {
+    "name": "Draconute Superior Ranger",
+    "isBoss": false
+  },
+  "2702166": {
+    "name": "Draconute Tinkerer",
+    "isBoss": false
+  },
+  "2702167": {
+    "name": "Draconute Handler",
+    "isBoss": false
+  },
+  "2702168": {
+    "name": "Draconute Elite Warden",
+    "isBoss": false
+  },
+  "2702169": {
+    "name": "Draconute Aerial Bomb",
+    "isBoss": false
+  },
+  "2702171": {
+    "name": "Petrification Trap",
+    "isBoss": false
+  },
+  "2702172": {
+    "name": "Draconute Bodyguard Captain",
+    "isBoss": false
+  },
+  "2702173": {
+    "name": "Draconute Elite Ranger",
+    "isBoss": false
+  },
   "2702174": {
     "name": "Unstable Odylium Gemstone",
+    "isBoss": false
+  },
+  "2702175": {
+    "name": "Frozen Fate Archon",
+    "isBoss": false
+  },
+  "2702176": {
+    "name": "Frozen Fate Archon",
+    "isBoss": false
+  },
+  "2702177": {
+    "name": "Leader Korin",
+    "isBoss": true
+  },
+  "2702178": {
+    "name": "Treasure Enhance Connection Medium",
+    "isBoss": false
+  },
+  "2702179": {
+    "name": "Treasure Enhance Connection Medium",
+    "isBoss": false
+  },
+  "2702180": {
+    "name": "Duduka Treasure Sentry",
+    "isBoss": false
+  },
+  "2702181": {
+    "name": "Duduka Treasure Worker",
+    "isBoss": false
+  },
+  "2702182": {
+    "name": "Ferocious Icecap Tuka",
+    "isBoss": false
+  },
+  "2702183": {
+    "name": "Floating Stone",
+    "isBoss": false
+  },
+  "2702184": {
+    "name": "Floating Stone",
+    "isBoss": false
+  },
+  "2702185": {
+    "name": "Hiding Small Fire Spirit",
+    "isBoss": false
+  },
+  "2702186": {
+    "name": "Wandering Fire Spirit",
+    "isBoss": false
+  },
+  "2702188": {
+    "name": "Unstable Veil Jewel",
+    "isBoss": false
+  },
+  "2702190": {
+    "name": "Secret Base Skirmisher",
+    "isBoss": false
+  },
+  "2702192": {
+    "name": "Secret Base Scout",
+    "isBoss": false
+  },
+  "2702193": {
+    "name": "Secret Base Beast",
+    "isBoss": false
+  },
+  "2702194": {
+    "name": "Mischievous Mumu",
+    "isBoss": false
+  },
+  "2702195": {
+    "name": "Labyrinth Mumu Sentry",
+    "isBoss": false
+  },
+  "2702196": {
+    "name": "Labyrinth Mumu Warrior",
+    "isBoss": false
+  },
+  "2702197": {
+    "name": "Labyrinth Warden Hurukak",
+    "isBoss": true
+  },
+  "2702198": {
+    "name": "Fake Mumu Warden",
+    "isBoss": false
+  },
+  "2702199": {
+    "name": "Bomb",
+    "isBoss": false
+  },
+  "2702200": {
+    "name": "Draconute Ranger",
+    "isBoss": false
+  },
+  "2702201": {
+    "name": "Draconute Warrior",
+    "isBoss": false
+  },
+  "2702202": {
+    "name": "Draconute Superior Combatant",
+    "isBoss": false
+  },
+  "2702203": {
+    "name": "Draconute Superior Ranger",
+    "isBoss": false
+  },
+  "2702204": {
+    "name": "Draconute Tinkerer",
+    "isBoss": false
+  },
+  "2702205": {
+    "name": "Barrierstone",
+    "isBoss": false
+  },
+  "2702206": {
+    "name": "Barrierstone",
+    "isBoss": false
+  },
+  "2702207": {
+    "name": "Barrierstone",
+    "isBoss": false
+  },
+  "2702208": {
+    "name": "Barrierstone",
+    "isBoss": false
+  },
+  "2702209": {
+    "name": "Barrierstone",
+    "isBoss": false
+  },
+  "2702210": {
+    "name": "Barrierstone",
+    "isBoss": false
+  },
+  "2702211": {
+    "name": "Barrierstone",
+    "isBoss": false
+  },
+  "2702212": {
+    "name": "Barrierstone",
+    "isBoss": false
+  },
+  "2702213": {
+    "name": "Barrierstone",
+    "isBoss": false
+  },
+  "2702214": {
+    "name": "Barrierstone",
+    "isBoss": false
+  },
+  "2702215": {
+    "name": "Barrierstone",
+    "isBoss": false
+  },
+  "2702216": {
+    "name": "Barrierstone",
+    "isBoss": false
+  },
+  "2702217": {
+    "name": "Barrierstone",
+    "isBoss": false
+  },
+  "2702218": {
+    "name": "Barrierstone",
+    "isBoss": false
+  },
+  "2702219": {
+    "name": "Barrierstone",
+    "isBoss": false
+  },
+  "2702220": {
+    "name": "Barrierstone",
+    "isBoss": false
+  },
+  "2702221": {
+    "name": "Barrierstone",
+    "isBoss": false
+  },
+  "2702222": {
+    "name": "Experiment Base Shulak Porter",
+    "isBoss": false
+  },
+  "2702223": {
+    "name": "Experiment Base Shulak Worker",
+    "isBoss": false
+  },
+  "2702224": {
+    "name": "Experiment Base Shulak Guard",
+    "isBoss": false
+  },
+  "2702225": {
+    "name": "Infiltrating Shulak Thief",
+    "isBoss": false
+  },
+  "2702226": {
+    "name": "Spinning Turret",
+    "isBoss": false
+  },
+  "2702227": {
+    "name": "Infiltrating Shulak Thief",
+    "isBoss": false
+  },
+  "2702228": {
+    "name": "Eiron Thieves Ranger",
+    "isBoss": false
+  },
+  "2702229": {
+    "name": "Eiron Thieves Ranger",
+    "isBoss": false
+  },
+  "2702230": {
+    "name": "Eiron Thieves Warrior",
+    "isBoss": false
+  },
+  "2702231": {
+    "name": "Eiron Thieves Thug",
+    "isBoss": false
+  },
+  "2702232": {
+    "name": "Eiron Outlaw Drok",
+    "isBoss": true
+  },
+  "2702234": {
+    "name": "Marauder Seeker",
+    "isBoss": false
+  },
+  "2702235": {
+    "name": "Marauder Boss",
+    "isBoss": false
+  },
+  "2702236": {
+    "name": "Marauder Warrior",
+    "isBoss": false
+  },
+  "2702238": {
+    "name": "Gas",
+    "isBoss": false
+  },
+  "2702240": {
+    "name": "Underground Cave Ghula",
+    "isBoss": false
+  },
+  "2702241": {
+    "name": "Revenant Tifus",
+    "isBoss": true
+  },
+  "2702245": {
+    "name": "Pool",
+    "isBoss": false
+  },
+  "2702246": {
+    "name": "Drakan Watcher",
+    "isBoss": false
+  },
+  "2702247": {
+    "name": "Drakan Guard",
+    "isBoss": false
+  },
+  "2702248": {
+    "name": "Drakan Armed Beast",
+    "isBoss": false
+  },
+  "2702250": {
+    "name": "Drakan Sentinel",
+    "isBoss": false
+  },
+  "2702253": {
+    "name": "Drakan Overseer",
+    "isBoss": false
+  },
+  "2702254": {
+    "name": "Drakan Overseer",
+    "isBoss": false
+  },
+  "2702255": {
+    "name": "Drakan Magic Weaver",
+    "isBoss": false
+  },
+  "2702259": {
+    "name": "Magic Sphere",
     "isBoss": false
   },
   "2702274": {
@@ -25824,7 +29739,7 @@
     "isBoss": false
   },
   "2702279": {
-    "name": "Despairing Undead Archer",
+    "name": "Despair Undead Ranger",
     "isBoss": false
   },
   "2702280": {
@@ -25836,7 +29751,7 @@
     "isBoss": false
   },
   "2702282": {
-    "name": "Despairing Wraith Archer",
+    "name": "Despair Wraith Ranger",
     "isBoss": false
   },
   "2702283": {
@@ -25844,7 +29759,7 @@
     "isBoss": false
   },
   "2702284": {
-    "name": "Disparing Sura Warrior",
+    "name": "Despair Sura Warrior",
     "isBoss": false
   },
   "2702285": {
@@ -25875,7 +29790,7 @@
     "isBoss": false
   },
   "2702291": {
-    "name": "Doom Undead Archer",
+    "name": "Doom Undead Ranger",
     "isBoss": false
   },
   "2702292": {
@@ -25887,7 +29802,7 @@
     "isBoss": false
   },
   "2702294": {
-    "name": "Doom Wraith Archer",
+    "name": "Doom Wraith Ranger",
     "isBoss": false
   },
   "2702295": {
@@ -25918,7 +29833,7 @@
     "isBoss": false
   },
   "2702301": {
-    "name": "Despairing Raptor Archer",
+    "name": "Despair Raptor Ranger",
     "isBoss": false
   },
   "2702302": {
@@ -25957,7 +29872,7 @@
     "isBoss": false
   },
   "2702312": {
-    "name": "Doom Raptor Archer",
+    "name": "Doom Raptor Ranger",
     "isBoss": false
   },
   "2702313": {
@@ -25978,6 +29893,173 @@
   },
   "2702318": {
     "name": "Doom Raptor Warrior",
+    "isBoss": false
+  },
+  "2702320": {
+    "name": "Fortress Vault Priest",
+    "isBoss": false
+  },
+  "2702321": {
+    "name": "Fortress Vault Watcher",
+    "isBoss": false
+  },
+  "2702322": {
+    "name": "Fortress Vault Wraith",
+    "isBoss": false
+  },
+  "2702323": {
+    "name": "Bat Wraith",
+    "isBoss": false
+  },
+  "2702325": {
+    "name": "Filthy Floofy",
+    "isBoss": false
+  },
+  "2702326": {
+    "name": "Filthy Grollack",
+    "isBoss": true
+  },
+  "2702327": {
+    "name": "Poison Field",
+    "isBoss": false
+  },
+  "2702329": {
+    "name": "Librarian Messa",
+    "isBoss": true
+  },
+  "2702330": {
+    "name": "Life Daeva Ranger Revenant",
+    "isBoss": false
+  },
+  "2702331": {
+    "name": "Life Daeva Knight Revenant",
+    "isBoss": false
+  },
+  "2702332": {
+    "name": "Life Daeva Patrol Revenant",
+    "isBoss": false
+  },
+  "2702333": {
+    "name": "Life Daeva Assassin Revenant",
+    "isBoss": false
+  },
+  "2702334": {
+    "name": "Vicious Manduri",
+    "isBoss": false
+  },
+  "2702335": {
+    "name": "Ferocious Manduri",
+    "isBoss": false
+  },
+  "2702336": {
+    "name": "Rampaging Heart",
+    "isBoss": false
+  },
+  "2702339": {
+    "name": "Lepharist Warrior",
+    "isBoss": false
+  },
+  "2702341": {
+    "name": "Lepharist Researcher",
+    "isBoss": false
+  },
+  "2702342": {
+    "name": "Lepharist Mage",
+    "isBoss": false
+  },
+  "2702343": {
+    "name": "Lepharist Pugilist",
+    "isBoss": false
+  },
+  "2702345": {
+    "name": "Giant Contamination Clot",
+    "isBoss": false
+  },
+  "2702346": {
+    "name": "Filthy Slime",
+    "isBoss": false
+  },
+  "2702347": {
+    "name": "Contaminated Slime",
+    "isBoss": false
+  },
+  "2702349": {
+    "name": "Ratcatchers Hunter",
+    "isBoss": false
+  },
+  "2702350": {
+    "name": "Ratcatchers Captor",
+    "isBoss": false
+  },
+  "2702351": {
+    "name": "Ratcatchers Herder",
+    "isBoss": false
+  },
+  "2702352": {
+    "name": "Tamed Zaif",
+    "isBoss": false
+  },
+  "2702356": {
+    "name": "Void Helicoid",
+    "isBoss": false
+  },
+  "2702357": {
+    "name": "Void Helicoid",
+    "isBoss": false
+  },
+  "2702358": {
+    "name": "Void Helicoid",
+    "isBoss": false
+  },
+  "2702359": {
+    "name": "Eloen",
+    "isBoss": true,
+    "category": "Ascension Trial",
+    "tier": "Easy",
+    "dungeonId": 910061
+  },
+  "2702360": {
+    "name": "Grave Twisted Test Subject",
+    "isBoss": false
+  },
+  "2702362": {
+    "name": "Grave Twisted Magic Test Subject",
+    "isBoss": false
+  },
+  "2702363": {
+    "name": "Grave Mutant",
+    "isBoss": false
+  },
+  "2702364": {
+    "name": "Grave Test Subject",
+    "isBoss": false
+  },
+  "2702365": {
+    "name": "Grave Floater",
+    "isBoss": false
+  },
+  "2702366": {
+    "name": "Grave Magic Test Subject",
+    "isBoss": false
+  },
+  "2702367": {
+    "name": "Grave Dracuni",
+    "isBoss": false
+  },
+  "2702368": {
+    "name": "Grave Predator",
+    "isBoss": false
+  },
+  "2702369": {
+    "name": "Grave Drana",
+    "isBoss": false
+  },
+  "2702370": {
+    "name": "Grave Bomb Trap",
+    "isBoss": false
+  },
+  "2702371": {
+    "name": "Grave Bomb Trap",
     "isBoss": false
   },
   "2702372": {
@@ -26011,7 +30093,7 @@
     "isBoss": false
   },
   "2702378": {
-    "name": "Despairing Balaur Ranger",
+    "name": "Despair Balaur Ranger",
     "isBoss": false
   },
   "2702379": {
@@ -26096,7 +30178,7 @@
     "dungeonId": 910015
   },
   "2702397": {
-    "name": "Despairing Defender",
+    "name": "Despair Guardian",
     "isBoss": false
   },
   "2702398": {
@@ -26151,7 +30233,7 @@
     "dungeonId": 910016
   },
   "2702410": {
-    "name": "Doom Defender",
+    "name": "Doom Guardian",
     "isBoss": false
   },
   "2702411": {
@@ -26198,8 +30280,1088 @@
     "name": "Doom Dark Mage",
     "isBoss": false
   },
+  "2702422": {
+    "name": "Balaur Supply Warden",
+    "isBoss": false
+  },
+  "2702423": {
+    "name": "Mobile Bomb",
+    "isBoss": false
+  },
+  "2702424": {
+    "name": "Balaur Scout",
+    "isBoss": false
+  },
+  "2702425": {
+    "name": "Bomb Technician",
+    "isBoss": false
+  },
+  "2702426": {
+    "name": "Laboratory Gatekeeper",
+    "isBoss": false
+  },
+  "2702427": {
+    "name": "Artificial God Researcher",
+    "isBoss": false
+  },
+  "2702428": {
+    "name": "Lepharist Test Subject",
+    "isBoss": false
+  },
+  "2702429": {
+    "name": "Drana Energy Repository",
+    "isBoss": false
+  },
+  "2702430": {
+    "name": "Drana Energy Injector",
+    "isBoss": false
+  },
+  "2702431": {
+    "name": "Storage Elite Watcher",
+    "isBoss": false
+  },
+  "2702432": {
+    "name": "Storage Guard",
+    "isBoss": false
+  },
+  "2702433": {
+    "name": "Storage Elite Watcher",
+    "isBoss": false
+  },
+  "2702434": {
+    "name": "Storage Elite Watcher",
+    "isBoss": false
+  },
+  "2702435": {
+    "name": "Storage Elite Watcher",
+    "isBoss": false
+  },
+  "2702436": {
+    "name": "Storage Elite Watcher",
+    "isBoss": false
+  },
+  "2702437": {
+    "name": "Storage Elite Watcher",
+    "isBoss": false
+  },
+  "2702438": {
+    "name": "Storage Elite Watcher",
+    "isBoss": false
+  },
+  "2702439": {
+    "name": "Storage Elite Watcher",
+    "isBoss": false
+  },
+  "2702440": {
+    "name": "Storage Elite Watcher",
+    "isBoss": false
+  },
+  "2702441": {
+    "name": "Blades Base Sentry",
+    "isBoss": false
+  },
+  "2702442": {
+    "name": "Blades Base Shaman",
+    "isBoss": false
+  },
+  "2702443": {
+    "name": "Blades Base Assault Troopers Captain",
+    "isBoss": false
+  },
+  "2702445": {
+    "name": "Blades Base Assault Troopers",
+    "isBoss": false
+  },
+  "2702446": {
+    "name": "Lava Glob",
+    "isBoss": false
+  },
+  "2702450": {
+    "name": "Repository Defense Cannon",
+    "isBoss": false
+  },
+  "2702451": {
+    "name": "Repository Warrior",
+    "isBoss": false
+  },
+  "2702452": {
+    "name": "Repository Bomber",
+    "isBoss": false
+  },
+  "2702453": {
+    "name": "Repository Mage",
+    "isBoss": false
+  },
+  "2702454": {
+    "name": "Repository Supporter",
+    "isBoss": false
+  },
+  "2702455": {
+    "name": "Repository Guard",
+    "isBoss": false
+  },
+  "2702456": {
+    "name": "Repository Warmage",
+    "isBoss": false
+  },
+  "2702457": {
+    "name": "Repository Assault Captain",
+    "isBoss": false
+  },
+  "2702458": {
+    "name": "Repository Reaper",
+    "isBoss": false
+  },
+  "2702460": {
+    "name": "Repository Ancient Totem",
+    "isBoss": false
+  },
+  "2702461": {
+    "name": "Karlix",
+    "isBoss": true,
+    "category": "Ascension Trial",
+    "tier": "Easy",
+    "dungeonId": 910051
+  },
+  "2702462": {
+    "name": "Eloen",
+    "isBoss": true,
+    "category": "Ascension Trial",
+    "tier": "Normal",
+    "dungeonId": 910062
+  },
+  "2702463": {
+    "name": "Ascended Twisted Test Subject",
+    "isBoss": false
+  },
+  "2702465": {
+    "name": "Ascended Twisted Magic Test Subject",
+    "isBoss": false
+  },
+  "2702466": {
+    "name": "Ascended Mutant",
+    "isBoss": false
+  },
+  "2702467": {
+    "name": "Ascended Test Subject",
+    "isBoss": false
+  },
+  "2702468": {
+    "name": "Ascended Floater",
+    "isBoss": false
+  },
+  "2702469": {
+    "name": "Ascended Magic Test Subject",
+    "isBoss": false
+  },
+  "2702470": {
+    "name": "Awakened Dracuni",
+    "isBoss": false
+  },
+  "2702471": {
+    "name": "Ascended Predator",
+    "isBoss": false
+  },
+  "2702472": {
+    "name": "Awakened Drana",
+    "isBoss": false
+  },
+  "2702475": {
+    "name": "Eloen",
+    "isBoss": true,
+    "category": "Ascension Trial",
+    "tier": "Hard",
+    "dungeonId": 910063
+  },
+  "2702476": {
+    "name": "Consumed Twisted Test Subject",
+    "isBoss": false
+  },
+  "2702478": {
+    "name": "Consumed Twisted Magic Test Subject",
+    "isBoss": false
+  },
+  "2702479": {
+    "name": "Contaminated Mutant",
+    "isBoss": false
+  },
+  "2702480": {
+    "name": "Consumed Test Subject",
+    "isBoss": false
+  },
+  "2702481": {
+    "name": "Consumed Floater",
+    "isBoss": false
+  },
+  "2702482": {
+    "name": "Consumed Magic Test Subject",
+    "isBoss": false
+  },
+  "2702483": {
+    "name": "Consumed Dracuni",
+    "isBoss": false
+  },
+  "2702484": {
+    "name": "Consumed Predator",
+    "isBoss": false
+  },
+  "2702485": {
+    "name": "Consumed Drana",
+    "isBoss": false
+  },
+  "2702488": {
+    "name": "Eloen",
+    "isBoss": true,
+    "category": "Ascension Trial",
+    "tier": "Extreme",
+    "dungeonId": 910064
+  },
+  "2702489": {
+    "name": "Furious Twisted Test Subject",
+    "isBoss": false
+  },
+  "2702491": {
+    "name": "Furious Twisted Magic Test Subject",
+    "isBoss": false
+  },
+  "2702492": {
+    "name": "Furious Mutant",
+    "isBoss": false
+  },
+  "2702493": {
+    "name": "Furious Test Subject",
+    "isBoss": false
+  },
+  "2702494": {
+    "name": "Furious Floater",
+    "isBoss": false
+  },
+  "2702495": {
+    "name": "Furious Magic Test Subject",
+    "isBoss": false
+  },
+  "2702496": {
+    "name": "Furious Dracuni",
+    "isBoss": false
+  },
+  "2702497": {
+    "name": "Furious Predator",
+    "isBoss": false
+  },
+  "2702498": {
+    "name": "Furious Drana",
+    "isBoss": false
+  },
+  "2702501": {
+    "name": "Eloen",
+    "isBoss": true,
+    "category": "Ascension Trial",
+    "tier": "Insane",
+    "dungeonId": 910065
+  },
+  "2702502": {
+    "name": "Despair Twisted Test Subject",
+    "isBoss": false
+  },
+  "2702504": {
+    "name": "Despair Twisted Magic Test Subject",
+    "isBoss": false
+  },
+  "2702505": {
+    "name": "Despairing Mutant",
+    "isBoss": false
+  },
+  "2702506": {
+    "name": "Despairing Test Subject",
+    "isBoss": false
+  },
+  "2702507": {
+    "name": "Despairing Floater",
+    "isBoss": false
+  },
+  "2702508": {
+    "name": "Despair Magic Test Subject",
+    "isBoss": false
+  },
+  "2702509": {
+    "name": "Despairing Dracuni",
+    "isBoss": false
+  },
+  "2702510": {
+    "name": "Despairing Predator",
+    "isBoss": false
+  },
+  "2702511": {
+    "name": "Despairing Drana",
+    "isBoss": false
+  },
+  "2702514": {
+    "name": "Forgotten Rekhorn",
+    "isBoss": true
+  },
+  "2702515": {
+    "name": "Awakened Drakan Vanguard Sapper",
+    "isBoss": false
+  },
+  "2702517": {
+    "name": "Awakened Drakan Air Raiders Weapon",
+    "isBoss": false
+  },
+  "2702518": {
+    "name": "Awakened Drakan Training Captain",
+    "isBoss": false
+  },
+  "2702519": {
+    "name": "Awakened Drakan Common Soldier",
+    "isBoss": false
+  },
+  "2702520": {
+    "name": "Awakened Drakan Armed Beast",
+    "isBoss": false
+  },
+  "2702521": {
+    "name": "Awakened Drakan Magic Supporter",
+    "isBoss": false
+  },
+  "2702524": {
+    "name": "Forgotten Rekhorn",
+    "isBoss": true
+  },
+  "2702525": {
+    "name": "Consumed Drakan Vanguard Sapper",
+    "isBoss": false
+  },
+  "2702527": {
+    "name": "Consumed Drakan Air Raiders Weapon",
+    "isBoss": false
+  },
+  "2702528": {
+    "name": "Consumed Drakan Training Captain",
+    "isBoss": false
+  },
+  "2702529": {
+    "name": "Consumed Drakan Common Soldier",
+    "isBoss": false
+  },
+  "2702530": {
+    "name": "Consumed Drakan Armed Beast",
+    "isBoss": false
+  },
+  "2702531": {
+    "name": "Consumed Drakan Magic Supporter",
+    "isBoss": false
+  },
+  "2702534": {
+    "name": "Forgotten Rekhorn",
+    "isBoss": true
+  },
+  "2702535": {
+    "name": "Furious Drakan Vanguard Sapper",
+    "isBoss": false
+  },
+  "2702537": {
+    "name": "Furious Drakan Air Raiders Weapon",
+    "isBoss": false
+  },
+  "2702538": {
+    "name": "Furious Drakan Training Captain",
+    "isBoss": false
+  },
+  "2702539": {
+    "name": "Furious Drakan Common Soldier",
+    "isBoss": false
+  },
+  "2702540": {
+    "name": "Furious Drakan Armed Beast",
+    "isBoss": false
+  },
+  "2702541": {
+    "name": "Furious Drakan Magic Supporter",
+    "isBoss": false
+  },
+  "2702544": {
+    "name": "Forgotten Rekhorn",
+    "isBoss": true
+  },
+  "2702545": {
+    "name": "Abyssal Drakan Vanguard Sapper",
+    "isBoss": false
+  },
+  "2702547": {
+    "name": "Abyssal Drakan Air Raiders Weapon",
+    "isBoss": false
+  },
+  "2702548": {
+    "name": "Abyssal Drakan Training Captain",
+    "isBoss": false
+  },
+  "2702549": {
+    "name": "Abyssal Drakan Common Soldier",
+    "isBoss": false
+  },
+  "2702550": {
+    "name": "Abyssal Drakan Armed Beast",
+    "isBoss": false
+  },
+  "2702551": {
+    "name": "Abyssal Drakan Magic Supporter",
+    "isBoss": false
+  },
+  "2702554": {
+    "name": "Cave Naga Guardian Warrior",
+    "isBoss": false
+  },
+  "2702557": {
+    "name": "Cave Naga Priest",
+    "isBoss": false
+  },
+  "2702559": {
+    "name": "Noble Guardian Statue",
+    "isBoss": false
+  },
+  "2702560": {
+    "name": "Flame",
+    "isBoss": false
+  },
+  "2702563": {
+    "name": "Mutated Test Subject",
+    "isBoss": false
+  },
+  "2702564": {
+    "name": "Mutated Malgerre",
+    "isBoss": true
+  },
+  "2702565": {
+    "name": "Forgotten Guardian Statue",
+    "isBoss": false
+  },
+  "2702567": {
+    "name": "Forgotten Zaigolem",
+    "isBoss": false
+  },
+  "2702569": {
+    "name": "Fire Spider",
+    "isBoss": false
+  },
+  "2702571": {
+    "name": "Rotan",
+    "isBoss": false
+  },
+  "2702572": {
+    "name": "Giant Karnif Istan",
+    "isBoss": true
+  },
+  "2702573": {
+    "name": "Nest Debry",
+    "isBoss": false
+  },
+  "2702574": {
+    "name": "Lamiphedon",
+    "isBoss": true
+  },
+  "2702575": {
+    "name": "Lost Daeva Knight's Soul",
+    "isBoss": false
+  },
+  "2702576": {
+    "name": "Lost Daeva Ranger's Soul",
+    "isBoss": false
+  },
+  "2702577": {
+    "name": "Lost Wraith",
+    "isBoss": false
+  },
+  "2702579": {
+    "name": "Deserter Fighter",
+    "isBoss": false
+  },
+  "2702580": {
+    "name": "Deserter Thief",
+    "isBoss": false
+  },
+  "2702582": {
+    "name": "Tamed Floofy",
+    "isBoss": false
+  },
+  "2702583": {
+    "name": "Kurpak Special Operations Unit Warrior",
+    "isBoss": false
+  },
+  "2702584": {
+    "name": "Kurpak Special Operations Unit Healer",
+    "isBoss": false
+  },
+  "2702585": {
+    "name": "Kurpak Special Operations Unit Assault Trooper",
+    "isBoss": false
+  },
+  "2702586": {
+    "name": "Kurpak Special Operations Unit Striker",
+    "isBoss": false
+  },
+  "2702587": {
+    "name": "Kurpak Special Operations Unit Striker",
+    "isBoss": false
+  },
+  "2702588": {
+    "name": "Kurpak Special Operations Unit Ranger",
+    "isBoss": false
+  },
+  "2702589": {
+    "name": "Kurpak Special Operations Unit Ranger",
+    "isBoss": false
+  },
+  "2702590": {
+    "name": "Poison Sac",
+    "isBoss": false
+  },
+  "2702591": {
+    "name": "Fate Archon Renegade",
+    "isBoss": false
+  },
+  "2702592": {
+    "name": "Fate Archon Renegade",
+    "isBoss": false
+  },
+  "2702593": {
+    "name": "Fate Archon Renegade",
+    "isBoss": false
+  },
+  "2702594": {
+    "name": "Fate Archon Heretic",
+    "isBoss": false
+  },
+  "2702595": {
+    "name": "Fate Archon Heretic",
+    "isBoss": false
+  },
+  "2702596": {
+    "name": "Fate Archon Betrayer",
+    "isBoss": false
+  },
+  "2702597": {
+    "name": "Fate Archon Betrayer",
+    "isBoss": false
+  },
+  "2702598": {
+    "name": "Abyssal Sigebert",
+    "isBoss": true
+  },
+  "2702599": {
+    "name": "Lepharist Warrior",
+    "isBoss": false
+  },
+  "2702600": {
+    "name": "Lepharist Warrior",
+    "isBoss": false
+  },
+  "2702601": {
+    "name": "Lepharist Pugilist",
+    "isBoss": false
+  },
+  "2702602": {
+    "name": "Lepharist Mage",
+    "isBoss": false
+  },
+  "2702603": {
+    "name": "Lepharist Mage",
+    "isBoss": false
+  },
+  "2702604": {
+    "name": "Lepharist Researcher",
+    "isBoss": false
+  },
+  "2702605": {
+    "name": "Training Scarecrow",
+    "isBoss": false,
+    "isDummy": true
+  },
+  "2702606": {
+    "name": "Gravi",
+    "isBoss": false
+  },
+  "2702607": {
+    "name": "Laser",
+    "isBoss": false
+  },
+  "2702608": {
+    "name": "Laser",
+    "isBoss": false
+  },
+  "2702609": {
+    "name": "Brainwashed Gravarax",
+    "isBoss": false
+  },
+  "2702610": {
+    "name": "Brainwashed Gravarax",
+    "isBoss": false
+  },
+  "2702611": {
+    "name": "Eloen",
+    "isBoss": true,
+    "category": "Ascension Trial",
+    "tier": "Hell",
+    "dungeonId": 910066
+  },
+  "2702612": {
+    "name": "Doom Twisted Test Subject",
+    "isBoss": false
+  },
+  "2702613": {
+    "name": "Doom Twisted Magic Test Subject",
+    "isBoss": false
+  },
+  "2702614": {
+    "name": "Doom Mutant",
+    "isBoss": false
+  },
+  "2702615": {
+    "name": "Doom Test Subject",
+    "isBoss": false
+  },
+  "2702616": {
+    "name": "Doom Floater",
+    "isBoss": false
+  },
+  "2702617": {
+    "name": "Doom Magic Test Subject",
+    "isBoss": false
+  },
+  "2702618": {
+    "name": "Doom Dracuni",
+    "isBoss": false
+  },
+  "2702619": {
+    "name": "Ruinous Devourer",
+    "isBoss": false
+  },
+  "2702620": {
+    "name": "Doom Drana",
+    "isBoss": false
+  },
+  "2702623": {
+    "name": "Eloen",
+    "isBoss": true,
+    "category": "Ascension Trial",
+    "tier": "Doom",
+    "dungeonId": 910067
+  },
+  "2702624": {
+    "name": "Void Twisted Test Subject",
+    "isBoss": false
+  },
+  "2702625": {
+    "name": "Void Twisted Magic Test Subject",
+    "isBoss": false
+  },
+  "2702626": {
+    "name": "Void Mutant",
+    "isBoss": false
+  },
+  "2702627": {
+    "name": "Void Test Subject",
+    "isBoss": false
+  },
+  "2702628": {
+    "name": "Void Floater",
+    "isBoss": false
+  },
+  "2702629": {
+    "name": "Void Magic Test Subject",
+    "isBoss": false
+  },
+  "2702630": {
+    "name": "Void Dracuni",
+    "isBoss": false
+  },
+  "2702631": {
+    "name": "Void Predator",
+    "isBoss": false
+  },
+  "2702632": {
+    "name": "Void Drana",
+    "isBoss": false
+  },
+  "2702635": {
+    "name": "Finned Monster",
+    "isBoss": false
+  },
+  "2702636": {
+    "name": "Young Finned Monster",
+    "isBoss": false
+  },
   "2702637": {
     "name": "Bomb",
+    "isBoss": false
+  },
+  "2702638": {
+    "name": "Ascended Repository Defense Cannon",
+    "isBoss": false
+  },
+  "2702639": {
+    "name": "Ascended Repository Warrior",
+    "isBoss": false
+  },
+  "2702640": {
+    "name": "Ascended Repository Bomber",
+    "isBoss": false
+  },
+  "2702641": {
+    "name": "Ascended Repository Mage",
+    "isBoss": false
+  },
+  "2702642": {
+    "name": "Ascended Repository Supporter",
+    "isBoss": false
+  },
+  "2702643": {
+    "name": "Ascended Repository Guard",
+    "isBoss": false
+  },
+  "2702644": {
+    "name": "Ascended Repository Warmage",
+    "isBoss": false
+  },
+  "2702645": {
+    "name": "Ascended Repository Assault Captain",
+    "isBoss": false
+  },
+  "2702646": {
+    "name": "Ascended Repository Reaper",
+    "isBoss": false
+  },
+  "2702647": {
+    "name": "Ascended Repository Ancient Totem",
+    "isBoss": false
+  },
+  "2702648": {
+    "name": "Karlix",
+    "isBoss": true,
+    "category": "Ascension Trial",
+    "tier": "Normal",
+    "dungeonId": 910052
+  },
+  "2702649": {
+    "name": "Forgotten Repository Defense Cannon",
+    "isBoss": false
+  },
+  "2702650": {
+    "name": "Forgotten Repository Warrior",
+    "isBoss": false
+  },
+  "2702651": {
+    "name": "Forgotten Repository Bomber",
+    "isBoss": false
+  },
+  "2702652": {
+    "name": "Forgotten Repository Mage",
+    "isBoss": false
+  },
+  "2702653": {
+    "name": "Forgotten Repository Supporter",
+    "isBoss": false
+  },
+  "2702654": {
+    "name": "Forgotten Repository Guard",
+    "isBoss": false
+  },
+  "2702655": {
+    "name": "Forgotten Repository Warmage",
+    "isBoss": false
+  },
+  "2702656": {
+    "name": "Forgotten Repository Assault Captain",
+    "isBoss": false
+  },
+  "2702657": {
+    "name": "Forgotten Repository Reaper",
+    "isBoss": false
+  },
+  "2702658": {
+    "name": "Forgotten Repository Ancient Totem",
+    "isBoss": false
+  },
+  "2702659": {
+    "name": "Karlix",
+    "isBoss": true,
+    "category": "Ascension Trial",
+    "tier": "Hard",
+    "dungeonId": 910053
+  },
+  "2702660": {
+    "name": "Savage Repository Defense Cannon",
+    "isBoss": false
+  },
+  "2702661": {
+    "name": "Furious Repository Warrior",
+    "isBoss": false
+  },
+  "2702662": {
+    "name": "Furious Repository Bomber",
+    "isBoss": false
+  },
+  "2702663": {
+    "name": "Furious Repository Mage",
+    "isBoss": false
+  },
+  "2702664": {
+    "name": "Furious Repository Supporter",
+    "isBoss": false
+  },
+  "2702665": {
+    "name": "Furious Repository Guard",
+    "isBoss": false
+  },
+  "2702666": {
+    "name": "Furious Repository Warmage",
+    "isBoss": false
+  },
+  "2702667": {
+    "name": "Savage Repository Assault Captain",
+    "isBoss": false
+  },
+  "2702668": {
+    "name": "Savage Repository Reaper",
+    "isBoss": false
+  },
+  "2702669": {
+    "name": "Furious Repository Ancient Totem",
+    "isBoss": false
+  },
+  "2702670": {
+    "name": "Karlix",
+    "isBoss": true,
+    "category": "Ascension Trial",
+    "tier": "Extreme",
+    "dungeonId": 910054
+  },
+  "2702671": {
+    "name": "Despair Repository Defense Cannon",
+    "isBoss": false
+  },
+  "2702672": {
+    "name": "Despair Repository Warrior",
+    "isBoss": false
+  },
+  "2702673": {
+    "name": "Despair Repository Bomber",
+    "isBoss": false
+  },
+  "2702674": {
+    "name": "Despair Repository Mage",
+    "isBoss": false
+  },
+  "2702675": {
+    "name": "Despair Repository Supporter",
+    "isBoss": false
+  },
+  "2702676": {
+    "name": "Despair Repository Guard",
+    "isBoss": false
+  },
+  "2702677": {
+    "name": "Despair Repository Warmage",
+    "isBoss": false
+  },
+  "2702678": {
+    "name": "Despair Repository Assault Captain",
+    "isBoss": false
+  },
+  "2702679": {
+    "name": "Despair Repository Reaper",
+    "isBoss": false
+  },
+  "2702680": {
+    "name": "Despair Repository Ancient Totem",
+    "isBoss": false
+  },
+  "2702681": {
+    "name": "Karlix",
+    "isBoss": true,
+    "category": "Ascension Trial",
+    "tier": "Insane",
+    "dungeonId": 910055
+  },
+  "2702682": {
+    "name": "Doom Repository Defense Cannon",
+    "isBoss": false
+  },
+  "2702683": {
+    "name": "Doom Repository Warrior",
+    "isBoss": false
+  },
+  "2702684": {
+    "name": "Doom Repository Bomber",
+    "isBoss": false
+  },
+  "2702685": {
+    "name": "Doom Repository Mage",
+    "isBoss": false
+  },
+  "2702686": {
+    "name": "Doom Repository Supporter",
+    "isBoss": false
+  },
+  "2702687": {
+    "name": "Doom Repository Guard",
+    "isBoss": false
+  },
+  "2702688": {
+    "name": "Doom Repository Warmage",
+    "isBoss": false
+  },
+  "2702689": {
+    "name": "Doom Repository Assault Captain",
+    "isBoss": false
+  },
+  "2702690": {
+    "name": "Doom Repository Reaper",
+    "isBoss": false
+  },
+  "2702691": {
+    "name": "Doom Repository Ancient Totem",
+    "isBoss": false
+  },
+  "2702692": {
+    "name": "Karlix",
+    "isBoss": true,
+    "category": "Ascension Trial",
+    "tier": "Hell",
+    "dungeonId": 910056
+  },
+  "2702693": {
+    "name": "Void Repository Defense Cannon",
+    "isBoss": false
+  },
+  "2702694": {
+    "name": "Void Repository Warrior",
+    "isBoss": false
+  },
+  "2702695": {
+    "name": "Void Repository Bomber",
+    "isBoss": false
+  },
+  "2702696": {
+    "name": "Void Repository Mage",
+    "isBoss": false
+  },
+  "2702697": {
+    "name": "Void Repository Supporter",
+    "isBoss": false
+  },
+  "2702698": {
+    "name": "Void Repository Guard",
+    "isBoss": false
+  },
+  "2702699": {
+    "name": "Void Repository Warmage",
+    "isBoss": false
+  },
+  "2702700": {
+    "name": "Void Repository Assault Captain",
+    "isBoss": false
+  },
+  "2702701": {
+    "name": "Void Repository Reaper",
+    "isBoss": false
+  },
+  "2702702": {
+    "name": "Void Repository Ancient Totem",
+    "isBoss": false
+  },
+  "2702703": {
+    "name": "Karlix",
+    "isBoss": true,
+    "category": "Ascension Trial",
+    "tier": "Doom",
+    "dungeonId": 910057
+  },
+  "2702704": {
+    "name": "Ice Debry",
+    "isBoss": false
+  },
+  "2702705": {
+    "name": "Ice Ghula",
+    "isBoss": false
+  },
+  "2702706": {
+    "name": "Spring Marauder",
+    "isBoss": false
+  },
+  "2702707": {
+    "name": "Spring Intruder",
+    "isBoss": false
+  },
+  "2702708": {
+    "name": "Spring Sentry",
+    "isBoss": false
+  },
+  "2702709": {
+    "name": "Lake Cave Wraith",
+    "isBoss": false
+  },
+  "2702710": {
+    "name": "Void Helicoid",
+    "isBoss": false
+  },
+  "2702711": {
+    "name": "Void Helicoid",
+    "isBoss": false
+  },
+  "2702712": {
+    "name": "Void Helicoid",
+    "isBoss": false
+  },
+  "2702713": {
+    "name": "Void Helicoid",
+    "isBoss": false
+  },
+  "2702714": {
+    "name": "Void Helicoid",
+    "isBoss": false
+  },
+  "2702715": {
+    "name": "Void Helicoid",
+    "isBoss": false
+  },
+  "2702716": {
+    "name": "Void Helicoid",
+    "isBoss": false
+  },
+  "2702717": {
+    "name": "Repository Ancient Totem",
+    "isBoss": false
+  },
+  "2702718": {
+    "name": "Ascended Repository Ancient Totem",
+    "isBoss": false
+  },
+  "2702719": {
+    "name": "Forgotten Repository Ancient Totem",
+    "isBoss": false
+  },
+  "2702720": {
+    "name": "Furious Repository Ancient Totem",
+    "isBoss": false
+  },
+  "2702721": {
+    "name": "Despair Repository Ancient Totem",
+    "isBoss": false
+  },
+  "2702722": {
+    "name": "Doom Repository Ancient Totem",
+    "isBoss": false
+  },
+  "2702723": {
+    "name": "Void Repository Ancient Totem",
+    "isBoss": false
+  },
+  "2702725": {
+    "name": "Remnants of a Culled Daeva",
+    "isBoss": false
+  },
+  "2702726": {
+    "name": "Remnants of a Culled Daeva",
     "isBoss": false
   },
   "2920029": {
@@ -26525,10 +31687,6 @@
     "name": "Illusion Cavaliers Priest",
     "isBoss": false
   },
-  "2921222": {
-    "name": "Monster (Specimen)",
-    "isBoss": false
-  },
   "2921228": {
     "name": "Alluring Arrow",
     "isBoss": false
@@ -26537,8 +31695,32 @@
     "name": "Muspel Guardian Statue",
     "isBoss": false
   },
+  "2921298": {
+    "name": "Atiel",
+    "isBoss": true
+  },
+  "2921299": {
+    "name": "Atiel",
+    "isBoss": true
+  },
+  "2921300": {
+    "name": "Atiel",
+    "isBoss": false
+  },
   "2921315": {
     "name": "Muspel Guardian Statue",
+    "isBoss": false
+  },
+  "2921354": {
+    "name": "Roar",
+    "isBoss": false
+  },
+  "2921355": {
+    "name": "Electrifying Core",
+    "isBoss": false
+  },
+  "2921382": {
+    "name": "Roar",
     "isBoss": false
   },
   "2980000": {
@@ -28286,6 +33468,356 @@
   },
   "2980259": {
     "name": "Wraith Giselle",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 10",
+    "dungeonId": 200003
+  },
+  "2980260": {
+    "name": "Kromede's Desire",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 1",
+    "dungeonId": 200003
+  },
+  "2980261": {
+    "name": "Kromede's Desire",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 2",
+    "dungeonId": 200003
+  },
+  "2980262": {
+    "name": "Kromede's Desire",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 3",
+    "dungeonId": 200003
+  },
+  "2980263": {
+    "name": "Kromede's Desire",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 4",
+    "dungeonId": 200003
+  },
+  "2980264": {
+    "name": "Kromede's Desire",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 5",
+    "dungeonId": 200003
+  },
+  "2980265": {
+    "name": "Kromede's Desire",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 6",
+    "dungeonId": 200003
+  },
+  "2980266": {
+    "name": "Kromede's Desire",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 7",
+    "dungeonId": 200003
+  },
+  "2980267": {
+    "name": "Kromede's Desire",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 8",
+    "dungeonId": 200003
+  },
+  "2980268": {
+    "name": "Kromede's Desire",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 9",
+    "dungeonId": 200003
+  },
+  "2980269": {
+    "name": "Kromede's Desire",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 10",
+    "dungeonId": 200003
+  },
+  "2980270": {
+    "name": "Intact Paton",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 1",
+    "dungeonId": 200003
+  },
+  "2980271": {
+    "name": "Intact Paton",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 2",
+    "dungeonId": 200003
+  },
+  "2980272": {
+    "name": "Intact Paton",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 3",
+    "dungeonId": 200003
+  },
+  "2980273": {
+    "name": "Intact Paton",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 4",
+    "dungeonId": 200003
+  },
+  "2980274": {
+    "name": "Intact Paton",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 5",
+    "dungeonId": 200003
+  },
+  "2980275": {
+    "name": "Intact Paton",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 6",
+    "dungeonId": 200003
+  },
+  "2980276": {
+    "name": "Intact Paton",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 7",
+    "dungeonId": 200003
+  },
+  "2980277": {
+    "name": "Intact Paton",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 8",
+    "dungeonId": 200003
+  },
+  "2980278": {
+    "name": "Intact Paton",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 9",
+    "dungeonId": 200003
+  },
+  "2980279": {
+    "name": "Intact Paton",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 10",
+    "dungeonId": 200003
+  },
+  "2980280": {
+    "name": "Ascended Atheron",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 1",
+    "dungeonId": 200003
+  },
+  "2980281": {
+    "name": "Ascended Atheron",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 2",
+    "dungeonId": 200003
+  },
+  "2980282": {
+    "name": "Ascended Atheron",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 3",
+    "dungeonId": 200003
+  },
+  "2980283": {
+    "name": "Ascended Atheron",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 4",
+    "dungeonId": 200003
+  },
+  "2980284": {
+    "name": "Ascended Atheron",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 5",
+    "dungeonId": 200003
+  },
+  "2980285": {
+    "name": "Ascended Atheron",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 6",
+    "dungeonId": 200003
+  },
+  "2980286": {
+    "name": "Ascended Atheron",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 7",
+    "dungeonId": 200003
+  },
+  "2980287": {
+    "name": "Ascended Atheron",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 8",
+    "dungeonId": 200003
+  },
+  "2980288": {
+    "name": "Ascended Atheron",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 9",
+    "dungeonId": 200003
+  },
+  "2980289": {
+    "name": "Ascended Atheron",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 10",
+    "dungeonId": 200003
+  },
+  "2980290": {
+    "name": "Scout Captain Ked",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 1",
+    "dungeonId": 200003
+  },
+  "2980291": {
+    "name": "Scout Captain Ked",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 2",
+    "dungeonId": 200003
+  },
+  "2980292": {
+    "name": "Scout Captain Ked",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 3",
+    "dungeonId": 200003
+  },
+  "2980293": {
+    "name": "Scout Captain Ked",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 4",
+    "dungeonId": 200003
+  },
+  "2980294": {
+    "name": "Scout Captain Ked",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 5",
+    "dungeonId": 200003
+  },
+  "2980295": {
+    "name": "Scout Captain Ked",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 6",
+    "dungeonId": 200003
+  },
+  "2980296": {
+    "name": "Scout Captain Ked",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 7",
+    "dungeonId": 200003
+  },
+  "2980297": {
+    "name": "Scout Captain Ked",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 8",
+    "dungeonId": 200003
+  },
+  "2980298": {
+    "name": "Scout Captain Ked",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 9",
+    "dungeonId": 200003
+  },
+  "2980299": {
+    "name": "Scout Captain Ked",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 10",
+    "dungeonId": 200003
+  },
+  "2980300": {
+    "name": "Lieutenant Hebran",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 1",
+    "dungeonId": 200003
+  },
+  "2980301": {
+    "name": "Lieutenant Hebran",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 2",
+    "dungeonId": 200003
+  },
+  "2980302": {
+    "name": "Lieutenant Hebran",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 3",
+    "dungeonId": 200003
+  },
+  "2980303": {
+    "name": "Lieutenant Hebran",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 4",
+    "dungeonId": 200003
+  },
+  "2980304": {
+    "name": "Lieutenant Hebran",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 5",
+    "dungeonId": 200003
+  },
+  "2980305": {
+    "name": "Lieutenant Hebran",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 6",
+    "dungeonId": 200003
+  },
+  "2980306": {
+    "name": "Lieutenant Hebran",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 7",
+    "dungeonId": 200003
+  },
+  "2980307": {
+    "name": "Lieutenant Hebran",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 8",
+    "dungeonId": 200003
+  },
+  "2980308": {
+    "name": "Lieutenant Hebran",
+    "isBoss": true,
+    "category": "Nightmare",
+    "tier": "Level 9",
+    "dungeonId": 200003
+  },
+  "2980309": {
+    "name": "Lieutenant Hebran",
     "isBoss": true,
     "category": "Nightmare",
     "tier": "Level 10",
