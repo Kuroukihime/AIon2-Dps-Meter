@@ -34,7 +34,7 @@ namespace AionDpsMeter.Services.Models
             }
 
             // Player skills (11xxxxxx - 18xxxxxx)
-            if (code >= 11_000_000 && code < 19_000_000)
+            if (code >= 11_000_000 && code < 20_000_000)
             {
                 return true;
             }
