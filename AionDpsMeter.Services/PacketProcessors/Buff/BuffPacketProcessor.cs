@@ -46,12 +46,12 @@ namespace AionDpsMeter.Services.PacketProcessors.Buff
             if (offset >= packetEnd) return;
 
             if (offset + 4 > packetEnd) return;
-            int buffId = packet.ReadUInt32Le(offset);
+            int buffId = packet.ReadUInt32Le(offset) / 10 ;
             offset += 4;
 
             if (!gameData.IsBuff(buffId)) return;
-            var skill = gameData.GetBuff(buffId);
-            if (skill == null) return;
+            var skill = gameData.GetSkillOrDefault(buffId);
+            
 
             if (offset + 4 > packetEnd) return;
             uint durationMs = (uint)packet.ReadUInt32Le(offset);
@@ -78,10 +78,10 @@ namespace AionDpsMeter.Services.PacketProcessors.Buff
             BuffReceived?.Invoke(this, new BuffEvent
             {
                 EntityId = entityId,
-                BuffId = buffId,
+                BuffId = skill.Id,
                 BuffName = skill.Name,
                 BuffIcon = skill.Icon,
-                Description = skill.Description,
+                Description = "",
                 DurationMs = durationMs,
                 AppliedAt = DateTime.Now,
                 CasterId = casterId,

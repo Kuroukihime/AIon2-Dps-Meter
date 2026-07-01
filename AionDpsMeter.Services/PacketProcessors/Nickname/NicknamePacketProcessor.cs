@@ -15,6 +15,7 @@ namespace AionDpsMeter.Services.PacketProcessors.Nickname
 
         private const int NameScanWindow = 10;
         private const byte NameBlockMarker = 7;
+        private const byte SelfNameBlockMarker = 0x37;
         private const int MaxNameLength = 72;
 
         public NicknamePacketProcessor(EntityTracker entityTracker, ILogger<NicknamePacketProcessor> logger)
@@ -66,8 +67,7 @@ namespace AionDpsMeter.Services.PacketProcessors.Nickname
         {
             List<Player> list = ParsePartyMemberBlocksStructured(packet, lenVarInt + 2);
             if (list.Count > 0)
-            {
-                Trace.WriteLine(BitConverter.ToString(packet));
+            {           
                 foreach (var partyMember in list)
                     entityTracker.RegisterBasePlayerEntity(partyMember);
             }
@@ -76,13 +76,16 @@ namespace AionDpsMeter.Services.PacketProcessors.Nickname
         private List<Player> ParsePartyMemberBlocksStructured(byte[] packet, int dataOffset)
         {
             var results = new List<Player>();
-            byte[] levelMarker = [0x2D, 0x00, 0x00, 0x00];
+            byte[] levelMarker45 = [0x2D, 0x00, 0x00, 0x00];
+            byte[] levelMarker50 = [0x32, 0x00, 0x00, 0x00];
             int searchFrom = dataOffset;
             int expectedMemberNum = 1;
 
             while (true)
             {
-                int levelPos = packet.IndexOfArray(levelMarker, searchFrom);
+                int levelPos = -1;
+                levelPos = packet.IndexOfArray(levelMarker50, searchFrom);
+                if (levelPos < 0) levelPos = packet.IndexOfArray(levelMarker45, searchFrom);
                 if (levelPos < 0) break;
 
                 int blockStart = -1;
@@ -153,7 +156,7 @@ namespace AionDpsMeter.Services.PacketProcessors.Nickname
             if (entityId < 1) return false;
             pos += entityVarInt.Length;
 
-            var nameRead = ReadPlayerName(data, pos, endOffset);
+            var nameRead = ReadPlayerName(data, pos, endOffset, SelfNameBlockMarker);
             if (!nameRead.HasValue) return false;
 
             int afterNameOffset = nameRead.Value.EndOffset;
@@ -178,7 +181,7 @@ namespace AionDpsMeter.Services.PacketProcessors.Nickname
             if (pos < endOffset) pos += data.ReadVarInt(pos).Length;
             if (pos < endOffset) pos += data.ReadVarInt(pos).Length;
 
-            var nameRead = ReadPlayerName(data, pos, endOffset);
+            var nameRead = ReadPlayerName(data, pos, endOffset, NameBlockMarker);
             if (!nameRead.HasValue) return false;
 
             int afterNameOffset = nameRead.Value.EndOffset;
@@ -192,12 +195,12 @@ namespace AionDpsMeter.Services.PacketProcessors.Nickname
             return true;
         }
 
-        private NameReadResult? ReadPlayerName(byte[] data, int searchStart, int endOffset)
+        private NameReadResult? ReadPlayerName(byte[] data, int searchStart, int endOffset, byte nameMarker)
         {
             int scanEnd = Math.Min(searchStart + NameScanWindow, endOffset);
             for (int i = searchStart; i < scanEnd; i++)
             {
-                if (data[i] != NameBlockMarker) continue;
+                if (data[i] != nameMarker) continue;
 
                 int pos = i + 1;
                 var nameLengthVarInt = data.ReadVarInt(pos);

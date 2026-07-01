@@ -333,7 +333,7 @@ namespace AionDpsMeter.UI.Controls
 
         // ── Buff timeline ─────────────────────────────────────────────────────
 
-        private record BuffRow(int BuffId, string Name, string? Icon, int ColorIdx, List<(double S, double E)> Segs);
+        private record BuffRow(int BuffId, string Name, string? Icon, int ColorIdx, int count, List<(double S, double E)> Segs);
 
         private static List<BuffRow> GroupBuffRows(IReadOnlyList<BuffTimelineEntry>? timeline)
         {
@@ -347,7 +347,7 @@ namespace AionDpsMeter.UI.Controls
                 {
                     ri = rows.Count;
                     idxMap[e.BuffId] = ri;
-                    rows.Add(new BuffRow(e.BuffId, e.BuffName, e.BuffIcon, colorI++ % BuffPalette.Length, []));
+                    rows.Add(new BuffRow(e.BuffId, e.BuffName, e.BuffIcon, colorI++ % BuffPalette.Length, e.Count, []));
                 }
                 rows[ri].Segs.Add((e.StartSec, e.EndSec));
             }
@@ -427,7 +427,7 @@ namespace AionDpsMeter.UI.Controls
             string uptimePct = dur > 0 ? $"{activeSec / dur * 100:F0}%" : "-";
 
             var ftName   = MakeText(row.Name, 9);
-            var ftDetail = MakeText($"x{row.Segs.Count}  uptime {FormatTimeFull((int)activeSec)} ({uptimePct})", 8);
+            var ftDetail = MakeText($"x{row.count} uptime {FormatTimeFull((int)activeSec)} ({uptimePct})", 8);
 
             double boxW = Math.Max(ftName.Width, ftDetail.Width) + 14;
             double boxH = ftName.Height + ftDetail.Height + 12;

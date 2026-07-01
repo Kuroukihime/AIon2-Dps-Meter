@@ -20,6 +20,7 @@ namespace AionDpsMeter.Core.Data
                 { "16", "EL" }, // Elementalist
                 { "17", "CL" }, // Cleric
                 { "18", "CH" }, // Chanter
+                { "19", "GT" }, // Brawler
             };
 
         private static readonly Dictionary<int, string> NameColorByCode = new()

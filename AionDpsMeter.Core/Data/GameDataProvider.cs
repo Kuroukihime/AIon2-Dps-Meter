@@ -10,7 +10,6 @@ namespace AionDpsMeter.Core.Data
         public SkillRepository Skills { get; } = new();
         public ClassRepository Classes { get; } = new();
         public MobRepository Mobs { get; } = new();
-        public BuffRepository Buffs { get; } = new();
 
 
         public static GameDataProvider Instance
@@ -38,7 +37,6 @@ namespace AionDpsMeter.Core.Data
             Skills.LoadDotSkillIds(Path.Combine(dataDir, "dot_skill_ids.json"));
             Skills.LoadHealingSkills(Path.Combine(dataDir, "healing_skill_ids.json"));
             Mobs.Load(Path.Combine(dataDir, "mobs.json"));
-            Buffs.Load(Path.Combine(dataDir, "buffs.json"));
 
         }
         public bool IsTheostone(int skillCode) => Skills.IsTheostone(skillCode);
@@ -55,8 +53,7 @@ namespace AionDpsMeter.Core.Data
 
         public bool IsDummy(int mobId) => Mobs.IsDummy(mobId);
 
-        public bool IsBuff (int buffId) => Buffs.IsBuff(buffId);
-        public BuffData? GetBuff(int buffId) => Buffs.GetBuff(buffId);
+        public bool IsBuff (int buffId) => Skills.IsBuff(buffId);
 
     }
 }

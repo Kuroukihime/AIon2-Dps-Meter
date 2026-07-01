@@ -6,5 +6,6 @@ namespace AionDpsMeter.Services.Models
         string BuffName,
         string? BuffIcon,
         double StartSec,
-        double EndSec);
+        double EndSec,
+        int Count);
 }
