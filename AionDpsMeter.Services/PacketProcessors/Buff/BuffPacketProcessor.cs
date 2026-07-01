@@ -78,7 +78,7 @@ namespace AionDpsMeter.Services.PacketProcessors.Buff
             BuffReceived?.Invoke(this, new BuffEvent
             {
                 EntityId = entityId,
-                BuffId = buffId,
+                BuffId = skill.Id,
                 BuffName = skill.Name,
                 BuffIcon = skill.Icon,
                 Description = "",
