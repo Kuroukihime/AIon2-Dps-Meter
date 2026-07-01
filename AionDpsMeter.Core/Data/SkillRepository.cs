@@ -8,7 +8,6 @@ namespace AionDpsMeter.Core.Data
     {
 
         private readonly Dictionary<int, Skill> skillsByPrefix = [];
-        private int[] skillCodeOffsets = [];
         private HashSet<int> dotSkillIds = new();
         private HashSet<int> healingSkillIds = new();
 
@@ -19,12 +18,10 @@ namespace AionDpsMeter.Core.Data
 
             var json = File.ReadAllText(path);
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            var file = JsonSerializer.Deserialize<SkillsData>(json, options)
+            var file = JsonSerializer.Deserialize<Dictionary<string, string>>(json, options)
                 ?? throw new InvalidDataException("Failed to deserialize skills.json");
 
-            skillCodeOffsets = file.SkillCodeOffsets ?? [];
-
-            foreach (var (idStr, name) in file.Skills)
+            foreach (var (idStr, name) in file)
             {
                 if (!int.TryParse(idStr, out var fullId))
                     continue;

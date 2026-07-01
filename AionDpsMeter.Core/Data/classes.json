@@ -44,6 +44,11 @@
       "id": 12,
       "name": "Templar",
       "icon": "/Assets/Classes/templar.png"
+    },
+    {
+      "id": 19,
+      "name": "Brawler",
+      "icon": "/Assets/Classes/brawler.png"
     }
   ]
 }

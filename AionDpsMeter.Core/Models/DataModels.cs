@@ -21,33 +21,4 @@ namespace AionDpsMeter.Core.Models
         public bool isDummy { get; set; }
     }
 
-
-    public enum BuffType
-    {
-        PASSIVE = 0,
-        DEBUFF = 1,
-        BUFF = 2,
-    }
-
-    public sealed class BuffData
-    {
-        public string Name { get; set; } = string.Empty;
-        public BuffType Type { get; set; }
-        public string IconUrlPart { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-
-        /// <summary>Fully resolved icon URL, set during repository load.</summary>
-        [JsonIgnore]
-        public string? Icon { get; set; }
-    }
-
-    internal sealed class SkillsData
-    {
-        [JsonPropertyName("skillCodeOffsets")]
-        public int[]? SkillCodeOffsets { get; set; }
-
-        [JsonPropertyName("skills")]
-        public Dictionary<string, string> Skills { get; set; } = [];
-    }
-
 }
