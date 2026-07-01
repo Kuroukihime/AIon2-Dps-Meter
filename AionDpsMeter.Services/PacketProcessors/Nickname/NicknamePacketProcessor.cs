@@ -76,13 +76,16 @@ namespace AionDpsMeter.Services.PacketProcessors.Nickname
         private List<Player> ParsePartyMemberBlocksStructured(byte[] packet, int dataOffset)
         {
             var results = new List<Player>();
-            byte[] levelMarker = [0x2D, 0x00, 0x00, 0x00];
+            byte[] levelMarker45 = [0x2D, 0x00, 0x00, 0x00];
+            byte[] levelMarker50 = [0x32, 0x00, 0x00, 0x00];
             int searchFrom = dataOffset;
             int expectedMemberNum = 1;
 
             while (true)
             {
-                int levelPos = packet.IndexOfArray(levelMarker, searchFrom);
+                int levelPos = -1;
+                levelPos = packet.IndexOfArray(levelMarker50, searchFrom);
+                if (levelPos < 0) levelPos = packet.IndexOfArray(levelMarker45, searchFrom);
                 if (levelPos < 0) break;
 
                 int blockStart = -1;
