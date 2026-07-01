@@ -76,7 +76,7 @@ namespace AionDpsMeter.Services.PacketProcessors.Damage
         public bool ReadSpecialFlags(int switchValue, out SpecialFlags flags)
         {
             flags = default;
-
+            byte attackDirectionType = 0;
             if (switchValue == 4)
             {
                 if (!inner.HasRemainingBytes(8)) return false;
@@ -84,18 +84,23 @@ namespace AionDpsMeter.Services.PacketProcessors.Damage
             }
             else
             {
-                if (!inner.HasRemainingBytes(10)) return false;
-                inner.ReadByte(out DamageFlagByte);
+                if (!inner.HasRemainingBytes(12)) return false;
+                inner.ReadByte(out DamageFlagByte); // unknown byte
                 inner.ReadByte(out _); // unknown byte
+                inner.ReadByte(out attackDirectionType);
+                //inner.ReadByte(out _); // unknown byte
             }
 
             flags = ParseSpecialFlags(DamageFlagByte);
 
+            flags.IsBackAttack = (attackDirectionType & 0x01) != 0;
+
             // skip 4-byte unknown uint32
             for (int i = 0; i < 4; i++) inner.ReadByte(out _);
 
-            inner.ReadByte(out ControlByte);
-            int tailLen = ControlByte > 8 ? 2 : 3;
+            //inner.ReadByte(out ControlByte);
+            //int tailLen = ControlByte > 8 ? 2 : 3;
+            int tailLen = 4;
             for (int i = 0; i < tailLen; i++) inner.ReadByte(out _);
 
             return inner.HasRemainingBytes();
@@ -117,9 +122,9 @@ namespace AionDpsMeter.Services.PacketProcessors.Damage
             return true;
         }
 
-        public readonly struct SpecialFlags
+        public struct SpecialFlags
         {
-            public bool IsBackAttack { get; init; }
+            public bool IsBackAttack { get; set; }
             public bool IsParry { get; init; }
             public bool IsPerfect { get; init; }
             public bool IsDoubleDamage { get; init; }
@@ -128,9 +133,9 @@ namespace AionDpsMeter.Services.PacketProcessors.Damage
         private static SpecialFlags ParseSpecialFlags(byte flagByte) => new()
         {
             IsBackAttack  = (flagByte & 0x01) != 0,
-            IsParry       = (flagByte & 0x04) != 0,
-            IsPerfect     = (flagByte & 0x08) != 0,
-            IsDoubleDamage = (flagByte & 0x10) != 0
+            IsParry       = (flagByte & 0x02) != 0,
+            IsPerfect     = (flagByte & 0x04) != 0,
+            IsDoubleDamage = (flagByte & 0x08) != 0
         };
     }
 }
