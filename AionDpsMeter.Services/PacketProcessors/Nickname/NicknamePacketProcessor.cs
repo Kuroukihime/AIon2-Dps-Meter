@@ -3,7 +3,6 @@ using AionDpsMeter.Core.Models;
 using AionDpsMeter.Services.Extensions;
 using AionDpsMeter.Services.Services.Entity;
 using Microsoft.Extensions.Logging;
-using System.Diagnostics;
 using System.Text;
 
 namespace AionDpsMeter.Services.PacketProcessors.Nickname
@@ -13,9 +12,6 @@ namespace AionDpsMeter.Services.PacketProcessors.Nickname
         private readonly EntityTracker entityTracker;
         private readonly ILogger<NicknamePacketProcessor> logger;
 
-        private const int NameScanWindow = 10;
-        private const byte NameBlockMarker = 7;
-        private const byte SelfNameBlockMarker = 0x37;
         private const int MaxNameLength = 72;
 
         public NicknamePacketProcessor(EntityTracker entityTracker, ILogger<NicknamePacketProcessor> logger)
@@ -156,7 +152,7 @@ namespace AionDpsMeter.Services.PacketProcessors.Nickname
             if (entityId < 1) return false;
             pos += entityVarInt.Length;
 
-            var nameRead = ReadPlayerName(data, pos, endOffset, SelfNameBlockMarker);
+            var nameRead = ReadPlayerName(data, pos, endOffset);
             if (!nameRead.HasValue) return false;
 
             int afterNameOffset = nameRead.Value.EndOffset;
@@ -177,11 +173,7 @@ namespace AionDpsMeter.Services.PacketProcessors.Nickname
             int entityId = entityVarInt.Value;
             if (entityId < 1) return false;
             pos += entityVarInt.Length;
-
-            if (pos < endOffset) pos += data.ReadVarInt(pos).Length;
-            if (pos < endOffset) pos += data.ReadVarInt(pos).Length;
-
-            var nameRead = ReadPlayerName(data, pos, endOffset, NameBlockMarker);
+            var nameRead = ReadPlayerName(data, pos, endOffset);
             if (!nameRead.HasValue) return false;
 
             int afterNameOffset = nameRead.Value.EndOffset;
@@ -195,26 +187,23 @@ namespace AionDpsMeter.Services.PacketProcessors.Nickname
             return true;
         }
 
-        private NameReadResult? ReadPlayerName(byte[] data, int searchStart, int endOffset, byte nameMarker)
+        private NameReadResult? ReadPlayerName(byte[] data, int start, int endOffset)
         {
-            int scanEnd = Math.Min(searchStart + NameScanWindow, endOffset);
-            for (int i = searchStart; i < scanEnd; i++)
-            {
-                if (data[i] != nameMarker) continue;
 
-                int pos = i + 1;
+            start += 4;
+            if ((data[start] & 0x01) != 0)
+            {
+                int pos = start + 1;
                 var nameLengthVarInt = data.ReadVarInt(pos);
                 int nameByteLength = nameLengthVarInt.Value;
                 if (nameByteLength < 1 || nameByteLength > MaxNameLength) return null;
-
                 pos += nameLengthVarInt.Length;
                 if (pos + nameByteLength > endOffset) return null;
-
                 string name = DecodeGameString(data, pos, nameByteLength);
                 if (string.IsNullOrEmpty(name) || IsAllDigits(name)) return null;
 
                 return new NameReadResult(name, pos + nameByteLength);
-            }
+            }   
             return null;
         }
 
