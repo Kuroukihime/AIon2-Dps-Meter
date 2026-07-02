@@ -40,7 +40,7 @@ namespace AionDpsMeter.Services.Services.Session
         {
             var mob = entityTracker.GetTargetMob(damage.TargetEntity.Id) ?? damage.TargetEntity;
 
-            if (CurrentSession is not null && IsNewTry(mob) || ShouldCompleteSession(damage.DateTime, mob))
+            if (CurrentSession is not null && CurrentSession.IsNewTry() || ShouldCompleteSession(damage.DateTime, mob))
             {
                 CompleteCurrentSession(damage.DateTime);
                 StartNewSession(mob, damage.DateTime);
