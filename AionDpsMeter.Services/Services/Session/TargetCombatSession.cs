@@ -20,13 +20,14 @@ namespace AionDpsMeter.Services.Services.Session
         public Mob TargetInfo { get; }
         public DateTime SessionStart { get; }
         public DateTime LastHitTime { get; private set; }
-
         public DateTime? CompletedAt { get; private set; }
         public SessionState State { get; private set; } = SessionState.Active;
-
         public bool IsCompleted => State == SessionState.Completed;
 
+        private int LastKnownTargetHp { get; set; } = -1;
+
         private readonly IAppSettingsService settingsService;
+
 
         public TargetCombatSession(Mob targetInfo, DateTime sessionStart, EntityTracker entityTracker, IAppSettingsService settingsService)
         {
@@ -50,9 +51,18 @@ namespace AionDpsMeter.Services.Services.Session
 
             if (damage.DateTime > LastHitTime)
                 LastHitTime = damage.DateTime;
+            LastKnownTargetHp = TargetInfo.HpCurrent;
         }
 
- 
+        public bool IsNewTry()
+        {
+            if (TargetInfo.Name == "Training Scarecrow") return false;
+            if (LastKnownTargetHp == -1) return false;
+            if (TargetInfo.HpCurrent - TargetInfo.HpTotal/50 > LastKnownTargetHp) return true;
+            return false;
+        }
+
+
         public IReadOnlyCollection<int> GetPlayerEntityIds()
         {
             return playerSessions.Keys.Select(k => (int)k).ToList();
