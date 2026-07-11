@@ -1,5 +1,7 @@
 using AionDpsMeter.Core.Data;
 using AionDpsMeter.Core.Models;
+using AionDpsMeter.Services.Models;
+using AionDpsMeter.Services.PacketProcessors.Shared;
 using AionDpsMeter.Services.Services.Entity;
 using Microsoft.Extensions.Logging;
 
@@ -22,14 +24,25 @@ namespace AionDpsMeter.Services.PacketProcessors.DotDamage
 
         public void Process(byte[] packet)
         {
-            var reader = new DotDamagePacketReader(packet);
-            if (!reader.ReadAndValidateHeader()) return;
-            if (!reader.ReadTargetId(out int targetId)) return;
-            if (!reader.ReadAndValidateEffectType(out _)) return;
-            if (!reader.ReadActorId(out int actorId)) return;
-            if (!reader.ReadUnknownVarInt(out _)) return;
-            if (!reader.ReadSkillCode(out int skillCode)) return;
-            if (!reader.ReadDamage(out long damage)) return;
+
+
+            var reader = new PacketReader(packet);
+
+            reader.ReadVarInt(); //len
+            reader.ReadU16();    //opcode
+
+            var targetId = reader.ReadVarInt();
+
+            var effectType = reader.ReadU8();
+            if ((effectType & 0x02) == 0) return;
+
+            var actorId = reader.ReadVarInt();
+            reader.ReadVarInt(); // unknown
+
+            var skillCode = ((int)reader.ReadU32()) / 100;
+            if (!DataValidationHelper.IsReasonableSkillCode(skillCode)) return;
+
+            var damage = reader.ReadVarInt();
 
             if (targetId == actorId) return;
 
@@ -47,7 +60,7 @@ namespace AionDpsMeter.Services.PacketProcessors.DotDamage
             }
             else
             {
-                var player = entityTracker.GetPlayerEntity(actorId);
+                var player = entityTracker.GetPlayerEntity((int)actorId);
                 if (player == null)
                 {
                     logger.LogWarning("Unknown player for theostone code: {SkillCode}", skillCode);
@@ -59,8 +72,8 @@ namespace AionDpsMeter.Services.PacketProcessors.DotDamage
             DamageReceived?.Invoke(this, new PlayerDamage
             {
                 DateTime = DateTime.Now,
-                SourceEntity = entityTracker.GetOrCreateSessionPlayer(actorId, characterClass),
-                TargetEntity = entityTracker.GetOrCreateTargetEntity(targetId),
+                SourceEntity = entityTracker.GetOrCreateSessionPlayer((int)actorId, characterClass),
+                TargetEntity = entityTracker.GetOrCreateTargetEntity((int)targetId),
                 Skill = gameData.GetSkillOrDefault(skillCode),
                 CharacterClass = characterClass,
                 Damage = damage,

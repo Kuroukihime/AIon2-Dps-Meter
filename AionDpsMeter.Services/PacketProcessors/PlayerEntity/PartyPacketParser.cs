@@ -18,7 +18,7 @@ namespace AionDpsMeter.Services.PacketProcessors.PlayerEntity
         public static PartyPacket Parse(byte[] packet, int offset = 0)
         {
 
-            var r = new PacketReader2(packet);
+            var r = new PacketReader(packet);
 
             r.ReadVarInt(); //len
             r.ReadU16();  // opcode
@@ -46,7 +46,7 @@ namespace AionDpsMeter.Services.PacketProcessors.PlayerEntity
             return party;
         }
 
-        private static PartyPlayerPacket ParseMember(PacketReader2 r)
+        private static PartyPlayerPacket ParseMember(PacketReader r)
         {
 
             var position = r.Position;
