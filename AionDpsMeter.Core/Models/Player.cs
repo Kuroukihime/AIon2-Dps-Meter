@@ -2,13 +2,14 @@
 {
     public class Player : Entity
     {
-        public string? Icon { get; init; }
-        public int CharactedLevel { get; init; }
-        public int CombatPower { get; init; }
-        public int ServerId { get; init; }
-        public string ServerName { get; init; } = "";
-        public bool IsUser { get; init; }
-        public bool IsIndetified { get; init; }
+        public string? Icon { get; set; }
+        public int CharacterLevel { get; set; }
+        public int CombatPower { get; set; }
+        public int ServerId { get; set; }
+        public string ServerName { get; set; } = "";
+        public bool IsUser { get; set; }
+        public bool IsIdentified { get; set; }
         public CharacterClass? CharacterClass { get; set; }
+        public int? GlobalId { get; set; }
     }
 }

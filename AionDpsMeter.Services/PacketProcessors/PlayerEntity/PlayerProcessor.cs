@@ -27,13 +27,13 @@ namespace AionDpsMeter.Services.PacketProcessors.PlayerEntity
         public void ProcessPlayerInfo(byte[] packet)
         {
             if (!TryParseInfoTag1(packet, packet.Length, out PlayerInfoResult result)) return;
-            entityTracker.UpdatePlayerEntityName(result.EntityId, result.Name, ServerMap.GetName(result.ServerId), true);
+            entityTracker.SetSessionPlayerName(result.EntityId, result.Name, ServerMap.GetName(result.ServerId), true);
         }
 
         public void ProcessOtherPlayersInfo(byte[] packet)
         {
             if (!TryParseInfoTag2(packet, packet.Length, out PlayerInfoResult result2)) return;
-            entityTracker.UpdatePlayerEntityName(result2.EntityId, result2.Name, ServerMap.GetName(result2.ServerId));
+            entityTracker.SetSessionPlayerName(result2.EntityId, result2.Name, ServerMap.GetName(result2.ServerId));
         }
 
         public void ProcessGlobalSessionIdLinking(byte[] packet)
@@ -56,8 +56,7 @@ namespace AionDpsMeter.Services.PacketProcessors.PlayerEntity
             var playerId = playerIdVarInt.Value;
             var globalId = packet.ReadUInt32Le(lenVarInt + playerIdVarInt.Length + 8);
 
-            var linkResult = entityTracker.LinkBaseToSessionPlayerEntity(globalId, playerId);
-            logger.LogInformation("Player globalId {GlobalId} => sessionId {PlayerId}. Link result {LinkResult}", globalId, playerId, linkResult);
+            entityTracker.LinkSessionToGlobalPlayer(globalId, playerId);
         }
 
         private void ProcessPartyPacket(byte[] packet, int lenVarInt)
@@ -66,7 +65,7 @@ namespace AionDpsMeter.Services.PacketProcessors.PlayerEntity
             if (list.Count > 0)
             {           
                 foreach (var partyMember in list)
-                    entityTracker.RegisterBasePlayerEntity(partyMember);
+                    entityTracker.RegisterOrUpdateGlobalPlayer(partyMember);
             }
         }
 
@@ -78,6 +77,7 @@ namespace AionDpsMeter.Services.PacketProcessors.PlayerEntity
             try
             {
 
+                //Debug.WriteLine(BitConverter.ToString(packet));
                 var result = PartyPacketParser.Parse(packet);
 
                 foreach (var partyMember in result.ValidMembers)
@@ -88,7 +88,7 @@ namespace AionDpsMeter.Services.PacketProcessors.PlayerEntity
                         ServerId = partyMember.ServerId,
                         ServerName = partyMember.ServerName,
                         Name = partyMember.Name,
-                        CharactedLevel = (int)partyMember.CharactedLevel,
+                        CharacterLevel = (int)partyMember.CharactedLevel,
                         CombatPower = (int)(partyMember.CombatPower ?? 0)
                     });
                 }

@@ -118,7 +118,7 @@ namespace AionDpsMeter.Services.PacketProcessors.Damage
             return new PlayerDamage
             {
                 DateTime = data.Timestamp,
-                SourceEntity = entityTracker.GetOrCreatePlayerEntity(data.ActorId, characterClass!),
+                SourceEntity = entityTracker.GetOrCreateSessionPlayer(data.ActorId, characterClass!),
                 TargetEntity = entityTracker.GetOrCreateTargetEntity(data.TargetId),
                 Skill = gameData.GetSkillOrDefault(data.SkillCode),
                 CharacterClass = characterClass!,

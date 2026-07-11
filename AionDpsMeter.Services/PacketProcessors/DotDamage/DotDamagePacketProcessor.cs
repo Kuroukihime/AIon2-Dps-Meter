@@ -59,7 +59,7 @@ namespace AionDpsMeter.Services.PacketProcessors.DotDamage
             DamageReceived?.Invoke(this, new PlayerDamage
             {
                 DateTime = DateTime.Now,
-                SourceEntity = entityTracker.GetOrCreatePlayerEntity(actorId, characterClass),
+                SourceEntity = entityTracker.GetOrCreateSessionPlayer(actorId, characterClass),
                 TargetEntity = entityTracker.GetOrCreateTargetEntity(targetId),
                 Skill = gameData.GetSkillOrDefault(skillCode),
                 CharacterClass = characterClass,
