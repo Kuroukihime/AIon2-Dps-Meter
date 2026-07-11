@@ -16,6 +16,7 @@
             <converters:SafeImageSourceConverter x:Key="SafeImageSourceConverter"/>
             <converters:StringToBrushConverter x:Key="StringToBrushConverter"/>
             <converters:IntToVisibilityConverter x:Key="IntToVisibilityConverter"/>
+            <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
             <converters:SpecFlagsConverter x:Key="SpecFlagsConverter"/>
             <converters:BoolToProgressBrushConverter x:Key="BoolToProgressBrushConverter"/>
             <converters:BoolToStyle2ProgressBrushConverter x:Key="BoolToStyle2ProgressBrushConverter"/>

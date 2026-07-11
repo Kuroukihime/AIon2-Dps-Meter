@@ -59,7 +59,7 @@ namespace AionDpsMeter.UI.ViewModels
         public string? PlayerIcon        => _stats.PlayerIcon;
         public string  ClassName         => _stats.ClassName;
         public string? ClassIcon         => _stats.ClassIcon;
-        public int     CombatPower       => _stats.CombatPower;
+        public string     CombatPower       => DamageFormatter.Format(_stats.CombatPower);
         public bool    HasPlayerIcon     => !string.IsNullOrEmpty(_stats.PlayerIcon);
         public bool    HasClassIcon      => !string.IsNullOrEmpty(_stats.ClassIcon);
 

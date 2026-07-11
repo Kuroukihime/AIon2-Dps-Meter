@@ -19,7 +19,7 @@ namespace AionDpsMeter.UI.ViewModels.History
         public string? ClassIcon             => _stats.ClassIcon;
         public bool    HasClassIcon          => !string.IsNullOrEmpty(_stats.ClassIcon);
         public bool    IsUser                => _stats.IsUser;
-        public int     CombatPower           => _stats.CombatPower;
+        public string     CombatPower           => DamageFormatter.Format(_stats.CombatPower);
 
         public string PlayerNameDisplay
         {
