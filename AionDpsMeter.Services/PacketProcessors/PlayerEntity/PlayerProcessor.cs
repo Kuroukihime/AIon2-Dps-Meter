@@ -3,18 +3,19 @@ using AionDpsMeter.Core.Models;
 using AionDpsMeter.Services.Extensions;
 using AionDpsMeter.Services.Services.Entity;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 using System.Text;
 
-namespace AionDpsMeter.Services.PacketProcessors.Nickname
+namespace AionDpsMeter.Services.PacketProcessors.PlayerEntity
 {
-    internal sealed class NicknamePacketProcessor
+    internal sealed class PlayerProcessor
     {
         private readonly EntityTracker entityTracker;
-        private readonly ILogger<NicknamePacketProcessor> logger;
+        private readonly ILogger<PlayerProcessor> logger;
 
         private const int MaxNameLength = 72;
 
-        public NicknamePacketProcessor(EntityTracker entityTracker, ILogger<NicknamePacketProcessor> logger)
+        public PlayerProcessor(EntityTracker entityTracker, ILogger<PlayerProcessor> logger)
         {
             this.entityTracker = entityTracker;
             this.logger = logger;
@@ -71,71 +72,29 @@ namespace AionDpsMeter.Services.PacketProcessors.Nickname
 
         private List<Player> ParsePartyMemberBlocksStructured(byte[] packet, int dataOffset)
         {
+
             var results = new List<Player>();
-            byte[] levelMarker45 = [0x2D, 0x00, 0x00, 0x00];
-            byte[] levelMarker50 = [0x32, 0x00, 0x00, 0x00];
-            int searchFrom = dataOffset;
-            int expectedMemberNum = 1;
 
-            while (true)
+            try
             {
-                int levelPos = -1;
-                levelPos = packet.IndexOfArray(levelMarker50, searchFrom);
-                if (levelPos < 0) levelPos = packet.IndexOfArray(levelMarker45, searchFrom);
-                if (levelPos < 0) break;
 
-                int blockStart = -1;
-                int foundNickLen = -1;
-                for (int nickLen = 1; nickLen <= 48; nickLen++)
+                var result = PartyPacketParser.Parse(packet);
+
+                foreach (var partyMember in result.ValidMembers)
                 {
-                    int bs = levelPos - 14 - nickLen;
-                    if (bs < dataOffset || bs + 24 + nickLen > packet.Length) continue;
-                    if (packet[bs + 9] != nickLen) continue;
-
-                    int s1 = packet[bs + 7] | (packet[bs + 8] << 8);
-                    if (!ServerMap.IsValidId(s1)) continue;
-
-                    int server2Pos = levelPos + 8;
-                    if (server2Pos + 2 > packet.Length) continue;
-                    int s2 = packet[server2Pos] | (packet[server2Pos + 1] << 8);
-                    if (!ServerMap.IsValidId(s2)) continue;
-                    if (packet[bs] != expectedMemberNum) continue;
-
-                    blockStart = bs;
-                    foundNickLen = nickLen;
-                    break;
+                    results.Add(new Player
+                    {
+                        Id = (int)partyMember.Id,
+                        ServerId = partyMember.ServerId,
+                        ServerName = partyMember.ServerName,
+                        Name = partyMember.Name,
+                        CharactedLevel = (int)partyMember.CharactedLevel,
+                        CombatPower = (int)(partyMember.CombatPower ?? 0)
+                    });
                 }
-
-                if (blockStart < 0)
-                {
-                    if (results.Count > 0) break;
-                    searchFrom = levelPos + 1;
-                    continue;
-                }
-
-                int id = packet.ReadUInt32Le(blockStart + 1);
-                if (id == 0) break;
-
-                string nickname;
-                try { nickname = DecodeGameString(packet, blockStart + 10, foundNickLen); }
-                catch { break; }
-
-                int server1 = packet[blockStart + 7] | (packet[blockStart + 8] << 8);
-                int level = packet.ReadUInt32Le(blockStart + 14 + foundNickLen);
-                int combatPower = packet.ReadUInt32Le(blockStart + 18 + foundNickLen);
-
-                results.Add(new Player
-                {
-                    Id = id,
-                    ServerId = server1,
-                    ServerName = ServerMap.GetName(server1),
-                    Name = nickname,
-                    CharactedLevel = level,
-                    CombatPower = combatPower
-                });
-
-                expectedMemberNum++;
-                searchFrom = levelPos + 4;
+            }
+            catch (Exception e) { 
+                Debug.WriteLine(BitConverter.ToString(packet));
             }
 
             return results;
