@@ -4,8 +4,6 @@ using AionDpsMeter.Services.PacketProcessors.Shared;
 
 namespace AionDpsMeter.Services.PacketProcessors.PlayerEntity
 {
-  
-
     public static class PartyPacketParser
     {
         // presence_mask bits
@@ -36,7 +34,7 @@ namespace AionDpsMeter.Services.PacketProcessors.PlayerEntity
             r.ReadU8();                    // unnamed
             r.ReadU8();                    // unnamed
             party.LeaderDbid = r.ReadU64(); // _leader_dbid
-            r.ReadU8();                    // unnamed (bit)
+            r.ReadBit();                    // unnamed (bit)
             r.ReadU8();                    // unnamed
             r.ReadU8();                    // unnamed
 
@@ -48,10 +46,8 @@ namespace AionDpsMeter.Services.PacketProcessors.PlayerEntity
             return party;
         }
 
-        private static PartyPlayerPacket ParseMember(PacketReader2 r, int? pos = null)
+        private static PartyPlayerPacket ParseMember(PacketReader2 r)
         {
-            if(pos.HasValue)
-                r.SetPosition(pos.Value);
 
             var position = r.Position;
 
@@ -70,12 +66,10 @@ namespace AionDpsMeter.Services.PacketProcessors.PlayerEntity
             if ((mask & Mask_HasGearScore) != 0)
                 gearScore = r.ReadU32();     // _equip_item_level [mask&0x04]
 
-            // r.ReadU8();                      // unnamed (bit), always present
+             r.ReadBit();                      // unnamed (bit), always present
 
-            //if ((mask & Mask_HasUnknown04) != 0)
-            //    r.ReadU8();                  // unnamed (bit) [mask&0x04]
-
-            if(pos.HasValue) r.ReadU8();
+            if ((mask & Mask_HasUnknown04) != 0)
+                r.ReadBit();                  // unnamed (bit) [mask&0x04]
 
 
             if ((mask & Mask_HasUnknown08) != 0)
@@ -90,7 +84,6 @@ namespace AionDpsMeter.Services.PacketProcessors.PlayerEntity
             if ((mask & Mask_HasCombatPower) != 0)
                 combatPower = r.ReadU64();   // _combat_power [mask&0x20]
 
-            if (combatPower > 10_000_000) return ParseMember(r, position);
             var trailingArrayCount = r.ReadVarInt();
 
             if( trailingArrayCount > 0)

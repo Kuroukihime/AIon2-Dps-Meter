@@ -15,6 +15,10 @@ namespace AionDpsMeter.Services.PacketProcessors.Shared
         public int Position { get; private set; }
         public int Remaining => _data.Length - Position;
 
+        // --- bit buffer state ---
+        private byte _bitBuffer;
+        private int _bitsRemainingInBuffer; // 0 = buffer empty/exhausted; next ReadBit() loads a fresh byte
+
         public PacketReader2(byte[] data, int offset = 0)
         {
             _data = data ?? throw new ArgumentNullException(nameof(data));
@@ -108,6 +112,41 @@ namespace AionDpsMeter.Services.PacketProcessors.Shared
             Array.Copy(_data, Position, b, 0, count);
             Position += count;
             return b;
+        }
+
+
+        public bool ReadBit()
+        {
+            if (_bitsRemainingInBuffer == 0)
+            {
+                _bitBuffer = ReadU8();
+                _bitsRemainingInBuffer = 8;
+            }
+
+            bool bit = (_bitBuffer & 0x01) != 0;
+            _bitBuffer >>= 1;
+            _bitsRemainingInBuffer--;
+            return bit;
+        }
+
+     
+        public uint ReadBits(int count)
+        {
+            if (count < 0 || count > 32)
+                throw new ArgumentOutOfRangeException(nameof(count), "count must be between 0 and 32");
+
+            uint result = 0;
+            for (int i = 0; i < count; i++)
+            {
+                if (ReadBit())
+                    result |= 1u << i;
+            }
+            return result;
+        }
+
+        public void AlignBitBuffer()
+        {
+            _bitsRemainingInBuffer = 0;
         }
 
         public void Skip(int count) => ReadBytes(count);
