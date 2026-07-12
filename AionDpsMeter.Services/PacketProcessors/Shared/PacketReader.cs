@@ -1,73 +1,157 @@
-using AionDpsMeter.Services.Extensions;
+﻿using AionDpsMeter.Services.PacketProcessors.Shared.Exceptions;
+using System.Text;
 
 namespace AionDpsMeter.Services.PacketProcessors.Shared
 {
-   
-    internal ref struct PacketReader
+    /// <summary>
+    /// Bounds-checked little-endian binary cursor over a byte[]. Every read
+    /// advances Position and throws PacketParseException instead of crashing
+    /// or silently reading garbage if the packet is truncated/malformed.
+    /// </summary>
+    public sealed class PacketReader
     {
-        private readonly byte[] data;
-        private int offset;
+        private readonly byte[] _data;
+        public int Position { get; private set; }
+        public int Remaining => _data.Length - Position;
 
-        public int Offset => offset;
+        // --- bit buffer state ---
+        private byte _bitBuffer;
+        private int _bitsRemainingInBuffer; // 0 = buffer empty/exhausted; next ReadBit() loads a fresh byte
 
-        public PacketReader(byte[] data, int startOffset = 0)
+        public PacketReader(byte[] data, int offset = 0)
         {
-            this.data = data;
-            this.offset = startOffset;
+            _data = data ?? throw new ArgumentNullException(nameof(data));
+            Position = offset;
         }
 
-        /// <summary>Reads the varint length prefix and validates the 2-byte opcode.</summary>
-        public bool ReadAndValidateHeader(byte opcode1, byte opcode2)
+        private void Require(int n)
         {
-            if (!HasRemainingBytes()) return false;
-
-            var packetLengthInfo = data.ReadVarInt();
-            if (packetLengthInfo.Length < 0) return false;
-
-            offset += packetLengthInfo.Length;
-
-            if (!HasRemainingBytes(2)) return false;
-            if (data[offset] != opcode1 || data[offset + 1] != opcode2) return false;
-
-            offset += 2;
-            return HasRemainingBytes();
+            if (Remaining < n)
+                throw new PacketParseException($"Need {n} bytes but only {Remaining} remain", Position);
         }
 
-        /// <summary>Reads a positive varint entity id.</summary>
-        public bool ReadVarIntId(out int id)
+        public void SetPosition(int newPosition)
         {
-            id = 0;
-            var (value, bytes) = data.ReadVarInt(offset);
-            if (bytes <= 0 || value <= 0) return false;
-
-            id = value;
-            offset += bytes;
-            return HasRemainingBytes();
+            if (newPosition < 0 || newPosition > _data.Length)
+                throw new ArgumentOutOfRangeException(nameof(newPosition), "Position must be within the bounds of the data array.");
+            Position = newPosition;
         }
 
-        /// <summary>Reads a varint whose value is not validated beyond being present.</summary>
-        public bool ReadVarInt(out int value)
+        public byte ReadU8()
         {
-            value = -1;
-            var (v, bytes) = data.ReadVarInt(offset);
-            if (bytes <= 0) return false;
-
-            offset += bytes;
-            value = v;
-            return HasRemainingBytes();
+            Require(1);
+            return _data[Position++];
         }
 
-        /// <summary>Reads a single byte and advances the offset.</summary>
-        public bool ReadByte(out byte value)
+        public byte PeekU8()
         {
-            value = 0;
-            if (!HasRemainingBytes()) return false;
-            value = data[offset++];
-            return true;
+            Require(1);
+            return _data[Position];
         }
 
-        public bool HasRemainingBytes(int count = 1) => offset + count <= data.Length;
+        public ushort ReadU16()
+        {
+            Require(2);
+            ushort v = (ushort)(_data[Position] | (_data[Position + 1] << 8));
+            Position += 2;
+            return v;
+        }
 
-        public byte[] Data => data;
+
+        public uint ReadU32()
+        {
+            Require(4);
+            uint v = (uint)(_data[Position]
+                     | (_data[Position + 1] << 8)
+                     | (_data[Position + 2] << 16)
+                     | (_data[Position + 3] << 24));
+            Position += 4;
+            return v;
+        }
+
+        public ulong ReadU64()
+        {
+            Require(8);
+            ulong v = 0;
+            for (int i = 0; i < 8; i++)
+                v |= (ulong)_data[Position + i] << (8 * i);
+            Position += 8;
+            return v;
+        }
+
+        public uint ReadVarInt()
+        {
+            uint result = 0;
+            int shift = 0;
+            byte b;
+            do
+            {
+                if (shift >= 35) throw new PacketParseException("Varint too long", Position);
+                b = ReadU8();
+                result |= (uint)(b & 0x7F) << shift;
+                shift += 7;
+            } while ((b & 0x80) != 0);
+
+            if(result < 0)
+                throw new PacketParseException("Varint out of range", Position);
+            return result;
+        }
+
+        /// <summary>[u8 len][UTF-8 bytes] string, as used for party_name / _nickname.</summary>
+        public string ReadLengthPrefixedString()
+        {
+            byte len = ReadU8();
+            Require(len);
+            string s = Encoding.UTF8.GetString(_data, Position, len);
+            Position += len;
+            return s;
+        }
+
+        public byte[] ReadBytes(int count)
+        {
+            Require(count);
+            var b = new byte[count];
+            Array.Copy(_data, Position, b, 0, count);
+            Position += count;
+            return b;
+        }
+
+
+        public bool ReadBit()
+        {
+            if (_bitsRemainingInBuffer == 0)
+            {
+                _bitBuffer = ReadU8();
+                _bitsRemainingInBuffer = 8;
+            }
+
+            bool bit = (_bitBuffer & 0x01) != 0;
+            _bitBuffer >>= 1;
+            _bitsRemainingInBuffer--;
+            return bit;
+        }
+
+     
+        public uint ReadBits(int count)
+        {
+            if (count < 0 || count > 32)
+                throw new ArgumentOutOfRangeException(nameof(count), "count must be between 0 and 32");
+
+            uint result = 0;
+            for (int i = 0; i < count; i++)
+            {
+                if (ReadBit())
+                    result |= 1u << i;
+            }
+            return result;
+        }
+
+        public void AlignBitBuffer()
+        {
+            _bitsRemainingInBuffer = 0;
+        }
+
+        public void Skip(int count) => ReadBytes(count);
     }
+
 }

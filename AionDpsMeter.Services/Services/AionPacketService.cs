@@ -7,7 +7,7 @@ using AionDpsMeter.Services.PacketProcessors.Damage;
 using AionDpsMeter.Services.PacketProcessors.DotDamage;
 using AionDpsMeter.Services.PacketProcessors.Handlers;
 using AionDpsMeter.Services.PacketProcessors.Mob;
-using AionDpsMeter.Services.PacketProcessors.Nickname;
+using AionDpsMeter.Services.PacketProcessors.PlayerEntity;
 using AionDpsMeter.Services.PacketProcessors.Ping;
 using AionDpsMeter.Services.Services.Entity;
 using Microsoft.Extensions.Logging;
@@ -42,7 +42,7 @@ namespace AionDpsMeter.Services.Services
 
             packetProcessor = new PacketProcessor(loggerFactory.CreateLogger<PacketProcessor>());
 
-            var nicknameProcessor   = new NicknamePacketProcessor(entityTracker, loggerFactory.CreateLogger<NicknamePacketProcessor>());
+            var nicknameProcessor   = new PlayerProcessor(entityTracker, loggerFactory.CreateLogger<PlayerProcessor>());
             var damageProcessor     = new DamagePacketProcessor(entityTracker, loggerFactory.CreateLogger<DamagePacketProcessor>());
             var dotDamageProcessor  = new DotDamagePacketProcessor(entityTracker, loggerFactory.CreateLogger<DotDamagePacketProcessor>());
             var mobProcessor        = new MobPacketProcessor(entityTracker, loggerFactory.CreateLogger<MobPacketProcessor>());

@@ -40,7 +40,7 @@ namespace AionDpsMeter.UI.ViewModels
         [ObservableProperty] private string _classNameDisplay = string.Empty;
         [ObservableProperty] private string? _playerIconDisplay;
         [ObservableProperty] private string? _classIconDisplay;
-        [ObservableProperty] private int _combatPower;
+        [ObservableProperty] private string? _combatPower;
 
         // Summary stats
         [ObservableProperty] private string _totalDamageDisplay = "0";
@@ -192,7 +192,7 @@ namespace AionDpsMeter.UI.ViewModels
             string? playerIcon,
             string? classIcon,
             IAppSettingsService settingsService,
-            int combatPower = 0,
+            string combatPower = "",
             string serverName = "",
             bool isSnapshot = false)
         {
@@ -295,7 +295,7 @@ namespace AionDpsMeter.UI.ViewModels
                 DamageContributionDisplay = DamageFormatter.FormatRate(playerStats.DamagePercentage);
                 CombatDurationDisplay     = DamageFormatter.FormatDuration(playerStats.CombatDuration);
                 if (playerStats.CombatPower > 0)
-                    CombatPower = playerStats.CombatPower;
+                    CombatPower = DamageFormatter.Format(playerStats.CombatPower);
                 if (!string.IsNullOrEmpty(playerStats.ServerName))
                 {
                     ServerName = playerStats.ServerName;

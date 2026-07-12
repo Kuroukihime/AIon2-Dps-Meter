@@ -1,41 +1,38 @@
 using AionDpsMeter.Core.Models;
-using System.Numerics;
-using System.Xml.Linq;
+using System.Diagnostics;
 
 namespace AionDpsMeter.Services.Services.Entity
 {
+  
     public sealed class EntityTracker
     {
         // Fired when a summon is registered: (summonId, ownerId)
         public event Action<int, int>? SummonRegistered;
 
-        public List<Player> PlayerEntities => playerEntities.Select(r => r.Value).ToList();
-        public List<Mob> TargetEntities => targetEntities.Select(r => r.Value).ToList();
-        public int PlayerEntityCount => playerEntities.Count;
+        public List<Player> PlayerEntities => sessionPlayers.Values.ToList();
+        public List<Mob> TargetEntities => targetEntities.Values.ToList();
+        public int PlayerEntityCount => sessionPlayers.Count;
         public int TargetEntityCount => targetEntities.Count;
         public int SummonCount => summons.Count;
 
+        // Session id -> player. 
+        private readonly Dictionary<int, Player> sessionPlayers = [];
 
-        private readonly Dictionary<string, Player> basePlayerEntities = [];
-        private readonly Dictionary<int, Player> playerEntities = [];
+        // Global id -> player.
+        private readonly Dictionary<int, Player> globalPlayers = [];
+
         private readonly Dictionary<int, Mob> targetEntities = [];
         private readonly Dictionary<int, int> summons = []; // summonId -> ownerId
 
-        private string CurrentUserName { get; set; } = string.Empty;
+        private string currentUserName = string.Empty;
 
+        // ----- Targets (mobs) --------------------------------------------------
 
         public Mob GetOrCreateTargetEntity(int entityId)
         {
-            if (targetEntities.TryGetValue(entityId, out var entity))
-            {
-                return entity;
-            }
+            if (targetEntities.TryGetValue(entityId, out var entity)) return entity;
 
-            entity = new Mob
-            {
-                Id = entityId,
-            };
-
+            entity = new Mob { Id = entityId };
             targetEntities[entityId] = entity;
             return entity;
         }
@@ -43,13 +40,13 @@ namespace AionDpsMeter.Services.Services.Entity
         public bool UpdateTargetEntityHpCurrent(int entityId, int hpCurrent)
         {
             if (!targetEntities.TryGetValue(entityId, out var entity)) return false;
+
             entity.HpCurrent = hpCurrent;
-            if(entity.HpTotal > 0 && entity.HpCurrent > entity.HpTotal + 10_000_000)
+            if (entity.HpTotal > 0 && entity.HpCurrent > entity.HpTotal + 10_000_000)
             {
                 entity.HpTotal = entity.HpCurrent;
             }
             return true;
-
         }
 
         public void CreateOrUpdateTargetEntity(int entityId, int mobCode, int hpTotal = 0)
@@ -58,167 +55,179 @@ namespace AionDpsMeter.Services.Services.Entity
             {
                 entity.MobCode = mobCode;
                 if (hpTotal > 0) entity.HpTotal = hpTotal;
-            }
-            else
-            {
-                entity = new Mob
-                {
-                    Id = entityId,
-                    MobCode = mobCode,
-                    HpTotal = hpTotal,
-                };
-                targetEntities[entityId] = entity;
-            }
-        }
-
-        public Player GetOrCreatePlayerEntity(int entityId, CharacterClass characterClass)
-        {
-            if (playerEntities.TryGetValue(entityId, out var entity))
-            {
-                if (entity.CharacterClass == null) entity.CharacterClass = characterClass;
-                return entity;
+                return;
             }
 
-            entity = new Player
+            targetEntities[entityId] = new Mob
             {
                 Id = entityId,
-                Name = $"Player_{entityId}",
-                Icon = null,
-                CharacterClass = characterClass
+                MobCode = mobCode,
+                HpTotal = hpTotal,
+            };
+        }
+
+        public Core.Models.Entity? GetTargetEntity(int entityId) => targetEntities.GetValueOrDefault(entityId);
+
+        public Mob? GetTargetMob(int entityId) => targetEntities.GetValueOrDefault(entityId);
+
+        // ----- Flow 1: server sends a player tied to a session id --------------
+
+        public Player GetOrCreateSessionPlayer(int sessionId, CharacterClass? characterClass = null)
+        {
+            if (sessionPlayers.TryGetValue(sessionId, out var player))
+            {
+                player.CharacterClass ??= characterClass;
+                return player;
+            }
+
+            player = new Player
+            {
+                Id = sessionId,
+                Name = $"Player_{sessionId}",
+                CharacterClass = characterClass,
             };
 
-            playerEntities[entityId] = entity;
-            return entity;
+            sessionPlayers[sessionId] = player;
+            return player;
         }
 
-        public void UpdatePlayerEntityName(int entityId, string name, string serverName = "", bool isUser = false)
+        public void SetSessionPlayerName(int sessionId, string name, string serverName = "", bool isUser = false)
         {
-
-            basePlayerEntities.TryGetValue(name, out var basePlayerEntity);
-
-            if(isUser) CurrentUserName = name;
-
-            var isCurrentUser = isUser || name == CurrentUserName;
-
-            if (playerEntities.TryGetValue(entityId, out var existing))
+            if (sessionPlayers.TryGetValue(sessionId, out var existing) && existing.IsIdentified && existing.Name != name)
             {
-                playerEntities[entityId] = new Player
-                {
-                    Id = entityId,
-                    Name = name,
-                    Icon = existing.Icon,
-                    CharacterClass = existing.CharacterClass,
-                    CharactedLevel = basePlayerEntity?.CharactedLevel ?? 0,
-                    ServerName = basePlayerEntity?.ServerName ?? serverName,
-                    CombatPower = basePlayerEntity?.CombatPower ?? 0,
-                    ServerId = basePlayerEntity?.ServerId ?? 0,
-                    IsUser = isCurrentUser,
-                    IsIndetified = true
-                };
+                // Same session id, but it was already confirmed as a different
+                // player - the id has been reused for someone else. Drop the
+                // stale entity (and whatever it was linked to) and start fresh.
+                sessionPlayers.Remove(sessionId);
             }
-            else
-            {
-                playerEntities[entityId] = new Player
-                {
-                    Id = entityId,
-                    Name = name,
-                    Icon = null,
-                    CharactedLevel = basePlayerEntity?.CharactedLevel ?? 0,
-                    ServerName = basePlayerEntity?.ServerName ?? serverName,
-                    CombatPower = basePlayerEntity?.CombatPower ?? 0,
-                    ServerId = basePlayerEntity?.ServerId ?? 0,
-                    IsUser = isCurrentUser,
-                    IsIndetified = true
-                };
-            }
+
+            var player = GetOrCreateSessionPlayer(sessionId);
+
+            player.Name = name;
+            if (!string.IsNullOrEmpty(serverName)) player.ServerName = serverName;
+            player.IsIdentified = true;
+            player.IsUser = isUser || name == currentUserName;
+
+            if (isUser) SetCurrentUser(name);
+            TryFallbackLinkByName(name);
         }
 
-        public void RegisterBasePlayerEntity(Player player)
+        public Player? GetPlayerEntity(int sessionId) => sessionPlayers.GetValueOrDefault(sessionId);
+
+        // ----- Flow 2: server sends global player metadata, any time -----------
+
+        public void RegisterOrUpdateGlobalPlayer(Player data)
         {
-            basePlayerEntities[player.Name] = player;
+            var globalId = data.Id;
+
+            if (!globalPlayers.TryGetValue(globalId, out var identity))
+            {
+                identity = new Player { Id = globalId };
+                globalPlayers[globalId] = identity;
+            }
+
+            identity.Name = data.Name;
+            identity.CharacterLevel = data.CharacterLevel;
+            identity.CombatPower = data.CombatPower;
+            identity.ServerId = data.ServerId;
+            identity.ServerName = data.ServerName;
+            if (data.CharacterClass != null) identity.CharacterClass = data.CharacterClass;
+            identity.IsIdentified = true;
+            identity.IsUser = identity.IsUser || identity.Name == currentUserName;
+
+            PropagateIdentityToLinkedSessions(globalId);
+            TryFallbackLinkByName(identity.Name);
         }
 
-        public bool LinkBaseToSessionPlayerEntity(int globalId, int sessionId)
+        // ----- Flow 3: packet carries both a global id and a session id --------
+
+        public void LinkSessionToGlobalPlayer(int globalId, int sessionId)
         {
-            var baseEntity = basePlayerEntities.FirstOrDefault(r => r.Value.Id == globalId).Value;
-            if(baseEntity == null) return false;
-            playerEntities.TryGetValue(sessionId, out var sessionPlayerEntity);
-            var isCurrentUser = baseEntity.Name == CurrentUserName;
-            if (sessionPlayerEntity == null)
-            {
-             
-                playerEntities[sessionId] = new Player
-                {
-                    Id = sessionId,
-                    Name = baseEntity.Name,
-                    Icon = null,
-                    CharacterClass = baseEntity.CharacterClass,
-                    CharactedLevel = baseEntity.CharactedLevel,
-                    CombatPower = baseEntity.CombatPower,
-                    ServerId = baseEntity.ServerId,
-                    ServerName = baseEntity.ServerName,
-                    IsUser = isCurrentUser,
-                    IsIndetified = true
-                };
-            }
-            else
-            {
-                playerEntities[baseEntity.Id] = new Player
-                {
-                    Id = sessionPlayerEntity.Id,
-                    Name = baseEntity.Name,
-                    Icon = null,
-                    CharacterClass = sessionPlayerEntity.CharacterClass,
-                    CharactedLevel = baseEntity.CharactedLevel,
-                    CombatPower = baseEntity.CombatPower,
-                    ServerId = baseEntity.ServerId,
-                    ServerName = baseEntity.ServerName,
-                    IsUser = isCurrentUser,
-                    IsIndetified = true
+            var session = GetOrCreateSessionPlayer(sessionId);
+            session.GlobalId = globalId;
 
+            if (!globalPlayers.TryGetValue(globalId, out var identity))
+            {
+            
+                identity = new Player
+                {
+                    Id = globalId,
+                    Name = session.Name,
+                    CharacterLevel = session.CharacterLevel,
+                    CombatPower = session.CombatPower,
+                    ServerId = session.ServerId,
+                    ServerName = session.ServerName,
+                    CharacterClass = session.CharacterClass,
+                    IsUser = session.IsUser,
+                    IsIdentified = session.IsIdentified,
                 };
+                globalPlayers[globalId] = identity;
             }
 
-            return true;
-
+            ApplyIdentity(session, identity);
         }
 
-        public void UpdatePlayerEntity(Player player)
+        private void PropagateIdentityToLinkedSessions(int globalId)
         {
-            var isCurrentUser = player.Name == CurrentUserName;
-            if (playerEntities.TryGetValue(player.Id, out var existing))
-            {          
-                playerEntities[player.Id] = new Player
-                {
-                    Id = player.Id,
-                    Name = player.Name,
-                    Icon = existing.Icon,
-                    CharacterClass = existing.CharacterClass,
-                    CharactedLevel = player.CharactedLevel,
-                    CombatPower = player.CombatPower,
-                    ServerId = player.ServerId,
-                    ServerName = player.ServerName, 
-                    IsUser = isCurrentUser,
-                    IsIndetified = true
-                };
-            }
-            else
+            if (!globalPlayers.TryGetValue(globalId, out var identity)) return;
+
+            foreach (var session in sessionPlayers.Values)
             {
-                playerEntities[player.Id] = new Player
-                {
-                    Id = player.Id,
-                    Name = player.Name,
-                    Icon = null,
-                    CharacterClass = player.CharacterClass,
-                    CharactedLevel = player.CharactedLevel,
-                    CombatPower = player.CombatPower,
-                    ServerId = player.ServerId,
-                    ServerName = player.ServerName,
-                    IsUser = isCurrentUser,
-                    IsIndetified = true
-                };
+                if (session.GlobalId == globalId) ApplyIdentity(session, identity);
             }
         }
+
+        private static void ApplyIdentity(Player session, Player identity)
+        {   
+            // Only a confirmed (server-given) name should ever overwrite a session's name.
+            if (identity.IsIdentified)
+            {
+                session.Name = identity.Name;
+                session.IsIdentified = true;
+            }
+
+            session.CharacterLevel = identity.CharacterLevel;
+            session.CombatPower = identity.CombatPower;
+            session.ServerId = identity.ServerId;
+            if (!string.IsNullOrEmpty(identity.ServerName)) session.ServerName = identity.ServerName;
+            session.CharacterClass ??= identity.CharacterClass;
+            session.IsUser = session.IsUser || identity.IsUser;
+            session.GlobalId = identity.Id;
+        }
+
+        // Link packets are sometimes missing entirely. As a fallback, if we
+        // see the same name show up on both an unlinked session player and a
+        // global identity, assume they're the same person and link them.
+        private void TryFallbackLinkByName(string name)
+        {
+            if (string.IsNullOrEmpty(name)) return;
+
+            var session = sessionPlayers.Values.FirstOrDefault(p => p.GlobalId == null && p.Name == name);
+            if (session == null) return;
+
+            var identity = globalPlayers.Values.FirstOrDefault(p => p.Name == name);
+            if (identity == null) return;
+
+            session.GlobalId = identity.Id;
+            ApplyIdentity(session, identity);
+        }
+
+        private void SetCurrentUser(string name)
+        {
+            currentUserName = name;
+
+  
+            foreach (var player in sessionPlayers.Values)
+            {
+                if (player.Name == name) player.IsUser = true;
+            }
+            foreach (var identity in globalPlayers.Values)
+            {
+                if (identity.Name == name) identity.IsUser = true;
+            }
+        }
+
+        // ----- Summons -----------------------------------------------------------
 
         public void RegisterSummon(int summonId, int ownerId)
         {
@@ -228,30 +237,13 @@ namespace AionDpsMeter.Services.Services.Entity
 
         public bool IsSummon(int entityId) => summons.ContainsKey(entityId);
 
-        public int? GetSummonOwner(int summonId)
-        {
-            return summons.TryGetValue(summonId, out var ownerId) ? ownerId : null;
-        }
-
-        public Player? GetPlayerEntity(int entityId)
-        {
-            return playerEntities.GetValueOrDefault(entityId);
-        }
-        public Core.Models.Entity? GetTargetEntity(int entityId)
-        {
-            return targetEntities.GetValueOrDefault(entityId);
-        }
-
-        public Mob? GetTargetMob(int entityId)
-        {
-            return targetEntities.GetValueOrDefault(entityId);
-        }
+        public int? GetSummonOwner(int summonId) => summons.TryGetValue(summonId, out var ownerId) ? ownerId : null;
 
         public void Clear()
         {
-            //playerEntities.Clear();
+            // Players persist across a Clear() (e.g. a new pull in the same session);
+            // only per-fight bookkeeping like summons resets.
             summons.Clear();
         }
-
     }
 }

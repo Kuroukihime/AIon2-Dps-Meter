@@ -328,7 +328,7 @@
                                                 <TextBlock Text="{Binding CombatPower, StringFormat=CP: {0}}"
                                                            FontSize="8"
                                                            Foreground="{StaticResource SecondaryTextBrush}"
-                                                           Visibility="{Binding CombatPower, Converter={StaticResource IntToVisibilityConverter}}"/>
+                                                           Visibility="{Binding CombatPower, Converter={StaticResource StringToVisibilityConverter}}"/>
                                             </StackPanel>
                                             <TextBlock Text="{Binding TotalDamageFormatted}" FontSize="10"
                                                        FontWeight="Bold"
@@ -428,8 +428,8 @@
                                                                Width="35" Height="35" VerticalAlignment="Center" Margin="0,-4,0,0" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
 
                                                         <!-- Combat Power at the bottom -->
-                                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,3" Visibility="{Binding CombatPower, Converter={StaticResource IntToVisibilityConverter}}">
-                                                            <TextBlock Text="{Binding CombatPower}" FontSize="8" Foreground="#B0BEC5" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,3" Visibility="{Binding CombatPower, Converter={StaticResource StringToVisibilityConverter}}">
+                                                            <TextBlock Text="{Binding CombatPower}" FontSize="10" Foreground="#FFFFFF" FontWeight="Bold" VerticalAlignment="Center"/>
                                                         </StackPanel>
                                                     </Grid>
                                                 </Border>
