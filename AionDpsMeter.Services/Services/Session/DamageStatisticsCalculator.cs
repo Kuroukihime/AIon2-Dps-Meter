@@ -47,11 +47,27 @@ namespace AionDpsMeter.Services.Services.Session
             var duration = GetDuration(session);
             var hits = session.Hits.ToList();
 
-            var regularHits = hits.Where(h => h.SourceSummon is null);
-            var summonHits = hits.Where(h => h.SourceSummon is not null);
+            var regularHitsList = hits.Where(h => h.SourceSummon is null).ToList();
+            var summonHitsList = hits.Where(h => h.SourceSummon is not null).ToList();
 
-            var list1 = regularHits.Where(r => r.Skill.Name.Contains("Summon: Fire Spirit")).ToList();
-            var list2 = summonHits.Where(r => r.Skill.Name.Contains("Summon: Fire Spirit")).ToList();
+
+            var regularSkillIds = regularHitsList
+           .Select(h => h.Skill.Id)
+           .ToHashSet();
+
+            var summonHitsSharingId = summonHitsList
+                .Where(h => regularSkillIds.Contains(h.Skill.Id))
+                .ToList();
+
+            var summonHitsRemaining = summonHitsList
+                .Where(h => !regularSkillIds.Contains(h.Skill.Id))
+                .ToList();
+
+            regularHitsList.AddRange(summonHitsSharingId);
+            summonHitsList = summonHitsRemaining;
+
+            var regularHits = regularHitsList;
+            var summonHits = summonHitsList;
 
             var skillMap = regularHits
                 .GroupBy(h => h.Skill.Id)
@@ -70,18 +86,6 @@ namespace AionDpsMeter.Services.Services.Session
             }
             else
             {
-
-                //List<List<SkillStats>> xdd = new List<List<SkillStats>>();
-                //foreach (var summonGroup in summonHits.GroupBy(h => h.SourceSummon!.Id))
-                //{
-                //    var skillStats = summonGroup
-                //        .GroupBy(h => h.Skill.Id)
-                //        .Select(g => CreateSkillStats(g, duration, session.TotalDamage))
-                //        .ToList();
-                //    xdd.Add(skillStats);
-                //    MergeSummonGroup(skillStats, session.TotalDamage, duration, skillMap);
-                //}
-
                 var allSummonSkillStats = summonHits
                     .GroupBy(h => h.SourceSummon!.Id)
                     .Select(summonGroup => summonGroup
@@ -91,7 +95,6 @@ namespace AionDpsMeter.Services.Services.Session
                     .ToList();
 
                 MergeAllSummonGroups(allSummonSkillStats, session.TotalDamage, duration, skillMap);
-                Console.WriteLine();
             }
 
             return skillMap.Values
