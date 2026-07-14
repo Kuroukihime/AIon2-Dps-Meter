@@ -88,7 +88,14 @@ namespace AionDpsMeter.Services.Services.Entity
             };
 
             sessionPlayers[sessionId] = player;
+            CleanupUnidSessionPlayers();
             return player;
+        }
+
+        public void CleanupUnidSessionPlayers()
+        {
+            var toRemove = sessionPlayers.Where(r=>!r.Value.IsIdentified && r.Value.CreatedAt < DateTime.Now.AddMinutes(-10)).ToList();
+            foreach (var kvp in toRemove) sessionPlayers.Remove(kvp.Key);
         }
 
         public void SetSessionPlayerName(int sessionId, string name, string serverName = "", bool isUser = false)

@@ -4,6 +4,7 @@
     {
         public int Id { get; init; }
         public string Name { get; set; } = string.Empty;
+        public DateTime CreatedAt { get; init; } = DateTime.Now;
 
         public override bool Equals(object? obj)
         {
