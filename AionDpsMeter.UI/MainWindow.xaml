@@ -263,7 +263,7 @@
                          VirtualizingPanel.IsVirtualizing="True"
                          VirtualizingPanel.VirtualizationMode="Recycling"
                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                         ScrollViewer.VerticalScrollBarVisibility="Disabled"
                          Padding="4,1,4,2"
                          Visibility="{Binding IsStyle1, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <ListBox.ItemContainerStyle>
@@ -368,7 +368,7 @@
                          VirtualizingPanel.IsVirtualizing="True"
                          VirtualizingPanel.VirtualizationMode="Recycling"
                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                         ScrollViewer.VerticalScrollBarVisibility="Disabled"
                          Padding="0"
                          Visibility="{Binding IsStyle2, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <ListBox.ItemContainerStyle>

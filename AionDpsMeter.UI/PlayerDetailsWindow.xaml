@@ -28,7 +28,7 @@
             <Setter Property="VirtualizingPanel.VirtualizationMode" Value="Recycling"/>
             <Setter Property="VirtualizingPanel.ScrollUnit" Value="Pixel"/>
             <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
-            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
             <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
             <Setter Property="AlternationCount" Value="2"/>
         </Style>
