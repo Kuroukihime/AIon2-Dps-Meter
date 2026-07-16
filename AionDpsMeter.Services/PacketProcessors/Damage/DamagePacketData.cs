@@ -9,6 +9,7 @@ namespace AionDpsMeter.Services.PacketProcessors.Damage
         public long Damage { get; init; }
         public bool IsCritical { get; init; }
         public bool IsBackAttack { get; init; }
+        public bool IsFrontAttack { get; init; }
         public bool IsParry { get; init; }
         public bool IsPerfect { get; init; }
         public bool IsDoubleDamage { get; init; }

@@ -11,6 +11,7 @@
         public long Damage { get; set; }
         public bool IsCritical { get; init; }
         public bool IsBackAttack { get; init; }
+        public bool IsFrontAttack { get; init; }
         public bool IsPerfect { get; init; }
         public bool IsDoubleDamage { get; init; }
         public bool IsParry { get; init; }
@@ -28,6 +29,7 @@
                 var flags = new List<string>(5);
                 if (IsCritical)     flags.Add("CRIT");
                 if (IsBackAttack)   flags.Add("BACK");
+                if (IsFrontAttack)  flags.Add("FRONT");
                 if (IsPerfect)      flags.Add("PERFECT");
                 if (IsDoubleDamage) flags.Add("x2");
                 if (IsParry)        flags.Add("PARRY");

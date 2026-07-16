@@ -23,6 +23,7 @@ namespace AionDpsMeter.UI.ViewModels
         public string DamageFormatted => DamageFormatter.Format(_damageEvent.Damage);
         public bool IsCritical        => _damageEvent.IsCritical;
         public bool IsBackAttack      => _damageEvent.IsBackAttack;
+        public bool IsFrontAttack     => _damageEvent.IsFrontAttack;
         public bool IsPerfect         => _damageEvent.IsPerfect;
         public bool IsDoubleDamage    => _damageEvent.IsDoubleDamage;
         public bool IsParry           => _damageEvent.IsParry;

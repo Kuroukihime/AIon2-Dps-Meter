@@ -99,7 +99,7 @@
                      VirtualizingPanel.IsVirtualizing="True"
                      VirtualizingPanel.VirtualizationMode="Recycling"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
                      AlternationCount="2">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">

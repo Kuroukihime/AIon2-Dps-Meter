@@ -54,6 +54,7 @@ namespace AionDpsMeter.UI.ViewModels
         public string HitCountFormatted    => _stats.HitCount.ToString();
         public int    CriticalHits         => _stats.CriticalHits;
         public int    BackAttacks          => _stats.BackAttacks;
+        public int FrontAttacks            => _stats.FrontAttacks;
         public int    PerfectHits          => _stats.PerfectHits;
         public int    DoubleDamageHits     => _stats.DoubleDamageHits;
         public int    ParryHits            => _stats.ParryHits;
@@ -72,6 +73,8 @@ namespace AionDpsMeter.UI.ViewModels
         public string CriticalRateFormatted  => DamageFormatter.FormatRateRounded(_stats.CriticalRate);
         public double BackAttackRate         => _stats.BackAttackRate;
         public string BackAttackRateFormatted => DamageFormatter.FormatRateRounded(_stats.BackAttackRate);
+        public double FrontAttackRate => _stats.FrontAttackRate;
+        public string FrontAttackRateFormatted => DamageFormatter.FormatRateRounded(_stats.FrontAttackRate);
         public double PerfectRate            => _stats.PerfectRate;
         public string PerfectRateFormatted   => DamageFormatter.FormatRateRounded(_stats.PerfectRate);
         public double DoubleDamageRate       => _stats.DoubleDamageRate;
@@ -85,6 +88,7 @@ namespace AionDpsMeter.UI.ViewModels
             _stats.HitCount           = stats.HitCount;
             _stats.CriticalHits       = stats.CriticalHits;
             _stats.BackAttacks        = stats.BackAttacks;
+            _stats.FrontAttacks       = stats.FrontAttacks;
             _stats.PerfectHits        = stats.PerfectHits;
             _stats.DoubleDamageHits   = stats.DoubleDamageHits;
             _stats.ParryHits          = stats.ParryHits;
@@ -116,6 +120,7 @@ namespace AionDpsMeter.UI.ViewModels
             OnPropertyChanged(nameof(HitCountFormatted));
             OnPropertyChanged(nameof(CriticalHits));
             OnPropertyChanged(nameof(BackAttacks));
+            OnPropertyChanged(nameof(FrontAttacks));
             OnPropertyChanged(nameof(PerfectHits));
             OnPropertyChanged(nameof(DoubleDamageHits));
             OnPropertyChanged(nameof(ParryHits));
@@ -129,6 +134,8 @@ namespace AionDpsMeter.UI.ViewModels
             OnPropertyChanged(nameof(CriticalRateFormatted));
             OnPropertyChanged(nameof(BackAttackRate));
             OnPropertyChanged(nameof(BackAttackRateFormatted));
+            OnPropertyChanged(nameof(FrontAttackRate));
+            OnPropertyChanged(nameof(FrontAttackRateFormatted));
             OnPropertyChanged(nameof(PerfectRate));
             OnPropertyChanged(nameof(PerfectRateFormatted));
             OnPropertyChanged(nameof(DoubleDamageRate));

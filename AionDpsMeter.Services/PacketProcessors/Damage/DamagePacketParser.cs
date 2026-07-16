@@ -41,6 +41,7 @@ namespace AionDpsMeter.Services.PacketProcessors.Damage
                 Damage = (long)damage,
                 IsCritical = damageType == CriticalDamageType,
                 IsBackAttack = specialFlags.IsBackAttack,
+                IsFrontAttack = specialFlags.IsFrontAttack,
                 IsParry = specialFlags.IsParry,
                 IsPerfect = specialFlags.IsPerfect,
                 IsDoubleDamage = specialFlags.IsDoubleDamage,
@@ -77,7 +78,9 @@ namespace AionDpsMeter.Services.PacketProcessors.Damage
             }
 
             flags = ParseSpecialFlags(damageFlagByte);
+           
             flags.IsBackAttack = (attackDirectionType & 0x01) != 0;
+            flags.IsFrontAttack = (attackDirectionType & 0x02) != 0;
 
             reader.ReadU32(); // unknown
 
@@ -92,6 +95,7 @@ namespace AionDpsMeter.Services.PacketProcessors.Damage
         public struct SpecialFlags
         {
             public bool IsBackAttack { get; set; }
+            public bool IsFrontAttack { get; set; }
             public bool IsParry { get; init; }
             public bool IsPerfect { get; init; }
             public bool IsDoubleDamage { get; init; }

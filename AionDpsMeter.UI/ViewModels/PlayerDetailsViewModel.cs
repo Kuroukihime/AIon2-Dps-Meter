@@ -31,6 +31,7 @@ namespace AionDpsMeter.UI.ViewModels
         private CombatLogSkillFilterItem? _selectedCombatLogSkill;
         [ObservableProperty] private bool _filterCriticalHits;
         [ObservableProperty] private bool _filterBackAttacks;
+        [ObservableProperty] private bool _filterFrontAttacks;
         [ObservableProperty] private bool _filterPerfectHits;
         [ObservableProperty] private bool _filterDoubleDamageHits;
         [ObservableProperty] private ObservableCollection<BuffStatsViewModel> _buffs = new();
@@ -48,6 +49,7 @@ namespace AionDpsMeter.UI.ViewModels
         [ObservableProperty] private int _totalHits;
         [ObservableProperty] private string _criticalRateDisplay = "0%";
         [ObservableProperty] private string _backAttackRateDisplay = "0%";
+        [ObservableProperty] private string _frontAttackRateDisplay = "0%";
         [ObservableProperty] private string _perfectRateDisplay = "0%";
         [ObservableProperty] private string _doubleDamageRateDisplay = "0%";
         [ObservableProperty] private string _parryRateDisplay = "0%";
@@ -105,6 +107,7 @@ namespace AionDpsMeter.UI.ViewModels
 
         partial void OnFilterCriticalHitsChanged(bool value) => ApplyCombatLogFilters();
         partial void OnFilterBackAttacksChanged(bool value) => ApplyCombatLogFilters();
+        partial void OnFilterFrontAttacksChanged(bool value) => ApplyCombatLogFilters();
         partial void OnFilterPerfectHitsChanged(bool value) => ApplyCombatLogFilters();
         partial void OnFilterDoubleDamageHitsChanged(bool value) => ApplyCombatLogFilters();
 
@@ -289,6 +292,7 @@ namespace AionDpsMeter.UI.ViewModels
                 TotalHits                 = playerStats.HitCount;
                 CriticalRateDisplay       = DamageFormatter.FormatRate(playerStats.CriticalRate);
                 BackAttackRateDisplay     = DamageFormatter.FormatRate(playerStats.BackAttackRate);
+                FrontAttackRateDisplay    = DamageFormatter.FormatRate(playerStats.FrontAttackRate);
                 PerfectRateDisplay        = DamageFormatter.FormatRate(playerStats.PerfectRate);
                 DoubleDamageRateDisplay   = DamageFormatter.FormatRate(playerStats.DoubleDamageRate);
                 ParryRateDisplay          = DamageFormatter.FormatRate(playerStats.ParryRate);
@@ -470,6 +474,8 @@ namespace AionDpsMeter.UI.ViewModels
                 return false;
 
             if (FilterBackAttacks && !entry.IsBackAttack)
+                return false;
+            if (FilterFrontAttacks && !entry.IsFrontAttack)
                 return false;
 
             if (FilterPerfectHits && !entry.IsPerfect)

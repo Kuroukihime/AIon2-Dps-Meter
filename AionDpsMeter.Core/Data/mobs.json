@@ -1736,7 +1736,7 @@
     "isBoss": false
   },
   "2100133": {
-    "name": "Krall Commander",
+    "name": "Krall Chief",
     "isBoss": false
   },
   "2100134": {
@@ -1792,7 +1792,7 @@
     "isBoss": false
   },
   "2100156": {
-    "name": "Tolbas Konutin Scouter",
+    "name": "Tolbas Konutin Seeker",
     "isBoss": false
   },
   "2100157": {
@@ -1840,7 +1840,7 @@
     "isBoss": false
   },
   "2100168": {
-    "name": "Astin Mercenaries Scouter",
+    "name": "Astin Mercenaries Seeker",
     "isBoss": false
   },
   "2100169": {
@@ -1960,7 +1960,7 @@
     "isBoss": false
   },
   "2100222": {
-    "name": "Scouter Karnif",
+    "name": "Seeker Karnif",
     "isBoss": false
   },
   "2100223": {
@@ -2048,7 +2048,7 @@
     "isBoss": false
   },
   "2100343": {
-    "name": "Enhanced Krall Scouter",
+    "name": "Enhanced Krall Seeker",
     "isBoss": false
   },
   "2100346": {
@@ -2076,7 +2076,7 @@
     "isBoss": false
   },
   "2100362": {
-    "name": "Krall Scouter",
+    "name": "Krall Seeker",
     "isBoss": false
   },
   "2100363": {
@@ -2996,7 +2996,7 @@
     "isBoss": false
   },
   "2100913": {
-    "name": "Drana injector",
+    "name": "Drana Injector",
     "isBoss": false
   },
   "2100914": {
@@ -3260,11 +3260,11 @@
     "isBoss": false
   },
   "2101014": {
-    "name": "Intruder Explorer",
+    "name": "Intruder Seeker",
     "isBoss": false
   },
   "2101015": {
-    "name": "Intruder Explorer",
+    "name": "Intruder Seeker",
     "isBoss": false
   },
   "2101016": {
@@ -3808,7 +3808,7 @@
     "isBoss": false
   },
   "2101246": {
-    "name": "Suspicious Scouter",
+    "name": "Suspicious Seeker",
     "isBoss": false
   },
   "2101247": {
@@ -3832,7 +3832,7 @@
     "isBoss": false
   },
   "2101252": {
-    "name": "Suspicious Ruin Scouter",
+    "name": "Suspicious Ruin Seeker",
     "isBoss": false
   },
   "2101253": {
@@ -4076,7 +4076,7 @@
     "isBoss": false
   },
   "2101335": {
-    "name": "Lepharist Camp Administrator",
+    "name": "Lepharist Camp Warden",
     "isBoss": false
   },
   "2101336": {
@@ -4244,31 +4244,31 @@
     "isBoss": false
   },
   "2101380": {
-    "name": "Canyon Lupyllini",
+    "name": "Valley Lupyllini",
     "isBoss": false
   },
   "2101381": {
-    "name": "Decomposed Canyon Lupyllini",
+    "name": "Decomposed Valley Lupyllini",
     "isBoss": false
   },
   "2101382": {
-    "name": "Canyon Pachyron",
+    "name": "Valley Pachyron",
     "isBoss": false
   },
   "2101383": {
-    "name": "Canyon Frugon",
+    "name": "Valley Frugon",
     "isBoss": false
   },
   "2101384": {
-    "name": "Canyon Gravarax",
+    "name": "Valley Gravarax",
     "isBoss": false
   },
   "2101385": {
-    "name": "Canyon Durgal",
+    "name": "Valley Durgal",
     "isBoss": false
   },
   "2101386": {
-    "name": "Canyon Lagur",
+    "name": "Valley Lagur",
     "isBoss": false
   },
   "2101387": {
@@ -4508,7 +4508,7 @@
     "isBoss": false
   },
   "2101600": {
-    "name": "Third Unit Commander Karkoti",
+    "name": "Third Unit Captain Karkoti",
     "isBoss": true
   },
   "2101601": {
@@ -4560,7 +4560,7 @@
     "isBoss": false
   },
   "2110010": {
-    "name": "Deserter Commander",
+    "name": "Deserter Chief",
     "isBoss": false
   },
   "2110011": {
@@ -4616,7 +4616,7 @@
     "isBoss": false
   },
   "2110025": {
-    "name": "Renegade Daeva Commander",
+    "name": "Renegade Daeva Chief",
     "isBoss": false
   },
   "2110300": {
@@ -4644,7 +4644,7 @@
     "isBoss": false
   },
   "2110306": {
-    "name": "Execution Site Commander",
+    "name": "Execution Site Chief",
     "isBoss": false
   },
   "2110307": {
@@ -4660,7 +4660,7 @@
     "isBoss": false
   },
   "2110310": {
-    "name": "Execution Site Commander",
+    "name": "Execution Site Chief",
     "isBoss": false
   },
   "2110311": {
@@ -4704,7 +4704,7 @@
     "isBoss": false
   },
   "2110321": {
-    "name": "Stealthy Marauder Commander",
+    "name": "Stealthy Marauder Chief",
     "isBoss": false
   },
   "2110322": {
@@ -4756,7 +4756,7 @@
     "isBoss": false
   },
   "2110359": {
-    "name": "Highland Base Commander",
+    "name": "Highland Base Chief",
     "isBoss": false
   },
   "2110360": {
@@ -4796,7 +4796,7 @@
     "isBoss": false
   },
   "2110369": {
-    "name": "Cantas Marauder Commander",
+    "name": "Cantas Marauder Chief",
     "isBoss": false
   },
   "2110370": {
@@ -4804,7 +4804,7 @@
     "isBoss": true
   },
   "2110371": {
-    "name": "Miros Commander",
+    "name": "Miros Captain",
     "isBoss": false
   },
   "2110372": {
@@ -4868,7 +4868,7 @@
     "isBoss": false
   },
   "2110389": {
-    "name": "Poacher Commander",
+    "name": "Poacher Chief",
     "isBoss": false
   },
   "2110390": {
@@ -4944,11 +4944,11 @@
     "isBoss": false
   },
   "2110408": {
-    "name": "Canyon Marauder Commander",
+    "name": "Canyon Marauder Chief",
     "isBoss": false
   },
   "2110409": {
-    "name": "Gargos Commander",
+    "name": "Gargos Captain",
     "isBoss": false
   },
   "2110410": {
@@ -4988,7 +4988,7 @@
     "isBoss": true
   },
   "2110419": {
-    "name": "Prison Compound Draconute Commander",
+    "name": "Prison Compound Draconute Chief",
     "isBoss": false
   },
   "2110420": {
@@ -5048,7 +5048,7 @@
     "isBoss": true
   },
   "2110438": {
-    "name": "Draconute Battle Commander",
+    "name": "Draconute Battle Chief",
     "isBoss": false
   },
   "2110439": {
@@ -5068,7 +5068,7 @@
     "isBoss": true
   },
   "2110444": {
-    "name": "Draconute Battle Commander",
+    "name": "Draconute Battle Chief",
     "isBoss": false
   },
   "2110445": {
@@ -5104,7 +5104,7 @@
     "isBoss": true
   },
   "2110454": {
-    "name": "Draconute Battle Commander",
+    "name": "Draconute Battle Chief",
     "isBoss": false
   },
   "2110455": {
@@ -5264,7 +5264,7 @@
     "isBoss": false
   },
   "2110511": {
-    "name": "Drana injector",
+    "name": "Drana Injector",
     "isBoss": false
   },
   "2110512": {
@@ -5468,7 +5468,7 @@
     "isBoss": true
   },
   "2110641": {
-    "name": "Draconute Battle Commander",
+    "name": "Draconute Battle Chief",
     "isBoss": false
   },
   "2110642": {
@@ -5948,7 +5948,7 @@
     "isBoss": false
   },
   "2200121": {
-    "name": "Enhanced Krall Scouter",
+    "name": "Enhanced Krall Seeker",
     "isBoss": false
   },
   "2200122": {
@@ -6064,7 +6064,7 @@
     "isBoss": false
   },
   "2200150": {
-    "name": "Hilsrother Scouter",
+    "name": "Hilsrother Seeker",
     "isBoss": false
   },
   "2200151": {
@@ -6076,7 +6076,7 @@
     "isBoss": false
   },
   "2200153": {
-    "name": "Hilsrother Scouter",
+    "name": "Hilsrother Seeker",
     "isBoss": false
   },
   "2200155": {
@@ -6124,7 +6124,7 @@
     "isBoss": false
   },
   "2200166": {
-    "name": "Suspicious Storage Scouter",
+    "name": "Suspicious Storage Seeker",
     "isBoss": false
   },
   "2200167": {
@@ -6136,7 +6136,7 @@
     "isBoss": false
   },
   "2200169": {
-    "name": "Hilsrother Scouter",
+    "name": "Hilsrother Seeker",
     "isBoss": false
   },
   "2200170": {
@@ -6160,7 +6160,7 @@
     "isBoss": false
   },
   "2200175": {
-    "name": "Lepharist Administrator",
+    "name": "Lepharist Warden",
     "isBoss": false
   },
   "2200176": {
@@ -6184,11 +6184,11 @@
     "isBoss": false
   },
   "2200182": {
-    "name": "Hilsrother Scouter",
+    "name": "Hilsrother Seeker",
     "isBoss": false
   },
   "2200183": {
-    "name": "Hilsrother Scouter",
+    "name": "Hilsrother Seeker",
     "isBoss": false
   },
   "2200184": {
@@ -6200,7 +6200,7 @@
     "isBoss": false
   },
   "2200192": {
-    "name": "Hilsrother Scouter",
+    "name": "Hilsrother Seeker",
     "isBoss": false
   },
   "2200193": {
@@ -6328,7 +6328,7 @@
     "isBoss": false
   },
   "2200224": {
-    "name": "Hilsrother Scouter",
+    "name": "Hilsrother Seeker",
     "isBoss": false
   },
   "2200225": {
@@ -6592,7 +6592,7 @@
     "isBoss": false
   },
   "2290087": {
-    "name": "Krall Field Commander",
+    "name": "Krall Field Chief",
     "isBoss": false
   },
   "2290088": {
@@ -6620,7 +6620,7 @@
     "isBoss": false
   },
   "2290099": {
-    "name": "Aullaeu Tracker",
+    "name": "Aullaeu Chaser",
     "isBoss": false
   },
   "2290100": {
@@ -6868,7 +6868,7 @@
     "isBoss": false
   },
   "2290181": {
-    "name": "Hilsrother Scouter",
+    "name": "Hilsrother Seeker",
     "isBoss": false
   },
   "2290182": {
@@ -6884,7 +6884,7 @@
     "isBoss": false
   },
   "2290186": {
-    "name": "Hilsrother Scouter",
+    "name": "Hilsrother Seeker",
     "isBoss": false
   },
   "2290195": {
@@ -7032,7 +7032,7 @@
     "isBoss": false
   },
   "2290277": {
-    "name": "Lepharist Administrator",
+    "name": "Lepharist Warden",
     "isBoss": false
   },
   "2290280": {
@@ -7092,7 +7092,7 @@
     "isBoss": false
   },
   "2290302": {
-    "name": "Hilsrother Scouter",
+    "name": "Hilsrother Seeker",
     "isBoss": false
   },
   "2290303": {
@@ -7104,7 +7104,7 @@
     "isBoss": false
   },
   "2290305": {
-    "name": "Hilsrother Scouter",
+    "name": "Hilsrother Seeker",
     "isBoss": false
   },
   "2290306": {
@@ -7120,7 +7120,7 @@
     "isBoss": false
   },
   "2290310": {
-    "name": "Hilsrother Scouter",
+    "name": "Hilsrother Seeker",
     "isBoss": false
   },
   "2290311": {
@@ -8857,7 +8857,7 @@
     "isBoss": false
   },
   "2300468": {
-    "name": "Fullmoon Ritual Managing Supervisor",
+    "name": "Fullmoon Ritual Supervisor",
     "isBoss": false
   },
   "2300469": {
@@ -8932,7 +8932,7 @@
     "isBoss": false
   },
   "2300488": {
-    "name": "Fullmoon Ritual Managing Supervisor",
+    "name": "Fullmoon Ritual Supervisor",
     "isBoss": false
   },
   "2300489": {
@@ -9090,7 +9090,7 @@
     "isBoss": false
   },
   "2300524": {
-    "name": "Fullmoon Ritual Managing Supervisor",
+    "name": "Fullmoon Ritual Supervisor",
     "isBoss": false
   },
   "2300525": {
@@ -9154,7 +9154,7 @@
     "isBoss": false
   },
   "2300541": {
-    "name": "Fullmoon Ritual Managing Supervisor",
+    "name": "Fullmoon Ritual Supervisor",
     "isBoss": false
   },
   "2300542": {
@@ -9205,8 +9205,82 @@
     "name": "Abyssal Horn Lupyllini",
     "isBoss": false
   },
+  "2300571": {
+    "name": "Rock Spirit",
+    "isBoss": false
+  },
+  "2300572": {
+    "name": "Earth Spirit",
+    "isBoss": false
+  },
+  "2300573": {
+    "name": "Enraged Rock Spirit",
+    "isBoss": false
+  },
+  "2300574": {
+    "name": "Enraged Earth Spirit",
+    "isBoss": false
+  },
+  "2300575": {
+    "name": "Corrupted Fairy",
+    "isBoss": false
+  },
+  "2300576": {
+    "name": "Island Guardian Ranger",
+    "isBoss": false
+  },
+  "2300577": {
+    "name": "Odyle Stone Spirit",
+    "isBoss": false
+  },
+  "2300578": {
+    "name": "Forest Coradon",
+    "isBoss": false
+  },
+  "2300579": {
+    "name": "Eroded Kalgolem",
+    "isBoss": false
+  },
+  "2300580": {
+    "name": "Tiere",
+    "isBoss": true,
+    "category": "Dungeon",
+    "tier": "Ordeal",
+    "dungeonId": 600074
+  },
+  "2300581": {
+    "name": "Thamon",
+    "isBoss": true,
+    "category": "Dungeon",
+    "tier": "Ordeal",
+    "dungeonId": 600074
+  },
+  "2300582": {
+    "name": "Vakron",
+    "isBoss": true
+  },
+  "2300583": {
+    "name": "Sweet Poison Flower",
+    "isBoss": false
+  },
+  "2300584": {
+    "name": "Ferocious Queen Bee",
+    "isBoss": false
+  },
+  "2300585": {
+    "name": "Giant Honeybee",
+    "isBoss": false
+  },
+  "2300586": {
+    "name": "Floating Tourmaline",
+    "isBoss": false
+  },
+  "2300587": {
+    "name": "Floating Tourmaline",
+    "isBoss": false
+  },
   "2300595": {
-    "name": "Alluring Dionae",
+    "name": "Kabloom",
     "isBoss": false
   },
   "2300601": {
@@ -9412,7 +9486,7 @@
     "isBoss": false
   },
   "2300905": {
-    "name": "Ferocious Horn Mau Combat Leader",
+    "name": "Ferocious Horn Mau Combat Chief",
     "isBoss": false
   },
   "2300906": {
@@ -9581,7 +9655,7 @@
     "isBoss": false
   },
   "2301021": {
-    "name": "Abyssal Drakan Commander",
+    "name": "Abyssal Drakan Chief",
     "isBoss": false
   },
   "2301022": {
@@ -9589,7 +9663,7 @@
     "isBoss": false
   },
   "2301050": {
-    "name": "Mutated Elite Commander",
+    "name": "Mutated Elite Chief",
     "isBoss": false
   },
   "2301051": {
@@ -9680,7 +9754,7 @@
     "isBoss": false
   },
   "2301080": {
-    "name": "Mutated Elite Commander",
+    "name": "Mutated Elite Chief",
     "isBoss": false
   },
   "2301081": {
@@ -10962,7 +11036,7 @@
     "isBoss": false
   },
   "2310905": {
-    "name": "Ferocious Horn Mau Combat Leader",
+    "name": "Ferocious Horn Mau Combat Chief",
     "isBoss": false
   },
   "2310906": {
@@ -11901,7 +11975,7 @@
     "isBoss": false
   },
   "2320905": {
-    "name": "Ferocious Horn Mau Combat Leader",
+    "name": "Ferocious Horn Mau Combat Chief",
     "isBoss": false
   },
   "2320906": {
@@ -13373,7 +13447,7 @@
     "isBoss": false
   },
   "2340008": {
-    "name": "Beritra Invasion Commander",
+    "name": "Beritra Invasion Chief",
     "isBoss": false
   },
   "2340009": {
@@ -14219,7 +14293,7 @@
     "isBoss": false
   },
   "2345008": {
-    "name": "Drakan Commander",
+    "name": "Drakan Chief",
     "isBoss": false
   },
   "2345009": {
@@ -14999,7 +15073,7 @@
     "isBoss": false
   },
   "2360144": {
-    "name": "Biruta Decimator",
+    "name": "Biruta Striker",
     "isBoss": false
   },
   "2360145": {
@@ -15127,7 +15201,7 @@
     "isBoss": false
   },
   "2360177": {
-    "name": "Tolbas Konutin Scouter",
+    "name": "Tolbas Konutin Seeker",
     "isBoss": false
   },
   "2360178": {
@@ -18549,7 +18623,7 @@
     "isBoss": false
   },
   "2400577": {
-    "name": "Black Claw Searcher",
+    "name": "Black Claw Search Party Searcher",
     "isBoss": false
   },
   "2400578": {
@@ -18621,7 +18695,7 @@
     "isBoss": false
   },
   "2400601": {
-    "name": "Mumu Officer",
+    "name": "Mumu Warden",
     "isBoss": false
   },
   "2400602": {
@@ -18717,7 +18791,7 @@
     "isBoss": false
   },
   "2400658": {
-    "name": "Lagta Brigade Explorer",
+    "name": "Lagta Brigade Seeker",
     "isBoss": false
   },
   "2400659": {
@@ -18745,7 +18819,7 @@
     "isBoss": false
   },
   "2400706": {
-    "name": "Balaur Dispatch Researcher",
+    "name": "Balaur Dispatch Investigator",
     "isBoss": false
   },
   "2400707": {
@@ -19337,7 +19411,7 @@
     "isBoss": false
   },
   "2405012": {
-    "name": "Rubek Thieves Commander",
+    "name": "Rubek Thieves Chief",
     "isBoss": false
   },
   "2405013": {
@@ -19377,7 +19451,7 @@
     "isBoss": false
   },
   "2405028": {
-    "name": "Graverobber Commander",
+    "name": "Graverobber Chief",
     "isBoss": false
   },
   "2405029": {
@@ -19461,11 +19535,11 @@
     "isBoss": true
   },
   "2405063": {
-    "name": "Corrupted Forester Outrunner",
+    "name": "Corrupted Forester Scout",
     "isBoss": false
   },
   "2405064": {
-    "name": "Corrupted Forester Commander",
+    "name": "Corrupted Forester Chief",
     "isBoss": false
   },
   "2405065": {
@@ -19477,11 +19551,11 @@
     "isBoss": false
   },
   "2405067": {
-    "name": "Corrupted Forester Outrunner",
+    "name": "Corrupted Forester Scout",
     "isBoss": false
   },
   "2405068": {
-    "name": "Corrupted Forester Commander",
+    "name": "Corrupted Forester Chief",
     "isBoss": false
   },
   "2405069": {
@@ -19553,11 +19627,11 @@
     "isBoss": false
   },
   "2405102": {
-    "name": "Blades Outrunner",
+    "name": "Blades Scout",
     "isBoss": false
   },
   "2405103": {
-    "name": "Blades Commander",
+    "name": "Blades Chief",
     "isBoss": false
   },
   "2405104": {
@@ -19609,7 +19683,7 @@
     "isBoss": false
   },
   "2405127": {
-    "name": "Forest Marauder Commander",
+    "name": "Forest Marauder Chief",
     "isBoss": false
   },
   "2405128": {
@@ -19677,7 +19751,7 @@
     "isBoss": false
   },
   "2405157": {
-    "name": "Ruin Daeva Commander",
+    "name": "Ruin Daeva Chief",
     "isBoss": false
   },
   "2405158": {
@@ -19685,7 +19759,7 @@
     "isBoss": false
   },
   "2405159": {
-    "name": "Ruin Daeva Commander",
+    "name": "Ruin Daeva Chief",
     "isBoss": false
   },
   "2405170": {
@@ -19705,7 +19779,7 @@
     "isBoss": false
   },
   "2405174": {
-    "name": "Smuggler Commander",
+    "name": "Smuggler Chief",
     "isBoss": false
   },
   "2405175": {
@@ -19761,7 +19835,7 @@
     "isBoss": false
   },
   "2405194": {
-    "name": "Commanding Officer Latrima",
+    "name": "Chief Officer Latrima",
     "isBoss": true
   },
   "2405195": {
@@ -20014,7 +20088,7 @@
     "isBoss": false
   },
   "2406022": {
-    "name": "Patamor Garrison Troopers Explorer",
+    "name": "Patamor Garrison Troopers Seeker",
     "isBoss": false
   },
   "2406023": {
@@ -20143,7 +20217,7 @@
     "isBoss": false
   },
   "2406054": {
-    "name": "Frost Drakan Trooper",
+    "name": "Frost Drakan Assault Trooper",
     "isBoss": false
   },
   "2406055": {
@@ -20191,7 +20265,7 @@
     "isBoss": false
   },
   "2406066": {
-    "name": "Fate Archon Tracker",
+    "name": "Fate Archon Pursuer",
     "isBoss": false
   },
   "2406067": {
@@ -20380,7 +20454,7 @@
     "isBoss": false
   },
   "2406114": {
-    "name": "Fate Archon Scout",
+    "name": "Fate Archon Search Party Member",
     "isBoss": false
   },
   "2406115": {
@@ -20709,7 +20783,7 @@
     "isBoss": false
   },
   "2406990": {
-    "name": "Third Unit Commander Minasara",
+    "name": "Third Unit Captain Minasara",
     "isBoss": true
   },
   "2406991": {
@@ -21615,7 +21689,7 @@
     "isBoss": false
   },
   "2500127": {
-    "name": "Lagta Brigade Explorer",
+    "name": "Lagta Brigade Seeker",
     "isBoss": false
   },
   "2500128": {
@@ -21659,7 +21733,7 @@
     "isBoss": false
   },
   "2500138": {
-    "name": "Mysterious Marauder Commander",
+    "name": "Mysterious Marauder Chief",
     "isBoss": true
   },
   "2500139": {
@@ -21703,7 +21777,7 @@
     "isBoss": false
   },
   "2500149": {
-    "name": "Draconute Tracker",
+    "name": "Draconute Chaser",
     "isBoss": false
   },
   "2500150": {
@@ -22107,11 +22181,11 @@
     "isBoss": false
   },
   "2590087": {
-    "name": "Muqaka's Personal Guard",
+    "name": "Muqaka's Personal Bodyguard",
     "isBoss": false
   },
   "2590088": {
-    "name": "Muqaka's Personal Executioner",
+    "name": "Muqaka's Personal Striker",
     "isBoss": false
   },
   "2590089": {
@@ -22303,7 +22377,7 @@
     "isBoss": false
   },
   "2590152": {
-    "name": "Mumu Officer",
+    "name": "Mumu Warden",
     "isBoss": false
   },
   "2590153": {
@@ -22351,7 +22425,7 @@
     "isBoss": false
   },
   "2590166": {
-    "name": "Fate Archon Executioner",
+    "name": "Fate Archon Executor",
     "isBoss": false
   },
   "2590190": {
@@ -22791,7 +22865,7 @@
     "isBoss": false
   },
   "2600052": {
-    "name": "Abyss Drakan Searcher Beast",
+    "name": "Abyss Drakan Scout Beast",
     "isBoss": false
   },
   "2600053": {
@@ -22835,7 +22909,7 @@
     "isBoss": false
   },
   "2600063": {
-    "name": "Abyss Drakan Decimator",
+    "name": "Abyss Drakan Striker",
     "isBoss": false
   },
   "2600064": {
@@ -22843,7 +22917,7 @@
     "isBoss": false
   },
   "2600065": {
-    "name": "Abyss Drakan Commander",
+    "name": "Abyss Drakan Chief",
     "isBoss": false
   },
   "2600066": {
@@ -22919,7 +22993,7 @@
     "isBoss": true
   },
   "2600085": {
-    "name": "Corrupted Daeva Commander",
+    "name": "Corrupted Daeva Chief",
     "isBoss": false
   },
   "2600086": {
@@ -23059,7 +23133,7 @@
     "isBoss": false
   },
   "2600124": {
-    "name": "Temple Daeva Commander",
+    "name": "Temple Daeva Chief",
     "isBoss": false
   },
   "2600125": {
@@ -23759,7 +23833,7 @@
     "isBoss": false
   },
   "2600365": {
-    "name": "Takshaka Drakan Commander",
+    "name": "Takshaka Drakan Chief",
     "isBoss": false
   },
   "2600366": {
@@ -23815,7 +23889,7 @@
     "isBoss": true
   },
   "2600383": {
-    "name": "Takshaka Air Raiders Commander",
+    "name": "Takshaka Air Raiders Captain",
     "isBoss": true
   },
   "2600384": {
@@ -25403,7 +25477,7 @@
     "isBoss": false
   },
   "2700827": {
-    "name": "Nartis Drakan Commander",
+    "name": "Nartis Drakan Chief",
     "isBoss": false
   },
   "2700835": {
@@ -26479,15 +26553,15 @@
     "isBoss": false
   },
   "2701204": {
-    "name": "Krall Jailor",
+    "name": "Krall Warden",
     "isBoss": false
   },
   "2701205": {
-    "name": "Krall Jailor",
+    "name": "Krall Warden",
     "isBoss": false
   },
   "2701206": {
-    "name": "Krall Jailor",
+    "name": "Krall Warden",
     "isBoss": false
   },
   "2701210": {
@@ -26719,7 +26793,7 @@
     "isBoss": false
   },
   "2701298": {
-    "name": "Desperate Robert's Apparition",
+    "name": "Desperate Robere's Apparition",
     "isBoss": true
   },
   "2701300": {
@@ -26839,11 +26913,11 @@
     "isBoss": true
   },
   "2701345": {
-    "name": "Lepharists Defender",
+    "name": "Lepharist Defender",
     "isBoss": false
   },
   "2701346": {
-    "name": "Lepharists Defender",
+    "name": "Lepharist Defender",
     "isBoss": false
   },
   "2701347": {
@@ -26859,7 +26933,7 @@
     "isBoss": false
   },
   "2701351": {
-    "name": "Lepharists Defender",
+    "name": "Lepharist Defender",
     "isBoss": false
   },
   "2701353": {
@@ -26875,7 +26949,7 @@
     "isBoss": false
   },
   "2701356": {
-    "name": "Lepharists Defender",
+    "name": "Lepharist Defender",
     "isBoss": false
   },
   "2701357": {
@@ -26899,7 +26973,7 @@
     "isBoss": false
   },
   "2701363": {
-    "name": "Lepharist Administrator",
+    "name": "Lepharist Warden",
     "isBoss": false
   },
   "2701364": {
@@ -26939,7 +27013,7 @@
     "isBoss": false
   },
   "2701373": {
-    "name": "Intact Paton",
+    "name": "Culminant Paton",
     "isBoss": true
   },
   "2701374": {
@@ -28679,7 +28753,7 @@
     "isBoss": false
   },
   "2701967": {
-    "name": "Hideout Undead Commanding Officer",
+    "name": "Hideout Undead Chief Officer",
     "isBoss": false
   },
   "2701968": {
@@ -28762,7 +28836,7 @@
     "isBoss": false
   },
   "2701993": {
-    "name": "Ascended Undead Commanding Officer",
+    "name": "Ascended Undead Chief Officer",
     "isBoss": false
   },
   "2701994": {
@@ -28809,7 +28883,7 @@
     "isBoss": false
   },
   "2702004": {
-    "name": "Tyrant Undead Commanding Officer",
+    "name": "Tyrant Undead Chief Officer",
     "isBoss": false
   },
   "2702005": {
@@ -28856,7 +28930,7 @@
     "isBoss": false
   },
   "2702015": {
-    "name": "Furious Undead Commanding Officer",
+    "name": "Furious Undead Chief Officer",
     "isBoss": false
   },
   "2702016": {
@@ -29723,19 +29797,19 @@
     "dungeonId": 910025
   },
   "2702275": {
-    "name": "Despairing Wraith Brawler",
+    "name": "Despair Wraith Brawler",
     "isBoss": false
   },
   "2702276": {
-    "name": "Despairing Undead Gladiator",
+    "name": "Despair Undead Gladiator",
     "isBoss": false
   },
   "2702277": {
-    "name": "Despairing Undead Commanding Officer",
+    "name": "Despair Undead Chief Officer",
     "isBoss": false
   },
   "2702278": {
-    "name": "Despairing Undead Soldier",
+    "name": "Despair Undead Soldier",
     "isBoss": false
   },
   "2702279": {
@@ -29743,11 +29817,11 @@
     "isBoss": false
   },
   "2702280": {
-    "name": "Despairing Undead Test Subject",
+    "name": "Despair Undead Test Subject",
     "isBoss": false
   },
   "2702281": {
-    "name": "Despairing Undead Warrior",
+    "name": "Despair Undead Warrior",
     "isBoss": false
   },
   "2702282": {
@@ -29755,7 +29829,7 @@
     "isBoss": false
   },
   "2702283": {
-    "name": "Despairing Revenant",
+    "name": "Despair Revenant",
     "isBoss": false
   },
   "2702284": {
@@ -29782,7 +29856,7 @@
     "isBoss": false
   },
   "2702289": {
-    "name": "Doom Undead Commanding Officer",
+    "name": "Doom Undead Chief Officer",
     "isBoss": false
   },
   "2702290": {
@@ -29825,11 +29899,11 @@
     "dungeonId": 910045
   },
   "2702299": {
-    "name": "Despairing Pino Worker",
+    "name": "Despair Pino Worker",
     "isBoss": false
   },
   "2702300": {
-    "name": "Despairing Konutin",
+    "name": "Despair Konutin",
     "isBoss": false
   },
   "2702301": {
@@ -29837,11 +29911,11 @@
     "isBoss": false
   },
   "2702302": {
-    "name": "Despairing Ursus",
+    "name": "Despair Ursus",
     "isBoss": false
   },
   "2702303": {
-    "name": "Despairing Raptor Warrior",
+    "name": "Despair Raptor Warrior",
     "isBoss": false
   },
   "2702305": {
@@ -29849,11 +29923,11 @@
     "isBoss": false
   },
   "2702306": {
-    "name": "Despairing Konutin",
+    "name": "Despair Konutin",
     "isBoss": false
   },
   "2702307": {
-    "name": "Despairing Raptor Warrior",
+    "name": "Despair Raptor Warrior",
     "isBoss": false
   },
   "2702309": {
@@ -30077,19 +30151,19 @@
     "dungeonId": 910035
   },
   "2702374": {
-    "name": "Despairing Guard Troopers Captain",
+    "name": "Despair Guard Troopers Captain",
     "isBoss": false
   },
   "2702375": {
-    "name": "Despairing Superior Drakan",
+    "name": "Despair Superior Drakan",
     "isBoss": false
   },
   "2702376": {
-    "name": "Despairing Drakan Commander",
+    "name": "Despair Drakan Chief",
     "isBoss": false
   },
   "2702377": {
-    "name": "Despairing Balaur Warrior",
+    "name": "Despair Balaur Warrior",
     "isBoss": false
   },
   "2702378": {
@@ -30097,23 +30171,23 @@
     "isBoss": false
   },
   "2702379": {
-    "name": "Despairing Abyss Swarm",
+    "name": "Despair Abyss Swarm",
     "isBoss": false
   },
   "2702380": {
-    "name": "Despairing Drakan Armed Soldier",
+    "name": "Despair Drakan Armed Soldier",
     "isBoss": false
   },
   "2702381": {
-    "name": "Despairing Drakan Thaumaturge",
+    "name": "Despair Drakan Thaumaturge",
     "isBoss": false
   },
   "2702382": {
-    "name": "Despairing Elite Brawler",
+    "name": "Despair Elite Brawler",
     "isBoss": false
   },
   "2702383": {
-    "name": "Despairing Elite Watcher",
+    "name": "Despair Elite Watcher",
     "isBoss": false
   },
   "2702384": {
@@ -30139,7 +30213,7 @@
     "isBoss": false
   },
   "2702388": {
-    "name": "Doom Drakan Commander",
+    "name": "Doom Drakan Chief",
     "isBoss": false
   },
   "2702389": {
@@ -30182,23 +30256,23 @@
     "isBoss": false
   },
   "2702398": {
-    "name": "Despairing Watcher",
+    "name": "Despair Watcher",
     "isBoss": false
   },
   "2702399": {
-    "name": "Despairing Daeva Patrol",
+    "name": "Despair Daeva Patrol",
     "isBoss": false
   },
   "2702400": {
-    "name": "Despairing Elite Shieldbearer",
+    "name": "Despair Elite Shieldbearer",
     "isBoss": false
   },
   "2702401": {
-    "name": "Despairing Elite Assault Trooper",
+    "name": "Despair Elite Assault Trooper",
     "isBoss": false
   },
   "2702402": {
-    "name": "Despairing Dark Mage",
+    "name": "Despair Dark Mage",
     "isBoss": false
   },
   "2702403": {
@@ -30210,19 +30284,19 @@
     "isBoss": false
   },
   "2702405": {
-    "name": "Despairing Watcher",
+    "name": "Despair Watcher",
     "isBoss": false
   },
   "2702406": {
-    "name": "Despairing Daeva Patrol",
+    "name": "Despair Daeva Patrol",
     "isBoss": false
   },
   "2702407": {
-    "name": "Despairing Elite Assault Trooper",
+    "name": "Despair Elite Assault Trooper",
     "isBoss": false
   },
   "2702408": {
-    "name": "Despairing Dark Mage",
+    "name": "Despair Dark Mage",
     "isBoss": false
   },
   "2702409": {
@@ -30568,15 +30642,15 @@
     "isBoss": false
   },
   "2702505": {
-    "name": "Despairing Mutant",
+    "name": "Despair Mutant",
     "isBoss": false
   },
   "2702506": {
-    "name": "Despairing Test Subject",
+    "name": "Despair Test Subject",
     "isBoss": false
   },
   "2702507": {
-    "name": "Despairing Floater",
+    "name": "Despair Floater",
     "isBoss": false
   },
   "2702508": {
@@ -30584,15 +30658,15 @@
     "isBoss": false
   },
   "2702509": {
-    "name": "Despairing Dracuni",
+    "name": "Despair Dracuni",
     "isBoss": false
   },
   "2702510": {
-    "name": "Despairing Predator",
+    "name": "Despair Predator",
     "isBoss": false
   },
   "2702511": {
-    "name": "Despairing Drana",
+    "name": "Despair Drana",
     "isBoss": false
   },
   "2702514": {
@@ -31719,13 +31793,61 @@
     "name": "Electrifying Core",
     "isBoss": false
   },
+  "2921356": {
+    "name": "Vakron's Thorn Vines",
+    "isBoss": false
+  },
+  "2921357": {
+    "name": "Vakron's Thorn Vines",
+    "isBoss": false
+  },
   "2921382": {
     "name": "Roar",
     "isBoss": false
   },
+  "2921400": {
+    "name": "Snipe",
+    "isBoss": true
+  },
+  "2921401": {
+    "name": "Snipe",
+    "isBoss": true
+  },
+  "2921402": {
+    "name": "Lethality",
+    "isBoss": true
+  },
   "2921409": {
     "name": "Odylium Ore",
     "isBoss": false
+  },
+  "2921418": {
+    "name": "Vakron's Thorn Vines",
+    "isBoss": false
+  },
+  "2921425": {
+    "name": "Vakron's Thorn Vines",
+    "isBoss": true
+  },
+  "2921426": {
+    "name": "Vakron's Thorn Vines",
+    "isBoss": true
+  },
+  "2921427": {
+    "name": "Vakron's Thorn Root",
+    "isBoss": true
+  },
+  "2921428": {
+    "name": "Vakron's Thorn Root",
+    "isBoss": true
+  },
+  "2921429": {
+    "name": "Vakron's Thorn Vines",
+    "isBoss": true
+  },
+  "2921430": {
+    "name": "Vakron's Thorn Root",
+    "isBoss": true
   },
   "2980000": {
     "name": "High Priestess's Illusion",
@@ -33548,70 +33670,70 @@
     "dungeonId": 200003
   },
   "2980270": {
-    "name": "Intact Paton",
+    "name": "Culminant Paton",
     "isBoss": true,
     "category": "Nightmare",
     "tier": "Level 1",
     "dungeonId": 200003
   },
   "2980271": {
-    "name": "Intact Paton",
+    "name": "Culminant Paton",
     "isBoss": true,
     "category": "Nightmare",
     "tier": "Level 2",
     "dungeonId": 200003
   },
   "2980272": {
-    "name": "Intact Paton",
+    "name": "Culminant Paton",
     "isBoss": true,
     "category": "Nightmare",
     "tier": "Level 3",
     "dungeonId": 200003
   },
   "2980273": {
-    "name": "Intact Paton",
+    "name": "Culminant Paton",
     "isBoss": true,
     "category": "Nightmare",
     "tier": "Level 4",
     "dungeonId": 200003
   },
   "2980274": {
-    "name": "Intact Paton",
+    "name": "Culminant Paton",
     "isBoss": true,
     "category": "Nightmare",
     "tier": "Level 5",
     "dungeonId": 200003
   },
   "2980275": {
-    "name": "Intact Paton",
+    "name": "Culminant Paton",
     "isBoss": true,
     "category": "Nightmare",
     "tier": "Level 6",
     "dungeonId": 200003
   },
   "2980276": {
-    "name": "Intact Paton",
+    "name": "Culminant Paton",
     "isBoss": true,
     "category": "Nightmare",
     "tier": "Level 7",
     "dungeonId": 200003
   },
   "2980277": {
-    "name": "Intact Paton",
+    "name": "Culminant Paton",
     "isBoss": true,
     "category": "Nightmare",
     "tier": "Level 8",
     "dungeonId": 200003
   },
   "2980278": {
-    "name": "Intact Paton",
+    "name": "Culminant Paton",
     "isBoss": true,
     "category": "Nightmare",
     "tier": "Level 9",
     "dungeonId": 200003
   },
   "2980279": {
-    "name": "Intact Paton",
+    "name": "Culminant Paton",
     "isBoss": true,
     "category": "Nightmare",
     "tier": "Level 10",

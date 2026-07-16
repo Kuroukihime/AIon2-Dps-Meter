@@ -23,6 +23,7 @@ namespace AionDpsMeter.Core.Data
                 mobsById = raw.ToFrozenDictionary();
         }
 
+        public bool IsKnownMob(int mobId) => mobsById.ContainsKey(mobId);
 
         public string GetName(int mobId) =>
             mobsById.TryGetValue(mobId, out var mob) ? mob.Name : $"Unknown ({mobId})";

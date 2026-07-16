@@ -71,6 +71,7 @@ namespace AionDpsMeter.Services.PacketProcessors.Damage
                 IsPerfect = data.IsPerfect,
                 IsDoubleDamage = data.IsDoubleDamage,
                 IsParry = data.IsParry,
+                IsFrontAttack = data.IsFrontAttack
             };
         }
     }
