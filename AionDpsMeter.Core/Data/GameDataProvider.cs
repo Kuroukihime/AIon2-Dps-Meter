@@ -47,6 +47,8 @@ namespace AionDpsMeter.Core.Data
 
         public CharacterClass? GetClassBySkillCode(int skillCode) => Classes.GetBySkillCode(skillCode);
 
+        public bool IsKnownMob(int mobId) => Mobs.IsKnownMob(mobId);
+
         public string GetMobName(int mobId) => Mobs.GetName(mobId);
 
         public bool IsBoss(int mobId) => Mobs.IsBoss(mobId) || Mobs.IsDummy(mobId);
