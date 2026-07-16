@@ -42,6 +42,7 @@ namespace AionDpsMeter.UI.ViewModels.History
         public string  DamagePercentDisplay  => DamageFormatter.FormatRate(_stats.DamagePercentage);
         public string  CritRateDisplay       => DamageFormatter.FormatRate(_stats.CriticalRate);
         public string  BackAttackRateDisplay => DamageFormatter.FormatRate(_stats.BackAttackRate);
+        public string FrontAttackRateDisplay => DamageFormatter.FormatRate(_stats.FrontAttackRate);
         public string  PerfectRateDisplay    => DamageFormatter.FormatRate(_stats.PerfectRate);
         public string  DoubleDamageRateDisplay   => DamageFormatter.FormatRate(_stats.DoubleDamageRate);
         public string  ParryRateDisplay      => DamageFormatter.FormatRate(_stats.ParryRate);

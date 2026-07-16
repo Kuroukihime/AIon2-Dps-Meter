@@ -30,6 +30,7 @@ namespace AionDpsMeter.Services.Services.Session
                 HitCount = nonDotHits.Count,
                 CriticalHits = nonDotHits.Count(h => h.IsCritical),
                 BackAttacks = nonDotHits.Count(h => h.IsBackAttack),
+                FrontAttacks = nonDotHits.Count(h => h.IsFrontAttack),
                 PerfectHits = nonDotHits.Count(h => h.IsPerfect),
                 DoubleDamageHits = nonDotHits.Count(h => h.IsDoubleDamage),
                 ParryHits = nonDotHits.Count(h => h.IsParry),
@@ -148,6 +149,7 @@ namespace AionDpsMeter.Services.Services.Session
             merged.HitCount = stats.Sum(s => s.HitCount);
             merged.CriticalHits = stats.Sum(s => s.CriticalHits);
             merged.BackAttacks = stats.Sum(s => s.BackAttacks);
+            merged.FrontAttacks = stats.Sum(s => s.FrontAttacks);
             merged.PerfectHits = stats.Sum(s => s.PerfectHits);
             merged.DoubleDamageHits = stats.Sum(s => s.DoubleDamageHits);
             merged.ParryHits = stats.Sum(s => s.ParryHits);
@@ -183,6 +185,7 @@ namespace AionDpsMeter.Services.Services.Session
             merged.HitCount = skillStats.Sum(s => s.HitCount);
             merged.CriticalHits = skillStats.Sum(s => s.CriticalHits);
             merged.BackAttacks = skillStats.Sum(s => s.BackAttacks);
+            merged.FrontAttacks = skillStats.Sum(s => s.FrontAttacks);
             merged.PerfectHits = skillStats.Sum(s => s.PerfectHits);
             merged.DoubleDamageHits = skillStats.Sum(s => s.DoubleDamageHits);
             merged.ParryHits = skillStats.Sum(s => s.ParryHits);
@@ -224,6 +227,7 @@ namespace AionDpsMeter.Services.Services.Session
 
                 CriticalHits = nonDot.Count(h => h.IsCritical),
                 BackAttacks = nonDot.Count(h => h.IsBackAttack),
+                FrontAttacks = nonDot.Count(h => h.IsFrontAttack),
                 PerfectHits = nonDot.Count(h => h.IsPerfect),
                 DoubleDamageHits = nonDot.Count(h => h.IsDoubleDamage),
                 ParryHits = nonDot.Count(h => h.IsParry),
