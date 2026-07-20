@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>1.6.5.206</AssemblyVersion>
-    <FileVersion>1.6.5.206</FileVersion>
+    <AssemblyVersion>1.6.6.210</AssemblyVersion>
+    <FileVersion>1.6.6.210</FileVersion>
     <ApplicationIcon>ICON_CH_SKILL_006.ico</ApplicationIcon>
   </PropertyGroup>
 
