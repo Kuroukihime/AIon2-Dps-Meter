@@ -25,7 +25,6 @@ namespace AionDpsMeter.Services.Services.Session
         public bool IsCompleted => State == SessionState.Completed;
 
         private int LastKnownTargetHp { get; set; } = -1;
-        private int TotalHits { get; set; } = 0;
         private readonly IAppSettingsService settingsService;
 
 
@@ -53,7 +52,6 @@ namespace AionDpsMeter.Services.Services.Session
             if (damage.DateTime > LastHitTime)
                 LastHitTime = damage.DateTime;
             LastKnownTargetHp = TargetInfo.HpCurrent;
-            TotalHits++;
         }
 
         public bool IsNewTry()
@@ -61,8 +59,7 @@ namespace AionDpsMeter.Services.Services.Session
             
             if (TargetInfo.Name == "Training Scarecrow") return false;
             if (LastKnownTargetHp == -1) return false;
-            if (TotalHits < 2 && (DateTime.Now - LastHitTime) < TimeSpan.FromSeconds(2)) return false;
-            if (TargetInfo.HpCurrent - TargetInfo.HpTotal/50 > LastKnownTargetHp) return true;
+            if (TargetInfo.HpCurrent > LastKnownTargetHp && (DateTime.Now - LastHitTime) > TimeSpan.FromSeconds(5)) return true;
             return false;
         }
 
