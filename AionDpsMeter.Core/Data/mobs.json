@@ -17637,6 +17637,11 @@
     "name": "Voldrik's Minion",
     "isBoss": false
   },
+  "2400035": {
+    "name": "Melee Training Scarecrow",
+    "isBoss": false,
+    "isDummy": true
+  },
   "2400051": {
     "name": "Hungry Dead",
     "isBoss": false
