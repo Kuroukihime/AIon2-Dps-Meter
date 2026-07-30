@@ -24,6 +24,8 @@ namespace AionDpsMeter.Services.Services.Session
         public SessionState State { get; private set; } = SessionState.Active;
         public bool IsCompleted => State == SessionState.Completed;
 
+        private readonly BuffEventManager buffEventManager = new();
+
         private int LastKnownTargetHp { get; set; } = -1;
         private readonly IAppSettingsService settingsService;
 
@@ -53,6 +55,15 @@ namespace AionDpsMeter.Services.Services.Session
                 LastHitTime = damage.DateTime;
             LastKnownTargetHp = TargetInfo.HpCurrent;
         }
+
+
+        public void ProcessBuffEvent(BuffEvent buffEvent)
+        {
+            if (IsCompleted) return;
+            if (buffEvent.AppliedAt < SessionStart) return;
+            buffEventManager.Add(buffEvent);
+        }
+
 
         public bool IsNewTry()
         {
@@ -115,6 +126,9 @@ namespace AionDpsMeter.Services.Services.Session
             return DamageStatisticsCalculator.ComputeSkillStats(session, settingsService.GroupSummonDamage);
         }
 
+        public IReadOnlyList<BuffEvent> GetBuffEvents(long playerId, DateTime from, DateTime to)
+            => buffEventManager.GetBuffEvents((int)playerId, from, to);
+
         public int CountRecentHits(DateTime cutoff)
             => playerSessions.Values.Sum(s => s.CountHitsAfter(cutoff));
 
@@ -130,6 +144,7 @@ namespace AionDpsMeter.Services.Services.Session
             foreach (var session in playerSessions.Values)
                 session.Reset();
             playerSessions.Clear();
+            buffEventManager.Reset();
         }
 
         /// <summary>

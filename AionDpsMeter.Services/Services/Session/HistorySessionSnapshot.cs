@@ -31,7 +31,7 @@ namespace AionDpsMeter.Services.Services.Session
         public IReadOnlyDictionary<long, IReadOnlyList<BuffEvent>> BuffEventsByPlayer { get; init; }
             = new Dictionary<long, IReadOnlyList<BuffEvent>>();
 
-        public static HistorySessionSnapshot From(TargetCombatSession session, BuffEventManager buffManager)
+        public static HistorySessionSnapshot From(TargetCombatSession session)
         {
             var playerStats = session.GetPlayerStats().ToList();
             var sessionStart = session.SessionStart;
@@ -45,7 +45,7 @@ namespace AionDpsMeter.Services.Services.Session
                 p => p.PlayerId,
                 p =>
                 {
-                    var buffs = buffManager.GetBuffEvents((int)p.PlayerId, sessionStart, sessionEnd);
+                    var buffs = session.GetBuffEvents(p.PlayerId, sessionStart, sessionEnd);
                     return (IReadOnlyCollection<BuffStats>)BuffStatisticsCalculator
                         .ComputeBuffStats(buffs, sessionStart, sessionEnd)
                         .ToList();
@@ -57,7 +57,7 @@ namespace AionDpsMeter.Services.Services.Session
 
             var buffEventsByPlayer = playerStats.ToDictionary(
                 p => p.PlayerId,
-                p => buffManager.GetBuffEvents((int)p.PlayerId, sessionStart, sessionEnd));
+                p => session.GetBuffEvents(p.PlayerId, sessionStart, sessionEnd));
 
             return new HistorySessionSnapshot
             {

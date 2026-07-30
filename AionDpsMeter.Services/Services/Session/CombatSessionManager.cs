@@ -12,7 +12,7 @@ namespace AionDpsMeter.Services.Services.Session
         private readonly ConcurrentDictionary<int, TargetEntry> targetEntries = new();
         private readonly ActiveTargetResolver targetResolver;
         private readonly EntityTracker entityTracker;
-        private readonly BuffEventManager buffEventManager = new();
+        //private readonly BuffEventManager buffEventManager = new();
         private readonly ILogger<CombatSessionManager> logger;
         private readonly Lock lockObject = new();
         private readonly IAppSettingsService settingsService;
@@ -63,7 +63,7 @@ namespace AionDpsMeter.Services.Services.Session
                 return targetEntries.Values
                     .SelectMany(e => e.AllSessions)
                     .OrderByDescending(s => s.LastHitTime)
-                    .Select(s => HistorySessionSnapshot.From(s, buffEventManager))
+                    .Select(HistorySessionSnapshot.From)
                     .ToList();
             }
         }
@@ -106,7 +106,7 @@ namespace AionDpsMeter.Services.Services.Session
                 var sessionStart = session.SessionStart;
                 var sessionEnd = session.LastHitTime;
 
-                var buffs = buffEventManager.GetBuffEvents((int)playerId, sessionStart, sessionEnd);
+                var buffs = session.GetBuffEvents(playerId, sessionStart, sessionEnd);
                 return BuffStatisticsCalculator.ComputeBuffStats(buffs, sessionStart, sessionEnd);
             }
         }
@@ -126,7 +126,7 @@ namespace AionDpsMeter.Services.Services.Session
 
                 var sessionStart = session.SessionStart;
                 var sessionEnd   = session.LastHitTime;
-                var buffEvents   = buffEventManager.GetBuffEvents((int)playerId, sessionStart, sessionEnd);           
+                var buffEvents   = session.GetBuffEvents(playerId, sessionStart, sessionEnd);
 
                 return GraphDataCalculator.Compute(hits, buffEvents);
             }
@@ -182,7 +182,12 @@ namespace AionDpsMeter.Services.Services.Session
             {
                 lock (lockObject)
                 {
-                    buffEventManager.Add(buffEvent);
+
+                    foreach (var targetEntry in AllTargetEntries)
+                    {
+                        targetEntry.TryAddBuff(buffEvent);
+
+                    }
                 }
             }
             catch (Exception ex)
@@ -247,7 +252,6 @@ namespace AionDpsMeter.Services.Services.Session
                 entry.Reset();
             targetEntries.Clear();
             targetResolver.Reset();
-            buffEventManager.Reset();
         }
 
         private void OnSummonRegistered(int summonId, int ownerId)

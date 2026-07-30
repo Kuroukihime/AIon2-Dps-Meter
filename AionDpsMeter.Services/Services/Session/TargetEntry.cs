@@ -53,6 +53,16 @@ namespace AionDpsMeter.Services.Services.Session
             CurrentSession!.AddDamage(damage);
         }
 
+
+        public void TryAddBuff(BuffEvent buffEvent)
+        {
+            foreach (var session in AllSessions.Where(r => !r.IsCompleted))
+            {
+                session.ProcessBuffEvent(buffEvent);
+            }
+        }
+
+
         public void CheckIdleTimeout(DateTime now)
         {
             if (CurrentSession is null || CurrentSession.IsCompleted) return;
