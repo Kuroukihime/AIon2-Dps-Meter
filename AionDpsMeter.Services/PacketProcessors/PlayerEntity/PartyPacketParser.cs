@@ -1,21 +1,27 @@
-﻿using AionDpsMeter.Services.PacketProcessors.PlayerEntity.GamePackets;
+﻿using System.Diagnostics;
+using AionDpsMeter.Services.PacketProcessors.PlayerEntity.GamePackets;
 using AionDpsMeter.Services.PacketProcessors.Shared;
 
 namespace AionDpsMeter.Services.PacketProcessors.PlayerEntity
 {
+
+    //CAN NC STOP CHANGING THIS PACKET ALREADY FFS
     public static class PartyPacketParser
     {
-        // presence_mask bits
         private const byte MaskHasUnknown01 = 0x01;
-        private const byte MaskHasGearScore = 0x02;
-        private const byte MaskHasUnknown04 = 0x04;
+        private const byte MaskHasUnknown02 = 0x02;
+        private const byte MaskHasGearScore = 0x04;
         private const byte MaskHasUnknown08 = 0x08;
-        private const byte MaskHasUnknown10 = 0x10;
-        private const byte MaskHasCombatPower = 0x20;
+        private const byte MaskHasCombatPower = 0x10;
+        private const byte MaskHasUnknown20 = 0x20;
         private const byte MaskHasUnknown40 = 0x40;
+
 
         public static PartyPacket Parse(byte[] packet, int offset = 0)
         {
+
+
+            Debug.WriteLine(BitConverter.ToString(packet));
             var r = new PacketReader(packet);
 
             r.ReadVarInt(); //len
@@ -55,48 +61,42 @@ namespace AionDpsMeter.Services.PacketProcessors.PlayerEntity
             uint level = r.ReadU32();        // _level, always present
 
             if ((mask & MaskHasUnknown01) != 0)
-                r.ReadU32();                 // unnamed [mask&0x01]
+                r.ReadU32();                 // unnamed
 
             uint? gearScore = null;
             if ((mask & MaskHasGearScore) != 0)
-                gearScore = r.ReadU32();     // _equip_item_level [mask&0x02]
-
-            if ((mask & MaskHasUnknown04) != 0)
-                r.ReadBit();                  // unnamed (bit) [mask&0x04]
-
-            r.ReadBit();                      // unnamed (bit), always present
-
-
+                gearScore = r.ReadU32();     // _equip_item_level
 
             if ((mask & MaskHasUnknown08) != 0)
-                r.ReadU16();                  // unnamed [mask&0x08]
+                r.ReadBit();                  // unnamed (bit)
 
-            if ((mask & MaskHasUnknown10) != 0)
-                r.ReadU16();                 // unnamed [mask&0x10]
-
-            r.ReadU8();                      // unnamed, always present
+            r.ReadBit();                 // unnamed (bit), always present
+            r.ReadU16();                 // unnamed, always present
+            r.ReadU16();                 // unnamed, always present
+            r.ReadU8();                  // unnamed, always present
 
             ulong? combatPower = null;
             if ((mask & MaskHasCombatPower) != 0)
-                combatPower = r.ReadU64();   // _combat_power [mask&0x20]
+                combatPower = r.ReadU64();   // _combat_power
 
             var trailingArrayCount = r.ReadVarInt();
 
-            if( trailingArrayCount > 0)
+            if (trailingArrayCount > 0)
             {
                 for (int j = 0; j < trailingArrayCount; j++)
                 {
                     r.ReadU8();
                     r.ReadU32();
-                    
+
                 }
             }
 
-            if ((mask & MaskHasUnknown40) != 0)
-            {       
+            if ((mask & MaskHasUnknown20) != 0)
+            {
                 r.ReadU64();                 // unnamed      
             }
-            r.ReadU8();       // unnamed
+            r.ReadU8();         // unnamed, always present
+            r.ReadU8();         // unnamed, always present
 
             return new PartyPlayerPacket
             {
