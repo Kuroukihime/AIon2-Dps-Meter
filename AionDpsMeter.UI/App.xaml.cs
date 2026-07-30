@@ -37,6 +37,7 @@ namespace AionDpsMeter.UI
                 })
                 .ConfigureServices((context, services) =>
                 {
+                    services.AddCombatHistoryPersistence("combat-history.db");
                    
                     services.AddSingleton<IAppSettingsService, AppSettingsService>();
                     services.AddSingleton<UpdateCheckerService>();
@@ -69,6 +70,8 @@ namespace AionDpsMeter.UI
 
         protected override async void OnExit(ExitEventArgs e)
         {
+            var sessionManager = AppHost.Services.GetRequiredService<CombatSessionManager>();
+            sessionManager.CompleteAndPersistActiveSessions();
             await AppHost.StopAsync();
             await Log.CloseAndFlushAsync();
             base.OnExit(e);

@@ -16,6 +16,7 @@ namespace AionDpsMeter.Services.Services.Session
         private readonly Dictionary<long, PlayerSession> playerSessions = new();
         private readonly EntityTracker entityTracker;
 
+        public Guid SessionId { get; } = Guid.NewGuid();
         public int TargetId { get; }
         public Mob TargetInfo { get; }
         public DateTime SessionStart { get; }

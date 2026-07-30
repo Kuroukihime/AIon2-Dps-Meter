@@ -17,6 +17,7 @@ namespace AionDpsMeter.Services.Services.Session
 
         private readonly EntityTracker entityTracker;
         private readonly List<TargetCombatSession> history = new();
+        private readonly Action<TargetCombatSession>? onSessionCompleted;
 
         public int TargetId { get; }
 
@@ -29,11 +30,16 @@ namespace AionDpsMeter.Services.Services.Session
 
         private readonly IAppSettingsService settingsService;
 
-        public TargetEntry(int targetId, EntityTracker entityTracker, IAppSettingsService settingsService)
+        public TargetEntry(
+            int targetId,
+            EntityTracker entityTracker,
+            IAppSettingsService settingsService,
+            Action<TargetCombatSession>? onSessionCompleted = null)
         {
             TargetId = targetId;
             this.entityTracker = entityTracker;
             this.settingsService = settingsService;
+            this.onSessionCompleted = onSessionCompleted;
         }
 
         public void AddDamage(PlayerDamage damage)
@@ -68,6 +74,12 @@ namespace AionDpsMeter.Services.Services.Session
             if (CurrentSession is null || CurrentSession.IsCompleted) return;
 
             if (ShouldCompleteSession(now)) CompleteCurrentSession(now);
+        }
+
+        public void CompleteActiveSession(DateTime at)
+        {
+            if (CurrentSession is null || CurrentSession.IsCompleted) return;
+            CompleteCurrentSession(at);
         }
 
 
@@ -112,6 +124,7 @@ namespace AionDpsMeter.Services.Services.Session
             if (CurrentSession is null) return;
             CurrentSession.Complete(at);
             history.Add(CurrentSession);
+            onSessionCompleted?.Invoke(CurrentSession);
             CurrentSession = null;
         }
 

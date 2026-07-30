@@ -9,12 +9,12 @@ namespace AionDpsMeter.UI.ViewModels.History
 
         public bool HasSessions => Sessions.Count > 0;
 
-        public HistoryViewModel(IReadOnlyList<HistorySessionSnapshot> snapshots, IAppSettingsService settingsService)
+        public HistoryViewModel(IReadOnlyList<HistorySessionListItem> sessions, IAppSettingsService settingsService)
         {
             int threshold = settingsService.HistoryDamageThreshold;
 
-            Sessions = snapshots
-                .Where(s => s.PlayerStats.Sum(p => p.TotalDamage) >= threshold)
+            Sessions = sessions
+                .Where(s => s.TotalDamage >= threshold)
                 .Select(s => new HistoryEntryViewModel(s))
                 .ToList();
         }

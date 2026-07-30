@@ -4,31 +4,26 @@ namespace AionDpsMeter.UI.ViewModels.History
 {
     public sealed class HistoryEntryViewModel : ViewModelBase
     {
-        public HistorySessionSnapshot Snapshot { get; }
+        public HistorySessionListItem Session { get; }
 
-        public HistoryEntryViewModel(HistorySessionSnapshot snapshot)
+        public HistoryEntryViewModel(HistorySessionListItem session)
         {
-            Snapshot = snapshot;
+            Session = session;
         }
 
-        public string TargetName    => string.IsNullOrEmpty(Snapshot.TargetName)
-            ? $"Mob #{Snapshot.TargetId}"
-            : Snapshot.TargetName;
+        public Guid SessionId => Session.SessionId;
 
-        public string DateDisplay   => Snapshot.SessionEnd.ToString("dd.MM  HH:mm:ss");
-        public string Duration      => DamageFormatter.FormatDuration(Snapshot.Duration);
-        public bool   IsCompleted   => Snapshot.State == SessionState.Completed;
+        public string TargetName    => string.IsNullOrEmpty(Session.TargetName)
+            ? $"Mob #{Session.TargetId}"
+            : Session.TargetName;
+
+        public string DateDisplay   => Session.SessionEnd.ToString("dd.MM  HH:mm:ss");
+        public string Duration      => DamageFormatter.FormatDuration(Session.Duration);
+        public bool   IsCompleted   => Session.State == SessionState.Completed;
         public string StateDisplay  => IsCompleted ? "?" : "?";
         public string StateColor    => IsCompleted ? "#888888" : "#4EC9B0";
-        public int PlayerCount => Snapshot.PlayerStats.Count(r => r.IsIdentified || r.DamagePercentage > 1);
+        public int PlayerCount => Session.PlayerCount;
 
-        public string TotalDamageDisplay
-        {
-            get
-            {
-                long total = Snapshot.PlayerStats.Sum(p => p.TotalDamage);
-                return DamageFormatter.Format(total);
-            }
-        }
+        public string TotalDamageDisplay => DamageFormatter.Format(Session.TotalDamage);
     }
 }

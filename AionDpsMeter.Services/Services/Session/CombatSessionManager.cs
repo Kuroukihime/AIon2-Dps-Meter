@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using Microsoft.Extensions.Logging;
 using AionDpsMeter.Services.Models;
 using AionDpsMeter.Services.Services.Entity;
+using AionDpsMeter.Services.Services.Session.Persistence;
 using AionDpsMeter.Services.Services.Settings;
 
 namespace AionDpsMeter.Services.Services.Session
@@ -12,16 +13,21 @@ namespace AionDpsMeter.Services.Services.Session
         private readonly ConcurrentDictionary<int, TargetEntry> targetEntries = new();
         private readonly ActiveTargetResolver targetResolver;
         private readonly EntityTracker entityTracker;
-        //private readonly BuffEventManager buffEventManager = new();
         private readonly ILogger<CombatSessionManager> logger;
         private readonly Lock lockObject = new();
         private readonly IAppSettingsService settingsService;
+        private readonly ICombatHistoryStore historyStore;
 
 
-        public CombatSessionManager(EntityTracker entityTracker, ILoggerFactory loggerFactory, IAppSettingsService settingsService)
+        public CombatSessionManager(
+            EntityTracker entityTracker,
+            ILoggerFactory loggerFactory,
+            IAppSettingsService settingsService,
+            ICombatHistoryStore historyStore)
         {
             this.entityTracker = entityTracker;
             this.settingsService = settingsService;
+            this.historyStore = historyStore;
             targetResolver = new ActiveTargetResolver(entityTracker);
             logger = loggerFactory.CreateLogger<CombatSessionManager>();
             entityTracker.SummonRegistered += OnSummonRegistered;
@@ -49,22 +55,39 @@ namespace AionDpsMeter.Services.Services.Session
                     : [];
             }
         }
-
-        public IReadOnlyCollection<TargetEntry> AllTargetEntries
-        {
-            get { lock (lockObject) { return targetEntries.Values.ToList(); } }
-        }
-
       
-        public IReadOnlyList<HistorySessionSnapshot> GetHistorySnapshot()
+        public IReadOnlyList<HistorySessionListItem> GetHistoryList()
         {
             lock (lockObject)
             {
-                return targetEntries.Values
-                    .SelectMany(e => e.AllSessions)
-                    .OrderByDescending(s => s.LastHitTime)
-                    .Select(HistorySessionSnapshot.From)
+                var persisted = historyStore.GetSessionList();
+
+                var running = targetEntries.Values
+                    .Select(e => e.CurrentSession)
+                    .Where(s => s is not null && !s.IsCompleted)
+                    .Select(s => CreateListItem(s!));
+
+                return persisted
+                    .Concat(running)
+                    .GroupBy(x => x.SessionId)
+                    .Select(g => g.First())
+                    .OrderByDescending(x => x.SessionEnd)
                     .ToList();
+            }
+        }
+
+        public HistorySessionSnapshot? GetHistorySession(Guid sessionId)
+        {
+            lock (lockObject)
+            {
+                var live = targetEntries.Values
+                    .SelectMany(e => e.AllSessions)
+                    .FirstOrDefault(s => s.SessionId == sessionId);
+
+                if (live is not null)
+                    return HistorySessionSnapshot.From(live);
+
+                return historyStore.GetSession(sessionId);
             }
         }
 
@@ -201,15 +224,62 @@ namespace AionDpsMeter.Services.Services.Session
             lock (lockObject) { ResetInternal(); }
         }
 
-        
+        public void CompleteAndPersistActiveSessions(DateTime? at = null)
+        {
+            lock (lockObject)
+            {
+                var completedAt = at ?? DateTime.Now;
+                foreach (var entry in targetEntries.Values)
+                {
+                    entry.CompleteActiveSession(completedAt);
+                }
+
+                targetResolver.Update(targetEntries.Values, completedAt);
+            }
+        }
+
+        private IReadOnlyCollection<TargetEntry> AllTargetEntries
+        {
+            get { lock (lockObject) { return targetEntries.Values.ToList(); } }
+        }
+
 
         private void RouteToTargetEntry(PlayerDamage damageEvent)
         {
             var entry = targetEntries.GetOrAdd(
                 damageEvent.TargetEntity.Id,
-                id => new TargetEntry(id, entityTracker, settingsService));
+                id => new TargetEntry(id, entityTracker, settingsService, OnSessionCompleted));
 
             entry.AddDamage(damageEvent);
+        }
+
+        private void OnSessionCompleted(TargetCombatSession session)
+        {
+            try
+            {
+                historyStore.Save(HistorySessionSnapshot.From(session));
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Failed to persist completed combat session {SessionId}", session.SessionId);
+            }
+        }
+
+        private static HistorySessionListItem CreateListItem(TargetCombatSession session)
+        {
+            var playerStats = session.GetPlayerStats();
+            return new HistorySessionListItem
+            {
+                SessionId = session.SessionId,
+                TargetId = session.TargetId,
+                TargetName = session.TargetInfo.Name,
+                TargetHpTotal = session.TargetInfo.HpTotal,
+                SessionStart = session.SessionStart,
+                SessionEnd = session.LastHitTime,
+                State = session.State,
+                TotalDamage = playerStats.Sum(p => p.TotalDamage),
+                PlayerCount = playerStats.Count(p => p.IsIdentified || p.DamagePercentage > 1),
+            };
         }
 
         private void CheckIdleTimeouts(DateTime now, int excludeTargetId)

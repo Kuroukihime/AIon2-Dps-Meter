@@ -6,6 +6,7 @@ namespace AionDpsMeter.Services.Services.Session
  
     public sealed class HistorySessionSnapshot
     {
+        public Guid SessionId { get; init; }
         public int TargetId { get; init; }
         public string TargetName { get; init; } = string.Empty;
         public int TargetHpTotal { get; init; }
@@ -61,6 +62,7 @@ namespace AionDpsMeter.Services.Services.Session
 
             return new HistorySessionSnapshot
             {
+                SessionId         = session.SessionId,
                 TargetId           = session.TargetId,
                 TargetName         = session.TargetInfo.Name,
                 TargetHpTotal      = session.TargetInfo.HpTotal,
