@@ -66,7 +66,7 @@ namespace AionDpsMeter.Services.Services.Session
 
                 var running = targetEntries.Values
                     .Select(e => e.CurrentSession)
-                    .Where(s => s is not null && !s.IsCompleted)
+                    .Where(s => s is not null && s is { IsCompleted: false, TargetInfo.IsBoss: true })
                     .Select(s => CreateListItem(s!))
                     .Where(s => IsMatch(s, query))
                     .OrderByDescending(x => x.SessionEnd)
@@ -267,7 +267,7 @@ namespace AionDpsMeter.Services.Services.Session
                 var completedAt = at ?? DateTime.Now;
                 foreach (var entry in targetEntries.Values)
                 {
-                    entry.CompleteActiveSession(completedAt);
+                    entry.CompleteActiveSession();
                 }
 
                 targetResolver.Update(targetEntries.Values, completedAt);

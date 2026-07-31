@@ -16,17 +16,15 @@ namespace AionDpsMeter.Services.Services.Session
         private static readonly TimeSpan ScarecrowIdleTimeout = TimeSpan.FromSeconds(5);
 
         private readonly EntityTracker entityTracker;
-        private readonly List<TargetCombatSession> history = new();
         private readonly Action<TargetCombatSession>? onSessionCompleted;
 
         public int TargetId { get; }
 
         public TargetCombatSession? CurrentSession { get; private set; }
 
-        public IReadOnlyList<TargetCombatSession> History => history;
 
         public IEnumerable<TargetCombatSession> AllSessions =>
-            CurrentSession is null ? history : [.. history, CurrentSession];
+            CurrentSession is null ? [] : [ CurrentSession];
 
         private readonly IAppSettingsService settingsService;
 
@@ -48,7 +46,7 @@ namespace AionDpsMeter.Services.Services.Session
 
             if (CurrentSession is not null && CurrentSession.IsNewTry() || ShouldCompleteSession(damage.DateTime, mob))
             {
-                CompleteCurrentSession(damage.DateTime);
+                CompleteCurrentSession();
                 StartNewSession(mob, damage.DateTime);
             }
             else if (CurrentSession is null)
@@ -73,13 +71,13 @@ namespace AionDpsMeter.Services.Services.Session
         {
             if (CurrentSession is null || CurrentSession.IsCompleted) return;
 
-            if (ShouldCompleteSession(now)) CompleteCurrentSession(now);
+            if (ShouldCompleteSession(now)) CompleteCurrentSession();
         }
 
-        public void CompleteActiveSession(DateTime at)
+        public void CompleteActiveSession()
         {
             if (CurrentSession is null || CurrentSession.IsCompleted) return;
-            CompleteCurrentSession(at);
+            CompleteCurrentSession();
         }
 
 
@@ -103,8 +101,6 @@ namespace AionDpsMeter.Services.Services.Session
         {
             CurrentSession?.Reset();
             CurrentSession = null;
-            foreach (var s in history) s.Reset();
-            history.Clear();
         }
 
 
@@ -119,12 +115,11 @@ namespace AionDpsMeter.Services.Services.Session
             return currentMobState.HpCurrent > lastKnownHp && lastKnownHp > 0;
         }
 
-        private void CompleteCurrentSession(DateTime at)
+        private void CompleteCurrentSession()
         {
             if (CurrentSession is null) return;
-            CurrentSession.Complete(at);
-            history.Add(CurrentSession);
-            onSessionCompleted?.Invoke(CurrentSession);
+            CurrentSession.Complete();
+            if(CurrentSession.TargetInfo.IsBoss) onSessionCompleted?.Invoke(CurrentSession);
             CurrentSession = null;
         }
 

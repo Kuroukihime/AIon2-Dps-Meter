@@ -47,7 +47,7 @@ namespace AionDpsMeter.UI.ViewModels.History
 
             var now = DateTime.Now;
             DateFrom = now.AddDays(-1).Date;
-            DateTo = now;
+            DateTo = now.AddMinutes(1);
 
             LoadPage(1);
         }
@@ -63,7 +63,7 @@ namespace AionDpsMeter.UI.ViewModels.History
         {
             var now = DateTime.Now;
             DateFrom = now.AddDays(-1).Date;
-            DateTo = now;
+            DateTo = now.AddMinutes(1);
             BossName = string.Empty;
             LoadPage(1);
         }

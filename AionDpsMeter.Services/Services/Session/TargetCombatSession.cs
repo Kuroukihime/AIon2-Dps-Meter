@@ -81,11 +81,11 @@ namespace AionDpsMeter.Services.Services.Session
             return playerSessions.Keys.Select(k => (int)k).ToList();
         }
 
-        public void Complete(DateTime completedAt)
+        public void Complete()
         {
             if (IsCompleted) return;
             State = SessionState.Completed;
-            CompletedAt = completedAt;
+            CompletedAt = LastHitTime;
         }
 
         public TimeSpan GetCombatDuration()
