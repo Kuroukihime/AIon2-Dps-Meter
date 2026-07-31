@@ -9,7 +9,6 @@ namespace AionDpsMeter.UI.ViewModels.History
     public sealed partial class HistoryViewModel : ViewModelBase
     {
         private readonly CombatSessionManager _sessionManager;
-        private readonly int _threshold;
         private const int DefaultPageSize = 100;
 
         [ObservableProperty]
@@ -43,7 +42,6 @@ namespace AionDpsMeter.UI.ViewModels.History
         public HistoryViewModel(CombatSessionManager sessionManager, IAppSettingsService settingsService)
         {
             _sessionManager = sessionManager;
-            _threshold = settingsService.HistoryDamageThreshold;
 
             var now = DateTime.Now;
             DateFrom = now.AddDays(-1).Date;
@@ -101,7 +99,6 @@ namespace AionDpsMeter.UI.ViewModels.History
                 DateFrom = DateFrom,
                 DateTo = NormalizeDateTo(DateTo),
                 BossNameContains = string.IsNullOrWhiteSpace(BossName) ? null : BossName.Trim(),
-                MinTotalDamage = _threshold,
                 PageNumber = Math.Max(1, page),
                 PageSize = PageSize,
             };

@@ -1,6 +1,10 @@
 using AionDpsMeter.Core.Models;
 using AionDpsMeter.Services.Models;
+using AionDpsMeter.Services.Services.Settings;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Text.Json;
 
 namespace AionDpsMeter.Services.Services.Session.Persistence
@@ -9,18 +13,27 @@ namespace AionDpsMeter.Services.Services.Session.Persistence
     {
         private static readonly JsonSerializerOptions JsonOptions = new(JsonSerializerDefaults.Web);
         private readonly IDbContextFactory<CombatHistoryDbContext> _dbContextFactory;
+        private readonly ILogger<CombatHistoryStore> _logger;
+        private readonly IAppSettingsService _settingsService;
+        private readonly ConcurrentQueue<CombatSessionEntity> _pendingSaves = new();
+        private readonly Lock _saveDrainLock = new();
+        private int _saveWorkerStarted;
 
-        public CombatHistoryStore(IDbContextFactory<CombatHistoryDbContext> dbContextFactory)
+        public CombatHistoryStore(
+            IDbContextFactory<CombatHistoryDbContext> dbContextFactory,
+            ILogger<CombatHistoryStore> logger,
+            IAppSettingsService settingsService)
         {
             _dbContextFactory = dbContextFactory;
+            _logger = logger;
+            _settingsService = settingsService;
             using var db = _dbContextFactory.CreateDbContext();
             db.Database.EnsureCreated();
+            _ = Task.Run(CleanupExpiredSessionsSafe);
         }
 
         public void Save(HistorySessionSnapshot snapshot)
         {
-            using var db = _dbContextFactory.CreateDbContext();
-
             var entity = new CombatSessionEntity
             {
                 SessionId = snapshot.SessionId,
@@ -39,8 +52,13 @@ namespace AionDpsMeter.Services.Services.Session.Persistence
                 BuffEventsByPlayerJson = JsonSerializer.Serialize(snapshot.BuffEventsByPlayer, JsonOptions),
             };
 
-            db.Sessions.Upsert(entity);
-            db.SaveChanges();
+            _pendingSaves.Enqueue(entity);
+            StartSaveWorkerIfNeeded();
+        }
+
+        public void FlushPendingSaves()
+        {
+            DrainPendingSaves();
         }
 
         public IReadOnlyList<HistorySessionListItem> GetSessionList()
@@ -65,24 +83,23 @@ namespace AionDpsMeter.Services.Services.Session.Persistence
                 .ToList();
         }
 
-        public int GetSessionCount(DateTime? dateFrom, DateTime? dateTo, string? bossNameContains, long minTotalDamage, IReadOnlySet<Guid>? excludeSessionIds = null)
+        public int GetSessionCount(DateTime? dateFrom, DateTime? dateTo, string? bossNameContains, IReadOnlySet<Guid>? excludeSessionIds = null)
         {
             using var db = _dbContextFactory.CreateDbContext();
-            return BuildFilteredQuery(db, dateFrom, dateTo, bossNameContains, minTotalDamage, excludeSessionIds).Count();
+            return BuildFilteredQuery(db, dateFrom, dateTo, bossNameContains, excludeSessionIds).Count();
         }
 
         public IReadOnlyList<HistorySessionListItem> GetSessionPage(
             DateTime? dateFrom,
             DateTime? dateTo,
             string? bossNameContains,
-            long minTotalDamage,
             int skip,
             int take,
             IReadOnlySet<Guid>? excludeSessionIds = null)
         {
             using var db = _dbContextFactory.CreateDbContext();
 
-            return BuildFilteredQuery(db, dateFrom, dateTo, bossNameContains, minTotalDamage, excludeSessionIds)
+            return BuildFilteredQuery(db, dateFrom, dateTo, bossNameContains, excludeSessionIds)
                 .OrderByDescending(x => x.SessionEnd)
                 .Skip(Math.Max(0, skip))
                 .Take(Math.Max(0, take))
@@ -153,7 +170,6 @@ namespace AionDpsMeter.Services.Services.Session.Persistence
             DateTime? dateFrom,
             DateTime? dateTo,
             string? bossNameContains,
-            long minTotalDamage,
             IReadOnlySet<Guid>? excludeSessionIds)
         {
             var query = db.Sessions.AsNoTracking().AsQueryable();
@@ -170,12 +186,96 @@ namespace AionDpsMeter.Services.Services.Session.Persistence
                 query = query.Where(x => x.TargetName.ToLower().Contains(search));
             }
 
-            query = query.Where(x => x.TotalDamage >= minTotalDamage);
-
             if (excludeSessionIds is { Count: > 0 })
                 query = query.Where(x => !excludeSessionIds.Contains(x.SessionId));
 
             return query;
+        }
+
+        private void CleanupExpiredSessions(CombatHistoryDbContext db)
+        {
+            var retentionDays = Math.Clamp(_settingsService.HistoryRetantionPeriod, 1, 9999);
+            var cutoff = DateTime.Now.AddDays(-retentionDays);
+            var stopwatch = Stopwatch.StartNew();
+
+            int deletedRows = db.Sessions
+                .Where(x => x.SessionEnd < cutoff)
+                .ExecuteDelete();
+
+            db.Database.ExecuteSqlRaw("VACUUM;");
+            db.Database.ExecuteSqlRaw("ANALYZE;");
+            db.Database.ExecuteSqlRaw("PRAGMA optimize;");
+
+            stopwatch.Stop();
+            _logger.LogInformation(
+                "Combat history startup cleanup completed. RetentionDays={RetentionDays}, Cutoff={Cutoff}, DeletedRows={DeletedRows}, ElapsedMs={ElapsedMs}",
+                retentionDays,
+                cutoff,
+                deletedRows,
+                stopwatch.Elapsed.TotalMilliseconds);
+        }
+
+        private void StartSaveWorkerIfNeeded()
+        {
+            if (Interlocked.CompareExchange(ref _saveWorkerStarted, 1, 0) != 0)
+                return;
+
+            _ = Task.Run(() =>
+            {
+                try
+                {
+                    DrainPendingSaves();
+                }
+                finally
+                {
+                    Interlocked.Exchange(ref _saveWorkerStarted, 0);
+                    if (!_pendingSaves.IsEmpty)
+                    {
+                        StartSaveWorkerIfNeeded();
+                    }
+                }
+            });
+        }
+
+        private void DrainPendingSaves()
+        {
+            lock (_saveDrainLock)
+            {
+                while (_pendingSaves.TryDequeue(out var entity))
+                {
+                    PersistEntity(entity);
+                }
+            }
+        }
+
+        private void PersistEntity(CombatSessionEntity entity)
+        {
+            var stopwatch = Stopwatch.StartNew();
+            using var db = _dbContextFactory.CreateDbContext();
+
+            db.Sessions.Upsert(entity);
+            db.SaveChanges();
+
+            stopwatch.Stop();
+            _logger.LogInformation(
+                "Combat session persisted. SessionId={SessionId}, TargetId={TargetId}, TotalDamage={TotalDamage}, ElapsedMs={ElapsedMs}",
+                entity.SessionId,
+                entity.TargetId,
+                entity.TotalDamage,
+                stopwatch.Elapsed.TotalMilliseconds);
+        }
+
+        private void CleanupExpiredSessionsSafe()
+        {
+            try
+            {
+                using var db = _dbContextFactory.CreateDbContext();
+                CleanupExpiredSessions(db);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Combat history startup cleanup failed.");
+            }
         }
     }
 

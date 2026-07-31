@@ -77,7 +77,6 @@ namespace AionDpsMeter.Services.Services.Session
                     query.DateFrom,
                     query.DateTo,
                     query.BossNameContains,
-                    query.MinTotalDamage,
                     runningIds);
 
                 int totalCount = running.Count + persistedCount;
@@ -94,7 +93,6 @@ namespace AionDpsMeter.Services.Services.Session
                         query.DateFrom,
                         query.DateTo,
                         query.BossNameContains,
-                        query.MinTotalDamage,
                         persistedSkip,
                         persistedTake,
                         runningIds);
@@ -320,9 +318,6 @@ namespace AionDpsMeter.Services.Services.Session
 
         private static bool IsMatch(HistorySessionListItem item, HistorySessionQuery query)
         {
-            if (item.TotalDamage < query.MinTotalDamage)
-                return false;
-
             if (query.DateFrom is { } from && item.SessionEnd < from)
                 return false;
 

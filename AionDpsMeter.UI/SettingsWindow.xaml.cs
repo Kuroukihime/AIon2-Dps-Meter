@@ -33,7 +33,7 @@ namespace AionDpsMeter.UI
             this.Close();
         }
 
-        private void ThresholdTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void RetentionPeriodTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !IsDigitsOnly(e.Text);
         }
