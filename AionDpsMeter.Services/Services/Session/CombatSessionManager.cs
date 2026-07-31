@@ -56,23 +56,59 @@ namespace AionDpsMeter.Services.Services.Session
             }
         }
       
-        public IReadOnlyList<HistorySessionListItem> GetHistoryList()
+        public HistorySessionPageResult GetHistoryPage(HistorySessionQuery query)
         {
             lock (lockObject)
             {
-                var persisted = historyStore.GetSessionList();
+                int pageNumber = Math.Max(1, query.PageNumber);
+                int pageSize = Math.Clamp(query.PageSize, 1, 500);
+                int globalSkip = (pageNumber - 1) * pageSize;
 
                 var running = targetEntries.Values
                     .Select(e => e.CurrentSession)
                     .Where(s => s is not null && !s.IsCompleted)
-                    .Select(s => CreateListItem(s!));
-
-                return persisted
-                    .Concat(running)
-                    .GroupBy(x => x.SessionId)
-                    .Select(g => g.First())
+                    .Select(s => CreateListItem(s!))
+                    .Where(s => IsMatch(s, query))
                     .OrderByDescending(x => x.SessionEnd)
                     .ToList();
+
+                var runningIds = running.Select(x => x.SessionId).ToHashSet();
+                int persistedCount = historyStore.GetSessionCount(
+                    query.DateFrom,
+                    query.DateTo,
+                    query.BossNameContains,
+                    query.MinTotalDamage,
+                    runningIds);
+
+                int totalCount = running.Count + persistedCount;
+
+                int runningSkip = Math.Min(globalSkip, running.Count);
+                int runningTake = Math.Min(pageSize, Math.Max(0, running.Count - runningSkip));
+                var pageItems = running.Skip(runningSkip).Take(runningTake).ToList();
+
+                int persistedTake = pageSize - pageItems.Count;
+                if (persistedTake > 0)
+                {
+                    int persistedSkip = Math.Max(0, globalSkip - running.Count);
+                    var persistedPage = historyStore.GetSessionPage(
+                        query.DateFrom,
+                        query.DateTo,
+                        query.BossNameContains,
+                        query.MinTotalDamage,
+                        persistedSkip,
+                        persistedTake,
+                        runningIds);
+
+                    pageItems.AddRange(persistedPage);
+                }
+
+                return new HistorySessionPageResult
+                {
+                    Items = pageItems,
+                    TotalCount = totalCount,
+                    PageNumber = pageNumber,
+                    PageSize = pageSize,
+                };
             }
         }
 
@@ -280,6 +316,27 @@ namespace AionDpsMeter.Services.Services.Session
                 TotalDamage = playerStats.Sum(p => p.TotalDamage),
                 PlayerCount = playerStats.Count(p => p.IsIdentified || p.DamagePercentage > 1),
             };
+        }
+
+        private static bool IsMatch(HistorySessionListItem item, HistorySessionQuery query)
+        {
+            if (item.TotalDamage < query.MinTotalDamage)
+                return false;
+
+            if (query.DateFrom is { } from && item.SessionEnd < from)
+                return false;
+
+            if (query.DateTo is { } to && item.SessionEnd > to)
+                return false;
+
+            if (!string.IsNullOrWhiteSpace(query.BossNameContains))
+            {
+                var search = query.BossNameContains.Trim();
+                if (item.TargetName.IndexOf(search, StringComparison.OrdinalIgnoreCase) < 0)
+                    return false;
+            }
+
+            return true;
         }
 
         private void CheckIdleTimeouts(DateTime now, int excludeTargetId)

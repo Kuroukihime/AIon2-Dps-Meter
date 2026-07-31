@@ -65,6 +65,42 @@ namespace AionDpsMeter.Services.Services.Session.Persistence
                 .ToList();
         }
 
+        public int GetSessionCount(DateTime? dateFrom, DateTime? dateTo, string? bossNameContains, long minTotalDamage, IReadOnlySet<Guid>? excludeSessionIds = null)
+        {
+            using var db = _dbContextFactory.CreateDbContext();
+            return BuildFilteredQuery(db, dateFrom, dateTo, bossNameContains, minTotalDamage, excludeSessionIds).Count();
+        }
+
+        public IReadOnlyList<HistorySessionListItem> GetSessionPage(
+            DateTime? dateFrom,
+            DateTime? dateTo,
+            string? bossNameContains,
+            long minTotalDamage,
+            int skip,
+            int take,
+            IReadOnlySet<Guid>? excludeSessionIds = null)
+        {
+            using var db = _dbContextFactory.CreateDbContext();
+
+            return BuildFilteredQuery(db, dateFrom, dateTo, bossNameContains, minTotalDamage, excludeSessionIds)
+                .OrderByDescending(x => x.SessionEnd)
+                .Skip(Math.Max(0, skip))
+                .Take(Math.Max(0, take))
+                .Select(x => new HistorySessionListItem
+                {
+                    SessionId = x.SessionId,
+                    TargetId = x.TargetId,
+                    TargetName = x.TargetName,
+                    TargetHpTotal = x.TargetHpTotal,
+                    SessionStart = x.SessionStart,
+                    SessionEnd = x.SessionEnd,
+                    State = x.State,
+                    TotalDamage = x.TotalDamage,
+                    PlayerCount = x.PlayerCount,
+                })
+                .ToList();
+        }
+
         public HistorySessionSnapshot? GetSession(Guid sessionId)
         {
             using var db = _dbContextFactory.CreateDbContext();
@@ -110,6 +146,36 @@ namespace AionDpsMeter.Services.Services.Session.Persistence
             {
                 return default;
             }
+        }
+
+        private static IQueryable<CombatSessionEntity> BuildFilteredQuery(
+            CombatHistoryDbContext db,
+            DateTime? dateFrom,
+            DateTime? dateTo,
+            string? bossNameContains,
+            long minTotalDamage,
+            IReadOnlySet<Guid>? excludeSessionIds)
+        {
+            var query = db.Sessions.AsNoTracking().AsQueryable();
+
+            if (dateFrom is { } from)
+                query = query.Where(x => x.SessionEnd >= from);
+
+            if (dateTo is { } to)
+                query = query.Where(x => x.SessionEnd <= to);
+
+            if (!string.IsNullOrWhiteSpace(bossNameContains))
+            {
+                var search = bossNameContains.Trim().ToLower();
+                query = query.Where(x => x.TargetName.ToLower().Contains(search));
+            }
+
+            query = query.Where(x => x.TotalDamage >= minTotalDamage);
+
+            if (excludeSessionIds is { Count: > 0 })
+                query = query.Where(x => !excludeSessionIds.Contains(x.SessionId));
+
+            return query;
         }
     }
 
