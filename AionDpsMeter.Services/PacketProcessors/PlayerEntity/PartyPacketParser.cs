@@ -10,7 +10,7 @@ namespace AionDpsMeter.Services.PacketProcessors.PlayerEntity
     {
         private const byte MaskHasUnknown01 = 0x01;
         private const byte MaskHasUnknown02 = 0x02;
-        private const byte MaskHasGearScore = 0x04;
+        private const byte MaskHasUnknown04 = 0x04;
         private const byte MaskHasUnknown08 = 0x08;
         private const byte MaskHasCombatPower = 0x10;
         private const byte MaskHasUnknown20 = 0x20;
@@ -61,25 +61,29 @@ namespace AionDpsMeter.Services.PacketProcessors.PlayerEntity
             uint level = r.ReadU32();        // _level, always present
 
             if ((mask & MaskHasUnknown01) != 0)
-                r.ReadU32();                 // unnamed
+                r.ReadU32();                   // _conqueror_level
 
-            uint? gearScore = null;
-            if ((mask & MaskHasGearScore) != 0)
-                gearScore = r.ReadU32();     // _equip_item_level
+            uint gearScore  = r.ReadU32();     // _equip_item_level,  always present
+
+
+            if ((mask & MaskHasUnknown02) != 0)
+                r.ReadBit();                  // ready (bit)
+
+            r.ReadBit();                 // login (bit), always present
+
+            if ((mask & MaskHasUnknown04) != 0)
+                r.ReadU16();                 // _born_server_id , always present
 
             if ((mask & MaskHasUnknown08) != 0)
-                r.ReadBit();                  // unnamed (bit)
+                r.ReadU16();                 // _current_server_id, always present
 
-            r.ReadBit();                 // unnamed (bit), always present
-            r.ReadU16();                 // unnamed, always present
-            r.ReadU16();                 // unnamed, always present
-            r.ReadU8();                  // unnamed, always present
+            r.ReadU8();                  // _party_role, always present
 
             ulong? combatPower = null;
             if ((mask & MaskHasCombatPower) != 0)
                 combatPower = r.ReadU64();   // _combat_power
 
-            var trailingArrayCount = r.ReadVarInt();
+            var trailingArrayCount = r.ReadVarInt(); // _contents_tickets
 
             if (trailingArrayCount > 0)
             {
@@ -93,10 +97,10 @@ namespace AionDpsMeter.Services.PacketProcessors.PlayerEntity
 
             if ((mask & MaskHasUnknown20) != 0)
             {
-                r.ReadU64();                 // unnamed      
+                r.ReadU64();    //_rebirth_myself_item_count       
             }
-            r.ReadU8();         // unnamed, always present
-            r.ReadU8();         // unnamed, always present
+            r.ReadU8();         // _mentoring_role , always present
+            r.ReadU8();         // _network_latency_state , always present
 
             return new PartyPlayerPacket
             {
