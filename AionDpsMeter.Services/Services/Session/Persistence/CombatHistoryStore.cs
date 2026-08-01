@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 using System.Diagnostics;
+using System.IO.Compression;
+using System.Text;
 using System.Text.Json;
 
 namespace AionDpsMeter.Services.Services.Session.Persistence
@@ -45,11 +47,11 @@ namespace AionDpsMeter.Services.Services.Session.Persistence
                 State = snapshot.State,
                 TotalDamage = snapshot.PlayerStats.Sum(p => p.TotalDamage),
                 PlayerCount = snapshot.PlayerStats.Count(p => p.IsIdentified || p.DamagePercentage > 1),
-                PlayerStatsJson = JsonSerializer.Serialize(snapshot.PlayerStats, JsonOptions),
-                SkillStatsByPlayerJson = JsonSerializer.Serialize(snapshot.SkillStatsByPlayer, JsonOptions),
-                BuffStatsByPlayerJson = JsonSerializer.Serialize(snapshot.BuffStatsByPlayer, JsonOptions),
-                HitsByPlayerJson = JsonSerializer.Serialize(snapshot.HitsByPlayer, JsonOptions),
-                BuffEventsByPlayerJson = JsonSerializer.Serialize(snapshot.BuffEventsByPlayer, JsonOptions),
+                PlayerStatsJson = SerializeToJson(snapshot.PlayerStats),
+                SkillStatsByPlayerJson = SerializeToJson(snapshot.SkillStatsByPlayer),
+                BuffStatsByPlayerJson = SerializeToJson(snapshot.BuffStatsByPlayer),
+                HitsByPlayerJson = SerializeToJson(snapshot.HitsByPlayer),
+                BuffEventsByPlayerJson = SerializeToJson(snapshot.BuffEventsByPlayer),
             };
 
             _pendingSaves.Enqueue(entity);
@@ -157,11 +159,52 @@ namespace AionDpsMeter.Services.Services.Session.Persistence
             if (string.IsNullOrWhiteSpace(json)) return default;
             try
             {
-                return JsonSerializer.Deserialize<T>(json, JsonOptions);
+                var decompressedJson = DecompressIfNeeded(json);
+                return JsonSerializer.Deserialize<T>(decompressedJson, JsonOptions);
             }
             catch
             {
                 return default;
+            }
+        }
+
+        private static string SerializeToJson<T>(T value)
+        {
+            return JsonSerializer.Serialize(value, JsonOptions);
+        }
+
+        private static string CompressJson(string json)
+        {
+            var bytes = Encoding.UTF8.GetBytes(json);
+
+            using var output = new MemoryStream();
+            using (var brotli = new BrotliStream(output, CompressionLevel.SmallestSize, leaveOpen: true))
+            {
+                brotli.Write(bytes, 0, bytes.Length);
+            }
+
+            return Convert.ToBase64String(output.ToArray());
+        }
+
+        private static string DecompressIfNeeded(string value)
+        {
+            try
+            {
+                var compressedBytes = Convert.FromBase64String(value);
+                using var input = new MemoryStream(compressedBytes);
+                using var brotli = new BrotliStream(input, CompressionMode.Decompress);
+                using var output = new MemoryStream();
+
+                brotli.CopyTo(output);
+                return Encoding.UTF8.GetString(output.ToArray());
+            }
+            catch (FormatException)
+            {
+                return value;
+            }
+            catch (InvalidDataException)
+            {
+                return value;
             }
         }
 
@@ -252,6 +295,12 @@ namespace AionDpsMeter.Services.Services.Session.Persistence
         {
             var stopwatch = Stopwatch.StartNew();
             using var db = _dbContextFactory.CreateDbContext();
+
+            entity.PlayerStatsJson = CompressJson(entity.PlayerStatsJson);
+            entity.SkillStatsByPlayerJson = CompressJson(entity.SkillStatsByPlayerJson);
+            entity.BuffStatsByPlayerJson = CompressJson(entity.BuffStatsByPlayerJson);
+            entity.HitsByPlayerJson = CompressJson(entity.HitsByPlayerJson);
+            entity.BuffEventsByPlayerJson = CompressJson(entity.BuffEventsByPlayerJson);
 
             db.Sessions.Upsert(entity);
             db.SaveChanges();
