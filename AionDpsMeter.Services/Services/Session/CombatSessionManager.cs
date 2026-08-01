@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using Microsoft.Extensions.Logging;
 using AionDpsMeter.Services.Models;
 using AionDpsMeter.Services.Services.Entity;
+using AionDpsMeter.Services.Services.Session.Persistence;
 using AionDpsMeter.Services.Services.Settings;
 
 namespace AionDpsMeter.Services.Services.Session
@@ -12,16 +13,21 @@ namespace AionDpsMeter.Services.Services.Session
         private readonly ConcurrentDictionary<int, TargetEntry> targetEntries = new();
         private readonly ActiveTargetResolver targetResolver;
         private readonly EntityTracker entityTracker;
-        private readonly BuffEventManager buffEventManager = new();
         private readonly ILogger<CombatSessionManager> logger;
         private readonly Lock lockObject = new();
         private readonly IAppSettingsService settingsService;
+        private readonly ICombatHistoryStore historyStore;
 
 
-        public CombatSessionManager(EntityTracker entityTracker, ILoggerFactory loggerFactory, IAppSettingsService settingsService)
+        public CombatSessionManager(
+            EntityTracker entityTracker,
+            ILoggerFactory loggerFactory,
+            IAppSettingsService settingsService,
+            ICombatHistoryStore historyStore)
         {
             this.entityTracker = entityTracker;
             this.settingsService = settingsService;
+            this.historyStore = historyStore;
             targetResolver = new ActiveTargetResolver(entityTracker);
             logger = loggerFactory.CreateLogger<CombatSessionManager>();
             entityTracker.SummonRegistered += OnSummonRegistered;
@@ -49,22 +55,73 @@ namespace AionDpsMeter.Services.Services.Session
                     : [];
             }
         }
-
-        public IReadOnlyCollection<TargetEntry> AllTargetEntries
-        {
-            get { lock (lockObject) { return targetEntries.Values.ToList(); } }
-        }
-
       
-        public IReadOnlyList<HistorySessionSnapshot> GetHistorySnapshot()
+        public HistorySessionPageResult GetHistoryPage(HistorySessionQuery query)
         {
             lock (lockObject)
             {
-                return targetEntries.Values
-                    .SelectMany(e => e.AllSessions)
-                    .OrderByDescending(s => s.LastHitTime)
-                    .Select(s => HistorySessionSnapshot.From(s, buffEventManager))
+                int pageNumber = Math.Max(1, query.PageNumber);
+                int pageSize = Math.Clamp(query.PageSize, 1, 500);
+                int globalSkip = (pageNumber - 1) * pageSize;
+
+                var running = targetEntries.Values
+                    .Select(e => e.CurrentSession)
+                    .Where(s => s is not null && s is { IsCompleted: false, TargetInfo.IsBoss: true })
+                    .Select(s => CreateListItem(s!))
+                    .Where(s => IsMatch(s, query))
+                    .OrderByDescending(x => x.SessionEnd)
                     .ToList();
+
+                var runningIds = running.Select(x => x.SessionId).ToHashSet();
+                int persistedCount = historyStore.GetSessionCount(
+                    query.DateFrom,
+                    query.DateTo,
+                    query.BossNameContains,
+                    runningIds);
+
+                int totalCount = running.Count + persistedCount;
+
+                int runningSkip = Math.Min(globalSkip, running.Count);
+                int runningTake = Math.Min(pageSize, Math.Max(0, running.Count - runningSkip));
+                var pageItems = running.Skip(runningSkip).Take(runningTake).ToList();
+
+                int persistedTake = pageSize - pageItems.Count;
+                if (persistedTake > 0)
+                {
+                    int persistedSkip = Math.Max(0, globalSkip - running.Count);
+                    var persistedPage = historyStore.GetSessionPage(
+                        query.DateFrom,
+                        query.DateTo,
+                        query.BossNameContains,
+                        persistedSkip,
+                        persistedTake,
+                        runningIds);
+
+                    pageItems.AddRange(persistedPage);
+                }
+
+                return new HistorySessionPageResult
+                {
+                    Items = pageItems,
+                    TotalCount = totalCount,
+                    PageNumber = pageNumber,
+                    PageSize = pageSize,
+                };
+            }
+        }
+
+        public HistorySessionSnapshot? GetHistorySession(Guid sessionId)
+        {
+            lock (lockObject)
+            {
+                var live = targetEntries.Values
+                    .SelectMany(e => e.AllSessions)
+                    .FirstOrDefault(s => s.SessionId == sessionId);
+
+                if (live is not null)
+                    return HistorySessionSnapshot.From(live);
+
+                return historyStore.GetSession(sessionId);
             }
         }
 
@@ -106,7 +163,7 @@ namespace AionDpsMeter.Services.Services.Session
                 var sessionStart = session.SessionStart;
                 var sessionEnd = session.LastHitTime;
 
-                var buffs = buffEventManager.GetBuffEvents((int)playerId, sessionStart, sessionEnd);
+                var buffs = session.GetBuffEvents(playerId, sessionStart, sessionEnd);
                 return BuffStatisticsCalculator.ComputeBuffStats(buffs, sessionStart, sessionEnd);
             }
         }
@@ -126,7 +183,7 @@ namespace AionDpsMeter.Services.Services.Session
 
                 var sessionStart = session.SessionStart;
                 var sessionEnd   = session.LastHitTime;
-                var buffEvents   = buffEventManager.GetBuffEvents((int)playerId, sessionStart, sessionEnd);           
+                var buffEvents   = session.GetBuffEvents(playerId, sessionStart, sessionEnd);
 
                 return GraphDataCalculator.Compute(hits, buffEvents);
             }
@@ -182,7 +239,12 @@ namespace AionDpsMeter.Services.Services.Session
             {
                 lock (lockObject)
                 {
-                    buffEventManager.Add(buffEvent);
+
+                    foreach (var targetEntry in AllTargetEntries)
+                    {
+                        targetEntry.TryAddBuff(buffEvent);
+
+                    }
                 }
             }
             catch (Exception ex)
@@ -196,15 +258,80 @@ namespace AionDpsMeter.Services.Services.Session
             lock (lockObject) { ResetInternal(); }
         }
 
-        
+        public void CompleteAndPersistActiveSessions(DateTime? at = null)
+        {
+            lock (lockObject)
+            {
+                var completedAt = at ?? DateTime.Now;
+                foreach (var entry in targetEntries.Values)
+                {
+                    entry.CompleteActiveSession();
+                }
+
+                targetResolver.Update(targetEntries.Values, completedAt);
+            }
+        }
+
+        private IReadOnlyCollection<TargetEntry> AllTargetEntries
+        {
+            get { lock (lockObject) { return targetEntries.Values.ToList(); } }
+        }
+
 
         private void RouteToTargetEntry(PlayerDamage damageEvent)
         {
             var entry = targetEntries.GetOrAdd(
                 damageEvent.TargetEntity.Id,
-                id => new TargetEntry(id, entityTracker, settingsService));
+                id => new TargetEntry(id, entityTracker, settingsService, OnSessionCompleted));
 
             entry.AddDamage(damageEvent);
+        }
+
+        private void OnSessionCompleted(TargetCombatSession session)
+        {
+            try
+            {
+                historyStore.Save(HistorySessionSnapshot.From(session));
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Failed to persist completed combat session {SessionId}", session.SessionId);
+            }
+        }
+
+        private static HistorySessionListItem CreateListItem(TargetCombatSession session)
+        {
+            var playerStats = session.GetPlayerStats();
+            return new HistorySessionListItem
+            {
+                SessionId = session.SessionId,
+                TargetId = session.TargetId,
+                TargetName = session.TargetInfo.Name,
+                TargetHpTotal = session.TargetInfo.HpTotal,
+                SessionStart = session.SessionStart,
+                SessionEnd = session.LastHitTime,
+                State = session.State,
+                TotalDamage = playerStats.Sum(p => p.TotalDamage),
+                PlayerCount = playerStats.Count(p => p.IsIdentified || p.DamagePercentage > 1),
+            };
+        }
+
+        private static bool IsMatch(HistorySessionListItem item, HistorySessionQuery query)
+        {
+            if (query.DateFrom is { } from && item.SessionEnd < from)
+                return false;
+
+            if (query.DateTo is { } to && item.SessionEnd > to)
+                return false;
+
+            if (!string.IsNullOrWhiteSpace(query.BossNameContains))
+            {
+                var search = query.BossNameContains.Trim();
+                if (item.TargetName.IndexOf(search, StringComparison.OrdinalIgnoreCase) < 0)
+                    return false;
+            }
+
+            return true;
         }
 
         private void CheckIdleTimeouts(DateTime now, int excludeTargetId)
@@ -247,7 +374,6 @@ namespace AionDpsMeter.Services.Services.Session
                 entry.Reset();
             targetEntries.Clear();
             targetResolver.Reset();
-            buffEventManager.Reset();
         }
 
         private void OnSummonRegistered(int summonId, int ownerId)

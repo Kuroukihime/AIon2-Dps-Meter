@@ -1,4 +1,5 @@
 using AionDpsMeter.Services.Services.Settings;
+using AionDpsMeter.Services.Services.Session;
 using AionDpsMeter.UI.ViewModels.History;
 using System.Windows;
 using System.Windows.Input;
@@ -7,11 +8,13 @@ namespace AionDpsMeter.UI
 {
     public partial class HistoryWindow : Window
     {
+        private readonly CombatSessionManager _sessionManager;
         private readonly IAppSettingsService _settingsService;
 
-        public HistoryWindow(IAppSettingsService settingsService)
+        public HistoryWindow(CombatSessionManager sessionManager, IAppSettingsService settingsService)
         {
             InitializeComponent();
+            _sessionManager = sessionManager;
             _settingsService = settingsService;
         }
 
@@ -27,9 +30,12 @@ namespace AionDpsMeter.UI
         {
             if (sender is FrameworkElement el && el.Tag is HistoryEntryViewModel entry)
             {
+                var snapshot = _sessionManager.GetHistorySession(entry.SessionId);
+                if (snapshot is null) return;
+
                 var sessionWindow = new HistorySessionWindow(_settingsService)
                 {
-                    DataContext = new HistorySessionViewModel(entry.Snapshot, _settingsService),
+                    DataContext = new HistorySessionViewModel(snapshot, _settingsService),
                     Owner = this
                 };
                 sessionWindow.Show();

@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=h:HistoryViewModel}"
         Title="History"
-        Height="480" Width="520"
-        MinHeight="200" MinWidth="300"
+        Height="620" Width="760"
+        MinHeight="420" MinWidth="680"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
@@ -16,12 +16,210 @@
         ResizeMode="CanResizeWithGrip"
         MouseLeftButtonDown="Window_MouseLeftButtonDown">
 
+    <Window.Resources>
+        <Style x:Key="HistoryFilterLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Foreground" Value="{StaticResource SecondaryTextBrush}"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,6,0"/>
+        </Style>
+
+        <Style x:Key="HistorySubtleButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
+            <Setter Property="Background" Value="#2B313A"/>
+            <Setter Property="BorderBrush" Value="#3B4450"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="12,0"/>
+            <Setter Property="Height" Value="26"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#35404D"/>
+                                <Setter TargetName="ButtonBorder" Property="BorderBrush" Value="#4B5766"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#1F252D"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.55"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="HistoryCalendarDayButtonStyle" TargetType="CalendarDayButton">
+            <Setter Property="Foreground" Value="#C9D1D9"/>
+            <Setter Property="Background" Value="#1B222C"/>
+            <Setter Property="BorderBrush" Value="#30363D"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Opacity" Value="1"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Style.Triggers>
+                <Trigger Property="IsInactive" Value="True">
+                    <Setter Property="Foreground" Value="#9BA7B6"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="HistoryCalendarButtonStyle" TargetType="CalendarButton">
+            <Setter Property="Foreground" Value="#C9D1D9"/>
+            <Setter Property="Background" Value="#1B222C"/>
+            <Setter Property="BorderBrush" Value="#30363D"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Opacity" Value="1"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        </Style>
+
+        <Style x:Key="HistoryCalendarStyle" TargetType="Calendar">
+            <Setter Property="Background" Value="#1B222C"/>
+            <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
+            <Setter Property="BorderBrush" Value="#30363D"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="6"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="CalendarDayButtonStyle" Value="{StaticResource HistoryCalendarDayButtonStyle}"/>
+            <Setter Property="CalendarButtonStyle" Value="{StaticResource HistoryCalendarButtonStyle}"/>
+            <Style.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#1B222C"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#1B222C"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="#E6EDF3"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#2D6FA3"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="#E6EDF3"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.ActiveBorderBrushKey}" Color="#30363D"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.WindowFrameBrushKey}" Color="#30363D"/>
+
+                <Style TargetType="CalendarItem">
+                    <Setter Property="Background" Value="#1B222C"/>
+                    <Setter Property="BorderBrush" Value="#30363D"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+
+        <Style x:Key="HistoryFilterDatePickerStyle" TargetType="DatePicker">
+            <Setter Property="Height" Value="26"/>
+            <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
+            <Setter Property="Background" Value="{StaticResource SecondaryBackgroundBrush}"/>
+            <Setter Property="BorderBrush" Value="#30363D"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="CalendarStyle" Value="{StaticResource HistoryCalendarStyle}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DatePicker">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <DatePickerTextBox x:Name="PART_TextBox"
+                                                   Background="Transparent"
+                                                   BorderThickness="0"
+                                                   Foreground="{TemplateBinding Foreground}"
+                                                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+
+                            <Button x:Name="PART_Button"
+                                    Grid.Column="1"
+                                    Background="{StaticResource SecondaryBackgroundBrush}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="1,1,1,1"
+                                    Focusable="False"
+                                    Width="26"
+                                    Padding="0"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center">
+                                <TextBlock Text="📅"
+                                           FontSize="12"
+                                           Foreground="{StaticResource SecondaryTextBrush}"/>
+                            </Button>
+
+                            <Popup x:Name="PART_Popup"
+                                   AllowsTransparency="True"
+                                   Placement="Bottom"
+                                   IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                                   PopupAnimation="Fade"
+                                   StaysOpen="False">
+                                <Border Background="{StaticResource SecondaryBackgroundBrush}"
+                                        BorderBrush="#30363D"
+                                        BorderThickness="1">
+                                    <Calendar x:Name="PART_Calendar"
+                                              Style="{TemplateBinding CalendarStyle}"
+                                              BorderThickness="0"/>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="DatePickerTextBox">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
+            <Setter Property="Background" Value="{StaticResource SecondaryBackgroundBrush}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="6,0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DatePickerTextBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
+                                Padding="{TemplateBinding Padding}">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          VerticalContentAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="HistoryFilterTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="26"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="6,0"/>
+            <Setter Property="Background" Value="{StaticResource SecondaryBackgroundBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
+            <Setter Property="BorderBrush" Value="#30363D"/>
+        </Style>
+
+        <Style x:Key="HistoryFilterButtonStyle" TargetType="Button" BasedOn="{StaticResource HistorySubtleButtonStyle}"/>
+    </Window.Resources>
+
     <Border Background="{StaticResource PrimaryBackgroundBrush}"
             BorderBrush="#30363D"
             BorderThickness="1"
             CornerRadius="6">
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -47,8 +245,93 @@
                 </Grid>
             </Border>
 
-            <!-- Column headers -->
+            <!-- Filters -->
             <Border Grid.Row="1"
+                    Background="{StaticResource PrimaryBackgroundBrush}"
+                    BorderBrush="#21262D" BorderThickness="0,0,0,1"
+                    Padding="10,8">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="From" Style="{StaticResource HistoryFilterLabelStyle}"/>
+                    <DatePicker Grid.Column="1"
+                                SelectedDate="{Binding DateFrom, Mode=TwoWay}"
+                                Style="{StaticResource HistoryFilterDatePickerStyle}"
+                                Margin="0,0,10,0"/>
+
+                    <TextBlock Grid.Column="2" Text="To" Style="{StaticResource HistoryFilterLabelStyle}"/>
+                    <DatePicker Grid.Column="3"
+                                SelectedDate="{Binding DateTo, Mode=TwoWay}"
+                                Style="{StaticResource HistoryFilterDatePickerStyle}"
+                                Margin="0,0,10,0"/>
+
+                    <TextBlock Grid.Column="4" Text="Boss" Style="{StaticResource HistoryFilterLabelStyle}"/>
+                    <TextBox Grid.Column="5"
+                             Text="{Binding BossName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource HistoryFilterTextBoxStyle}"
+                             Margin="0,0,10,0"/>
+
+                    <Button Grid.Column="6"
+                            Content="Search"
+                            Command="{Binding SearchCommand}"
+                            Style="{StaticResource HistoryFilterButtonStyle}"
+                            Margin="0,0,6,0"/>
+                    <Button Grid.Column="7"
+                            Content="Reset"
+                            Command="{Binding ResetFiltersCommand}"
+                            Style="{StaticResource HistoryFilterButtonStyle}"/>
+                </Grid>
+            </Border>
+
+            <!-- Summary / pager -->
+            <Border Grid.Row="2"
+                    Background="{StaticResource PrimaryBackgroundBrush}"
+                    BorderBrush="#21262D" BorderThickness="0,0,0,1"
+                    Padding="10,6">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0"
+                               Text="{Binding SummaryText}"
+                               FontSize="10"
+                               Foreground="{StaticResource SecondaryTextBrush}"
+                               VerticalAlignment="Center"/>
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                        <Button Content="◀"
+                                Command="{Binding PrevPageCommand}"
+                                Style="{StaticResource HistorySubtleButtonStyle}"
+                                Width="30" Height="24"
+                                Padding="0"
+                                Margin="0,0,8,0"/>
+                        <TextBlock Text="{Binding CurrentPage, StringFormat=Page {0}}"
+                                   FontSize="11"
+                                   Foreground="{StaticResource PrimaryTextBrush}"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,8,0"/>
+                        <Button Content="▶"
+                                Command="{Binding NextPageCommand}"
+                                Style="{StaticResource HistorySubtleButtonStyle}"
+                                Width="30" Height="24"
+                                Padding="0"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Column headers -->
+            <Border Grid.Row="3"
                     Background="{StaticResource TertiaryBackgroundBrush}"
                     BorderBrush="#21262D" BorderThickness="0,0,0,1"
                     Padding="10,5">
@@ -71,7 +354,7 @@
             </Border>
 
             <!-- Session list -->
-            <ListBox Grid.Row="2"
+            <ListBox Grid.Row="4"
                      ItemsSource="{Binding Sessions}"
                      Background="Transparent"
                      BorderThickness="0"

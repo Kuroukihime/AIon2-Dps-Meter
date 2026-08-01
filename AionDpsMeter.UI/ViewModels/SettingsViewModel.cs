@@ -19,7 +19,7 @@ namespace AionDpsMeter.UI.ViewModels
         private bool _bossOnlyCapture;
 
         [ObservableProperty]
-        private int _historyDamageThreshold;
+        private int _historyRetantionPeriod;
 
         [ObservableProperty]
         private int _windowOpacityPercent;
@@ -48,7 +48,7 @@ namespace AionDpsMeter.UI.ViewModels
             _isPacketLoggingEnabled = settingsService.IsPacketLoggingEnabled;
             _isNicknameHidden = settingsService.IsNicknameHidden;
             _bossOnlyCapture = settingsService.BossOnlyCapture;
-            _historyDamageThreshold = settingsService.HistoryDamageThreshold;
+            _historyRetantionPeriod = settingsService.HistoryRetantionPeriod;
             _windowOpacityPercent = (int)Math.Round(settingsService.WindowOpacity * 100);
             _playerRowScale = settingsService.PlayerRowScale;
             _backgroundImagePath = settingsService.BackgroundImagePath;
@@ -78,9 +78,9 @@ namespace AionDpsMeter.UI.ViewModels
             _settingsService.BossOnlyCapture = value;
         }
 
-        partial void OnHistoryDamageThresholdChanged(int value)
+        partial void OnHistoryRetantionPeriodChanged(int value)
         {
-            _settingsService.HistoryDamageThreshold = Math.Clamp(value, 0, int.MaxValue);
+            _settingsService.HistoryRetantionPeriod = Math.Clamp(value, 1, 9999);
         }
 
         partial void OnWindowOpacityPercentChanged(int value)

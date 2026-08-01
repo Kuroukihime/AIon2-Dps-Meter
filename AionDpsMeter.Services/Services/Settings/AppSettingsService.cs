@@ -14,6 +14,7 @@ namespace AionDpsMeter.Services.Services.Settings
         public AppSettingsService()
         {
             _data = Load();
+            _data.HistoryRetantionPeriod = Math.Clamp(_data.HistoryRetantionPeriod, 1, 9999);
         }
 
 
@@ -98,17 +99,17 @@ namespace AionDpsMeter.Services.Services.Settings
             }
         }
 
-        public int HistoryDamageThreshold
+        public int HistoryRetantionPeriod
         {
-            get { lock (_lock) return _data.HistoryDamageThreshold; }
+            get { lock (_lock) return _data.HistoryRetantionPeriod; }
             set
             {
                 bool changed;
                 lock (_lock)
                 {
-                    int clamped = Math.Clamp(value, 0, int.MaxValue);
-                    changed = _data.HistoryDamageThreshold != clamped;
-                    _data.HistoryDamageThreshold = clamped;
+                    int clamped = Math.Clamp(value, 1, 9999);
+                    changed = _data.HistoryRetantionPeriod != clamped;
+                    _data.HistoryRetantionPeriod = clamped;
                     if (changed) Save();
                 }
                 if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
@@ -255,8 +256,8 @@ namespace AionDpsMeter.Services.Services.Settings
             [JsonPropertyName("bossOnlyCapture")]
             public bool BossOnlyCapture { get; set; }
 
-            [JsonPropertyName("historyDamageThreshold")]
-            public int HistoryDamageThreshold { get; set; } = 0;
+            [JsonPropertyName("historyRetantionPeriod")]
+            public int HistoryRetantionPeriod { get; set; } = 30;
 
             [JsonPropertyName("windowOpacity")]
             public double WindowOpacity { get; set; } = 0.92;

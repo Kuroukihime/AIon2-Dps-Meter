@@ -24,9 +24,9 @@ namespace AionDpsMeter.Services.PacketCapture
       
         public FilePacketCaptureDevice(TcpStreamBuffer tcpStreamBuffer)
         {
-            var packetsTxt = "D:\\xdd\\packets_20260411_211034.txt";
+            var packetsTxt = "D:\\xdd\\packets_20260729_195757.txt";
             bool playback = true;
-            double speed = 10;
+            double speed = 2;
             if (string.IsNullOrWhiteSpace(packetsTxt))
                 throw new ArgumentException("File path cannot be null or empty.", nameof(packetsTxt));
 

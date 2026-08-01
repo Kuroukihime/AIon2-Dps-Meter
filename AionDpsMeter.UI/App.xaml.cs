@@ -5,6 +5,7 @@ using AionDpsMeter.Services.PacketCapture;
 using AionDpsMeter.Services.Services;
 using AionDpsMeter.Services.Services.Entity;
 using AionDpsMeter.Services.Services.Session;
+using AionDpsMeter.Services.Services.Session.Persistence;
 using AionDpsMeter.Services.Services.Settings;
 using AionDpsMeter.Services.Services.Update;
 using AionDpsMeter.UI.ViewModels;
@@ -37,6 +38,7 @@ namespace AionDpsMeter.UI
                 })
                 .ConfigureServices((context, services) =>
                 {
+                    services.AddCombatHistoryPersistence("combat-history.db");
                    
                     services.AddSingleton<IAppSettingsService, AppSettingsService>();
                     services.AddSingleton<UpdateCheckerService>();
@@ -61,6 +63,8 @@ namespace AionDpsMeter.UI
         {
             await AppHost.StartAsync();
 
+            _ = AppHost.Services.GetRequiredService<ICombatHistoryStore>();
+
             var mainWindow = AppHost.Services.GetRequiredService<MainWindow>();
             mainWindow.Show();
 
@@ -69,9 +73,20 @@ namespace AionDpsMeter.UI
 
         protected override async void OnExit(ExitEventArgs e)
         {
-            await AppHost.StopAsync();
-            await Log.CloseAndFlushAsync();
-            base.OnExit(e);
+            try
+            {
+                var sessionManager = AppHost.Services.GetRequiredService<CombatSessionManager>();
+                var historyStore = AppHost.Services.GetRequiredService<ICombatHistoryStore>();
+                sessionManager.CompleteAndPersistActiveSessions();
+                historyStore.FlushPendingSaves();
+                await AppHost.StopAsync();
+                await Log.CloseAndFlushAsync();
+                base.OnExit(e);
+            }
+            catch (Exception ex)
+            {
+                base.OnExit(e);
+            }
         }
     }
 

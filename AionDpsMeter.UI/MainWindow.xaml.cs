@@ -235,11 +235,9 @@ namespace AionDpsMeter.UI
                 return;
             }
 
-            var snapshot = viewModel.SessionManager.GetHistorySnapshot();
-
-            historyWindow = new HistoryWindow(settingsService)
+            historyWindow = new HistoryWindow(viewModel.SessionManager, settingsService)
             {
-                DataContext = new AionDpsMeter.UI.ViewModels.History.HistoryViewModel(snapshot, settingsService),
+                DataContext = new AionDpsMeter.UI.ViewModels.History.HistoryViewModel(viewModel.SessionManager, settingsService),
                 Owner = this
             };
 

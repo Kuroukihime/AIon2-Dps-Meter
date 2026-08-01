@@ -548,36 +548,36 @@
                                           Margin="12,0,0,0"/>
                         </Grid>
 
-                        <!-- History Damage Threshold -->
+                        <!-- History Retantion Period -->
                         <Grid Margin="0,10,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                                <TextBlock Text="History Damage Threshold"
+                                <TextBlock Text="History Retantion Period"
                                            FontSize="12"
                                            Foreground="{StaticResource PrimaryTextBrush}"/>
-                                <TextBlock Text="Hide sessions with total damage below this"
+                                <TextBlock Text="Keep history for this many days (1-9999)"
                                            FontSize="10"
                                            Foreground="{StaticResource SecondaryTextBrush}"
                                            Margin="0,2,0,0"/>
                             </StackPanel>
                             <TextBox Grid.Column="1"
                                      Width="80"
-                                     Text="{Binding HistoryDamageThreshold, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Text="{Binding HistoryRetantionPeriod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      VerticalAlignment="Center"
                                      HorizontalContentAlignment="Right"
                                      Margin="12,0,0,0"
                                      Padding="4,2"
                                      FontSize="11"
-                                     MaxLength="10"
+                                     MaxLength="4"
                                      Background="#21262D"
                                      Foreground="{StaticResource PrimaryTextBrush}"
                                      BorderBrush="#30363D"
                                      BorderThickness="1"
                                      CaretBrush="{StaticResource PrimaryTextBrush}"
-                                     PreviewTextInput="ThresholdTextBox_PreviewTextInput"/>
+                                     PreviewTextInput="RetentionPeriodTextBox_PreviewTextInput"/>
                         </Grid>
 
                         <!-- DEVELOPER collapsible section -->

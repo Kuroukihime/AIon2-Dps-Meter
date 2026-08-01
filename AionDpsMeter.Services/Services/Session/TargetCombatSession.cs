@@ -16,6 +16,7 @@ namespace AionDpsMeter.Services.Services.Session
         private readonly Dictionary<long, PlayerSession> playerSessions = new();
         private readonly EntityTracker entityTracker;
 
+        public Guid SessionId { get; } = Guid.NewGuid();
         public int TargetId { get; }
         public Mob TargetInfo { get; }
         public DateTime SessionStart { get; }
@@ -23,6 +24,8 @@ namespace AionDpsMeter.Services.Services.Session
         public DateTime? CompletedAt { get; private set; }
         public SessionState State { get; private set; } = SessionState.Active;
         public bool IsCompleted => State == SessionState.Completed;
+
+        private readonly BuffEventManager buffEventManager = new();
 
         private int LastKnownTargetHp { get; set; } = -1;
         private readonly IAppSettingsService settingsService;
@@ -54,6 +57,15 @@ namespace AionDpsMeter.Services.Services.Session
             LastKnownTargetHp = TargetInfo.HpCurrent;
         }
 
+
+        public void ProcessBuffEvent(BuffEvent buffEvent)
+        {
+            if (IsCompleted) return;
+            if (buffEvent.AppliedAt < SessionStart) return;
+            buffEventManager.Add(buffEvent);
+        }
+
+
         public bool IsNewTry()
         {
             
@@ -69,11 +81,11 @@ namespace AionDpsMeter.Services.Services.Session
             return playerSessions.Keys.Select(k => (int)k).ToList();
         }
 
-        public void Complete(DateTime completedAt)
+        public void Complete()
         {
             if (IsCompleted) return;
             State = SessionState.Completed;
-            CompletedAt = completedAt;
+            CompletedAt = LastHitTime;
         }
 
         public TimeSpan GetCombatDuration()
@@ -115,6 +127,9 @@ namespace AionDpsMeter.Services.Services.Session
             return DamageStatisticsCalculator.ComputeSkillStats(session, settingsService.GroupSummonDamage);
         }
 
+        public IReadOnlyList<BuffEvent> GetBuffEvents(long playerId, DateTime from, DateTime to)
+            => buffEventManager.GetBuffEvents((int)playerId, from, to);
+
         public int CountRecentHits(DateTime cutoff)
             => playerSessions.Values.Sum(s => s.CountHitsAfter(cutoff));
 
@@ -130,6 +145,7 @@ namespace AionDpsMeter.Services.Services.Session
             foreach (var session in playerSessions.Values)
                 session.Reset();
             playerSessions.Clear();
+            buffEventManager.Reset();
         }
 
         /// <summary>
