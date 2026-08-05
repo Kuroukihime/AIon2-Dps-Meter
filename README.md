@@ -52,7 +52,7 @@ Click any player row to open a detailed breakdown:
 - Browse past sessions in the **History window**, complete with per-player stats and skill breakdowns.
 - Configurable **History retention period**.
 
-![History](ReadmeAssets/CombatHistory.png)
+![History](ReadmeAssets/CombatHistory.png?v=2)
 ![History Details](ReadmeAssets/HistoryDetails.png)
 
 ### 🙈 Nickname Hiding
