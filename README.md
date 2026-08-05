@@ -50,7 +50,7 @@ Click any player row to open a detailed breakdown:
 ### 📜 Combat History
 - Every completed fight is automatically saved as a **session snapshot**.
 - Browse past sessions in the **History window**, complete with per-player stats and skill breakdowns.
-- Configurable **minimum damage threshold** to filter out insignificant or accidental encounters.
+- Configurable **History retention period**.
 
 ![History](ReadmeAssets/CombatHistory.png)
 ![History Details](ReadmeAssets/HistoryDetails.png)
