@@ -1483,6 +1483,10 @@
     "isBoss": false,
     "isDummy": true
   },
+  "2090865": {
+    "name": "None",
+    "isBoss": false
+  },
   "2100000": {
     "name": "Twinkling Kalgolem",
     "isBoss": false
@@ -5420,7 +5424,7 @@
     "isBoss": false
   },
   "2110628": {
-    "name": "Furious Experimental Mutants",
+    "name": "Furious Experimental Mutant",
     "isBoss": false
   },
   "2110629": {
@@ -5428,7 +5432,7 @@
     "isBoss": false
   },
   "2110630": {
-    "name": "Furious Experimental Mutants",
+    "name": "Furious Experimental Mutant",
     "isBoss": false
   },
   "2110631": {
@@ -20832,15 +20836,15 @@
     "isBoss": false
   },
   "2407011": {
-    "name": "Cursed Mark",
+    "name": "Cursed Seal Stone",
     "isBoss": false
   },
   "2407012": {
-    "name": "Cursed Mark",
+    "name": "Cursed Seal Stone",
     "isBoss": false
   },
   "2407013": {
-    "name": "Cursed Mark",
+    "name": "Cursed Seal Stone",
     "isBoss": false
   },
   "2407020": {
@@ -30968,11 +30972,11 @@
     "isBoss": false
   },
   "2702609": {
-    "name": "Brainwashed Gravarax",
+    "name": "Cultivated Gravarax",
     "isBoss": false
   },
   "2702610": {
-    "name": "Brainwashed Gravarax",
+    "name": "Cultivated Gravarax",
     "isBoss": false
   },
   "2702611": {
@@ -31824,6 +31828,10 @@
   },
   "2921409": {
     "name": "Odylium Ore",
+    "isBoss": false
+  },
+  "2921411": {
+    "name": "None",
     "isBoss": false
   },
   "2921418": {
@@ -33953,5 +33961,89 @@
     "category": "Nightmare",
     "tier": "Level 10",
     "dungeonId": 200003
+  },
+  "2300407": {
+    "name": "Prideful Atiel",
+    "isBoss": true
+  },
+  "2300409": {
+    "name": "Lab Director Zylus",
+    "isBoss": true
+  },
+  "2300410": {
+    "name": "Overseer Gromcas",
+    "isBoss": true
+  },
+  "2300436": {
+    "name": "Askran",
+    "isBoss": true
+  },
+  "2300437": {
+    "name": "Incomplete Braunt",
+    "isBoss": true
+  },
+  "2300438": {
+    "name": "Mad Clominster",
+    "isBoss": true
+  },
+  "2300439": {
+    "name": "Askran",
+    "isBoss": true
+  },
+  "2300440": {
+    "name": "Incomplete Braunt",
+    "isBoss": true
+  },
+  "2300441": {
+    "name": "Mad Clominster",
+    "isBoss": true
+  },
+  "2300442": {
+    "name": "Askran",
+    "isBoss": true
+  },
+  "2300443": {
+    "name": "Incomplete Braunt",
+    "isBoss": true
+  },
+  "2300444": {
+    "name": "Mad Clominster",
+    "isBoss": true
+  },
+  "2300445": {
+    "name": "Askran",
+    "isBoss": true
+  },
+  "2300446": {
+    "name": "Incomplete Braunt",
+    "isBoss": true
+  },
+  "2300447": {
+    "name": "Mad Clominster",
+    "isBoss": true
+  },
+  "2300481": {
+    "name": "Prideful Atiel",
+    "isBoss": true
+  },
+  "2300555": {
+    "name": "Lab Director Zylus",
+    "isBoss": true
+  },
+  "2300556": {
+    "name": "Overseer Gromcas",
+    "isBoss": true
+  },
+  "2301748": {
+    "name": "Prideful Atiel",
+    "isBoss": true
+  },
+  "2301749": {
+    "name": "Lab Director Zylus",
+    "isBoss": true
+  },
+  "2301750": {
+    "name": "Overseer Gromcas",
+    "isBoss": true
   }
 }
