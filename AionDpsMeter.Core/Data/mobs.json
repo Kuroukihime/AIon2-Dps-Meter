@@ -8697,6 +8697,10 @@
     "tier": "Stage 2",
     "dungeonId": 610021
   },
+  "2300366": {
+    "name": "Contaminated Shulak Laborer",
+    "isBoss": false
+  },
   "2300367": {
     "name": "None",
     "isBoss": true,
@@ -8711,12 +8715,56 @@
     "tier": "Stage 4",
     "dungeonId": 610023
   },
+  "2300370": {
+    "name": "Contaminated Shulak Sentinel",
+    "isBoss": false
+  },
   "2300371": {
     "name": "Kromede's Desire",
     "isBoss": true,
     "category": "Dungeon",
     "tier": "Conquest [Normal]",
     "dungeonId": 600022
+  },
+  "2300372": {
+    "name": "Contaminated Shulak Overseer",
+    "isBoss": false
+  },
+  "2300376": {
+    "name": "Contaminated Shulak Laborer",
+    "isBoss": false
+  },
+  "2300378": {
+    "name": "Contaminated Shulak Sentinel",
+    "isBoss": false
+  },
+  "2300379": {
+    "name": "Contaminated Shulak Overseer",
+    "isBoss": false
+  },
+  "2300383": {
+    "name": "Contaminated Shulak Laborer",
+    "isBoss": false
+  },
+  "2300385": {
+    "name": "Contaminated Shulak Sentinel",
+    "isBoss": false
+  },
+  "2300386": {
+    "name": "Contaminated Shulak Overseer",
+    "isBoss": false
+  },
+  "2300390": {
+    "name": "Contaminated Shulak Laborer",
+    "isBoss": false
+  },
+  "2300392": {
+    "name": "Contaminated Shulak Sentinel",
+    "isBoss": false
+  },
+  "2300393": {
+    "name": "Contaminated Shulak Overseer",
+    "isBoss": false
   },
   "2300397": {
     "name": "Ordeal of Love",
@@ -8764,9 +8812,30 @@
     "name": "Manager Abatur",
     "isBoss": false
   },
+  "2300407": {
+    "name": "Prideful Atiel",
+    "isBoss": true,
+    "category": "Dungeon",
+    "tier": "Exploration",
+    "dungeonId": 600161
+  },
   "2300408": {
     "name": "Petty Officer Akvar",
     "isBoss": false
+  },
+  "2300409": {
+    "name": "Lab Director Zylus",
+    "isBoss": true,
+    "category": "Dungeon",
+    "tier": "Exploration",
+    "dungeonId": 600161
+  },
+  "2300410": {
+    "name": "Overseer Gromkas",
+    "isBoss": true,
+    "category": "Dungeon",
+    "tier": "Exploration",
+    "dungeonId": 600161
   },
   "2300411": {
     "name": "Draconute Task Soldier",
@@ -8832,6 +8901,10 @@
     "name": "Decaying Abyss Insectoid",
     "isBoss": false
   },
+  "2300427": {
+    "name": "Test Subject Recombinant",
+    "isBoss": false
+  },
   "2300428": {
     "name": "Heartbound Tender",
     "isBoss": false
@@ -8846,6 +8919,158 @@
   },
   "2300431": {
     "name": "Heartbound Tender",
+    "isBoss": false
+  },
+  "2300432": {
+    "name": "Contaminated Slime",
+    "isBoss": false
+  },
+  "2300433": {
+    "name": "Contaminated Slime",
+    "isBoss": false
+  },
+  "2300434": {
+    "name": "Contaminated Slime",
+    "isBoss": false
+  },
+  "2300435": {
+    "name": "Contaminated Slime",
+    "isBoss": false
+  },
+  "2300436": {
+    "name": "Askran",
+    "isBoss": true,
+    "category": "Transcendence",
+    "tier": "Stage 1",
+    "dungeonId": 610030
+  },
+  "2300437": {
+    "name": "Incomplete Braunt",
+    "isBoss": true,
+    "category": "Transcendence",
+    "tier": "Stage 1",
+    "dungeonId": 610030
+  },
+  "2300438": {
+    "name": "Mad Klominster",
+    "isBoss": true,
+    "category": "Transcendence",
+    "tier": "Stage 1",
+    "dungeonId": 610030
+  },
+  "2300439": {
+    "name": "Askran",
+    "isBoss": true,
+    "category": "Transcendence",
+    "tier": "Stage 2",
+    "dungeonId": 610031
+  },
+  "2300440": {
+    "name": "Incomplete Braunt",
+    "isBoss": true,
+    "category": "Transcendence",
+    "tier": "Stage 2",
+    "dungeonId": 610031
+  },
+  "2300441": {
+    "name": "Mad Klominster",
+    "isBoss": true,
+    "category": "Transcendence",
+    "tier": "Stage 2",
+    "dungeonId": 610031
+  },
+  "2300442": {
+    "name": "Askran",
+    "isBoss": true,
+    "category": "Transcendence",
+    "tier": "Stage 3",
+    "dungeonId": 610032
+  },
+  "2300443": {
+    "name": "Incomplete Braunt",
+    "isBoss": true,
+    "category": "Transcendence",
+    "tier": "Stage 3",
+    "dungeonId": 610032
+  },
+  "2300444": {
+    "name": "Mad Klominster",
+    "isBoss": true,
+    "category": "Transcendence",
+    "tier": "Stage 3",
+    "dungeonId": 610032
+  },
+  "2300445": {
+    "name": "Askran",
+    "isBoss": true,
+    "category": "Transcendence",
+    "tier": "Stage 4",
+    "dungeonId": 610033
+  },
+  "2300446": {
+    "name": "Incomplete Braunt",
+    "isBoss": true,
+    "category": "Transcendence",
+    "tier": "Stage 4",
+    "dungeonId": 610033
+  },
+  "2300447": {
+    "name": "Mad Klominster",
+    "isBoss": true,
+    "category": "Transcendence",
+    "tier": "Stage 4",
+    "dungeonId": 610033
+  },
+  "2300448": {
+    "name": "Contaminated Clot",
+    "isBoss": false
+  },
+  "2300450": {
+    "name": "Contaminated Clot",
+    "isBoss": false
+  },
+  "2300452": {
+    "name": "Contaminated Clot",
+    "isBoss": false
+  },
+  "2300454": {
+    "name": "Contaminated Clot",
+    "isBoss": false
+  },
+  "2300456": {
+    "name": "Lepharist Guard Captain",
+    "isBoss": false
+  },
+  "2300457": {
+    "name": "Lepharist Guard",
+    "isBoss": false
+  },
+  "2300458": {
+    "name": "Base Researcher",
+    "isBoss": false
+  },
+  "2300459": {
+    "name": "Lepharist Chief Guard",
+    "isBoss": false
+  },
+  "2300460": {
+    "name": "Lepharist Guard",
+    "isBoss": false
+  },
+  "2300461": {
+    "name": "Contaminated Slime",
+    "isBoss": false
+  },
+  "2300462": {
+    "name": "Test Subject Mutant",
+    "isBoss": false
+  },
+  "2300463": {
+    "name": "Test Subject Predator",
+    "isBoss": false
+  },
+  "2300464": {
+    "name": "None",
     "isBoss": false
   },
   "2300465": {
@@ -8910,6 +9135,13 @@
   "2300480": {
     "name": "Addicted Shulak Cart Worker",
     "isBoss": false
+  },
+  "2300481": {
+    "name": "Prideful Atiel",
+    "isBoss": true,
+    "category": "Dungeon",
+    "tier": "Conquest [Hard]",
+    "dungeonId": 600163
   },
   "2300482": {
     "name": "Abyssal Horn Duduka Worker",
@@ -9209,6 +9441,68 @@
     "name": "Abyssal Horn Lupyllini",
     "isBoss": false
   },
+  "2300555": {
+    "name": "Lab Director Zylus",
+    "isBoss": true,
+    "category": "Dungeon",
+    "tier": "Conquest [Hard]",
+    "dungeonId": 600163
+  },
+  "2300556": {
+    "name": "Overseer Gromkas",
+    "isBoss": true,
+    "category": "Dungeon",
+    "tier": "Conquest [Hard]",
+    "dungeonId": 600163
+  },
+  "2300557": {
+    "name": "Test Subject Recombinant",
+    "isBoss": false
+  },
+  "2300558": {
+    "name": "Lepharist Guard Captain",
+    "isBoss": false
+  },
+  "2300559": {
+    "name": "Lepharist Guard",
+    "isBoss": false
+  },
+  "2300560": {
+    "name": "Base Researcher",
+    "isBoss": false
+  },
+  "2300561": {
+    "name": "Lepharist Chief Guard",
+    "isBoss": false
+  },
+  "2300562": {
+    "name": "Lepharist Guard",
+    "isBoss": false
+  },
+  "2300563": {
+    "name": "Contaminated Slime",
+    "isBoss": false
+  },
+  "2300564": {
+    "name": "Test Subject Mutant",
+    "isBoss": false
+  },
+  "2300565": {
+    "name": "Test Subject Predator",
+    "isBoss": false
+  },
+  "2300566": {
+    "name": "Contaminated Soul Binder",
+    "isBoss": false
+  },
+  "2300567": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2300568": {
+    "name": "Odyle Laboratory Laser",
+    "isBoss": false
+  },
   "2300571": {
     "name": "Rock Spirit",
     "isBoss": false
@@ -9283,6 +9577,18 @@
     "name": "Floating Tourmaline",
     "isBoss": false
   },
+  "2300588": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2300589": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2300590": {
+    "name": "None",
+    "isBoss": false
+  },
   "2300595": {
     "name": "Kabloom",
     "isBoss": false
@@ -9353,6 +9659,86 @@
   },
   "2300617": {
     "name": "Deus Research Base Rift",
+    "isBoss": false
+  },
+  "2300621": {
+    "name": "Ruthless Technician",
+    "isBoss": false
+  },
+  "2300622": {
+    "name": "Mad Researcher",
+    "isBoss": false
+  },
+  "2300623": {
+    "name": "Malicious Anatomist",
+    "isBoss": false
+  },
+  "2300624": {
+    "name": "Merciless Bodyguard",
+    "isBoss": false
+  },
+  "2300625": {
+    "name": "Mutated Test Subject",
+    "isBoss": false
+  },
+  "2300626": {
+    "name": "Ruthless Technician",
+    "isBoss": false
+  },
+  "2300627": {
+    "name": "Mad Researcher",
+    "isBoss": false
+  },
+  "2300628": {
+    "name": "Malicious Anatomist",
+    "isBoss": false
+  },
+  "2300629": {
+    "name": "Merciless Bodyguard",
+    "isBoss": false
+  },
+  "2300630": {
+    "name": "Mutated Test Subject",
+    "isBoss": false
+  },
+  "2300631": {
+    "name": "Ruthless Technician",
+    "isBoss": false
+  },
+  "2300632": {
+    "name": "Mad Researcher",
+    "isBoss": false
+  },
+  "2300633": {
+    "name": "Malicious Anatomist",
+    "isBoss": false
+  },
+  "2300634": {
+    "name": "Merciless Bodyguard",
+    "isBoss": false
+  },
+  "2300635": {
+    "name": "Mutated Test Subject",
+    "isBoss": false
+  },
+  "2300636": {
+    "name": "Ruthless Technician",
+    "isBoss": false
+  },
+  "2300637": {
+    "name": "Mad Researcher",
+    "isBoss": false
+  },
+  "2300638": {
+    "name": "Malicious Anatomist",
+    "isBoss": false
+  },
+  "2300639": {
+    "name": "Merciless Bodyguard",
+    "isBoss": false
+  },
+  "2300640": {
+    "name": "Mutated Test Subject",
     "isBoss": false
   },
   "2300701": {
@@ -10364,6 +10750,75 @@
   },
   "2301736": {
     "name": "None",
+    "isBoss": false
+  },
+  "2301748": {
+    "name": "Prideful Atiel",
+    "isBoss": true,
+    "category": "Dungeon",
+    "tier": "Conquest [Normal]",
+    "dungeonId": 600162
+  },
+  "2301749": {
+    "name": "Lab Director Zylus",
+    "isBoss": true,
+    "category": "Dungeon",
+    "tier": "Conquest [Normal]",
+    "dungeonId": 600162
+  },
+  "2301750": {
+    "name": "Overseer Gromkas",
+    "isBoss": true,
+    "category": "Dungeon",
+    "tier": "Conquest [Normal]",
+    "dungeonId": 600162
+  },
+  "2301751": {
+    "name": "Test Subject Recombinant",
+    "isBoss": false
+  },
+  "2301752": {
+    "name": "Lepharist Guard Captain",
+    "isBoss": false
+  },
+  "2301753": {
+    "name": "Lepharist Guard",
+    "isBoss": false
+  },
+  "2301754": {
+    "name": "Base Researcher",
+    "isBoss": false
+  },
+  "2301755": {
+    "name": "Lepharist Chief Guard",
+    "isBoss": false
+  },
+  "2301756": {
+    "name": "Lepharist Guard",
+    "isBoss": false
+  },
+  "2301757": {
+    "name": "Contaminated Slime",
+    "isBoss": false
+  },
+  "2301758": {
+    "name": "Test Subject Mutant",
+    "isBoss": false
+  },
+  "2301759": {
+    "name": "Test Subject Predator",
+    "isBoss": false
+  },
+  "2301760": {
+    "name": "Contaminated Soul Binder",
+    "isBoss": false
+  },
+  "2301761": {
+    "name": "None",
+    "isBoss": false
+  },
+  "2301762": {
+    "name": "Odyle Laboratory Laser",
     "isBoss": false
   },
   "2310101": {
@@ -31779,15 +32234,15 @@
     "isBoss": false
   },
   "2921298": {
-    "name": "Atiel",
+    "name": "Prideful Atiel",
     "isBoss": true
   },
   "2921299": {
-    "name": "Atiel",
+    "name": "Prideful Atiel",
     "isBoss": true
   },
   "2921300": {
-    "name": "Atiel",
+    "name": "Prideful Atiel",
     "isBoss": false
   },
   "2921315": {
@@ -31815,16 +32270,16 @@
     "isBoss": false
   },
   "2921400": {
-    "name": "Snipe",
-    "isBoss": true
+    "name": "Snipe Test Subject",
+    "isBoss": false
   },
   "2921401": {
-    "name": "Snipe",
-    "isBoss": true
+    "name": "Snipe Test Subject",
+    "isBoss": false
   },
   "2921402": {
-    "name": "Lethality",
-    "isBoss": true
+    "name": "Firebomb Rain",
+    "isBoss": false
   },
   "2921409": {
     "name": "Odylium Ore",
@@ -31861,6 +32316,10 @@
   "2921430": {
     "name": "Vakron's Thorn Root",
     "isBoss": true
+  },
+  "2921511": {
+    "name": "Prideful Atiel",
+    "isBoss": false
   },
   "2980000": {
     "name": "High Priestess's Illusion",
@@ -33961,89 +34420,5 @@
     "category": "Nightmare",
     "tier": "Level 10",
     "dungeonId": 200003
-  },
-  "2300407": {
-    "name": "Prideful Atiel",
-    "isBoss": true
-  },
-  "2300409": {
-    "name": "Lab Director Zylus",
-    "isBoss": true
-  },
-  "2300410": {
-    "name": "Overseer Gromcas",
-    "isBoss": true
-  },
-  "2300436": {
-    "name": "Askran",
-    "isBoss": true
-  },
-  "2300437": {
-    "name": "Incomplete Braunt",
-    "isBoss": true
-  },
-  "2300438": {
-    "name": "Mad Clominster",
-    "isBoss": true
-  },
-  "2300439": {
-    "name": "Askran",
-    "isBoss": true
-  },
-  "2300440": {
-    "name": "Incomplete Braunt",
-    "isBoss": true
-  },
-  "2300441": {
-    "name": "Mad Clominster",
-    "isBoss": true
-  },
-  "2300442": {
-    "name": "Askran",
-    "isBoss": true
-  },
-  "2300443": {
-    "name": "Incomplete Braunt",
-    "isBoss": true
-  },
-  "2300444": {
-    "name": "Mad Clominster",
-    "isBoss": true
-  },
-  "2300445": {
-    "name": "Askran",
-    "isBoss": true
-  },
-  "2300446": {
-    "name": "Incomplete Braunt",
-    "isBoss": true
-  },
-  "2300447": {
-    "name": "Mad Clominster",
-    "isBoss": true
-  },
-  "2300481": {
-    "name": "Prideful Atiel",
-    "isBoss": true
-  },
-  "2300555": {
-    "name": "Lab Director Zylus",
-    "isBoss": true
-  },
-  "2300556": {
-    "name": "Overseer Gromcas",
-    "isBoss": true
-  },
-  "2301748": {
-    "name": "Prideful Atiel",
-    "isBoss": true
-  },
-  "2301749": {
-    "name": "Lab Director Zylus",
-    "isBoss": true
-  },
-  "2301750": {
-    "name": "Overseer Gromcas",
-    "isBoss": true
   }
 }
