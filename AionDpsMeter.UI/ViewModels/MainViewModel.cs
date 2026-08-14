@@ -51,6 +51,7 @@ namespace AionDpsMeter.UI.ViewModels
             _dispatcher = Dispatcher.CurrentDispatcher;
 
             _packetService.DamageReceived += OnPacketReceived;
+            _packetService.OnPlayerDeath += OnPlayerDeath;
             _packetService.BuffReceived += OnBuffReceived;
             _packetService.PingUpdated += OnPingUpdated;    
             // UI refresh at ~30 FPS
@@ -117,6 +118,10 @@ namespace AionDpsMeter.UI.ViewModels
 
         private void OnPacketReceived(object? sender, PlayerDamage damageEvent)
             => _sessionManager.ProcessDamageEvent(damageEvent);
+
+        private void OnPlayerDeath(object? sender, int playerId)
+            => _sessionManager.RegisterPlayerDeath(playerId);
+
 
         private void OnBuffReceived(object? sender, BuffEvent buffEvent)
             => _sessionManager.ProcessBuffEvent(buffEvent);

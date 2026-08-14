@@ -2,6 +2,7 @@
 using AionDpsMeter.Services.Models;
 using AionDpsMeter.Services.Services.Entity;
 using AionDpsMeter.Services.Services.Settings;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace AionDpsMeter.Services.Services.Session
 {
@@ -55,6 +56,13 @@ namespace AionDpsMeter.Services.Services.Session
             if (damage.DateTime > LastHitTime)
                 LastHitTime = damage.DateTime;
             LastKnownTargetHp = TargetInfo.HpCurrent;
+        }
+
+        public void RegisterPlayerDeath(int playerId)
+        {
+            if (TargetInfo.HpCurrent == 0) return;
+            if (!playerSessions.TryGetValue(playerId, out var session)) return;
+            session.RegisterPlayerDeath();
         }
 
 

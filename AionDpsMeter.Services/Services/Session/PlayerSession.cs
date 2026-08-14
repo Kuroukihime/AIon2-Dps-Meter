@@ -17,6 +17,7 @@ namespace AionDpsMeter.Services.Services.Session
         public bool IsUser => entityTaTracker.GetPlayerEntity(PlayerId)?.IsUser ?? false;
         public int CombatPower => entityTaTracker.GetPlayerEntity(PlayerId)?.CombatPower ?? 0;
         public string ServerName => entityTaTracker.GetPlayerEntity(PlayerId)?.ServerName ?? "";
+        public int PlayerDeaths { get; private set; }
 
         public long TotalDamage { get; private set; }
         public int HitCount { get; private set; }
@@ -41,6 +42,11 @@ namespace AionDpsMeter.Services.Services.Session
 
             if (FirstHit is null || damage.DateTime < FirstHit) FirstHit = damage.DateTime;
             if (LastHit is null || damage.DateTime > LastHit) LastHit = damage.DateTime;
+        }
+
+        public void RegisterPlayerDeath()
+        {
+            PlayerDeaths++;
         }
 
         public int CountHitsAfter(DateTime cutoff)
