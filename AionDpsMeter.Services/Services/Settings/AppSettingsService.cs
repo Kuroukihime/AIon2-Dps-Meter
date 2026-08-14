@@ -34,6 +34,22 @@ namespace AionDpsMeter.Services.Services.Settings
             }
         }
 
+        public bool ShowPlayerDeaths
+        {
+            get { lock (_lock) return _data.ShowPlayerDeaths; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    changed = _data.ShowPlayerDeaths != value;
+                    _data.ShowPlayerDeaths = value;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public bool IsPacketLoggingEnabled
         {
             get { lock (_lock) return _data.IsPacketLoggingEnabled; }
@@ -285,6 +301,9 @@ namespace AionDpsMeter.Services.Services.Settings
 
             [JsonPropertyName("groupSummonDamage")]
             public bool GroupSummonDamage { get; set; } = true;
+
+            [JsonPropertyName("showPlayerDeaths")]
+            public bool ShowPlayerDeaths { get; set; } = true;
 
             [JsonPropertyName("playerRowScale")]
             public double PlayerRowScale { get; set; } = 1.0;

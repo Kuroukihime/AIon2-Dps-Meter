@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=h:HistorySessionViewModel}"
         Title="Session Stats"
-        Height="340" Width="700"
-        MinHeight="340" MinWidth="700"
+        Height="340" Width="740"
+        MinHeight="340" MinWidth="740"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
@@ -282,6 +282,14 @@
                                                        Foreground="{StaticResource AccentBrush}"
                                                        FontWeight="SemiBold"
                                                        Visibility="{Binding CombatPower, Converter={StaticResource StringToVisibilityConverter}}"/>
+                                            <TextBlock Text="  •  "
+                                                       FontSize="9"
+                                                       Foreground="#5C6774"
+                                                       Visibility="{Binding IsDeathDisplayVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                            <TextBlock Text="{Binding PlayerDeathsDisplay}"
+                                                       FontSize="9"
+                                                       Foreground="#D96464"
+                                                       Visibility="{Binding IsDeathDisplayVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                                         </StackPanel>
                                     </StackPanel>
 

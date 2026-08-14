@@ -39,6 +39,10 @@ namespace AionDpsMeter.UI.ViewModels.History
         public long    TotalDamage           => _stats.TotalDamage;
         public string  DpsDisplay            => DamageFormatter.Format(_stats.DamagePerSecond);
         public double  DamagePercentage      => _stats.DamagePercentage;
+        public int     PlayerDeaths          => _stats.PlayerDeaths;
+        public bool    ShowPlayerDeaths      => _settingsService.ShowPlayerDeaths;
+        public bool    IsDeathDisplayVisible => ShowPlayerDeaths && PlayerDeaths > 0;
+        public string  PlayerDeathsDisplay   => $"💀 {PlayerDeaths}";
         public string  DamagePercentDisplay  => DamageFormatter.FormatRate(_stats.DamagePercentage);
         public string  CritRateDisplay       => DamageFormatter.FormatRate(_stats.CriticalRate);
         public string  BackAttackRateDisplay => DamageFormatter.FormatRate(_stats.BackAttackRate);

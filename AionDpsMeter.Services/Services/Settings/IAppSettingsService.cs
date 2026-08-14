@@ -6,6 +6,7 @@ namespace AionDpsMeter.Services.Services.Settings
         bool IsNicknameHidden { get; set; }
         bool BossOnlyCapture { get; set; }
         bool GroupSummonDamage { get; set; }
+        bool ShowPlayerDeaths { get; set; }
         int HistoryRetantionPeriod { get; set; }
         double WindowOpacity { get; set; }
         string? BackgroundImagePath { get; set; }

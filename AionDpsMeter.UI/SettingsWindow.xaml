@@ -455,6 +455,28 @@
                                           Margin="12,0,0,0"/>
                         </Grid>
 
+                        <!-- Show Player Deaths -->
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Text="Show Player Deaths"
+                                           FontSize="12"
+                                           Foreground="{StaticResource PrimaryTextBrush}"/>
+                                <TextBlock Text="Display skull death counter in player rows"
+                                           FontSize="10"
+                                           Foreground="{StaticResource SecondaryTextBrush}"
+                                           Margin="0,2,0,0"/>
+                            </StackPanel>
+                            <ToggleButton Grid.Column="1"
+                                          IsChecked="{Binding ShowPlayerDeaths, Mode=TwoWay}"
+                                          Style="{StaticResource ToggleSwitchStyle}"
+                                          VerticalAlignment="Center"
+                                          Margin="12,0,0,0"/>
+                        </Grid>
+
                         <!-- HOTKEYS section -->
                         <Border Style="{StaticResource GroupSeparatorStyle}"/>
                         <Grid Margin="0,0,0,6">

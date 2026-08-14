@@ -25,6 +25,7 @@ namespace AionDpsMeter.Services.Services.Session
                 IsUser = session.IsUser,
                 CombatPower = session.CombatPower,
                 ServerName = session.ServerName,
+                PlayerDeaths = session.PlayerDeaths,
                 TotalDamage = session.TotalDamage,
 
                 HitCount = nonDotHits.Count,

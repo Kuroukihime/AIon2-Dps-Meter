@@ -325,10 +325,17 @@
                                                            FontWeight="SemiBold"
                                                            Foreground="{StaticResource PrimaryTextBrush}"
                                                            TextTrimming="CharacterEllipsis"/>
-                                                <TextBlock Text="{Binding CombatPower, StringFormat=CP: {0}}"
-                                                           FontSize="8"
-                                                           Foreground="{StaticResource SecondaryTextBrush}"
-                                                           Visibility="{Binding CombatPower, Converter={StaticResource StringToVisibilityConverter}}"/>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding CombatPower, StringFormat=CP: {0}}"
+                                                               FontSize="8"
+                                                               Foreground="{StaticResource SecondaryTextBrush}"
+                                                               Visibility="{Binding CombatPower, Converter={StaticResource StringToVisibilityConverter}}"/>
+                                                    <TextBlock Text="{Binding PlayerDeathsDisplay}"
+                                                               FontSize="8"
+                                                               Foreground="#D96464"
+                                                               Margin="6,0,0,0"
+                                                               Visibility="{Binding IsDeathDisplayVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                                </StackPanel>
                                             </StackPanel>
                                             <TextBlock Text="{Binding TotalDamageFormatted}" FontSize="10"
                                                        FontWeight="Bold"
@@ -455,6 +462,11 @@
                                                     <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="0,2,0,0">
                                                         <TextBlock Text="CRIT " FontSize="9" Foreground="#7A8085" FontWeight="Bold" VerticalAlignment="Center"/>
                                                         <TextBlock Text="{Binding CriticalRate, StringFormat={}{0:F1}%}" FontSize="9" Foreground="#9BA1A6" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                                        <TextBlock Text="{Binding PlayerDeathsDisplay}"
+                                                                   FontSize="9"
+                                                                   Foreground="#D96464"
+                                                                   VerticalAlignment="Center"
+                                                                   Visibility="{Binding IsDeathDisplayVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                                                     </StackPanel>
 
                                                     <!-- Top Right: DPS and Percent -->

@@ -37,6 +37,9 @@ namespace AionDpsMeter.UI.ViewModels
         private bool _groupSummonDamage;
 
         [ObservableProperty]
+        private bool _showPlayerDeaths;
+
+        [ObservableProperty]
         private string _toggleVisibilityHotkey = string.Empty;
 
         [ObservableProperty]
@@ -55,6 +58,7 @@ namespace AionDpsMeter.UI.ViewModels
             _relativeProgressBar = settingsService.RelativeProgressBar;
             _toggleVisibilityHotkey = settingsService.ToggleVisibilityHotkey;
             _groupSummonDamage = settingsService.GroupSummonDamage;
+            _showPlayerDeaths = settingsService.ShowPlayerDeaths;
             _uiStyle = settingsService.UiStyle;
         }
 
@@ -108,6 +112,11 @@ namespace AionDpsMeter.UI.ViewModels
         partial void OnGroupSummonDamageChanged(bool value)
         {
             _settingsService.GroupSummonDamage = value;
+        }
+
+        partial void OnShowPlayerDeathsChanged(bool value)
+        {
+            _settingsService.ShowPlayerDeaths = value;
         }
 
         partial void OnToggleVisibilityHotkeyChanged(string value)
