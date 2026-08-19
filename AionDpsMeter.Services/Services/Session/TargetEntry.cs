@@ -57,6 +57,8 @@ namespace AionDpsMeter.Services.Services.Session
             CurrentSession!.AddDamage(damage);
         }
 
+        public void RegisterPlayerDeath(int playerId) => CurrentSession?.RegisterPlayerDeath(playerId);
+        
 
         public void TryAddBuff(BuffEvent buffEvent)
         {

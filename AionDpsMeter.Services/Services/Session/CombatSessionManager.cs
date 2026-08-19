@@ -130,6 +130,11 @@ namespace AionDpsMeter.Services.Services.Session
             get { lock (lockObject) { return GetActiveTargetSession()?.GetPlayerStats() ?? []; } }
         }
 
+        public void RegisterPlayerDeath(int playerId)
+        {
+            GetActiveTargetSession()?.RegisterPlayerDeath(playerId);
+        }
+
         public double GetPartyDps()
         {
             double totalDamage = PlayerStats.Sum(r => r.TotalDamage);

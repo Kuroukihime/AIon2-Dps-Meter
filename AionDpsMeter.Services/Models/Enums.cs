@@ -7,7 +7,7 @@
         UNKNOWN,
         BROKEN,
         CURRENT_TIME,
-        MOB_HP,
+        REMAIN_HP,
         MOB_SUMMON,
         DOT_DAMAGE, 
         BUFF_EFFECT,

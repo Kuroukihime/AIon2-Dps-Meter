@@ -1,0 +1,655 @@
+﻿<Window x:Class="AionDpsMeter.UI.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Settings"
+        Width="400"
+        Height="580"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True"
+        ResizeMode="NoResize"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown">
+
+    <Window.Resources>
+        <Style x:Key="ToggleSwitchStyle" TargetType="ToggleButton">
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid>
+                            <Border x:Name="Track"
+                                    Background="#30363D"
+                                    CornerRadius="10"
+                                    Width="40"
+                                    Height="20"/>
+                            <Ellipse x:Name="Thumb"
+                                     Width="14"
+                                     Height="14"
+                                     Fill="#8B949E"
+                                     HorizontalAlignment="Left"
+                                     Margin="3,0,0,0"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Track" Property="Background" Value="#1F6FEB"/>
+                                <Setter TargetName="Thumb" Property="Fill" Value="#E6EDF3"/>
+                                <Setter TargetName="Thumb" Property="HorizontalAlignment" Value="Right"/>
+                                <Setter TargetName="Thumb" Property="Margin" Value="0,0,3,0"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Track" Property="Opacity" Value="0.8"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SectionHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="9"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="{StaticResource AccentBrush}"/>
+            <Setter Property="Margin" Value="0,0,0,6"/>
+        </Style>
+
+        <Style x:Key="GroupSeparatorStyle" TargetType="Border">
+            <Setter Property="Height" Value="1"/>
+            <Setter Property="Background" Value="#1E2530"/>
+            <Setter Property="Margin" Value="0,10,0,10"/>
+        </Style>
+
+        <Style x:Key="DevExpandButtonStyle" TargetType="ToggleButton">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border Background="Transparent" Padding="0,4">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <TextBlock x:Name="Arrow"
+                                               Text="&#x25B8;"
+                                               FontSize="9"
+                                               Foreground="#8B949E"
+                                               VerticalAlignment="Center"
+                                               Margin="0,0,5,0"/>
+                                    <TextBlock Text="DEVELOPER"
+                                               FontSize="9"
+                                               FontWeight="Bold"
+                                               Foreground="#8B949E"
+                                               VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <Border Grid.Column="1"
+                                        Height="1"
+                                        Background="#1E2530"
+                                        VerticalAlignment="Center"
+                                        Margin="8,0,0,0"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Arrow" Property="Text" Value="&#x25BE;"/>
+                                <Setter TargetName="Arrow" Property="Foreground" Value="{StaticResource AccentBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+
+        <!-- Completely Rewritten Dark Dropdown Style -->
+        <Style x:Key="DarkComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
+            <Setter Property="Background" Value="#21262D"/>
+            <Setter Property="BorderBrush" Value="#30363D"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Height" Value="22"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ComboBoxItem">
+                        <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Padding" Value="8,4"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ComboBoxItem">
+                                    <Border x:Name="Border" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Border" Property="Background" Value="#30363D"/>
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="Border" Property="Background" Value="#30363D"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <!-- Main Button Background -->
+                            <ToggleButton x:Name="ToggleButton" 
+                                          Background="{TemplateBinding Background}" 
+                                          BorderBrush="{TemplateBinding BorderBrush}" 
+                                          BorderThickness="{TemplateBinding BorderThickness}" 
+                                          ClickMode="Press" 
+                                          Focusable="False" 
+                                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="{TemplateBinding Background}" 
+                                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                                CornerRadius="2">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="20" />
+                                                </Grid.ColumnDefinitions>
+                                                <!-- Arrow icon locked to the right side -->
+                                                <Path Grid.Column="1" Fill="#8B949E" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z"/>
+                                            </Grid>
+                                        </Border>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+
+                            <!-- Selected text locked inside the box -->
+                            <ContentPresenter x:Name="ContentSite" 
+                                              IsHitTestVisible="False" 
+                                              Content="{TemplateBinding SelectionBoxItem}" 
+                                              Margin="8,0,20,0" 
+                                              VerticalAlignment="Center" 
+                                              HorizontalAlignment="Left"
+                                              TextElement.Foreground="{TemplateBinding Foreground}"/>
+
+                            <!-- Dropdown Window -->
+                            <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
+                                <Border x:Name="DropDownBorder" Background="#21262D" BorderThickness="1" BorderBrush="#30363D" CornerRadius="2" Margin="0,2,0,0" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="150">
+                                    <ScrollViewer SnapsToDevicePixels="True" HorizontalScrollBarVisibility="Disabled">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Border Background="{StaticResource PrimaryBackgroundBrush}"
+            BorderBrush="{StaticResource AccentBrush}"
+            BorderThickness="0"
+            CornerRadius="4"
+            Opacity="0.95">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Border Grid.Row="0"
+                    Background="{StaticResource SecondaryBackgroundBrush}"
+                    CornerRadius="3,3,0,0"
+                    Padding="8,5">
+                <Grid>
+                    <TextBlock Text="Settings"
+                               FontSize="12"
+                               FontWeight="SemiBold"
+                               Foreground="{StaticResource PrimaryTextBrush}"
+                               VerticalAlignment="Center"/>
+                    <Button Content="&#x2715;"
+                            Width="22"
+                            Height="22"
+                            FontSize="10"
+                            HorizontalAlignment="Right"
+                            Click="CloseButton_Click"
+                            Style="{StaticResource ModernButtonStyle}"
+                            Background="#C42B1C"
+                            Padding="0"/>
+                </Grid>
+            </Border>
+
+            <!-- Settings content -->
+            <ScrollViewer Grid.Row="1"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled">
+                <Border Padding="14,12">
+                    <StackPanel VerticalAlignment="Top">
+
+                        <!-- DISPLAY section header -->
+                        <Grid Margin="0,0,0,6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Text="DISPLAY"
+                                       Style="{StaticResource SectionHeaderStyle}"/>
+                            <Border Grid.Column="1"
+                                    Height="1"
+                                    Background="#1E2530"
+                                    VerticalAlignment="Center"
+                                    Margin="8,0,0,6"/>
+                        </Grid>
+
+                        <!-- Window Opacity -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Text="Window Opacity"
+                                           FontSize="12"
+                                           Foreground="{StaticResource PrimaryTextBrush}"/>
+                                <TextBlock Text="Transparency of the main window (10%-100%)"
+                                           FontSize="10"
+                                           Foreground="{StaticResource SecondaryTextBrush}"
+                                           Margin="0,2,0,0"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0,0,0">
+                                <Slider Minimum="10" Maximum="100"
+                                        Value="{Binding WindowOpacityPercent, Mode=TwoWay}"
+                                        Width="100"
+                                        VerticalAlignment="Center"
+                                        IsSnapToTickEnabled="True"
+                                        TickFrequency="1"/>
+                                <TextBlock Text="{Binding WindowOpacityPercent, StringFormat={}{0}%}"
+                                           FontSize="11"
+                                           FontFamily="Consolas"
+                                           Foreground="{StaticResource PrimaryTextBrush}"
+                                           VerticalAlignment="Center"
+                                           Margin="6,0,0,0"
+                                           Width="36"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Player Row Scale -->
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Text="Scale Factor"
+                                           FontSize="12"
+                                           Foreground="{StaticResource PrimaryTextBrush}"/>
+                                <TextBlock Text="Scale factor of the player row (0.5-3)"  
+                                           FontSize="10"
+                                           Foreground="{StaticResource SecondaryTextBrush}"
+                                           Margin="0,2,0,0"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0,0,0">
+                                <Slider Minimum="0.5" Maximum="3"
+                                        Value="{Binding PlayerRowScale, Mode=TwoWay}"
+                                        Width="100"
+                                        VerticalAlignment="Center"
+                                        IsSnapToTickEnabled="True"
+                                        TickFrequency="0.1"/>
+                                <TextBlock Text="{Binding PlayerRowScale, StringFormat={}{0:F1}}"
+                                           FontSize="11"
+                                           FontFamily="Consolas"
+                                           Foreground="{StaticResource PrimaryTextBrush}"
+                                           VerticalAlignment="Center"
+                                           Margin="6,0,0,0"
+                                           Width="36"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- UI Style -->
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Text="UI Style"
+                                           FontSize="12"
+                                           Foreground="{StaticResource PrimaryTextBrush}"/>
+                                <TextBlock Text="Select the visual layout of main window"
+                                           FontSize="10"
+                                           Foreground="{StaticResource SecondaryTextBrush}"
+                                           Margin="0,2,0,0"/>
+                            </StackPanel>
+                            <ComboBox Grid.Column="1"
+                                      SelectedIndex="{Binding UiStyle, Mode=TwoWay}"
+                                      VerticalAlignment="Center"
+                                      Margin="20,0,0,0"
+                                      Style="{StaticResource DarkComboBoxStyle}">
+                                <ComboBoxItem Content="Style 1" />
+                                <ComboBoxItem Content="Style 2" />
+                            </ComboBox>
+                        </Grid>
+
+                        <!-- Background Image -->
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Text="Background Image"
+                                           FontSize="12"
+                                           Foreground="{StaticResource PrimaryTextBrush}"/>
+                                <TextBlock Text="{Binding BackgroundImagePath, TargetNullValue='Default (none)'}"
+                                           FontSize="9"
+                                           FontFamily="Consolas"
+                                           Foreground="{StaticResource SecondaryTextBrush}"
+                                           Margin="0,2,0,0"
+                                           TextTrimming="CharacterEllipsis"
+                                           MaxWidth="200"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0,0,0">
+                                <Button Content="Browse"
+                                        Command="{Binding PickBackgroundImageCommand}"
+                                        Width="60"
+                                        Height="22"
+                                        FontSize="10"
+                                        Style="{StaticResource ModernButtonStyle}"
+                                        Background="{StaticResource TertiaryBackgroundBrush}"
+                                        Padding="4,0"/>
+                                <Button Content="&#x2715;"
+                                        Command="{Binding ResetBackgroundImageCommand}"
+                                        Width="22"
+                                        Height="22"
+                                        FontSize="10"
+                                        Margin="4,0,0,0"
+                                        ToolTip="Reset to default"
+                                        Style="{StaticResource ModernButtonStyle}"
+                                        Background="#C42B1C"
+                                        Padding="0"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Relative Damage Bar -->
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Text="Relative Damage Bar"
+                                           FontSize="12"
+                                           Foreground="{StaticResource PrimaryTextBrush}"/>
+                                <TextBlock Text="Top player = 100%, others proportional"
+                                           FontSize="10"
+                                           Foreground="{StaticResource SecondaryTextBrush}"
+                                           Margin="0,2,0,0"/>
+                            </StackPanel>
+                            <ToggleButton Grid.Column="1"
+                                          IsChecked="{Binding RelativeProgressBar, Mode=TwoWay}"
+                                          Style="{StaticResource ToggleSwitchStyle}"
+                                          VerticalAlignment="Center"
+                                          Margin="12,0,0,0"/>
+                        </Grid>
+
+                        <!-- Group Summon Damage -->
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Text="Group Summon Damage"
+                                           FontSize="12"
+                                           Foreground="{StaticResource PrimaryTextBrush}"/>
+                                <TextBlock Text="Collapse all summon damage skills into a single entry"
+                                           FontSize="10"
+                                           Foreground="{StaticResource SecondaryTextBrush}"
+                                           Margin="0,2,0,0"/>
+                            </StackPanel>
+                            <ToggleButton Grid.Column="1"
+                                          IsChecked="{Binding GroupSummonDamage, Mode=TwoWay}"
+                                          Style="{StaticResource ToggleSwitchStyle}"
+                                          VerticalAlignment="Center"
+                                          Margin="12,0,0,0"/>
+                        </Grid>
+
+                        <!-- Hide Nicknames -->
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Text="Hide Nicknames"
+                                           FontSize="12"
+                                           Foreground="{StaticResource PrimaryTextBrush}"/>
+                                <TextBlock Text="Mask player names for screenshots"
+                                           FontSize="10"
+                                           Foreground="{StaticResource SecondaryTextBrush}"
+                                           Margin="0,2,0,0"/>
+                            </StackPanel>
+                            <ToggleButton Grid.Column="1"
+                                          IsChecked="{Binding IsNicknameHidden, Mode=TwoWay}"
+                                          Style="{StaticResource ToggleSwitchStyle}"
+                                          VerticalAlignment="Center"
+                                          Margin="12,0,0,0"/>
+                        </Grid>
+
+                        <!-- Show Player Deaths -->
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Text="Show Player Deaths"
+                                           FontSize="12"
+                                           Foreground="{StaticResource PrimaryTextBrush}"/>
+                                <TextBlock Text="Display skull death counter in player rows"
+                                           FontSize="10"
+                                           Foreground="{StaticResource SecondaryTextBrush}"
+                                           Margin="0,2,0,0"/>
+                            </StackPanel>
+                            <ToggleButton Grid.Column="1"
+                                          IsChecked="{Binding ShowPlayerDeaths, Mode=TwoWay}"
+                                          Style="{StaticResource ToggleSwitchStyle}"
+                                          VerticalAlignment="Center"
+                                          Margin="12,0,0,0"/>
+                        </Grid>
+
+                        <!-- HOTKEYS section -->
+                        <Border Style="{StaticResource GroupSeparatorStyle}"/>
+                        <Grid Margin="0,0,0,6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Text="HOTKEYS"
+                                       Style="{StaticResource SectionHeaderStyle}"/>
+                            <Border Grid.Column="1"
+                                    Height="1"
+                                    Background="#1E2530"
+                                    VerticalAlignment="Center"
+                                    Margin="8,0,0,6"/>
+                        </Grid>
+
+                        <!-- Toggle Visibility Hotkey -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Text="Toggle Visibility"
+                                           FontSize="12"
+                                           Foreground="{StaticResource PrimaryTextBrush}"/>
+                                <TextBlock Text="Click the box and press the desired key combo"
+                                           FontSize="10"
+                                           Foreground="{StaticResource SecondaryTextBrush}"
+                                           Margin="0,2,0,0"/>
+                            </StackPanel>
+                            <TextBox x:Name="HotkeyBox"
+                                     Grid.Column="1"
+                                     Width="110"
+                                     Text="{Binding ToggleVisibilityHotkey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     IsReadOnly="True"
+                                     VerticalAlignment="Center"
+                                     HorizontalContentAlignment="Center"
+                                     Margin="12,0,0,0"
+                                     Padding="4,2"
+                                     FontSize="11"
+                                     FontFamily="Consolas"
+                                     Background="#21262D"
+                                     Foreground="{StaticResource PrimaryTextBrush}"
+                                     BorderBrush="#30363D"
+                                     BorderThickness="1"
+                                     CaretBrush="{StaticResource PrimaryTextBrush}"
+                                     PreviewKeyDown="HotkeyBox_PreviewKeyDown"
+                                     GotFocus="HotkeyBox_GotFocus"
+                                     LostFocus="HotkeyBox_LostFocus"
+                                     ToolTip="Click here then press a key combination"/>
+                        </Grid>
+
+                        <!-- CAPTURE section separator + header -->
+                        <Border Style="{StaticResource GroupSeparatorStyle}"/>
+                        <Grid Margin="0,0,0,6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Text="CAPTURE"
+                                       Style="{StaticResource SectionHeaderStyle}"/>
+                            <Border Grid.Column="1"
+                                    Height="1"
+                                    Background="#1E2530"
+                                    VerticalAlignment="Center"
+                                    Margin="8,0,0,6"/>
+                        </Grid>
+
+                        <!-- Boss Only Capture -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Text="Boss Only Capture"
+                                           FontSize="12"
+                                           Foreground="{StaticResource PrimaryTextBrush}"/>
+                                <TextBlock Text="Track damage only for boss targets"
+                                           FontSize="10"
+                                           Foreground="{StaticResource SecondaryTextBrush}"
+                                           Margin="0,2,0,0"/>
+                            </StackPanel>
+                            <ToggleButton Grid.Column="1"
+                                          IsChecked="{Binding BossOnlyCapture, Mode=TwoWay}"
+                                          Style="{StaticResource ToggleSwitchStyle}"
+                                          VerticalAlignment="Center"
+                                          Margin="12,0,0,0"/>
+                        </Grid>
+
+                        <!-- History Retantion Period -->
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Text="History Retantion Period"
+                                           FontSize="12"
+                                           Foreground="{StaticResource PrimaryTextBrush}"/>
+                                <TextBlock Text="Keep history for this many days (1-9999)"
+                                           FontSize="10"
+                                           Foreground="{StaticResource SecondaryTextBrush}"
+                                           Margin="0,2,0,0"/>
+                            </StackPanel>
+                            <TextBox Grid.Column="1"
+                                     Width="80"
+                                     Text="{Binding HistoryRetantionPeriod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     VerticalAlignment="Center"
+                                     HorizontalContentAlignment="Right"
+                                     Margin="12,0,0,0"
+                                     Padding="4,2"
+                                     FontSize="11"
+                                     MaxLength="4"
+                                     Background="#21262D"
+                                     Foreground="{StaticResource PrimaryTextBrush}"
+                                     BorderBrush="#30363D"
+                                     BorderThickness="1"
+                                     CaretBrush="{StaticResource PrimaryTextBrush}"
+                                     PreviewTextInput="RetentionPeriodTextBox_PreviewTextInput"/>
+                        </Grid>
+
+                        <!-- DEVELOPER collapsible section -->
+                        <Border Style="{StaticResource GroupSeparatorStyle}"/>
+                        <ToggleButton x:Name="DevSectionToggle"
+                                      Style="{StaticResource DevExpandButtonStyle}"
+                                      IsChecked="False"/>
+
+                        <StackPanel Margin="0,8,0,0"
+                                    Visibility="{Binding IsChecked, ElementName=DevSectionToggle, Converter={StaticResource BoolToVisibility}}">
+
+                            <!-- Raw Packet Logging -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                    <TextBlock Text="Raw Packet Logging"
+                                               FontSize="12"
+                                               Foreground="{StaticResource PrimaryTextBrush}"/>
+                                    <TextBlock Text="Save packets to PacketLogs folder"
+                                               FontSize="10"
+                                               Foreground="{StaticResource SecondaryTextBrush}"
+                                               Margin="0,2,0,0"/>
+                                </StackPanel>
+                                <ToggleButton Grid.Column="1"
+                                              IsChecked="{Binding IsPacketLoggingEnabled, Mode=TwoWay}"
+                                              Style="{StaticResource ToggleSwitchStyle}"
+                                              VerticalAlignment="Center"
+                                              Margin="12,0,0,0"/>
+                            </Grid>
+
+                        </StackPanel>
+
+                    </StackPanel>
+                </Border>
+            </ScrollViewer>
+
+            <!-- Version footer -->
+            <Border Grid.Row="2"
+                    Background="{StaticResource SecondaryBackgroundBrush}"
+                    CornerRadius="0,0,3,3"
+                    Padding="14,5">
+                <TextBlock x:Name="VersionTextBlock"
+                           FontSize="10"
+                           FontFamily="Consolas"
+                           Foreground="{StaticResource SecondaryTextBrush}"
+                           HorizontalAlignment="Right"/>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

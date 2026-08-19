@@ -11,6 +11,7 @@
         public string? ClassIcon { get; set; }
         public int CombatPower { get; set; }
         public string ServerName { get; set; } = string.Empty;
+        public int PlayerDeaths { get; set; }
         public long TotalDamage { get; set; }
         public int HitCount { get; set; }
         public int CriticalHits { get; set; }

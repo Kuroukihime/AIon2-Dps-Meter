@@ -8,6 +8,7 @@ namespace AionDpsMeter.UI.ViewModels
     {
         private readonly PlayerStats _stats;
         private readonly IAppSettingsService _settingsService;
+        private int rankIndex = 4;
 
         // absolute: % of total damage
         private double absoulutePercentage;
@@ -20,6 +21,11 @@ namespace AionDpsMeter.UI.ViewModels
             : absoulutePercentage;
 
         public double PlayerRowScale => _settingsService.PlayerRowScale;
+        public int RankIndex
+        {
+            get => rankIndex;
+            private set => SetProperty(ref rankIndex, value);
+        }
 
         public PlayerStatsViewModel(PlayerStats stats, IAppSettingsService settingsService)
         {
@@ -68,6 +74,10 @@ namespace AionDpsMeter.UI.ViewModels
         public double DamagePerSecond      => _stats.DamagePerSecond;
         public string DpsFormatted         => DamageFormatter.Format(_stats.DamagePerSecond);
         public double DamagePercentage     => _stats.DamagePercentage;
+        public int    PlayerDeaths         => _stats.PlayerDeaths;
+        public bool   ShowPlayerDeaths     => _settingsService.ShowPlayerDeaths;
+        public bool   IsDeathDisplayVisible => ShowPlayerDeaths && PlayerDeaths > 0;
+        public string PlayerDeathsDisplay  => $"💀 {PlayerDeaths}";
         public int    HitCount             => _stats.HitCount;
         public double CriticalRate         => _stats.CriticalRate;
         public double BackAttackRate       => _stats.BackAttackRate;
@@ -81,6 +91,7 @@ namespace AionDpsMeter.UI.ViewModels
             _stats.ClassIcon         = updatedStats.ClassIcon;
             _stats.CombatPower       = updatedStats.CombatPower;
             _stats.ServerName        = updatedStats.ServerName;
+            _stats.PlayerDeaths      = updatedStats.PlayerDeaths;
             _stats.TotalDamage       = updatedStats.TotalDamage;
             _stats.HitCount          = updatedStats.HitCount;
             _stats.CriticalHits      = updatedStats.CriticalHits;
@@ -108,6 +119,9 @@ namespace AionDpsMeter.UI.ViewModels
             OnPropertyChanged(nameof(DamagePercentage));
             OnPropertyChanged(nameof(AbsolutePercentage));
             OnPropertyChanged(nameof(EffectivePercentage));
+            OnPropertyChanged(nameof(PlayerDeaths));
+            OnPropertyChanged(nameof(IsDeathDisplayVisible));
+            OnPropertyChanged(nameof(PlayerDeathsDisplay));
             OnPropertyChanged(nameof(HitCount));
             OnPropertyChanged(nameof(CriticalRate));
             OnPropertyChanged(nameof(BackAttackRate));
@@ -137,5 +151,8 @@ namespace AionDpsMeter.UI.ViewModels
             OnPropertyChanged(nameof(RelativePercentage));
             OnPropertyChanged(nameof(EffectivePercentage));
         }
+
+        public void UpdateRankIndex(int index)
+            => RankIndex = index;
     }
 }
