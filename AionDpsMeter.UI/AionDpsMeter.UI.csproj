@@ -53,12 +53,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="appsettings.json" />
+    <None Remove="Assets\Fonts\JetBrainsMono-Bold.ttf" />
+    <None Remove="Assets\Fonts\JetBrainsMono-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="ICON_CH_SKILL_006.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Fonts\JetBrainsMono-Bold.ttf" />
+    <Resource Include="Assets\Fonts\JetBrainsMono-Regular.ttf" />
   </ItemGroup>
 
 </Project>

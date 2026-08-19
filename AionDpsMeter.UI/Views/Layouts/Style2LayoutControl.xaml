@@ -4,6 +4,71 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d">
+
+    <UserControl.Resources>
+
+        <FontFamily x:Key="MeterMonoFont">pack://application:,,,/AionDpsMeter.UI;component/Assets/Fonts/#JetBrains Mono</FontFamily>
+        <FontFamily x:Key="MeterMonoFontFallback">Consolas</FontFamily>
+
+      
+        <LinearGradientBrush x:Key="HeaderGlassBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#F0202226" Offset="0"/>
+            <GradientStop Color="#F5121316" Offset="1"/>
+        </LinearGradientBrush>
+
+        <!-- HP bar: gradient with a bright leading edge instead of flat red -->
+        <LinearGradientBrush x:Key="HpBarBrush" StartPoint="0,0" EndPoint="1,0">
+            <GradientStop Color="#7A2320" Offset="0"/>
+            <GradientStop Color="#E0524A" Offset="0.6"/>
+            <GradientStop Color="#FF6F63" Offset="1"/>
+        </LinearGradientBrush>
+
+        <!-- HP bar top-edge shine (glass bevel) -->
+        <LinearGradientBrush x:Key="BarShineBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#59FFFFFF" Offset="0"/>
+            <GradientStop Color="#00FFFFFF" Offset="0.55"/>
+        </LinearGradientBrush>
+
+        <!-- Row background bevel highlight (used on every player row) -->
+        <LinearGradientBrush x:Key="RowShineBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#1AFFFFFF" Offset="0"/>
+            <GradientStop Color="#00FFFFFF" Offset="0.45"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="OtherPlayerFillBrush" StartPoint="0,0" EndPoint="1,0">
+            <GradientStop Color="#FF16C060" Offset="0"/>
+            <GradientStop Color="#FF0D6B35" Offset="0.85"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="SelfPlayerFillBrush" StartPoint="0,0" EndPoint="1,0">
+            <GradientStop Color="#FFA64CF5" Offset="0"/>
+            <GradientStop Color="#FF5E2B8C" Offset="0.85"/>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="OtherPlayerEdgeBrush" Color="#3DDC7A"/>
+        <SolidColorBrush x:Key="SelfPlayerEdgeBrush" Color="#B266FF"/>
+
+        <!-- Reusable glow effects. DropShadowEffect with ShadowDepth=0 renders as an even glow. -->
+        <DropShadowEffect x:Key="TealTextGlow" Color="#4ADFC4" BlurRadius="14" ShadowDepth="0" Opacity="0.55"/>
+        <DropShadowEffect x:Key="HpBarGlow" Color="#E0524A" BlurRadius="10" ShadowDepth="0" Opacity="0.6"/>
+        <DropShadowEffect x:Key="GreenEdgeGlow" Color="#3DDC7A" BlurRadius="8" ShadowDepth="0" Opacity="0.65"/>
+        <DropShadowEffect x:Key="PurpleEdgeGlow" Color="#B266FF" BlurRadius="8" ShadowDepth="0" Opacity="0.65"/>
+        <DropShadowEffect x:Key="PanelDropShadow" Color="#000000" BlurRadius="24" ShadowDepth="6" Opacity="0.45" Direction="270"/>
+
+        <!-- Player row style: strips default ListBoxItem chrome so our own Border/Grid controls the visuals -->
+        <Style x:Key="PlayerRowContainerStyle" TargetType="ListBoxItem">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <ContentPresenter/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -11,20 +76,27 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!--
+            ============================================================
+            HEADER — neutral black/gray glass panel
+            ============================================================
+        -->
         <Border Grid.Row="0"
                 Margin="0,0,0,6"
-                Padding="8,6"
-                CornerRadius="4"
-                Background="#E615161A"
+                Padding="8,7"
+                CornerRadius="6"
+                Opacity="0.90"
+                Background="{StaticResource HeaderGlassBrush}"
                 BorderBrush="#22FFFFFF"
-                BorderThickness="1">
+                BorderThickness="1"
+                Effect="{StaticResource PanelDropShadow}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="4"/>
+                    <RowDefinition Height="5"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="6"/>
-                    <RowDefinition Height="2"/>
+                    <RowDefinition Height="7"/>
+                    <RowDefinition Height="4"/>
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0">
@@ -34,23 +106,42 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="{Binding ActiveTargetName}"
-                               FontSize="12" FontWeight="Bold" Foreground="White"
-                               TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                               FontFamily="{StaticResource MeterMonoFont}"
+                               FontSize="12.5" FontWeight="Bold" Foreground="#F2F1F5"
+                               TextTrimming="CharacterEllipsis" VerticalAlignment="Center">
+                        <TextBlock.Effect>
+                            <DropShadowEffect Color="#000000" BlurRadius="4" ShadowDepth="1" Opacity="0.5"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                        <TextBlock Text="{Binding PingDisplay}"
-                                   FontSize="11" FontFamily="Consolas" FontWeight="Bold"
-                                   Foreground="{Binding PingColor, Converter={StaticResource StringToBrushConverter}}"
-                                   VerticalAlignment="Center" Margin="0,0,8,0"/>
+
+                    
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,8,0">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,5,0">
+                                <Rectangle Width="2" Height="4" Margin="0,0,1,0" VerticalAlignment="Bottom"
+                                           Fill="{Binding PingColor, Converter={StaticResource StringToBrushConverter}}"/>
+                                <Rectangle Width="2" Height="6" Margin="0,0,1,0" VerticalAlignment="Bottom"
+                                           Fill="{Binding PingColor, Converter={StaticResource StringToBrushConverter}}"/>
+                                <Rectangle Width="2" Height="8" VerticalAlignment="Bottom"
+                                           Fill="{Binding PingColor, Converter={StaticResource StringToBrushConverter}}"/>
+                            </StackPanel>
+                            <TextBlock Text="{Binding PingDisplay}"
+                                       FontFamily="{StaticResource MeterMonoFont}"
+                                       FontSize="10.5" FontWeight="Bold"
+                                       Foreground="{Binding PingColor, Converter={StaticResource StringToBrushConverter}}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+
                         <TextBlock Text="{Binding CombatDuration}"
-                                   FontSize="11" FontFamily="Consolas" Foreground="#9BA1A6"
+                                   FontFamily="{StaticResource MeterMonoFont}"
+                                   FontSize="11" Foreground="#A1A8B8"
                                    VerticalAlignment="Center" Margin="0,0,8,0"/>
 
-                        <Button Content="☰" Width="18" Height="18" FontSize="10" Margin="1,0" ToolTip="History" Click="HistoryButton_Click" Style="{StaticResource ModernButtonStyle}" Background="Transparent" Foreground="#888" Padding="0"/>
-                        <Button Content="↺" Command="{Binding ResetDataCommand}" Width="18" Height="18" FontSize="12" Margin="1,0" ToolTip="Reset" Style="{StaticResource ModernButtonStyle}" Background="Transparent" Foreground="#888" Padding="0"/>
-                        <Button Content="⚙" Width="18" Height="18" FontSize="10" Margin="1,0" ToolTip="Settings" Click="SettingsButton_Click" Style="{StaticResource ModernButtonStyle}" Background="Transparent" Foreground="#888" Padding="0"/>
-                        <Button Content="━" Width="18" Height="18" FontSize="8" Margin="1,0" Click="MinimizeButton_Click" Style="{StaticResource ModernButtonStyle}" Background="Transparent" Foreground="#888" Padding="0"/>
-                        <Button Content="✕" Width="18" Height="18" FontSize="8" Margin="1,0,0,0" Click="CloseButton_Click" Style="{StaticResource ModernButtonStyle}" Background="Transparent" Foreground="#888" Padding="0"/>
+                        <Button Content="☰" Width="18" Height="18" FontSize="10" Margin="1,0" ToolTip="History" Click="HistoryButton_Click" Style="{StaticResource ModernButtonStyle}" Background="Transparent" Foreground="#8B8FA3" Padding="0"/>
+                        <Button Content="⚙" Width="18" Height="18" FontSize="10" Margin="1,0" ToolTip="Settings" Click="SettingsButton_Click" Style="{StaticResource ModernButtonStyle}" Background="Transparent" Foreground="#8B8FA3" Padding="0"/>
+                        <Button Content="━" Width="18" Height="18" FontSize="8" Margin="1,0" Click="MinimizeButton_Click" Style="{StaticResource ModernButtonStyle}" Background="Transparent" Foreground="#8B8FA3" Padding="0"/>
+                        <Button Content="✕" Width="18" Height="18" FontSize="8" Margin="1,0,0,0" Click="CloseButton_Click" Style="{StaticResource ModernButtonStyle}" Background="Transparent" Foreground="#8B8FA3" Padding="0"/>
                     </StackPanel>
                 </Grid>
 
@@ -61,33 +152,42 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                        <TextBlock Text="{Binding ActiveTargetHpDisplay}" FontSize="10" FontFamily="Consolas" Foreground="#D96464"/>
+                        <TextBlock Text="{Binding ActiveTargetHpDisplay}" FontFamily="{StaticResource MeterMonoFont}" FontSize="10.5" FontWeight="SemiBold" Foreground="#C9807A"/>
                     </StackPanel>
 
                     <TextBlock Grid.Column="1" Text="{Binding TotalRaidDamageFormatted}"
-                               FontSize="14" FontWeight="Bold" Foreground="#52E0C4"
+                               FontFamily="{StaticResource MeterMonoFont}"
+                               FontSize="17" FontWeight="Bold" Foreground="#4ADFC4"
+                               Effect="{StaticResource TealTextGlow}"
                                VerticalAlignment="Center"/>
                 </Grid>
 
+  
                 <Grid x:Name="Style2HpBarContainer"
                       Grid.Row="4"
-                      Height="3"
+                      Height="4"
                       Visibility="{Binding ActiveTargetHpTotal, Converter={StaticResource IntToVisibilityConverter}}">
-                    <Border x:Name="HpBarBackground" Background="#4D4D4D" CornerRadius="1"/>
-                    <Border Background="#C84040" CornerRadius="1" HorizontalAlignment="Left">
+                    <Border x:Name="HpBarBackground" Background="#4D4D4D" CornerRadius="2"/>
+                    <Border Background="{StaticResource HpBarBrush}"
+                            CornerRadius="2"
+                            HorizontalAlignment="Left"
+                            Effect="{StaticResource HpBarGlow}">
                         <Border.Width>
                             <MultiBinding Converter="{StaticResource PercentageToWidthConverter}">
                                 <Binding Path="ActiveTargetHpPercentage"/>
                                 <Binding ElementName="Style2HpBarContainer" Path="ActualWidth"/>
                             </MultiBinding>
                         </Border.Width>
+                        <Border CornerRadius="2" Background="{StaticResource BarShineBrush}"/>
                     </Border>
                 </Grid>
             </Grid>
         </Border>
 
+       
         <Border Grid.Row="1"
                 Background="#1A2A1A" BorderBrush="#3A6B3A" BorderThickness="0,1,0,1"
+                CornerRadius="4"
                 Padding="8,4"
                 Visibility="{Binding UpdateAvailable, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid>
@@ -113,6 +213,11 @@
             </Grid>
         </Border>
 
+        <!--
+            ============================================================
+            PLAYER LIST
+            ============================================================
+        -->
         <Grid Grid.Row="2" ClipToBounds="True">
             <ListBox ItemsSource="{Binding Players}"
                      Background="Transparent"
@@ -123,18 +228,7 @@
                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
                      Padding="0">
                 <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-                        <Setter Property="Padding" Value="0"/>
-                        <Setter Property="Margin" Value="0"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="ListBoxItem">
-                                    <ContentPresenter/>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
+                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource PlayerRowContainerStyle}"/>
                 </ListBox.ItemContainerStyle>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -147,11 +241,19 @@
                                     <ScaleTransform ScaleX="{Binding PlayerRowScale}" ScaleY="{Binding PlayerRowScale}"/>
                                 </Grid.LayoutTransform>
 
-                                <Border Margin="0,0,0,4" Background="#CC15161A" CornerRadius="4" BorderBrush="#22FFFFFF" BorderThickness="1" ClipToBounds="True">
+                                <Border x:Name="RowRoot"
+                                        Margin="0,0,0,5"
+                                         Background="#44000000"
+                                        CornerRadius="7"
+                                        BorderBrush="#0FFFFFFF"
+                                        BorderThickness="1"
+                                        SizeChanged="RowRoot_SizeChanged">
                                     <Grid>
+
+                                        <!-- Damage fill -->
                                         <Border HorizontalAlignment="Left"
                                                 Background="{Binding IsUser, Converter={StaticResource BoolToProgressBrushConverter}}"
-                                                Opacity="0.55">
+                                                 Opacity="0.90">
                                             <Border.Width>
                                                 <MultiBinding Converter="{StaticResource PercentageToWidthConverter}">
                                                     <Binding Path="EffectivePercentage"/>
@@ -159,6 +261,10 @@
                                                 </MultiBinding>
                                             </Border.Width>
                                         </Border>
+
+                                        <!-- Glass bevel highlight across the top of the row -->
+                                        <Border Background="{StaticResource RowShineBrush}" IsHitTestVisible="False"/>
+
 
                                         <Grid>
                                             <Grid.ColumnDefinitions>
@@ -168,16 +274,29 @@
 
                                             <Border Grid.Column="0" Background="Transparent">
                                                 <Grid>
-                                                    <Image Source="{Binding ClassIcon, Converter={StaticResource SafeImageSourceConverter}}"
-                                                           Width="35" Height="35" VerticalAlignment="Center" Margin="0,-4,0,0" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                    <Border Width="32" Height="32"
+                                                            CornerRadius="6"
+                                                            VerticalAlignment="Center"
+                                                            Margin="0,-2,0,0">
+                                                        <Border.Effect>
+                                                            <DropShadowEffect Color="#000000" BlurRadius="6" ShadowDepth="3" Opacity="0.6"/>
+                                                        </Border.Effect>
+                                                        <Border.Background>
+                                                            <ImageBrush ImageSource="{Binding ClassIcon, Converter={StaticResource SafeImageSourceConverter}}" Stretch="UniformToFill"/>
+                                                        </Border.Background>
+                                                    </Border>
 
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,3" Visibility="{Binding CombatPower, Converter={StaticResource StringToVisibilityConverter}}">
-                                                        <TextBlock Text="{Binding CombatPower}" FontSize="10" Foreground="#FFFFFF" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="{Binding CombatPower}" FontFamily="{StaticResource MeterMonoFont}" FontSize="10" Foreground="#FFFFFF" FontWeight="Bold" VerticalAlignment="Center">
+                                                            <TextBlock.Effect>
+                                                                <DropShadowEffect Color="#000000" BlurRadius="3" ShadowDepth="1" Opacity="0.7"/>
+                                                            </TextBlock.Effect>
+                                                        </TextBlock>
                                                     </StackPanel>
                                                 </Grid>
                                             </Border>
 
-                                            <Grid Grid.Column="1" Margin="8,5,8,5">
+                                            <Grid Grid.Column="1" Margin="8,5,10,5">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="Auto"/>
                                                     <RowDefinition Height="Auto"/>
@@ -189,12 +308,17 @@
 
                                                 <TextBlock Grid.Row="0" Grid.Column="0"
                                                            Text="{Binding PlayerNameDisplay}"
-                                                           FontSize="11" FontWeight="Bold" Foreground="White"
-                                                           TextTrimming="CharacterEllipsis"/>
+                                                           FontFamily="{StaticResource MeterMonoFont}"
+                                                           FontSize="11.5" FontWeight="Bold" Foreground="#F2F1F5"
+                                                           TextTrimming="CharacterEllipsis">
+                                                    <TextBlock.Effect>
+                                                        <DropShadowEffect Color="#000000" BlurRadius="3" ShadowDepth="1" Opacity="0.5"/>
+                                                    </TextBlock.Effect>
+                                                </TextBlock>
 
-                                                <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="0,2,0,0">
-                                                    <TextBlock Text="CRIT " FontSize="9" Foreground="#7A8085" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                    <TextBlock Text="{Binding CriticalRate, StringFormat={}{0:F1}%}" FontSize="9" Foreground="#9BA1A6" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                                <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="0,3,0,0">
+                                                    <TextBlock Text="CRIT " FontSize="8.5" Foreground="#6A6E80" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                    <TextBlock Text="{Binding CriticalRate, StringFormat={}{0:F1}%}" FontFamily="{StaticResource MeterMonoFont}" FontSize="9" Foreground="#9BA1B4" VerticalAlignment="Center" Margin="0,0,6,0"/>
                                                     <TextBlock Text="{Binding PlayerDeathsDisplay}"
                                                                FontSize="9"
                                                                Foreground="#D96464"
@@ -203,14 +327,18 @@
                                                 </StackPanel>
 
                                                 <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                                                    <TextBlock Text="{Binding DpsFormatted, StringFormat={}{0:F1}/s}" FontSize="11" FontWeight="Bold" Foreground="#E0E0E0" Margin="0,0,6,0"/>
-                                                    <TextBlock Text="{Binding DamagePercentage, StringFormat={}{0:F1}%}" FontSize="11" FontWeight="Bold" Foreground="White" Width="38" TextAlignment="Right"/>
+                                                    <TextBlock Text="{Binding DpsFormatted, StringFormat={}{0:F1}/s}" FontFamily="{StaticResource MeterMonoFont}" FontSize="11.5" FontWeight="Bold" Foreground="#E8E7EE" Margin="0,0,7,0"/>
+                                                    <TextBlock Text="{Binding DamagePercentage, StringFormat={}{0:F1}%}"
+                                                               FontFamily="{StaticResource MeterMonoFont}"
+                                                               FontSize="12" FontWeight="Bold" Width="40" TextAlignment="Right"
+                                                               Foreground="White"/>
                                                 </StackPanel>
 
                                                 <TextBlock Grid.Row="1" Grid.Column="1"
                                                            Text="{Binding TotalDamageFormatted}"
-                                                           FontSize="10" FontWeight="SemiBold" Foreground="#9BA1A6"
-                                                           HorizontalAlignment="Right" Margin="0,2,0,0"/>
+                                                           FontFamily="{StaticResource MeterMonoFont}"
+                                                           FontSize="9.5" FontWeight="SemiBold" Foreground="#A1A8B8"
+                                                           HorizontalAlignment="Right" Margin="0,3,0,0"/>
                                             </Grid>
                                         </Grid>
                                     </Grid>

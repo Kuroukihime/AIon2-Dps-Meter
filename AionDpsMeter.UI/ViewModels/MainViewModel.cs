@@ -181,6 +181,8 @@ namespace AionDpsMeter.UI.ViewModels
                 int current = Players.IndexOf(sorted[i]);
                 if (current != i)
                     Players.Move(current, i);
+
+                sorted[i].UpdateRankIndex(i);
             }
 
             // Update relative percentages (top player = 100%)

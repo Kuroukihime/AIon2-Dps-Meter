@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace AionDpsMeter.UI.Views.Layouts
 {
@@ -16,6 +17,21 @@ namespace AionDpsMeter.UI.Views.Layouts
         public Style2LayoutControl()
         {
             InitializeComponent();
+        }
+
+        private void RowRoot_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (sender is Border rowRoot && rowRoot.ActualWidth > 0 && rowRoot.ActualHeight > 0)
+            {
+                var radius = rowRoot.CornerRadius.TopLeft; // 7, uniform on all corners in this template
+
+                rowRoot.Clip = new RectangleGeometry
+                {
+                    Rect = new Rect(0, 0, rowRoot.ActualWidth, rowRoot.ActualHeight),
+                    RadiusX = radius,
+                    RadiusY = radius
+                };
+            }
         }
 
         private void HistoryButton_Click(object sender, RoutedEventArgs e)

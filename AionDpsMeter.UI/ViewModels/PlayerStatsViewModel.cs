@@ -8,6 +8,7 @@ namespace AionDpsMeter.UI.ViewModels
     {
         private readonly PlayerStats _stats;
         private readonly IAppSettingsService _settingsService;
+        private int rankIndex = 4;
 
         // absolute: % of total damage
         private double absoulutePercentage;
@@ -20,6 +21,11 @@ namespace AionDpsMeter.UI.ViewModels
             : absoulutePercentage;
 
         public double PlayerRowScale => _settingsService.PlayerRowScale;
+        public int RankIndex
+        {
+            get => rankIndex;
+            private set => SetProperty(ref rankIndex, value);
+        }
 
         public PlayerStatsViewModel(PlayerStats stats, IAppSettingsService settingsService)
         {
@@ -145,5 +151,8 @@ namespace AionDpsMeter.UI.ViewModels
             OnPropertyChanged(nameof(RelativePercentage));
             OnPropertyChanged(nameof(EffectivePercentage));
         }
+
+        public void UpdateRankIndex(int index)
+            => RankIndex = index;
     }
 }
