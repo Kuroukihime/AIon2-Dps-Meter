@@ -1,0 +1,45 @@
+﻿<Window x:Class="AionDpsMeter.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:layouts="clr-namespace:AionDpsMeter.UI.Views.Layouts"
+        mc:Ignorable="d"
+        Title="AION2 DPS Meter"
+        Height="170"
+        Width="360"
+        MinHeight="80"
+        MinWidth="200"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True"
+        ResizeMode="CanResizeWithGrip"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown">
+
+    <Border x:Name="MainBorder"
+            Background="#EB0D1117"
+            BorderBrush="{StaticResource AccentBrush}"
+            BorderThickness="0"
+            CornerRadius="4">
+        <Grid>
+            <layouts:Style1LayoutControl x:Name="Style1Layout"
+                                         Visibility="{Binding IsStyle1, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                         HistoryClicked="HistoryButton_Click"
+                                         SettingsClicked="SettingsButton_Click"
+                                         MinimizeClicked="MinimizeButton_Click"
+                                         CloseClicked="CloseButton_Click"
+                                         WhatsNewClicked="WhatsNewButton_Click"
+                                         PlayerItemClicked="PlayerItem_Click"/>
+
+            <layouts:Style2LayoutControl x:Name="Style2Layout"
+                                         Visibility="{Binding IsStyle2, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                         HistoryClicked="HistoryButton_Click"
+                                         SettingsClicked="SettingsButton_Click"
+                                         MinimizeClicked="MinimizeButton_Click"
+                                         CloseClicked="CloseButton_Click"
+                                         WhatsNewClicked="WhatsNewButton_Click"
+                                         PlayerItemClicked="PlayerItem_Click"/>
+        </Grid>
+    </Border>
+</Window>

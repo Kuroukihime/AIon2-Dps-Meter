@@ -7,7 +7,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace AionDpsMeter.UI.Controls
+namespace AionDpsMeter.UI.Views.Controls
 {
     public sealed class DpsChartControl : FrameworkElement
     {

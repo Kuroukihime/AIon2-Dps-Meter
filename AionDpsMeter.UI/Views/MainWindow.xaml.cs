@@ -62,8 +62,7 @@ namespace AionDpsMeter.UI
                 MainBorder.BorderThickness = new Thickness(0);
 
                 // Hide the background image; Style 2 has no backdrop
-                PlayersBackgroundImage.Source = null;
-                PlayersBackgroundOverlay.Visibility = Visibility.Collapsed;
+                Style1Layout.ClearBackgroundImage();
             }
             else
             {
@@ -112,28 +111,19 @@ namespace AionDpsMeter.UI
         {
             if (string.IsNullOrEmpty(path) || !System.IO.File.Exists(path))
             {
-                PlayersBackgroundImage.Source = null;
-                PlayersBackgroundOverlay.Visibility = Visibility.Collapsed;
+                Style1Layout.ClearBackgroundImage();
                 MainBorder.Background = (Brush)FindResource("PrimaryBackgroundBrush");
                 return;
             }
 
             try
             {
-                var bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.UriSource = new Uri(path, UriKind.Absolute);
-                bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                bitmap.EndInit();
-                bitmap.Freeze();
-                PlayersBackgroundImage.Source = bitmap;
-                PlayersBackgroundOverlay.Visibility = Visibility.Visible;
+                Style1Layout.SetBackgroundImage(path);
                 MainBorder.Background = Brushes.Transparent;
             }
             catch
             {
-                PlayersBackgroundImage.Source = null;
-                PlayersBackgroundOverlay.Visibility = Visibility.Collapsed;
+                Style1Layout.ClearBackgroundImage();
                 MainBorder.Background = (Brush)FindResource("PrimaryBackgroundBrush");
             }
         }
