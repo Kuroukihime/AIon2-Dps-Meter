@@ -26,7 +26,7 @@ A lightweight, **network-based** DPS meter for **Aion 2**. It passively reads ga
 - Party DPS
 - Automatic session reset between fights.
 
-![Main Window](ReadmeAssets/MainWindow2.png)
+![Main Window](ReadmeAssets/MainWindow2.png?v=2)
 
 ### 🔍 Detailed Player Statistics
 Click any player row to open a detailed breakdown:
@@ -45,7 +45,7 @@ Click any player row to open a detailed breakdown:
 
 ![Player Details](ReadmeAssets/SkillDetails.png)
 ![DPS Graph](ReadmeAssets/DpsGraph.png)
-![Combat Log](ReadmeAssets/CombatLog.png)
+![Combat Log](ReadmeAssets/CombatLog.png?v=2)
 
 ### 📜 Combat History
 - Every completed fight is automatically saved as a **session snapshot**.
@@ -53,7 +53,7 @@ Click any player row to open a detailed breakdown:
 - Configurable **History retention period**.
 
 ![History](ReadmeAssets/CombatHistory.png?v=2)
-![History Details](ReadmeAssets/HistoryDetails.png)
+![History Details](ReadmeAssets/HistoryDetails.png?v=2)
 
 ### 🙈 Nickname Hiding
 - Toggle **nickname obfuscation** to mask all player names — useful for streaming or screenshots.
