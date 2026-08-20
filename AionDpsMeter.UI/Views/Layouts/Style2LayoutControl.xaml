@@ -317,12 +317,14 @@
                                                 </TextBlock>
 
                                                 <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="0,3,0,0">
-                                                    <TextBlock Text="CRIT " FontSize="8.5" Foreground="#6A6E80" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                    <TextBlock Text="CRIT " FontSize="8.5" Foreground="#6A6E80" FontFamily="{StaticResource MeterMonoFont}"  FontWeight="Bold" VerticalAlignment="Center"/>
                                                     <TextBlock Text="{Binding CriticalRate, StringFormat={}{0:F1}%}" FontFamily="{StaticResource MeterMonoFont}" FontSize="9" Foreground="#9BA1B4" VerticalAlignment="Center" Margin="0,0,6,0"/>
                                                     <TextBlock Text="{Binding PlayerDeathsDisplay}"
                                                                FontSize="9"
                                                                Foreground="#D96464"
+                                                               FontFamily="{StaticResource MeterMonoFont}" 
                                                                VerticalAlignment="Center"
+                                                               FontWeight="Bold" 
                                                                Visibility="{Binding IsDeathDisplayVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                                                 </StackPanel>
 
