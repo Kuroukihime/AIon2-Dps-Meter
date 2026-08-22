@@ -55,6 +55,14 @@ Click any player row to open a detailed breakdown:
 ![History](ReadmeAssets/CombatHistory.png?v=2)
 ![History Details](ReadmeAssets/HistoryDetails.png?v=2)
 
+### ⚔️ Stat Efficiency Calculator
+
+Simulate stat changes and see their exact damage impact before you commit them in-game.
+
+![Stat Efficiency Calculator](ReadmeAssets/StatEffCalc.png)
+
+The calculator pulls a read-only snapshot of your current Attack stats, damage multipliers, and derived power, then lets you layer combat assumptions (crit chance, front/back attack rate, positional stance) on top. Use the **Option Simulator** to enter deltas — positive or negative — for any stat and instantly see the resulting **Total Damage**, **Total Damage (With Option)**, and overall **Damage Gain %**, so you can tell whether a gear swap or buff is actually worth it.
+
 ### 🙈 Nickname Hiding
 - Toggle **nickname obfuscation** to mask all player names — useful for streaming or screenshots.
 
