@@ -17,6 +17,8 @@ namespace AionDpsMeter.UI
         private readonly UpdateCheckerService updateCheckerService;
         private SettingsWindow? settingsWindow;
         private HistoryWindow? historyWindow;
+        private StatEfficiencyCalculatorWindow? statEfficiencyCalculatorWindow;
+        private StatEfficiencyCalculatorViewModel? statEfficiencyCalculatorViewModel;
         private DispatcherTimer? _saveBoundsTimer;
         private GlobalHotkey? _globalHotkey;
 
@@ -251,6 +253,29 @@ namespace AionDpsMeter.UI
 
             PositionWindowToRight(settingsWindow);
             settingsWindow.Show();
+        }
+
+        private void StatEfficiencyCalculatorButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is not MainViewModel viewModel) return;
+
+            statEfficiencyCalculatorViewModel ??= new StatEfficiencyCalculatorViewModel(settingsService);
+            statEfficiencyCalculatorViewModel.LoadFromSnapshot(viewModel.SessionManager.GetCurrentPlayerStatSnapshot());
+
+            if (statEfficiencyCalculatorWindow is { IsVisible: true })
+            {
+                statEfficiencyCalculatorWindow.Activate();
+                return;
+            }
+
+            statEfficiencyCalculatorWindow = new StatEfficiencyCalculatorWindow
+            {
+                DataContext = statEfficiencyCalculatorViewModel,
+                Owner = this,
+            };
+
+            PositionWindowToRight(statEfficiencyCalculatorWindow);
+            statEfficiencyCalculatorWindow.Show();
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)

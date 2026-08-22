@@ -8,6 +8,7 @@ namespace AionDpsMeter.UI.Views.Layouts
     public partial class Style2LayoutControl : UserControl
     {
         public event RoutedEventHandler? HistoryClicked;
+        public event RoutedEventHandler? StatEfficiencyCalculatorClicked;
         public event RoutedEventHandler? SettingsClicked;
         public event RoutedEventHandler? MinimizeClicked;
         public event RoutedEventHandler? CloseClicked;
@@ -42,6 +43,11 @@ namespace AionDpsMeter.UI.Views.Layouts
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
             SettingsClicked?.Invoke(sender, e);
+        }
+
+        private void StatEfficiencyCalculatorButton_Click(object sender, RoutedEventArgs e)
+        {
+            StatEfficiencyCalculatorClicked?.Invoke(sender, e);
         }
 
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)

@@ -22,6 +22,16 @@ namespace AionDpsMeter.Services.Services.Settings
         double PlayerRowScale { get; set; }
         int UiStyle { get; set; }
 
+        double StatCalcCritChance { get; set; }
+        double StatCalcBackAttackRate { get; set; }
+        double StatCalcFrontAttackRate { get; set; }
+        string StatCalcAttackType { get; set; }
+        double StatCalcAttackIncreaseCombatPercent { get; set; }
+        double StatCalcPartyDamageBoost { get; set; }
+        double StatCalcBossDamageTolerance { get; set; }
+        double StatCalcPartySmiteBuff { get; set; }
+        double StatCalcBossSmiteResist { get; set; }
+
         event EventHandler SettingsChanged;
     }
 }
