@@ -43,7 +43,7 @@ namespace AionDpsMeter.UI.ViewModels
 
         private double _optionBaseAttack;
         private double _optionGearAttack;
-        private double _optionMinAttack;
+        private double _optionMaxAttack;
         private double _optionPveAttack;
         private double _optionBossAttack;
         private double _optionAttackIncreasePercent;
@@ -185,7 +185,7 @@ namespace AionDpsMeter.UI.ViewModels
 
         public double OptionBaseAttack { get => _optionBaseAttack; set => SetOption(ref _optionBaseAttack, value); }
         public double OptionGearAttack { get => _optionGearAttack; set => SetOption(ref _optionGearAttack, value); }
-        public double OptionMinAttack { get => _optionMinAttack; set => SetOption(ref _optionMinAttack, value); }
+        public double OptionMaxAttack { get => _optionMaxAttack; set => SetOption(ref _optionMaxAttack, value); }
         public double OptionPveAttack { get => _optionPveAttack; set => SetOption(ref _optionPveAttack, value); }
         public double OptionBossAttack { get => _optionBossAttack; set => SetOption(ref _optionBossAttack, value); }
         public double OptionAttackIncreasePercent { get => _optionAttackIncreasePercent; set => SetOption(ref _optionAttackIncreasePercent, value); }
@@ -366,7 +366,7 @@ namespace AionDpsMeter.UI.ViewModels
             {
                 BaseAttack = OptionBaseAttack,
                 GearAttack = OptionGearAttack,
-                MinAttack = OptionMinAttack,
+                MaxAttack = OptionMaxAttack,
                 PveAttack = OptionPveAttack,
                 BossAttack = OptionBossAttack,
                 AttackIncreasePercent = OptionAttackIncreasePercent,

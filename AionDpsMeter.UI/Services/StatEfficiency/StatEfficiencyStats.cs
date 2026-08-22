@@ -30,8 +30,8 @@ namespace AionDpsMeter.UI.StatEfficiency
             {
                 BaseAttack = BaseAttack + delta.BaseAttack,
                 GearAttack = GearAttack + delta.GearAttack,
-                MinAttack = MinAttack + delta.MinAttack,
-                MaxAttack = MaxAttack,
+                MinAttack = MinAttack,
+                MaxAttack = MaxAttack + delta.MaxAttack,
                 PveAttack = PveAttack + delta.PveAttack,
                 BossAttack = BossAttack + delta.BossAttack,
                 AttackIncreasePercent = AttackIncreasePercent + delta.AttackIncreasePercent,

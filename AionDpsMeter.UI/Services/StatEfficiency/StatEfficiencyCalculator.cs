@@ -71,8 +71,7 @@ namespace AionDpsMeter.UI.StatEfficiency
             double mCrit = 1 + PercentMath.ToRate(PercentMath.Clamp01Percent(environment.CritChance)) * (critMult - 1);
 
             double smiteProc = Math.Max(0,
-                Math.Min(environment.PartySmiteBuff + stats.SmitePercent, 100)
-                - environment.BossSmiteResist);
+                Math.Min(environment.PartySmiteBuff + stats.SmitePercent - environment.BossSmiteResist, 100));
             double mSmite = 1 + PercentMath.ToRate(smiteProc);
 
             double mDirectional = environment.AttackType switch

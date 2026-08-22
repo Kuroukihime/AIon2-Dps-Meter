@@ -4,7 +4,7 @@ namespace AionDpsMeter.UI.StatEfficiency
     {
         public double BaseAttack { get; init; }
         public double GearAttack { get; init; }
-        public double MinAttack { get; init; }
+    public double MaxAttack { get; init; }
         public double PveAttack { get; init; }
         public double BossAttack { get; init; }
         public double AttackIncreasePercent { get; init; }
