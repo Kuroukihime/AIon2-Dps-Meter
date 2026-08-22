@@ -34,6 +34,159 @@ namespace AionDpsMeter.Services.Services.Settings
             }
         }
 
+        public double StatCalcCritChance
+        {
+            get { lock (_lock) return _data.StatCalcCritChance; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    double clamped = Math.Clamp(value, 0, 1000);
+                    changed = _data.StatCalcCritChance != clamped;
+                    _data.StatCalcCritChance = clamped;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public double StatCalcBackAttackRate
+        {
+            get { lock (_lock) return _data.StatCalcBackAttackRate; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    double clamped = Math.Clamp(value, 0, 1000);
+                    changed = _data.StatCalcBackAttackRate != clamped;
+                    _data.StatCalcBackAttackRate = clamped;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public double StatCalcFrontAttackRate
+        {
+            get { lock (_lock) return _data.StatCalcFrontAttackRate; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    double clamped = Math.Clamp(value, 0, 1000);
+                    changed = _data.StatCalcFrontAttackRate != clamped;
+                    _data.StatCalcFrontAttackRate = clamped;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public string StatCalcAttackType
+        {
+            get { lock (_lock) return _data.StatCalcAttackType; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    var normalized = value is "Front" or "Back" ? value : "None";
+                    changed = _data.StatCalcAttackType != normalized;
+                    _data.StatCalcAttackType = normalized;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public double StatCalcAttackIncreaseCombatPercent
+        {
+            get { lock (_lock) return _data.StatCalcAttackIncreaseCombatPercent; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    double clamped = Math.Max(0, value);
+                    changed = _data.StatCalcAttackIncreaseCombatPercent != clamped;
+                    _data.StatCalcAttackIncreaseCombatPercent = clamped;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public double StatCalcPartyDamageBoost
+        {
+            get { lock (_lock) return _data.StatCalcPartyDamageBoost; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    double clamped = Math.Max(0, value);
+                    changed = _data.StatCalcPartyDamageBoost != clamped;
+                    _data.StatCalcPartyDamageBoost = clamped;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public double StatCalcBossDamageTolerance
+        {
+            get { lock (_lock) return _data.StatCalcBossDamageTolerance; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    double clamped = Math.Max(0, value);
+                    changed = _data.StatCalcBossDamageTolerance != clamped;
+                    _data.StatCalcBossDamageTolerance = clamped;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public double StatCalcPartySmiteBuff
+        {
+            get { lock (_lock) return _data.StatCalcPartySmiteBuff; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    double clamped = Math.Max(0, value);
+                    changed = _data.StatCalcPartySmiteBuff != clamped;
+                    _data.StatCalcPartySmiteBuff = clamped;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public double StatCalcBossSmiteResist
+        {
+            get { lock (_lock) return _data.StatCalcBossSmiteResist; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    double clamped = Math.Max(0, value);
+                    changed = _data.StatCalcBossSmiteResist != clamped;
+                    _data.StatCalcBossSmiteResist = clamped;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public bool ShowPlayerDeaths
         {
             get { lock (_lock) return _data.ShowPlayerDeaths; }
@@ -310,6 +463,33 @@ namespace AionDpsMeter.Services.Services.Settings
 
             [JsonPropertyName("uiStyle")]
             public int UiStyle { get; set; } = 1;
+
+            [JsonPropertyName("statCalcCritChance")]
+            public double StatCalcCritChance { get; set; } = 80;
+
+            [JsonPropertyName("statCalcBackAttackRate")]
+            public double StatCalcBackAttackRate { get; set; } = 80;
+
+            [JsonPropertyName("statCalcFrontAttackRate")]
+            public double StatCalcFrontAttackRate { get; set; } = 80;
+
+            [JsonPropertyName("statCalcAttackType")]
+            public string StatCalcAttackType { get; set; } = "Back";
+
+            [JsonPropertyName("statCalcAttackIncreaseCombatPercent")]
+            public double StatCalcAttackIncreaseCombatPercent { get; set; }
+
+            [JsonPropertyName("statCalcPartyDamageBoost")]
+            public double StatCalcPartyDamageBoost { get; set; }
+
+            [JsonPropertyName("statCalcBossDamageTolerance")]
+            public double StatCalcBossDamageTolerance { get; set; } = 30;
+
+            [JsonPropertyName("statCalcPartySmiteBuff")]
+            public double StatCalcPartySmiteBuff { get; set; }
+
+            [JsonPropertyName("statCalcBossSmiteResist")]
+            public double StatCalcBossSmiteResist { get; set; } = 30;
         }
     }
 }

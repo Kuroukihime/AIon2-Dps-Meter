@@ -17,6 +17,7 @@ namespace AionDpsMeter.Services.Services.Session
         private readonly Lock lockObject = new();
         private readonly IAppSettingsService settingsService;
         private readonly ICombatHistoryStore historyStore;
+        private PlayerStatSnapshot? latestPlayerStatSnapshot;
 
 
         public CombatSessionManager(
@@ -128,6 +129,24 @@ namespace AionDpsMeter.Services.Services.Session
         public IReadOnlyCollection<PlayerStats> PlayerStats
         {
             get { lock (lockObject) { return GetActiveTargetSession()?.GetPlayerStats() ?? []; } }
+        }
+
+        public PlayerStatSnapshot? GetCurrentPlayerStatSnapshot()
+        {
+            lock (lockObject)
+            {
+                return latestPlayerStatSnapshot;
+            }
+        }
+
+        public void ProcessPlayerStatsUpdate(PlayerCharacterStats stats, DateTime? capturedAt = null)
+        {
+            ArgumentNullException.ThrowIfNull(stats);
+
+            lock (lockObject)
+            {
+                latestPlayerStatSnapshot = PlayerStatSnapshot.Create(stats, capturedAt);
+            }
         }
 
         public void RegisterPlayerDeath(int playerId)
@@ -379,6 +398,7 @@ namespace AionDpsMeter.Services.Services.Session
                 entry.Reset();
             targetEntries.Clear();
             targetResolver.Reset();
+            latestPlayerStatSnapshot = null;
         }
 
         private void OnSummonRegistered(int summonId, int ownerId)

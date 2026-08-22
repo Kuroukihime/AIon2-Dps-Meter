@@ -6,6 +6,7 @@ namespace AionDpsMeter.Services.Models
     {
         event EventHandler<PlayerDamage>? DamageReceived;
         event EventHandler<BuffEvent>? BuffReceived;
+        event EventHandler<PlayerCharacterStats>? PlayerStatsUpdated;
         event EventHandler<int>? OnPlayerDeath;
         /// <summary>
         /// Fired when a new ping measurement is available.
