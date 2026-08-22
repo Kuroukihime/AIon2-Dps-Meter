@@ -36,7 +36,7 @@ namespace AionDpsMeter.Services.Models
         public virtual double? BossDamageBoostPercent => Percent(StatIds.BossDamageBoost);
         public virtual double? CriticalDamageBoostPercent => Percent(StatIds.CriticalDamageBoost);
         public virtual double? PerfectPercent => Percent(StatIds.Perfect);
-        public virtual double? HardHitPercent => Percent(StatIds.Smite);
+        public virtual double? SmitePercent => Percent(StatIds.Smite);
         public virtual double? FrontDamageBoostPercent => Percent(StatIds.FrontDamageBoost);
         public virtual double? BackDamageBoostPercent => Percent(StatIds.BackDamageBoost);
 

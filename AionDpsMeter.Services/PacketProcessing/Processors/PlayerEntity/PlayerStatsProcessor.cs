@@ -7,6 +7,8 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors.PlayerEntity
   
     internal class PlayerStatsProcessor
     {
+        public event EventHandler<PlayerCharacterStats>? StatsUpdated;
+
         private readonly ILogger<PlayerStatsProcessor> logger;
 
         public PlayerStatsProcessor(ILogger<PlayerStatsProcessor> logger)
@@ -20,6 +22,7 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors.PlayerEntity
             try
             {
                 var stats = Parse(packet);
+                StatsUpdated?.Invoke(this, stats);
             }
             catch (Exception ex)
             {

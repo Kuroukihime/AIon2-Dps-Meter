@@ -1,0 +1,229 @@
+<Window x:Class="AionDpsMeter.UI.StatEfficiencyCalculatorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:AionDpsMeter.UI.ViewModels"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=vm:StatEfficiencyCalculatorViewModel}"
+        Title="Stat efficiency calculator"
+        Width="640"
+        Height="820"
+        MinWidth="580"
+        MinHeight="520"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True"
+        ResizeMode="CanResizeWithGrip"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown">
+
+    <Window.Resources>
+        <FontFamily x:Key="MeterMonoFont">pack://application:,,,/AionDpsMeter.UI;component/Assets/Fonts/#JetBrains Mono</FontFamily>
+
+        <Style x:Key="SectionTitleStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource AccentBrush}"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+            <Setter Property="FontFamily" Value="{StaticResource MeterMonoFont}"/>
+        </Style>
+
+        <Style x:Key="SectionBorderStyle" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource SecondaryBackgroundBrush}"/>
+            <Setter Property="BorderBrush" Value="#30363D"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+        </Style>
+
+        <Style x:Key="LabelStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource SecondaryTextBrush}"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="{StaticResource MeterMonoFont}"/>
+        </Style>
+
+        <Style x:Key="InputStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="Margin" Value="8,2,0,2"/>
+            <Setter Property="Padding" Value="6,2"/>
+            <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
+            <Setter Property="Background" Value="{StaticResource TertiaryBackgroundBrush}"/>
+            <Setter Property="BorderBrush" Value="#30363D"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontFamily" Value="{StaticResource MeterMonoFont}"/>
+            <Setter Property="HorizontalContentAlignment" Value="Right"/>
+        </Style>
+
+        <Style x:Key="RowGridStyle" TargetType="Grid">
+            <Setter Property="Margin" Value="0,2,0,2"/>
+        </Style>
+    </Window.Resources>
+
+    <Border Background="#EB0D1117" BorderBrush="{StaticResource AccentBrush}" BorderThickness="1" CornerRadius="6">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Background="#AA161B22" CornerRadius="6,6,0,0" Padding="10,8">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Stat efficiency calculator"
+                               Foreground="{StaticResource PrimaryTextBrush}"
+                               FontWeight="Bold"
+                               FontFamily="{StaticResource MeterMonoFont}"
+                               VerticalAlignment="Center"/>
+                    <Button Grid.Column="1"
+                            Width="22"
+                            Height="22"
+                            Content="✕"
+                            Click="CloseButton_Click"
+                            Style="{StaticResource ModernButtonStyle}"
+                            Background="#B3C42B1C"
+                            Padding="0"/>
+                </Grid>
+            </Border>
+
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="10">
+                <StackPanel>
+                    <TextBlock Text="Negative values are auto-clamped to 0 except in Option Simulator fields."
+                               Foreground="#8B949E"
+                               FontSize="10"
+                               FontFamily="{StaticResource MeterMonoFont}"
+                               Margin="0,0,0,8"/>
+
+                    <Border Style="{StaticResource SectionBorderStyle}">
+                        <StackPanel>
+                            <TextBlock Text="Attack block" Style="{StaticResource SectionTitleStyle}"/>
+
+                            <Grid Style="{StaticResource RowGridStyle}">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                <TextBlock Text="Base Attack" Style="{StaticResource LabelStyle}"/>
+                                <TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding BaseAttack, UpdateSourceTrigger=PropertyChanged}"/>
+                            </Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="Gear Attack" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding GearAttack, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="Min Attack" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding MinAttack, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="Max Attack" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding MaxAttack, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="Pve Attack" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding PveAttack, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="Boss Attack" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding BossAttack, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="Attack Increase %" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding AttackIncreasePercent, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+
+                            <Grid Style="{StaticResource RowGridStyle}" Margin="0,8,0,0">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                <TextBlock Text="Stat window attack (calculated)" Style="{StaticResource LabelStyle}"/>
+                                <TextBlock Grid.Column="1" Text="{Binding StatWindowAttack, StringFormat=N2}" Foreground="{StaticResource PrimaryTextBrush}" FontFamily="{StaticResource MeterMonoFont}" FontWeight="SemiBold" Margin="8,0,0,0"/>
+                            </Grid>
+                            <Grid Style="{StaticResource RowGridStyle}">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                <TextBlock Text="Effective attack (calculated)" Style="{StaticResource LabelStyle}"/>
+                                <TextBlock Grid.Column="1" Text="{Binding EffectiveAttack, StringFormat=N2}" Foreground="{StaticResource AccentBrush}" FontFamily="{StaticResource MeterMonoFont}" FontWeight="Bold" Margin="8,0,0,0"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource SectionBorderStyle}">
+                        <StackPanel>
+                            <TextBlock Text="Damage amplification block" Style="{StaticResource SectionTitleStyle}"/>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="DamageBoostPercent" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding DamageBoostPercent, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="WeaponDamageBoostPercent" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding WeaponDamageBoostPercent, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="PveDamageBoostPercent" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding PveDamageBoostPercent, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="BossDamageBoostPercent" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding BossDamageBoostPercent, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="CriticalDamageBoostPercent" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding CriticalDamageBoostPercent, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="PerfectPercent" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding PerfectPercent, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="SmitePercent" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding SmitePercent, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="FrontDamageBoostPercent" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding FrontDamageBoostPercent, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="BackDamageBoostPercent" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding BackDamageBoostPercent, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                <TextBlock Text="RaceDamageBoostPercent (uses CongniDamageBoostPercent)" Style="{StaticResource LabelStyle}" TextWrapping="Wrap" Width="340"/>
+                                <TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding RaceDamageBoostPercent, UpdateSourceTrigger=PropertyChanged}"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource SectionBorderStyle}">
+                        <StackPanel>
+                            <TextBlock Text="Mics block" Style="{StaticResource SectionTitleStyle}"/>
+                            <Grid Style="{StaticResource RowGridStyle}">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                <TextBlock Text="CombatSpeedPercent" Style="{StaticResource LabelStyle}"/>
+                                <TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding CombatSpeedPercent, UpdateSourceTrigger=PropertyChanged}"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource SectionBorderStyle}">
+                        <StackPanel>
+                            <TextBlock Text="Combat environment and assumptions" Style="{StaticResource SectionTitleStyle}"/>
+
+                            <TextBlock Text="Buffs" Style="{StaticResource LabelStyle}" FontWeight="Bold" Margin="0,0,0,4"/>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="AttackInreaseCombatPercent" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding AttackIncreaseCombatPercent, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="PartyDamageBoost" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding PartyDamageBoost, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="PartySmiteBuff" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding PartySmiteBuff, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+
+                            <TextBlock Text="Boss defence" Style="{StaticResource LabelStyle}" FontWeight="Bold" Margin="0,8,0,4"/>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="BossDamageTolerance" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding BossDamageTolerance, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="BossSmiteResist" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding BossSmiteResist, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+
+                            <TextBlock Text="Combat assumptions" Style="{StaticResource LabelStyle}" FontWeight="Bold" Margin="0,8,0,4"/>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="Crit chance" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding CritChance, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="Back attack rate" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding BackAttackRate, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="Front attack rate" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding FrontAttackRate, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                                <TextBlock Text="Type of attack:" Style="{StaticResource LabelStyle}" VerticalAlignment="Center"/>
+                                <RadioButton Content="None" IsChecked="{Binding IsAttackTypeNone}" Foreground="{StaticResource PrimaryTextBrush}" Margin="10,0,0,0"/>
+                                <RadioButton Content="Front" IsChecked="{Binding IsAttackTypeFront}" Foreground="{StaticResource PrimaryTextBrush}" Margin="10,0,0,0"/>
+                                <RadioButton Content="Back" IsChecked="{Binding IsAttackTypeBack}" Foreground="{StaticResource PrimaryTextBrush}" Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource SectionBorderStyle}">
+                        <StackPanel>
+                            <TextBlock Text="Option Simulator" Style="{StaticResource SectionTitleStyle}"/>
+                            <TextBlock Text="All values default to 0. Negative values are allowed here." Foreground="#8B949E" FontSize="10" FontFamily="{StaticResource MeterMonoFont}" Margin="0,0,0,6"/>
+
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="Base Attack" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding OptionBaseAttack, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="Gear Attack" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding OptionGearAttack, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="Min Attack" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding OptionMinAttack, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="Pve Attack" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding OptionPveAttack, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="Boss Attack" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding OptionBossAttack, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="AttackIncreasePercent" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding OptionAttackIncreasePercent, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="DamageBoostPercent" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding OptionDamageBoostPercent, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="WeaponDamageBoostPercent" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding OptionWeaponDamageBoostPercent, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="CriticalDamageBoostPercent" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding OptionCriticalDamageBoostPercent, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="PerfectPercent" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding OptionPerfectPercent, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="SmitePercent" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding OptionSmitePercent, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="FrontDamageBoostPercent" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding OptionFrontDamageBoostPercent, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="BackDamageBoostPercent" Style="{StaticResource LabelStyle}"/><TextBox Grid.Column="1" Style="{StaticResource InputStyle}" Text="{Binding OptionBackDamageBoostPercent, UpdateSourceTrigger=PropertyChanged}"/></Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource SectionBorderStyle}" Background="#1B2330" BorderBrush="{StaticResource AccentBrush}">
+                        <StackPanel>
+                            <TextBlock Text="Final output" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,6"/>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="Total Damage" Style="{StaticResource LabelStyle}"/><TextBlock Grid.Column="1" Text="{Binding TotalDamage, StringFormat=N2}" Foreground="{StaticResource PrimaryTextBrush}" FontFamily="{StaticResource MeterMonoFont}" FontWeight="SemiBold" Margin="8,0,0,0"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="Total Damage 2" Style="{StaticResource LabelStyle}"/><TextBlock Grid.Column="1" Text="{Binding TotalDamage2, StringFormat=N2}" Foreground="{StaticResource PrimaryTextBrush}" FontFamily="{StaticResource MeterMonoFont}" FontWeight="SemiBold" Margin="8,0,0,0"/></Grid>
+                            <Grid Style="{StaticResource RowGridStyle}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Text="Damage gain %" Style="{StaticResource LabelStyle}"/><TextBlock Grid.Column="1" Text="{Binding DamageGainPercent, StringFormat={}{0:N2}%}" Foreground="#7EE787" FontFamily="{StaticResource MeterMonoFont}" FontWeight="Bold" Margin="8,0,0,0"/></Grid>
+                            <TextBlock Text="{Binding EffectiveAttackPowerChangeText}"
+                                       Foreground="{StaticResource AccentBrush}"
+                                       FontWeight="Bold"
+                                       FontSize="14"
+                                       FontFamily="{StaticResource MeterMonoFont}"
+                                       Margin="0,8,0,0"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</Window>

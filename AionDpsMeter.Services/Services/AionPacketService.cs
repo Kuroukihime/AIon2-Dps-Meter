@@ -24,6 +24,7 @@ namespace AionDpsMeter.Services.Services
 
         public event EventHandler<PlayerDamage>? DamageReceived;
         public event EventHandler<BuffEvent>? BuffReceived;
+        public event EventHandler<PlayerCharacterStats>? PlayerStatsUpdated;
         public event EventHandler<int>? PingUpdated;
         public event EventHandler<int>? OnPlayerDeath;
 
@@ -53,6 +54,7 @@ namespace AionDpsMeter.Services.Services
             damageProcessor.DamageReceived    += (_, e) => DamageReceived?.Invoke(this, e);
             dotDamageProcessor.DamageReceived += (_, e) => DamageReceived?.Invoke(this, e);
             buffProcessor.BuffReceived        += (_, e) => BuffReceived?.Invoke(this, e);
+            playerStatsProcessor.StatsUpdated += (_, e) => PlayerStatsUpdated?.Invoke(this, e);
             remainHpProcessor.OnPlayerDeath   += (_, e) => OnPlayerDeath?.Invoke(this, e);
 
             IEnumerable<IPacketHandler> handlers =
