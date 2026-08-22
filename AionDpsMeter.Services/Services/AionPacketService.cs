@@ -48,6 +48,7 @@ namespace AionDpsMeter.Services.Services
             var remainHpProcessor = new RemainHpProcessor(entityTracker);
             var buffProcessor       = new BuffPacketProcessor(loggerFactory.CreateLogger<BuffPacketProcessor>());
             var serverTimeProcessor = new ServerTimePacketProcessor();
+            var playerStatsProcessor = new PlayerStatsProcessor(loggerFactory.CreateLogger<PlayerStatsProcessor>());
 
             damageProcessor.DamageReceived    += (_, e) => DamageReceived?.Invoke(this, e);
             dotDamageProcessor.DamageReceived += (_, e) => DamageReceived?.Invoke(this, e);
@@ -65,6 +66,7 @@ namespace AionDpsMeter.Services.Services
                 new RemainHpHandler(remainHpProcessor),
                 new MobSummonHandler(mobProcessor),
                 new BuffPacketHandler(buffProcessor),
+                new PlayerStatsHandler(playerStatsProcessor),
                 new PingPacketHandler(serverTimeProcessor, ping =>
                 {
                     CurrentPingMs = ping;

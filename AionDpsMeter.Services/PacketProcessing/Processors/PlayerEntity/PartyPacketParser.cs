@@ -21,7 +21,6 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors.PlayerEntity
         {
 
 
-            Debug.WriteLine(BitConverter.ToString(packet));
             var r = new PacketReader(packet);
 
             r.ReadVarInt(); //len

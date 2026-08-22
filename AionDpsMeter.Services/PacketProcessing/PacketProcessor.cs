@@ -27,6 +27,7 @@ namespace AionDpsMeter.Services.PacketProcessing
             { (0x33, 0x36), PacketTypeEnum.PLAYER_INFO },
             { (0x45, 0x36), PacketTypeEnum.OTHER_PLAYERS_INFO },
             { (0x20, 0x36), PacketTypeEnum.GLOBAL_SESSID_LINKING },
+            { (0x49, 0x36), PacketTypeEnum.PLAYER_STATS },
             { (0x02, 0x97), PacketTypeEnum.PARTY_INFO },
         };
 

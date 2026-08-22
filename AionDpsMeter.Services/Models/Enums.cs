@@ -9,12 +9,13 @@
         CURRENT_TIME,
         REMAIN_HP,
         MOB_SUMMON,
-        DOT_DAMAGE, 
+        DOT_DAMAGE,
         BUFF_EFFECT,
         PLAYER_INFO,
         OTHER_PLAYERS_INFO,
         PARTY_INFO,
-        GLOBAL_SESSID_LINKING
+        GLOBAL_SESSID_LINKING,
+        PLAYER_STATS
 
     }
 

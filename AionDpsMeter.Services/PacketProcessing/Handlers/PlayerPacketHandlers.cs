@@ -26,4 +26,10 @@ namespace AionDpsMeter.Services.PacketProcessing.Handlers
         public PacketTypeEnum PacketType => PacketTypeEnum.GLOBAL_SESSID_LINKING;
         public void Handle(PacketProcessor.Packet packet) => processor.ProcessGlobalSessionIdLinking(packet.Data);
     }
+
+    internal sealed class PlayerStatsHandler(PlayerStatsProcessor processor) : IPacketHandler
+    {
+        public PacketTypeEnum PacketType => PacketTypeEnum.PLAYER_STATS;
+        public void Handle(PacketProcessor.Packet packet) => processor.ProcessPlayerStats(packet.Data);
+    }
 }
