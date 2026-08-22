@@ -22,6 +22,16 @@
             <converters:BoolToStyle2ProgressBrushConverter x:Key="BoolToStyle2ProgressBrushConverter"/>
 
             <!-- Colors – dark gaming theme -->
+            <FontFamily x:Key="MeterMonoFont">pack://application:,,,/AionDpsMeter.UI;component/Assets/Fonts/#JetBrains Mono</FontFamily>
+
+            <Style TargetType="{x:Type Control}" BasedOn="{StaticResource {x:Type Control}}">
+                <Setter Property="FontFamily" Value="{StaticResource MeterMonoFont}"/>
+            </Style>
+
+            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                <Setter Property="FontFamily" Value="{StaticResource MeterMonoFont}"/>
+            </Style>
+
             <SolidColorBrush x:Key="PrimaryBackgroundBrush"   Color="#0D1117"/>
             <SolidColorBrush x:Key="SecondaryBackgroundBrush" Color="#161B22"/>
             <SolidColorBrush x:Key="TertiaryBackgroundBrush"  Color="#21262D"/>
