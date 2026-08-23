@@ -1,6 +1,8 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
+using System.Globalization;
 
 namespace AionDpsMeter.UI
 {
@@ -72,6 +74,27 @@ namespace AionDpsMeter.UI
             }
         }
 
+        private void NumericInput_PreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (sender is not TextBox textBox)
+                return;
+
+            var currentText = textBox.Text?.Trim() ?? string.Empty;
+            if (string.IsNullOrEmpty(currentText) || currentText is "-" or "." or "-.")
+            {
+                SetNumericValue(textBox, 0d);
+                return;
+            }
+
+            var normalizedText = currentText.Replace(',', '.');
+            if (!double.TryParse(normalizedText, NumberStyles.Float, CultureInfo.InvariantCulture, out var parsedValue)
+                || double.IsNaN(parsedValue)
+                || double.IsInfinity(parsedValue))
+            {
+                SetNumericValue(textBox, 0d);
+            }
+        }
+
         private static string NormalizeIncomingText(TextBox textBox, string text, bool allowNegative)
         {
             var normalized = text.Replace(',', '.');
@@ -105,6 +128,12 @@ namespace AionDpsMeter.UI
             var start = textBox.SelectionStart;
             var length = textBox.SelectionLength;
             return current.Remove(start, length).Insert(start, newText);
+        }
+
+        private static void SetNumericValue(TextBox textBox, double value)
+        {
+            textBox.Text = value.ToString(CultureInfo.InvariantCulture);
+            BindingOperations.GetBindingExpression(textBox, TextBox.TextProperty)?.UpdateSource();
         }
 
         private static bool IsNegativeAllowed(TextBox textBox)

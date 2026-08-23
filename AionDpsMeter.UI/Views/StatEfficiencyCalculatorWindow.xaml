@@ -59,6 +59,7 @@
             <Setter Property="HorizontalContentAlignment" Value="Right"/>
             <EventSetter Event="PreviewTextInput" Handler="NumericInput_PreviewTextInput"/>
             <EventSetter Event="DataObject.Pasting" Handler="NumericInput_Pasting"/>
+            <EventSetter Event="PreviewLostKeyboardFocus" Handler="NumericInput_PreviewLostKeyboardFocus"/>
         </Style>
 
         <Style x:Key="ReadOnlyInputStyle" TargetType="TextBox" BasedOn="{StaticResource InputStyle}">
