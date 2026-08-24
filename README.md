@@ -169,6 +169,12 @@ AionDpsMeter.sln
 
 ---
 
+## Contact
+📧 Email: Kuroyukihimexdd@proton.me
+
+---
+
 ## 📄 License
 
 See [LICENSE](LICENSE) for details.
+
