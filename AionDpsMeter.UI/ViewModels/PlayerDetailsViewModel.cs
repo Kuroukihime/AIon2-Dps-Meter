@@ -154,6 +154,7 @@ namespace AionDpsMeter.UI.ViewModels
             vm.TotalHits                 = player.HitCount;
             vm.CriticalRateDisplay       = player.CritRateDisplay;
             vm.BackAttackRateDisplay     = player.BackAttackRateDisplay;
+            vm.FrontAttackRateDisplay    = player.FrontAttackRateDisplay;
             vm.PerfectRateDisplay        = player.PerfectRateDisplay;
             vm.DoubleDamageRateDisplay   = player.DoubleDamageRateDisplay;
             vm.ParryRateDisplay          = player.ParryRateDisplay;

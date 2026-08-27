@@ -193,6 +193,7 @@ namespace AionDpsMeter.Services.Services.Session
                     Damage         = hit.Damage,
                     IsCritical     = hit.IsCritical,
                     IsBackAttack   = hit.IsBackAttack,
+                    IsFrontAttack  = hit.IsFrontAttack,
                     IsPerfect      = hit.IsPerfect,
                     IsDoubleDamage = hit.IsDoubleDamage,
                     IsParry        = hit.IsParry,
