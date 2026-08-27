@@ -50,12 +50,13 @@ namespace AionDpsMeter.Services.Services
             var buffProcessor       = new BuffPacketProcessor(loggerFactory.CreateLogger<BuffPacketProcessor>());
             var serverTimeProcessor = new ServerTimePacketProcessor();
             var playerStatsProcessor = new PlayerStatsProcessor(loggerFactory.CreateLogger<PlayerStatsProcessor>());
+            var entityDeathProcessor = new EntityDeathProcessor(entityTracker);
 
             damageProcessor.DamageReceived    += (_, e) => DamageReceived?.Invoke(this, e);
             dotDamageProcessor.DamageReceived += (_, e) => DamageReceived?.Invoke(this, e);
             buffProcessor.BuffReceived        += (_, e) => BuffReceived?.Invoke(this, e);
             playerStatsProcessor.StatsUpdated += (_, e) => PlayerStatsUpdated?.Invoke(this, e);
-            remainHpProcessor.OnPlayerDeath   += (_, e) => OnPlayerDeath?.Invoke(this, e);
+            entityDeathProcessor.OnPlayerDeath   += (_, e) => OnPlayerDeath?.Invoke(this, e);
 
             IEnumerable<IPacketHandler> handlers =
             [
@@ -69,6 +70,7 @@ namespace AionDpsMeter.Services.Services
                 new MobSummonHandler(mobProcessor),
                 new BuffPacketHandler(buffProcessor),
                 new PlayerStatsHandler(playerStatsProcessor),
+                new EntityDeathHandler(entityDeathProcessor),
                 new PingPacketHandler(serverTimeProcessor, ping =>
                 {
                     CurrentPingMs = ping;

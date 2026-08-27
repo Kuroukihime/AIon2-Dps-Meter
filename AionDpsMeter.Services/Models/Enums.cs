@@ -15,7 +15,8 @@
         OTHER_PLAYERS_INFO,
         PARTY_INFO,
         GLOBAL_SESSID_LINKING,
-        PLAYER_STATS
+        PLAYER_STATS,
+        ENTITY_DEATH
 
     }
 

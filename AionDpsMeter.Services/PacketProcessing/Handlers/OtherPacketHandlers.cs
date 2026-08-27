@@ -27,4 +27,12 @@ namespace AionDpsMeter.Services.PacketProcessing.Handlers
             onPing(ping);
         }
     }
+
+    internal sealed class EntityDeathHandler(EntityDeathProcessor processor) : IPacketHandler
+    {
+        public PacketTypeEnum PacketType => PacketTypeEnum.ENTITY_DEATH;
+        public void Handle(PacketProcessor.Packet packet) => processor.ProcessEntityDeath(packet.Data);
+
+    }
+
 }

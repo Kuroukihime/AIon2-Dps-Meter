@@ -5,7 +5,6 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors
 {
     internal class RemainHpProcessor(EntityTracker entityTracker)
     {
-        public event EventHandler<int>? OnPlayerDeath;
 
         public void ProcessRemainHp(byte[] data)
         {
@@ -18,14 +17,8 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors
             var hpCurrent = data.ReadUInt32Le(offset);
             entityTracker.UpdateTargetEntityHpCurrent(entityIdInfo.Value, hpCurrent);
 
-            if (entityTracker.IsIndentifiedPlayer(entityIdInfo.Value)) ProcessPlayerHp(entityIdInfo.Value, hpCurrent);
-
+            
         }
 
-        private void ProcessPlayerHp(int playerId, int hpCurrent)
-        {
-            if (hpCurrent != 0) return;
-            OnPlayerDeath?.Invoke(this, playerId);
-        }
     }
 }
