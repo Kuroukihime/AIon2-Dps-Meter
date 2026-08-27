@@ -69,7 +69,8 @@ namespace AionDpsMeter.Services.Services.Session
         public void ProcessBuffEvent(BuffEvent buffEvent)
         {
             if (IsCompleted) return;
-            if (buffEvent.AppliedAt < SessionStart) return;
+            var buffEnd = buffEvent.AppliedAt.AddMilliseconds(buffEvent.DurationMs);
+            if (buffEnd <= SessionStart) return;
             buffEventManager.Add(buffEvent);
         }
 

@@ -18,6 +18,7 @@ namespace AionDpsMeter.Services.Services.Session
         private readonly IAppSettingsService settingsService;
         private readonly ICombatHistoryStore historyStore;
         private PlayerStatSnapshot? latestPlayerStatSnapshot;
+        private readonly List<BuffEvent> activeBuffBacklog = new();
 
 
         public CombatSessionManager(
@@ -263,6 +264,8 @@ namespace AionDpsMeter.Services.Services.Session
             {
                 lock (lockObject)
                 {
+                    activeBuffBacklog.RemoveAll(b => b.AppliedAt.AddMilliseconds(b.DurationMs) <= buffEvent.AppliedAt);
+                    activeBuffBacklog.Add(buffEvent);
 
                     foreach (var targetEntry in AllTargetEntries)
                     {
@@ -308,7 +311,30 @@ namespace AionDpsMeter.Services.Services.Session
                 damageEvent.TargetEntity.Id,
                 id => new TargetEntry(id, entityTracker, settingsService, OnSessionCompleted));
 
+            var previousSession = entry.CurrentSession;
             entry.AddDamage(damageEvent);
+            var currentSession = entry.CurrentSession;
+
+            if (!ReferenceEquals(previousSession, currentSession) && currentSession is not null)
+            {
+                ReplayPreCombatBuffs(currentSession);
+            }
+        }
+
+        private void ReplayPreCombatBuffs(TargetCombatSession session)
+        {
+            var sessionStart = session.SessionStart;
+            foreach (var buff in activeBuffBacklog)
+            {
+                if (buff.AppliedAt >= sessionStart)
+                    continue;
+
+                var buffEnd = buff.AppliedAt.AddMilliseconds(buff.DurationMs);
+                if (buffEnd <= sessionStart)
+                    continue;
+
+                session.ProcessBuffEvent(buff);
+            }
         }
 
         private void OnSessionCompleted(TargetCombatSession session)
@@ -399,6 +425,7 @@ namespace AionDpsMeter.Services.Services.Session
             targetEntries.Clear();
             targetResolver.Reset();
             latestPlayerStatSnapshot = null;
+            activeBuffBacklog.Clear();
         }
 
         private void OnSummonRegistered(int summonId, int ownerId)
