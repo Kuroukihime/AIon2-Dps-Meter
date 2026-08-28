@@ -29,6 +29,7 @@ namespace AionDpsMeter.Services.PacketProcessing
             { (0x20, 0x36), PacketTypeEnum.GLOBAL_SESSID_LINKING },
             { (0x49, 0x36), PacketTypeEnum.PLAYER_STATS },
             { (0x02, 0x97), PacketTypeEnum.PARTY_INFO },
+            { (0x04, 0x8D), PacketTypeEnum.ENTITY_DEATH },
         };
 
         internal List<Packet> ProcessPacket(byte[] packet)

@@ -349,6 +349,11 @@ namespace AionDpsMeter.UI.Views.Controls
                     idxMap[e.BuffId] = ri;
                     rows.Add(new BuffRow(e.BuffId, e.BuffName, e.BuffIcon, colorI++ % BuffPalette.Length, e.Count, []));
                 }
+                else
+                {
+                    var existing = rows[ri];
+                    rows[ri] = existing with { count = existing.count + e.Count };
+                }
                 rows[ri].Segs.Add((e.StartSec, e.EndSec));
             }
             return rows;
