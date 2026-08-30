@@ -13,7 +13,7 @@ namespace AionDpsMeter.Services.Services.Session
     public sealed class TargetEntry
     {
         private static readonly TimeSpan IdleTimeout = TimeSpan.FromSeconds(45);
-        private static readonly TimeSpan ScarecrowIdleTimeout = TimeSpan.FromSeconds(5);
+        private static readonly TimeSpan ScarecrowIdleTimeout = TimeSpan.FromSeconds(10);
 
         private readonly EntityTracker entityTracker;
         private readonly Action<TargetCombatSession>? onSessionCompleted;
@@ -87,7 +87,7 @@ namespace AionDpsMeter.Services.Services.Session
         {
             if (CurrentSession is null || CurrentSession.IsCompleted) return false;
 
-            if(currentMobState?.Name == "Training Scarecrow") 
+            if(currentMobState?.IsDummy == true) 
                 return now - CurrentSession.LastHitTime > ScarecrowIdleTimeout;
 
             return now - CurrentSession.LastHitTime > IdleTimeout;

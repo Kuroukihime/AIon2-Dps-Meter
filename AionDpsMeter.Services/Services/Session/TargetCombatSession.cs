@@ -2,6 +2,7 @@
 using AionDpsMeter.Services.Models;
 using AionDpsMeter.Services.Services.Entity;
 using AionDpsMeter.Services.Services.Settings;
+using System.Data;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace AionDpsMeter.Services.Services.Session
@@ -45,6 +46,9 @@ namespace AionDpsMeter.Services.Services.Session
 
         public void AddDamage(PlayerDamage damage)
         {
+            if (settingsService.OneMinuteDummyMode && TargetInfo.IsDummy && IsOneMinuteModeComplete())
+                return;
+
             if (!playerSessions.TryGetValue(damage.SourceEntity.Id, out var session))
             {
                 session = new PlayerSession(damage.SourceEntity.Id, entityTracker);
@@ -65,6 +69,13 @@ namespace AionDpsMeter.Services.Services.Session
             session.RegisterPlayerDeath();
         }
 
+        private bool IsOneMinuteModeComplete()
+        {
+            if (LastHitTime - SessionStart > TimeSpan.FromMinutes(1)) return true;
+            return false;
+        }
+
+
 
         public void ProcessBuffEvent(BuffEvent buffEvent)
         {
@@ -78,7 +89,7 @@ namespace AionDpsMeter.Services.Services.Session
         public bool IsNewTry()
         {
             
-            if (TargetInfo.Name == "Training Scarecrow") return false;
+            if (TargetInfo.IsDummy) return false;
             if (LastKnownTargetHp == -1) return false;
             if (TargetInfo.HpCurrent > LastKnownTargetHp && (DateTime.Now - LastHitTime) > TimeSpan.FromSeconds(5)) return true;
             return false;

@@ -15,6 +15,8 @@ namespace AionDpsMeter.Core.Models
         public new string Name => GameDataProvider.Instance.GetMobName(MobCode);
         public bool IsBoss => GameDataProvider.Instance.IsBoss(MobCode);
 
+        public bool IsDummy => GameDataProvider.Instance.IsDummy(MobCode);
+
         private string GetMobName()
         {
             if (GameDataProvider.Instance.IsKnownMob(MobCode)) return GameDataProvider.Instance.GetMobName(MobCode);

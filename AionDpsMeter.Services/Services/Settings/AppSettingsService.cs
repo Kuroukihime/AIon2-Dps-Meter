@@ -390,6 +390,22 @@ namespace AionDpsMeter.Services.Services.Settings
             }
         }
 
+        public bool OneMinuteDummyMode
+        {
+            get { lock (_lock) return _data.OneMinuteDummyMode; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    changed = _data.OneMinuteDummyMode != value;
+                    _data.OneMinuteDummyMode = value;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         private AppSettingsData Load()
         {
             try
@@ -454,6 +470,9 @@ namespace AionDpsMeter.Services.Services.Settings
 
             [JsonPropertyName("groupSummonDamage")]
             public bool GroupSummonDamage { get; set; } = true;
+
+            [JsonPropertyName("oneMinuteDummyMode")]
+            public bool OneMinuteDummyMode { get; set; }
 
             [JsonPropertyName("showPlayerDeaths")]
             public bool ShowPlayerDeaths { get; set; } = true;
