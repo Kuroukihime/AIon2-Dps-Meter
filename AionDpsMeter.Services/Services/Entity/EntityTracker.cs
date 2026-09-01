@@ -101,7 +101,7 @@ namespace AionDpsMeter.Services.Services.Entity
             foreach (var kvp in toRemove) sessionPlayers.Remove(kvp.Key);
         }
 
-        public void SetSessionPlayerName(int sessionId, string name, string serverName = "", bool isUser = false)
+        public void SetSessionPlayerName(int sessionId, string name, int combatPower, string serverName = "", bool isUser = false)
         {
             if (sessionPlayers.TryGetValue(sessionId, out var existing) && existing.IsIdentified && existing.Name != name)
             {
@@ -114,6 +114,7 @@ namespace AionDpsMeter.Services.Services.Entity
             var player = GetOrCreateSessionPlayer(sessionId);
 
             player.Name = name;
+            player.CombatPower = combatPower;
             if (!string.IsNullOrEmpty(serverName)) player.ServerName = serverName;
             player.IsIdentified = true;
             player.IsUser = isUser || name == currentUserName;

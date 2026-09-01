@@ -14,6 +14,9 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors.PlayerEntity
         private readonly ILogger<PlayerProcessor> logger;
 
         private const int MaxNameLength = 72;
+        private const ulong MinCombatPower = 10_000;
+        private const ulong MaxCombatPower = 2_000_000;
+        private const int CombatPowerScanWindow = 256;
 
         public PlayerProcessor(EntityTracker entityTracker, ILogger<PlayerProcessor> logger)
         {
@@ -21,19 +24,20 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors.PlayerEntity
             this.logger = logger;
         }
 
-        private readonly record struct PlayerInfoResult(int EntityId, string Name, int ServerId, int JobCode);
+        private readonly record struct PlayerInfoResult(int EntityId, string Name, int ServerId, int JobCode, int CombatPower);
         private readonly record struct NameReadResult(string Name, int EndOffset);
 
         public void ProcessPlayerInfo(byte[] packet)
         {
             if (!TryParseInfoTag1(packet, packet.Length, out PlayerInfoResult result)) return;
-            entityTracker.SetSessionPlayerName(result.EntityId, result.Name, ServerMap.GetName(result.ServerId), true);
+            entityTracker.SetSessionPlayerName(result.EntityId, result.Name, result.CombatPower, ServerMap.GetName(result.ServerId), true);
+           
         }
 
         public void ProcessOtherPlayersInfo(byte[] packet)
         {
             if (!TryParseInfoTag2(packet, packet.Length, out PlayerInfoResult result2)) return;
-            entityTracker.SetSessionPlayerName(result2.EntityId, result2.Name, ServerMap.GetName(result2.ServerId));
+            entityTracker.SetSessionPlayerName(result2.EntityId, result2.Name,0, ServerMap.GetName(result2.ServerId));
         }
 
         public void ProcessGlobalSessionIdLinking(byte[] packet)
@@ -118,7 +122,8 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors.PlayerEntity
             int serverId = afterNameOffset + 2 <= endOffset ? data[afterNameOffset] | (data[afterNameOffset + 1] << 8) : -1;
             int jobCode = afterNameOffset + 3 <= endOffset ? data[afterNameOffset + 2] : -1;
 
-            result = new PlayerInfoResult(entityId, nameRead.Value.Name, serverId, jobCode);
+            int combatPower = TryParseCombatPower(data, endOffset, out int parsedCombatPower) ? parsedCombatPower : 0;
+            result = new PlayerInfoResult(entityId, nameRead.Value.Name, serverId, jobCode, combatPower);
             return true;
         }
 
@@ -142,8 +147,36 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors.PlayerEntity
             else afterNameOffset += jobCodeVarInt.Length;
 
             int serverId = FindServerId(data, afterNameOffset, endOffset, ServerMap.Servers.Keys.ToHashSet());
-            result = new PlayerInfoResult(entityId, nameRead.Value.Name, serverId, jobCode);
+            result = new PlayerInfoResult(entityId, nameRead.Value.Name, serverId, jobCode,0);
             return true;
+        }
+
+        private static bool TryParseCombatPower(byte[] data, int endOffset, out int combatPower)
+        {
+            combatPower = 0;
+            const int pairSize = sizeof(ulong) * 2;
+            if (endOffset < pairSize) return false;
+
+            int startOffset = endOffset - pairSize;
+            int minOffset = Math.Max(0, startOffset - (CombatPowerScanWindow - 1));
+
+            for (int offset = startOffset; offset >= minOffset; offset--)
+            {
+                ulong currentCombatPower = data.ReadUInt64Le(offset);
+                ulong highestCombatPower = data.ReadUInt64Le(offset + sizeof(ulong));
+
+                bool isCurrentInRange = currentCombatPower >= MinCombatPower && currentCombatPower <= MaxCombatPower;
+                bool isHighestInRange = highestCombatPower >= MinCombatPower && highestCombatPower <= MaxCombatPower;
+
+                if (!isCurrentInRange || !isHighestInRange) continue;
+                if (currentCombatPower > highestCombatPower) continue;
+
+                combatPower = (int)currentCombatPower;
+
+                return true;
+            }
+
+            return false;
         }
 
         private NameReadResult? ReadPlayerName(byte[] data, int start, int endOffset)

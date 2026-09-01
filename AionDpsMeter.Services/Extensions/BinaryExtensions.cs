@@ -42,6 +42,19 @@ namespace AionDpsMeter.Services.Extensions
                 return bytes[offset] | (bytes[offset + 1] << 8) | (bytes[offset + 2] << 16) | (bytes[offset + 3] << 24);
             }
 
+            public ulong ReadUInt64Le(int offset)
+            {
+                if (offset + 8 > bytes.Length) return 0;
+                return (ulong)bytes[offset]
+                       | ((ulong)bytes[offset + 1] << 8)
+                       | ((ulong)bytes[offset + 2] << 16)
+                       | ((ulong)bytes[offset + 3] << 24)
+                       | ((ulong)bytes[offset + 4] << 32)
+                       | ((ulong)bytes[offset + 5] << 40)
+                       | ((ulong)bytes[offset + 6] << 48)
+                       | ((ulong)bytes[offset + 7] << 56);
+            }
+
             public int ReadUInt24Le(int offset)
             {
                 if (offset + 3 > bytes.Length) return 0;

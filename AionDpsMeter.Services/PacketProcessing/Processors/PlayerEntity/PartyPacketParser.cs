@@ -20,7 +20,6 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors.PlayerEntity
         public static PartyPacket Parse(byte[] packet, int offset = 0)
         {
 
-
             var r = new PacketReader(packet);
 
             r.ReadVarInt(); //len
