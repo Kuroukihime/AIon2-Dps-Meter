@@ -1,32 +1,36 @@
 using AionDpsMeter.Core.Data;
 using AionDpsMeter.Core.Models;
 using AionDpsMeter.Services.Models;
+using AionDpsMeter.Services.PacketProcessing.Routing;
 using AionDpsMeter.Services.PacketProcessing.Shared;
 using AionDpsMeter.Services.Services.Entity;
+using AionDpsMeter.Services.Services.Session;
 using Microsoft.Extensions.Logging;
 
-namespace AionDpsMeter.Services.PacketProcessing.Processors.Damage
+namespace AionDpsMeter.Services.PacketProcessing.Processors
 {
-    internal sealed class DotDamagePacketProcessor
+    [PacketOpcode(PacketOpcodes.DotDamage)]
+    public sealed class DotDamagePacketProcessor : IOpcodeProcessor
     {
         public event EventHandler<PlayerDamage>? DamageReceived;
 
         private readonly GameDataProvider gameData;
         private readonly EntityTracker entityTracker;
+        private readonly CombatSessionManager sessionManager;
         private readonly ILogger<DotDamagePacketProcessor> logger;
 
-        public DotDamagePacketProcessor(EntityTracker entityTracker, ILogger<DotDamagePacketProcessor> logger)
+        public DotDamagePacketProcessor(EntityTracker entityTracker, CombatSessionManager sessionManager, ILogger<DotDamagePacketProcessor> logger)
         {
             this.entityTracker = entityTracker ?? throw new ArgumentNullException(nameof(entityTracker));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.gameData = GameDataProvider.Instance;
+            this.sessionManager = sessionManager;
+
         }
 
-        public void Process(byte[] packet)
+        public void Process(Packet packet)
         {
-
-
-            var reader = new PacketReader(packet);
+            var reader = new PacketReader(packet.Data);
 
             reader.ReadVarInt(); //len
             reader.ReadU16();    //opcode
@@ -69,7 +73,7 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors.Damage
                 characterClass = player.CharacterClass;
             }
 
-            DamageReceived?.Invoke(this, new PlayerDamage
+            var dmg =  new PlayerDamage
             {
                 DateTime = DateTime.Now,
                 SourceEntity = entityTracker.GetOrCreateSessionPlayer((int)actorId, characterClass),
@@ -78,7 +82,11 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors.Damage
                 CharacterClass = characterClass,
                 Damage = damage,
                 IsDot = true,
-            });
+            };
+
+            sessionManager.ProcessDamageEvent(dmg);
         }
+
+      
     }
 }

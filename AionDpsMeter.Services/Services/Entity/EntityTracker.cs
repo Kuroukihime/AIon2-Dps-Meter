@@ -114,7 +114,7 @@ namespace AionDpsMeter.Services.Services.Entity
             var player = GetOrCreateSessionPlayer(sessionId);
 
             player.Name = name;
-            player.CombatPower = combatPower;
+            if(combatPower > 0) player.CombatPower = combatPower;
             if (!string.IsNullOrEmpty(serverName)) player.ServerName = serverName;
             player.IsIdentified = true;
             player.IsUser = isUser || name == currentUserName;

@@ -1,45 +1,19 @@
 ﻿using AionDpsMeter.Services.Extensions;
-using AionDpsMeter.Services.Models;
+using AionDpsMeter.Services.PacketProcessing.Routing;
 using K4os.Compression.LZ4;
 using Microsoft.Extensions.Logging;
 
 namespace AionDpsMeter.Services.PacketProcessing
 {
-    internal class PacketProcessor(ILogger<PacketProcessor> logger)
+    public sealed class PacketProcessor(ILogger<PacketProcessor> logger)
     {
-        internal struct Packet
-        {
-            public PacketTypeEnum Type;
-            public byte[] Data;
-            public long ReceivedAt;
-        }
-
-        private static readonly Dictionary<(byte, byte), PacketTypeEnum> OpcodeMap = new()
-        {
-            { (0x04, 0x38), PacketTypeEnum.DAMAGE },
-            { (0x05, 0x38), PacketTypeEnum.DOT_DAMAGE },
-            { (0xFF, 0xFF), PacketTypeEnum.COMPRESSED_STREAM },
-            { (0x03, 0x36), PacketTypeEnum.CURRENT_TIME },
-            { (0x00, 0x8D), PacketTypeEnum.REMAIN_HP },
-            { (0x41, 0x36), PacketTypeEnum.MOB_SUMMON },
-            { (0x2A, 0x38), PacketTypeEnum.BUFF_EFFECT },
-            { (0x2B, 0x38), PacketTypeEnum.BUFF_EFFECT },
-            { (0x33, 0x36), PacketTypeEnum.PLAYER_INFO },
-            { (0x45, 0x36), PacketTypeEnum.OTHER_PLAYERS_INFO },
-            { (0x20, 0x36), PacketTypeEnum.GLOBAL_SESSID_LINKING },
-            { (0x49, 0x36), PacketTypeEnum.PLAYER_STATS },
-            { (0x02, 0x97), PacketTypeEnum.PARTY_INFO },
-            { (0x04, 0x8D), PacketTypeEnum.ENTITY_DEATH },
-        };
-
+        
         internal List<Packet> ProcessPacket(byte[] packet)
         {
             try
             {
-                var type = DeterminePacketType(packet);
-
-                if (type != PacketTypeEnum.COMPRESSED_STREAM)
-                    return [new Packet { Type = type, Data = packet }];
+                if (!IsCompressedStream(packet))
+                    return [new Packet { Data = packet }];
 
                 return ExtractInnerPackets(packet);
             }
@@ -50,14 +24,17 @@ namespace AionDpsMeter.Services.PacketProcessing
             }
         }
 
-        private static PacketTypeEnum DeterminePacketType(byte[] packet)
+        private static bool IsCompressedStream(byte[] packet)
         {
-            var lenValueLength = packet.ReadVarInt().Length;
-            if (lenValueLength < 0 || packet.Length < lenValueLength + 2)
-                return PacketTypeEnum.BROKEN;
+            if (packet.Length < 3) return false;
 
-            var key = (packet[lenValueLength], packet[lenValueLength + 1]);
-            return OpcodeMap.GetValueOrDefault(key, PacketTypeEnum.UNKNOWN);
+            var lenVarInt = packet.ReadVarInt();
+            if (lenVarInt.Length <= 0) return false;
+
+            int opcodeOffset = lenVarInt.Length;
+            return packet.Length >= opcodeOffset + 2
+                   && packet[opcodeOffset] == 0xFF
+                   && packet[opcodeOffset + 1] == 0xFF;
         }
 
         private List<Packet> ExtractInnerPackets(byte[] rawPacket)
@@ -74,8 +51,13 @@ namespace AionDpsMeter.Services.PacketProcessing
                 {
                     try
                     {
-                        if (TryDecompress(buf.AsSpan(), frame.FrameBase, frame.FramePayloadLen,
-                                frame.VarintLen, out byte[]? decompressed, out int decompressedLen))
+                        if (TryDecompress(
+                                buf.AsSpan(),
+                                frame.FrameBase,
+                                frame.FramePayloadLen,
+                                frame.VarintLen,
+                                out var decompressed,
+                                out int decompressedLen))
                         {
                             stack.Push((decompressed!, 0, decompressedLen));
                         }
@@ -94,13 +76,13 @@ namespace AionDpsMeter.Services.PacketProcessing
             return result;
         }
 
-        private void CollectPlainFrame(byte[] buf, FrameInfo frame, List<Packet> result)
+        private static void CollectPlainFrame(byte[] buf, FrameInfo frame, List<Packet> result)
         {
             int dataLen = frame.FramePayloadLen - frame.VarintLen;
             if (dataLen <= 0) return;
 
             byte[] frameBytes = buf.AsSpan(frame.FrameBase, dataLen + frame.VarintLen).ToArray();
-            result.Add(new Packet { Type = DeterminePacketType(frameBytes), Data = frameBytes });
+            result.Add(new Packet { Data = frameBytes });
         }
 
         private readonly record struct FrameInfo(int FrameBase, int FramePayloadLen, int VarintLen);
@@ -145,13 +127,15 @@ namespace AionDpsMeter.Services.PacketProcessing
 
         private static bool TryDecompress(
             ReadOnlySpan<byte> raw,
-            int frameBase, int framePayloadLen, int varintLen,
-            out byte[]? decompressed, out int decompressedLen)
+            int frameBase,
+            int framePayloadLen,
+            int varintLen,
+            out byte[]? decompressed,
+            out int decompressedLen)
         {
             decompressed = null;
             decompressedLen = 0;
 
-            // Step 1: optional flag-byte skip
             int headerOffset = varintLen;
 
             if (headerOffset < framePayloadLen)
@@ -161,12 +145,10 @@ namespace AionDpsMeter.Services.PacketProcessing
                     headerOffset++;
             }
 
-            // Step 2: check for 0xFF 0xFF compressed marker
             if (framePayloadLen < headerOffset + 2) return false;
             if (raw[frameBase + headerOffset] != 0xFF || raw[frameBase + headerOffset + 1] != 0xFF)
                 return false;
 
-            // Step 3: read 4-byte LE decompressed size
             if (framePayloadLen < headerOffset + 6) return false;
 
             int decompBase = frameBase + headerOffset;
@@ -178,12 +160,10 @@ namespace AionDpsMeter.Services.PacketProcessing
 
             if ((uint)(size - 1) > 0x98967F) return false;
 
-            // Step 4: locate compressed payload
             int compPayloadOffset = headerOffset + 6;
             int compPayloadLen = framePayloadLen - compPayloadOffset;
             if (compPayloadLen <= 0) return false;
 
-            // Step 5: decompress
             byte[] output = new byte[size];
             int actual = LZ4Codec.Decode(
                 raw.Slice(frameBase + compPayloadOffset, compPayloadLen),

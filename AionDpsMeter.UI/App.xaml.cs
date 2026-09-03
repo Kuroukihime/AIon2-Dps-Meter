@@ -49,8 +49,11 @@ namespace AionDpsMeter.UI
                     services.AddSingleton<IPacketCaptureDevice, CaptureDevice>();
 
                     services.AddSingleton<EntityTracker>();
-                    services.AddSingleton<IPacketService, AionPacketService>();
                     services.AddSingleton<CombatSessionManager>();
+                    services.AddPacketProcessingRouting();
+                    services.AddSingleton<IPacketService, PacketPipelineService>();
+
+                   
                     services.AddSingleton<SettingsViewModel>();
                     services.AddSingleton<MainViewModel>();
                     services.AddSingleton<MainWindow>();

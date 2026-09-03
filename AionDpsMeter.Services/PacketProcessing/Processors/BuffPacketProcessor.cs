@@ -1,81 +1,60 @@
 using AionDpsMeter.Core.Data;
 using AionDpsMeter.Core.Models;
-using AionDpsMeter.Services.Extensions;
+using AionDpsMeter.Services.PacketProcessing.Routing;
+using AionDpsMeter.Services.PacketProcessing.Shared;
+using AionDpsMeter.Services.Services.Session;
 using Microsoft.Extensions.Logging;
 
 namespace AionDpsMeter.Services.PacketProcessing.Processors
 {
-    internal sealed class BuffPacketProcessor
+    [PacketOpcode(PacketOpcodes.BuffEffectA)]
+    [PacketOpcode(PacketOpcodes.BuffEffectB)]
+    public sealed class BuffPacketProcessor : IOpcodeProcessor
     {
-        public event EventHandler<BuffEvent>? BuffReceived;
 
         private const uint MaxReasonableBuffDurationMs = 3_600_000;
 
         private readonly GameDataProvider gameData;
         private readonly ILogger<BuffPacketProcessor> logger;
+        private readonly CombatSessionManager sessionManager;
 
-        public BuffPacketProcessor(ILogger<BuffPacketProcessor> logger)
+        public BuffPacketProcessor(ILogger<BuffPacketProcessor> logger, CombatSessionManager sessionManager)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.gameData = GameDataProvider.Instance;
+            this.sessionManager = sessionManager;
+
         }
 
-        public void Process(byte[] packet)
+        public void Process(Packet packet)
         {
-            int offset = 0;
-            int packetEnd = packet.Length;
+            var r = new PacketReader(packet.Data);
 
-            var packetLenVarInt = packet.ReadVarInt(offset);
-            if (packetLenVarInt.Length <= 0) return;
-            offset += packetLenVarInt.Length + 2;
-            if (offset >= packetEnd) return;
+            r.ReadVarInt(); //len
+            r.ReadU16();    //opcode
 
-            var entityIdVarInt = packet.ReadVarInt(offset);
-            if (entityIdVarInt.Length <= 0 || entityIdVarInt.Value < 0) return;
-            offset += entityIdVarInt.Length;
-            int entityId = entityIdVarInt.Value;
-            if (offset >= packetEnd) return;
-
-            offset++; // skip unknown byte
-            if (offset >= packetEnd) return;
-            byte type = packet[offset++];
-
-            var unknownVarInt = packet.ReadVarInt(offset);
-            if (unknownVarInt.Length <= 0) return;
-            offset += unknownVarInt.Length;
-            if (offset >= packetEnd) return;
-
-            if (offset + 4 > packetEnd) return;
-            int buffId = packet.ReadUInt32Le(offset) / 10 ;
-            offset += 4;
+            var entityId = (int)r.ReadVarInt();
+            r.ReadU8();     //unknown
+            byte type = r.ReadU8();
+            r.ReadVarInt(); //unknown
+            var buffId =(int)r.ReadU32() / 10;
 
             if (!gameData.IsBuff(buffId)) return;
             var skill = gameData.GetSkillOrDefault(buffId);
-            
 
-            if (offset + 4 > packetEnd) return;
-            uint durationMs = (uint)packet.ReadUInt32Le(offset);
-            offset += 4;
+            var durationMs = r.ReadU32();
             if (durationMs < 100 || durationMs > MaxReasonableBuffDurationMs) return;
 
-            if (offset + 4 > packetEnd) return;
-            offset += 4; // skip unknown bytes
+            r.Skip(4); //unknown data
 
-            if (offset + 8 > packetEnd) return;
-            offset += 8; // skip timestamp
+            r.ReadU32(); //timestamp
 
-            int casterId = 0;
-            if (offset < packetEnd)
-            {
-                var casterVarInt = packet.ReadVarInt(offset);
-                if (casterVarInt.Length > 0 && casterVarInt.Value >= 0)
-                    casterId = casterVarInt.Value;
-            }
+            var casterId = (int)r.ReadVarInt();
 
             logger.LogTrace("[BUFF] entityId={EntityId} buffId={BuffId} buffName={BuffName} type={Type} durationMs={DurationMs} casterId={CasterId}",
                 entityId, buffId, skill.Name, type, durationMs, casterId);
 
-            BuffReceived?.Invoke(this, new BuffEvent
+            var buffEvent = new BuffEvent
             {
                 EntityId = entityId,
                 BuffId = skill.Id,
@@ -85,7 +64,11 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors
                 DurationMs = durationMs,
                 AppliedAt = DateTime.Now,
                 CasterId = casterId,
-            });
+            };
+
+            sessionManager.ProcessBuffEvent(buffEvent);
         }
+
+       
     }
 }

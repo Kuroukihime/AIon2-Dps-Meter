@@ -1,15 +1,17 @@
 ﻿using AionDpsMeter.Core.Models;
-using System.Collections.Concurrent;
-using Microsoft.Extensions.Logging;
 using AionDpsMeter.Services.Models;
 using AionDpsMeter.Services.Services.Entity;
 using AionDpsMeter.Services.Services.Session.Persistence;
 using AionDpsMeter.Services.Services.Settings;
+using Microsoft.Extensions.Logging;
+using System.Collections.Concurrent;
 
 namespace AionDpsMeter.Services.Services.Session
 {
     public sealed class CombatSessionManager
     {
+        public event EventHandler<int>? PingUpdated;
+
         private readonly ConcurrentDictionary<int, TargetEntry> targetEntries = new();
         private readonly ActiveTargetResolver targetResolver;
         private readonly EntityTracker entityTracker;
@@ -35,8 +37,11 @@ namespace AionDpsMeter.Services.Services.Session
             entityTracker.SummonRegistered += OnSummonRegistered;
         }
 
-      
 
+        public void FirePingUpdate(int pingMs)
+        {
+            PingUpdated?.Invoke(this, pingMs);
+        }
       
         public TargetCombatSession? GetActiveTargetSession()
         {

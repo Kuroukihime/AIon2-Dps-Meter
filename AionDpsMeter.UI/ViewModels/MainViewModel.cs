@@ -50,11 +50,7 @@ namespace AionDpsMeter.UI.ViewModels
             _updateChecker = updateChecker;
             _dispatcher = Dispatcher.CurrentDispatcher;
 
-            _packetService.DamageReceived += OnPacketReceived;
-            _packetService.OnPlayerDeath += OnPlayerDeath;
-            _packetService.BuffReceived += OnBuffReceived;
-            _packetService.PlayerStatsUpdated += OnPlayerStatsUpdated;
-            _packetService.PingUpdated += OnPingUpdated;    
+            SessionManager.PingUpdated += OnPingUpdated;    
             // UI refresh at ~30 FPS
             _updateTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(33) };
             _updateTimer.Tick += OnUpdateTimerTick;
@@ -117,18 +113,6 @@ namespace AionDpsMeter.UI.ViewModels
             ClearUiState();
         }
 
-        private void OnPacketReceived(object? sender, PlayerDamage damageEvent)
-            => _sessionManager.ProcessDamageEvent(damageEvent);
-
-        private void OnPlayerDeath(object? sender, int playerId)
-            => _sessionManager.RegisterPlayerDeath(playerId);
-
-
-        private void OnBuffReceived(object? sender, BuffEvent buffEvent)
-            => _sessionManager.ProcessBuffEvent(buffEvent);
-
-        private void OnPlayerStatsUpdated(object? sender, PlayerCharacterStats stats)
-            => _sessionManager.ProcessPlayerStatsUpdate(stats);
 
         private void OnCombatAutoReset(object? sender, EventArgs e)
             => _dispatcher.BeginInvoke(ClearUiState);
@@ -232,10 +216,7 @@ namespace AionDpsMeter.UI.ViewModels
 
         public void Dispose()
         {
-            _packetService.DamageReceived   -= OnPacketReceived;
-            _packetService.BuffReceived     -= OnBuffReceived;
-            _packetService.PlayerStatsUpdated -= OnPlayerStatsUpdated;
-            _packetService.PingUpdated      -= OnPingUpdated;
+            SessionManager.PingUpdated      -= OnPingUpdated;
             _updateTimer?.Stop();
 
             if (_packetService is IDisposable disposable)

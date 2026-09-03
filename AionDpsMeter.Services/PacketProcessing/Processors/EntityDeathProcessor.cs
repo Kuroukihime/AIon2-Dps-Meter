@@ -1,23 +1,24 @@
-﻿using AionDpsMeter.Services.PacketProcessing.Shared;
+﻿using AionDpsMeter.Services.PacketProcessing.Routing;
+using AionDpsMeter.Services.PacketProcessing.Shared;
 using AionDpsMeter.Services.Services.Entity;
+using AionDpsMeter.Services.Services.Session;
 
 namespace AionDpsMeter.Services.PacketProcessing.Processors
 {
-    
-    internal class EntityDeathProcessor(EntityTracker entityTracker)
-    {
-        public event EventHandler<int>? OnPlayerDeath;
 
-        public void ProcessEntityDeath(byte[] data)
+    [PacketOpcode(PacketOpcodes.EntityDeath)]
+    public class EntityDeathProcessor(EntityTracker entityTracker, CombatSessionManager sessionManager) : IOpcodeProcessor
+    {
+
+        public void Process(Packet packet)
         {
-            var reader = new PacketReader(data);
+            var reader = new PacketReader(packet.Data);
 
             reader.ReadVarInt();      // packet length
             reader.ReadU16();         // opcode
-            var entityId = (int)reader.ReadVarInt();      
+            var entityId = (int)reader.ReadVarInt();
 
-            if (entityTracker.IsIdentifiedPlayer(entityId)) OnPlayerDeath?.Invoke(this, entityId);
+            if (entityTracker.IsIdentifiedPlayer(entityId)) sessionManager.RegisterPlayerDeath(entityId);
         }
-
     }
 }

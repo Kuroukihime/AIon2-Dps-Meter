@@ -1,10 +1,12 @@
 ﻿using AionDpsMeter.Services.Extensions;
+using AionDpsMeter.Services.PacketProcessing.Routing;
 using AionDpsMeter.Services.Services.Entity;
 using Microsoft.Extensions.Logging;
 
 namespace AionDpsMeter.Services.PacketProcessing.Processors
 {
-    internal sealed class MobPacketProcessor(EntityTracker entityTracker, ILogger<MobPacketProcessor> logger)
+    [PacketOpcode(PacketOpcodes.MobSummon)]
+    internal sealed class MobPacketProcessor(EntityTracker entityTracker, ILogger<MobPacketProcessor> logger) : IOpcodeProcessor
     {
         private static readonly byte[] SummonBoundaryMarker = [0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF];
         private static readonly byte[] SummonActorHeader = [0x07, 0x02, 0x06];
@@ -13,11 +15,13 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors
         private const int MobTypeScanWindow = 60;
         private const int HpScanWindow = 64;
 
-        public void ProcessMobSpawn(byte[] packet)
+
+        public void Process(Packet packet)
         {
-            TryParseSummon(packet);
-            TryParseMobInfo(packet);
+            TryParseSummon(packet.Data);
+            TryParseMobInfo(packet.Data);
         }
+
 
         private bool TryParseMobInfo(byte[] data)
         {
@@ -129,6 +133,7 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors
             headerIndex = data.IndexOf(SummonActorHeaderBackup) +1;
             return headerIndex;
         }
+
     }
 
 }
