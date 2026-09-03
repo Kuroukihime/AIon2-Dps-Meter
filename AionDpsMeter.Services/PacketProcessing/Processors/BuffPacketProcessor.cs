@@ -1,4 +1,5 @@
 using AionDpsMeter.Core.Data;
+using AionDpsMeter.Core.GameData.Services;
 using AionDpsMeter.Core.Models;
 using AionDpsMeter.Services.PacketProcessing.Routing;
 using AionDpsMeter.Services.PacketProcessing.Shared;

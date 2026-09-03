@@ -1,6 +1,4 @@
-using System.Text.Json.Serialization;
-
-namespace AionDpsMeter.Core.Models
+namespace AionDpsMeter.Core.GameData.Contracts
 {
     public sealed class ClassData
     {

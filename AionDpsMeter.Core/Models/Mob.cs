@@ -1,4 +1,5 @@
 ﻿using AionDpsMeter.Core.Data;
+using AionDpsMeter.Core.GameData.Services;
 
 namespace AionDpsMeter.Core.Models
 {
