@@ -570,6 +570,28 @@
                                           Margin="12,0,0,0"/>
                         </Grid>
 
+                        <!-- 1 Min Dummy Mode -->
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Text="1 Min Dummy Mode"
+                                           FontSize="12"
+                                           Foreground="{StaticResource PrimaryTextBrush}"/>
+                                <TextBlock Text="Stop counting dummy target damage after 1 minute"
+                                           FontSize="10"
+                                           Foreground="{StaticResource SecondaryTextBrush}"
+                                           Margin="0,2,0,0"/>
+                            </StackPanel>
+                            <ToggleButton Grid.Column="1"
+                                          IsChecked="{Binding OneMinuteDummyMode, Mode=TwoWay}"
+                                          Style="{StaticResource ToggleSwitchStyle}"
+                                          VerticalAlignment="Center"
+                                          Margin="12,0,0,0"/>
+                        </Grid>
+
                         <!-- History Retantion Period -->
                         <Grid Margin="0,10,0,0">
                             <Grid.ColumnDefinitions>

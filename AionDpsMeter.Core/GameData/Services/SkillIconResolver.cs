@@ -1,7 +1,7 @@
 using System.Collections.Frozen;
 using System.Text.Json;
 
-namespace AionDpsMeter.Core.Data
+namespace AionDpsMeter.Core.GameData.Services
 {
     public static class SkillIconResolver
     {

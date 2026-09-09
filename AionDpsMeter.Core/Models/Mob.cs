@@ -1,4 +1,5 @@
 ﻿using AionDpsMeter.Core.Data;
+using AionDpsMeter.Core.GameData.Services;
 
 namespace AionDpsMeter.Core.Models
 {
@@ -14,6 +15,8 @@ namespace AionDpsMeter.Core.Models
 
         public new string Name => GameDataProvider.Instance.GetMobName(MobCode);
         public bool IsBoss => GameDataProvider.Instance.IsBoss(MobCode);
+
+        public bool IsDummy => GameDataProvider.Instance.IsDummy(MobCode);
 
         private string GetMobName()
         {

@@ -1,13 +1,15 @@
 ﻿using AionDpsMeter.Services.Extensions;
+using AionDpsMeter.Services.PacketProcessing.Routing;
 using AionDpsMeter.Services.Services.Entity;
 
 namespace AionDpsMeter.Services.PacketProcessing.Processors
 {
-    internal class RemainHpProcessor(EntityTracker entityTracker)
+    [PacketOpcode(PacketOpcodes.RemainHp)]
+    internal class RemainHpProcessor(EntityTracker entityTracker) : IOpcodeProcessor
     {
-
-        public void ProcessRemainHp(byte[] data)
+        public void Process(Packet packet)
         {
+            var data = packet.Data;
             int offset = 3;
             var entityIdInfo = data.ReadVarInt(offset);
             offset += entityIdInfo.Length;
@@ -16,8 +18,6 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors
             offset += data.ReadVarInt(offset).Length;
             var hpCurrent = data.ReadUInt32Le(offset);
             entityTracker.UpdateTargetEntityHpCurrent(entityIdInfo.Value, hpCurrent);
-
-            
         }
 
     }

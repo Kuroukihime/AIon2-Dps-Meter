@@ -1,7 +1,8 @@
-using AionDpsMeter.Core.Models;
 using System.Text.Json;
+using AionDpsMeter.Core.GameData.Contracts;
+using AionDpsMeter.Core.Models;
 
-namespace AionDpsMeter.Core.Data
+namespace AionDpsMeter.Core.GameData.Repositories
 {
     /// <summary>
     /// Owns all character-class data: loading from JSON and class lookups.

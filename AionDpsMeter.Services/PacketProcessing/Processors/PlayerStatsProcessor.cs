@@ -1,33 +1,35 @@
 ﻿using AionDpsMeter.Services.Models;
+using AionDpsMeter.Services.PacketProcessing.Routing;
 using AionDpsMeter.Services.PacketProcessing.Shared;
+using AionDpsMeter.Services.Services.Session;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic;
 
-namespace AionDpsMeter.Services.PacketProcessing.Processors.PlayerEntity
+namespace AionDpsMeter.Services.PacketProcessing.Processors
 {
-  
-    internal class PlayerStatsProcessor
+    [PacketOpcode(PacketOpcodes.PlayerStats)]
+    public class PlayerStatsProcessor : IOpcodeProcessor
     {
-        public event EventHandler<PlayerCharacterStats>? StatsUpdated;
-
+        private readonly CombatSessionManager sessionManager;
         private readonly ILogger<PlayerStatsProcessor> logger;
 
-        public PlayerStatsProcessor(ILogger<PlayerStatsProcessor> logger)
+        public PlayerStatsProcessor(ILogger<PlayerStatsProcessor> logger, CombatSessionManager sessionManager)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.sessionManager = sessionManager;
         }
 
-    
-        public void ProcessPlayerStats(byte[] packet)
+        public void Process(Packet packet)
         {
             try
             {
-                var stats = Parse(packet);
-                StatsUpdated?.Invoke(this, stats);
+                var stats = Parse(packet.Data);
+                sessionManager.ProcessPlayerStatsUpdate(stats, DateAndTime.Now);
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Failed to parse player stats packet ({Length} bytes)", packet.Length);
-             
+                logger.LogError(ex, "Failed to parse player stats packet ({Length} bytes)", packet.Data.Length);
+
             }
         }
 
@@ -53,5 +55,7 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors.PlayerEntity
 
             return new PlayerCharacterStats(values);
         }
+
+       
     }
 }

@@ -1,7 +1,9 @@
-using AionDpsMeter.Core.Models;
 using System.Text.Json;
+using AionDpsMeter.Core.Data;
+using AionDpsMeter.Core.GameData.Services;
+using AionDpsMeter.Core.Models;
 
-namespace AionDpsMeter.Core.Data
+namespace AionDpsMeter.Core.GameData.Repositories
 {
   
     public sealed class SkillRepository

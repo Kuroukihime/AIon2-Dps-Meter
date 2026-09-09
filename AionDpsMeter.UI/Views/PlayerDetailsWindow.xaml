@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:AionDpsMeter.UI.Views.Controls"
         mc:Ignorable="d"
-        Title="Player Details" Height="600" Width="1050"
+        Title="Player Details" Height="600" Width="1250"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
         Topmost="True" ResizeMode="CanResizeWithGrip"
         MouseLeftButtonDown="Window_MouseLeftButtonDown">

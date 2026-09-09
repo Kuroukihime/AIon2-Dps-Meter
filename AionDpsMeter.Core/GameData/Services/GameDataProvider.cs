@@ -1,6 +1,8 @@
+using AionDpsMeter.Core.Data;
+using AionDpsMeter.Core.GameData.Repositories;
 using AionDpsMeter.Core.Models;
 
-namespace AionDpsMeter.Core.Data
+namespace AionDpsMeter.Core.GameData.Services
 {
     public sealed class GameDataProvider
     {
@@ -28,7 +30,7 @@ namespace AionDpsMeter.Core.Data
         private void LoadData()
         {
             var basePath = AppDomain.CurrentDomain.BaseDirectory;
-            var dataDir = Path.Combine(basePath, "Data");
+            var dataDir = ResolveDataDirectory(basePath);
             var skillIconsPath = Path.Combine(dataDir, "skill_icons.json");
             if (File.Exists(skillIconsPath))
                 SkillIconResolver.LoadSkillIconMap(File.ReadAllText(skillIconsPath));
@@ -39,6 +41,16 @@ namespace AionDpsMeter.Core.Data
             Mobs.Load(Path.Combine(dataDir, "mobs.json"));
 
         }
+
+        private static string ResolveDataDirectory(string basePath)
+        {
+            var gameDataAssetsDir = Path.Combine(basePath, "GameData", "Assets");
+            if (Directory.Exists(gameDataAssetsDir))
+                return gameDataAssetsDir;
+
+            return Path.Combine(basePath, "Data");
+        }
+
         public bool IsTheostone(int skillCode) => Skills.IsTheostone(skillCode);
         public bool IsHealingSkill(int skillCode) => Skills.IsHealingSkill(skillCode);
         public bool IsDotDamageSkill(int skillCode) => Skills.IsDotDamageSkill(skillCode);

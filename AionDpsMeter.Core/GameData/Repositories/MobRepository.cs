@@ -1,8 +1,8 @@
-using AionDpsMeter.Core.Models;
 using System.Collections.Frozen;
 using System.Text.Json;
+using AionDpsMeter.Core.GameData.Contracts;
 
-namespace AionDpsMeter.Core.Data
+namespace AionDpsMeter.Core.GameData.Repositories
 {
    
     public sealed class MobRepository
