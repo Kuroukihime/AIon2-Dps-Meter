@@ -60,7 +60,7 @@ namespace AionDpsMeter.UI.ViewModels
 
         // Active target
         [ObservableProperty] private string _activeTargetName = string.Empty;
-        [ObservableProperty] private int _activeTargetHpTotal;
+        [ObservableProperty] private long _activeTargetHpTotal;
         [ObservableProperty] private string _activeTargetHpTotalDisplay = string.Empty;
         [ObservableProperty] private bool _hasActiveTarget;
 

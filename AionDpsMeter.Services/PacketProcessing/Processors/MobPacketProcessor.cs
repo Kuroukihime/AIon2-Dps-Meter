@@ -73,10 +73,10 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors
                 int pos = abs + 1;
                 if (pos >= end) break;
 
-                int maxHp = data.ReadVarInt(pos).Value;
+                long maxHp = data.ReadVarInt64(pos).Value;
                 if (maxHp == -1 || maxHp == 0 || pos >= end) continue;
 
-                int currentHp = data.ReadVarInt(pos).Value;
+                long currentHp = data.ReadVarInt64(pos).Value;
                 if (currentHp == -1) continue;
                 if (currentHp >= maxHp) entityTracker.CreateOrUpdateTargetEntity(mobId, mobCode, maxHp);
                 break;
