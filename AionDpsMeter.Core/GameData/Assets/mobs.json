@@ -34420,5 +34420,41 @@
     "category": "Nightmare",
     "tier": "Level 10",
     "dungeonId": 200003
+  },
+  "2301113": {
+    "name": "Deltras (P1)",
+    "isBoss": true
+  },
+  "2301115": {
+    "name": "Deltras (P2)",
+    "isBoss": true
+  },
+  "2301143": {
+    "name": "Deltras (P1)",
+    "isBoss": true
+  },
+  "2301145": {
+    "name": "Deltras (P2)",
+    "isBoss": true
+  },
+  "2301163": {
+    "name": "Deltras (P1)",
+    "isBoss": true
+  },
+  "2301165": {
+    "name": "Deltras (P2)",
+    "isBoss": true
+  },
+  "2301112": {
+    "name": "Triton the Returned",
+    "isBoss": true
+  },
+  "2301142": {
+    "name": "Triton the Returned",
+    "isBoss": true
+  },
+  "2301162": {
+    "name": "Triton the Returned",
+    "isBoss": true
   }
 }
