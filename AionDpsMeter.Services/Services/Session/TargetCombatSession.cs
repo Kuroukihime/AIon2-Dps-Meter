@@ -29,7 +29,7 @@ namespace AionDpsMeter.Services.Services.Session
 
         private readonly BuffEventManager buffEventManager = new();
 
-        private int LastKnownTargetHp { get; set; } = -1;
+        private long LastKnownTargetHp { get; set; } = -1;
         private readonly IAppSettingsService settingsService;
 
 

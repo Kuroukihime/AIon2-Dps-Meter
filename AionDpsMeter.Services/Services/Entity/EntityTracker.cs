@@ -26,6 +26,9 @@ namespace AionDpsMeter.Services.Services.Entity
 
         private string currentUserName = string.Empty;
 
+        private const int UnknownEntityHpThreshold = 1_000_000;
+
+
         // ----- Targets (mobs) --------------------------------------------------
 
         public Mob GetOrCreateTargetEntity(int entityId)
@@ -40,33 +43,40 @@ namespace AionDpsMeter.Services.Services.Entity
         public bool IsIdentifiedPlayer(int entityId) => sessionPlayers.TryGetValue(entityId, out var player) && player.IsIdentified;
 
 
-        public bool UpdateTargetEntityHpCurrent(int entityId, int hpCurrent)
+        public bool UpdateTargetEntityHpCurrent(int entityId, long hpCurrent)
         {
-            if (!targetEntities.TryGetValue(entityId, out var entity)) return false;
+            if (!targetEntities.TryGetValue(entityId, out var entity))
+            {
+                if (hpCurrent < UnknownEntityHpThreshold) return false;
+                entity = CreateOrUpdateTargetEntity(entityId, 0, 0);
+            }
 
             entity.HpCurrent = hpCurrent;
-            if (entity.HpTotal > 0 && entity.HpCurrent > entity.HpTotal + 10_000_000)
+            if (entity.HpCurrent > entity.HpTotal + 10_000_000)
             {
                 entity.HpTotal = entity.HpCurrent;
             }
             return true;
         }
 
-        public void CreateOrUpdateTargetEntity(int entityId, int mobCode, int hpTotal = 0)
+        public Mob CreateOrUpdateTargetEntity(int entityId, int mobCode, long hpTotal = 0)
         {
             if (targetEntities.TryGetValue(entityId, out var entity))
             {
                 entity.MobCode = mobCode;
                 if (hpTotal > 0) entity.HpTotal = hpTotal;
-                return;
+                return entity;
             }
 
-            targetEntities[entityId] = new Mob
+            var mob = new Mob
             {
                 Id = entityId,
                 MobCode = mobCode,
                 HpTotal = hpTotal,
             };
+
+            targetEntities[entityId] = mob;
+            return mob;
         }
 
         public Core.Models.Entity? GetTargetEntity(int entityId) => targetEntities.GetValueOrDefault(entityId);

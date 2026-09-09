@@ -16,8 +16,8 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors
             offset += data.ReadVarInt(offset).Length;
             offset += data.ReadVarInt(offset).Length;
             offset += data.ReadVarInt(offset).Length;
-            var hpCurrent = data.ReadUInt32Le(offset);
-            entityTracker.UpdateTargetEntityHpCurrent(entityIdInfo.Value, hpCurrent);
+            var hpCurrent = data.ReadUInt64Le(offset);
+            entityTracker.UpdateTargetEntityHpCurrent(entityIdInfo.Value, (long)hpCurrent);
         }
 
     }

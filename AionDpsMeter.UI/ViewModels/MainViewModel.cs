@@ -29,8 +29,8 @@ namespace AionDpsMeter.UI.ViewModels
         [ObservableProperty] private string _pingDisplay = "-- ms";
         [ObservableProperty] private string _pingColor = "#888888";
         [ObservableProperty] private string _activeTargetName = string.Empty;
-        [ObservableProperty] private int _activeTargetHpTotal;
-        [ObservableProperty] private int _activeTargetHpCurrent;
+        [ObservableProperty] private long _activeTargetHpTotal;
+        [ObservableProperty] private long _activeTargetHpCurrent;
         [ObservableProperty] private bool _hasActiveTarget;
         [ObservableProperty] private string _activeTargetHpDisplay = string.Empty;
         [ObservableProperty] private double _activeTargetHpPercentage;

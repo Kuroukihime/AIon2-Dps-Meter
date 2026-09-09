@@ -88,6 +88,33 @@ namespace AionDpsMeter.Services.Extensions
                 return (-1, -1);
             }
 
+            public (long Value, int Length) ReadVarInt64(int offset = 0)
+            {
+                if (offset >= bytes.Length) return (-1, -1);
+
+                long value = 0; 
+                int shift = 0;
+                int count = 0;
+
+                while (offset + count < bytes.Length)
+                {
+                    int b = bytes[offset + count];
+                    count++;
+
+                    value |= (long)(b & 0x7F) << shift;
+
+                    if ((b & 0x80) == 0)
+                        return (value, count);
+
+                    shift += 7;
+
+                    if (shift >= 64) 
+                        return (-1, -1);
+                }
+
+                return (-1, -1);
+            }
+
             public int IndexOfArray(byte[] bytesToFind, int offset = 0)
             {
                 if (bytesToFind.Length == 0 || bytes.Length < bytesToFind.Length || offset >= bytes.Length)

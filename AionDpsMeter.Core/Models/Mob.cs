@@ -8,8 +8,8 @@ namespace AionDpsMeter.Core.Models
         private const int BossHpThreshold = 100_000_000;
 
         public int MobCode { get; set; }
-        public int HpTotal { get; set; }
-        public int HpCurrent { get; set; }
+        public long HpTotal { get; set; }
+        public long HpCurrent { get; set; }
         //public new string Name => GetMobName();
         //public bool IsBoss => CanBeBoss();
 

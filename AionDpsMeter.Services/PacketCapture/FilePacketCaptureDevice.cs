@@ -24,7 +24,7 @@ namespace AionDpsMeter.Services.PacketCapture
       
         public FilePacketCaptureDevice(TcpStreamBuffer tcpStreamBuffer)
         {
-            var packetsTxt = "D:\\xdd\\packets_20260812_183347.txt";
+            var packetsTxt = "E:\\xdd\\packets_20260909_210513.txt";
             bool playback = true;
             double speed = 5;
             if (string.IsNullOrWhiteSpace(packetsTxt))
