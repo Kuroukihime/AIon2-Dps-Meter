@@ -12,6 +12,10 @@ namespace AionDpsMeter.UI.Converters
             {
                 return intValue > 0 ? Visibility.Visible : Visibility.Collapsed;
             }
+            if (value is long longValue)
+            {
+                return longValue > 0 ? Visibility.Visible : Visibility.Collapsed;
+            }
             return Visibility.Collapsed;
         }
 
