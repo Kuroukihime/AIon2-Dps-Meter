@@ -346,6 +346,7 @@
                                       Style="{StaticResource DarkComboBoxStyle}">
                                 <ComboBoxItem Content="Style 1" />
                                 <ComboBoxItem Content="Style 2" />
+                                <ComboBoxItem Content="Style 3 (Blazor)" />
                             </ComboBox>
                         </Grid>
 

@@ -1,0 +1,70 @@
+@page "/"
+
+<div class="dps-meter-dynamic">
+    <div class="header-module">
+        <div class="header-top" @onmousedown="BeginDrag">
+            <div class="header-row header-row-top">
+                <span class="boss-name" title="@Vm?.ActiveTargetName">@Vm?.ActiveTargetName</span>
+                <div class="global-stats">
+                    <span class="stat-sm ping-group">
+                        <span class="ping-bars" style="color:@GetPingColor(Vm?.PingColor)">
+                            <span class="ping-bar @(GetPingLevel(Vm?.PingDisplay) >= 1 ? "active" : string.Empty)"></span>
+                            <span class="ping-bar @(GetPingLevel(Vm?.PingDisplay) >= 2 ? "active" : string.Empty)"></span>
+                            <span class="ping-bar @(GetPingLevel(Vm?.PingDisplay) >= 3 ? "active" : string.Empty)"></span>
+                        </span>
+                        <span style="color:@GetPingColor(Vm?.PingColor)">@Vm?.PingDisplay</span>
+                    </span>
+                    <span class="stat-sm">@Vm?.CombatDuration</span>
+                </div>
+                <div class="header-controls">
+                    <button type="button" class="control-btn" @onclick="OpenHistory" @onmousedown:stopPropagation="true" title="History">☰</button>
+                    <button type="button" class="control-btn" @onclick="OpenStatEffCalc" @onmousedown:stopPropagation="true" title="Stat Eff Calculator">⚔</button>
+                    <button type="button" class="control-btn" @onclick="OpenSettings" @onmousedown:stopPropagation="true" title="Settings">⚙</button>
+                    <button type="button" class="control-btn" @onclick="Close" @onmousedown:stopPropagation="true" title="Close">✕</button>
+                </div>
+            </div>
+            <div class="header-row header-row-bottom">
+                <span class="boss-hp">@Vm?.ActiveTargetHpDisplay</span>
+                <span class="total-dps">@Vm?.TotalRaidDamageFormatted</span>
+            </div>
+        </div>
+        <div class="boss-hp-track">
+            <div class="boss-hp-fill" style="width:@($"{ClampPercent(Vm?.ActiveTargetHpPercentage ?? 0):0.##}%")"></div>
+        </div>
+    </div>
+
+    @if (Vm?.UpdateAvailable == true)
+    {
+        <div class="update-module">
+            <div class="update-dot"></div>
+            <span class="update-text">@Vm.UpdateVersionText</span>
+            <button type="button" class="update-btn" @onclick="OpenWhatsNew">What's New</button>
+            <button type="button" class="update-close" @onclick="DismissUpdate">✕</button>
+        </div>
+    }
+
+    <div class="players-list">
+        @if (Vm is not null)
+        {
+            @foreach (var player in Vm.Players.Where(p => p.IsIdentified || p.DamagePercentage > 1))
+            {
+                <div class="player-module @(player.IsUser ? "is-me" : string.Empty)" @onclick="() => OpenPlayerDetails(player)">
+                    <div class="progress-bar @GetProgressClass(player)" style="width:@($"{ClampPercent(player.EffectivePercentage):0.##}%")"></div>
+                    <div class="player-data">
+                        <div class="icon-wrap">
+                            <div class="class-icon" style="background-image: url('@ResolveClassIconUrl(player)');"></div>
+                        </div>
+                        <div class="name-block">
+                            @player.PlayerNameDisplay
+                        </div>
+                        <div class="score">@GetCombatScoreDisplay(player)</div>
+                        <div class="death">@(player.IsDeathDisplayVisible ? player.PlayerDeathsDisplay : string.Empty)</div>
+                        <div class="dps">@FormatDpsMain(player)<span class="sub">@FormatDpsSuffix(player)</span></div>
+                        <div class="damage">@player.TotalDamageFormatted</div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+

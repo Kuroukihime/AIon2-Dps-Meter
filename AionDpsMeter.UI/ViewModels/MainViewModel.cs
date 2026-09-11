@@ -20,6 +20,7 @@ namespace AionDpsMeter.UI.ViewModels
         private DispatcherTimer? _updateTimer;
         public bool IsStyle1 => _settingsService.UiStyle == 0;
         public bool IsStyle2 => _settingsService.UiStyle == 1;
+        public bool IsStyle3 => _settingsService.UiStyle == 2;
         public bool IsDetailedStyleTransparent => IsStyle2;
         [ObservableProperty] private string _totalRaidDamageFormatted ="";
 
@@ -87,6 +88,7 @@ namespace AionDpsMeter.UI.ViewModels
             // MainWindow.xaml.cs can react to it too.
             OnPropertyChanged(nameof(IsStyle1));
             OnPropertyChanged(nameof(IsStyle2));
+            OnPropertyChanged(nameof(IsStyle3));
             OnPropertyChanged(nameof(IsDetailedStyleTransparent));
         }
 

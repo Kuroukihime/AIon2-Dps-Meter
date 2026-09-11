@@ -13,6 +13,7 @@ namespace AionDpsMeter.Services.Services.Session
         public string PlayerName => entityTaTracker.GetPlayerEntity(PlayerId)?.Name ?? $"Unknown player {PlayerId}";
         public string? PlayerIcon => entityTaTracker.GetPlayerEntity(PlayerId)?.Icon;
         public string ClassName => entityTaTracker.GetPlayerEntity(PlayerId)?.CharacterClass?.Name ?? "";
+        public int ClassId => (int)(entityTaTracker.GetPlayerEntity(PlayerId)?.CharacterClass?.Id ?? 0);
         public string? ClassIcon => entityTaTracker.GetPlayerEntity(PlayerId)?.CharacterClass?.Icon;
         public bool IsUser => entityTaTracker.GetPlayerEntity(PlayerId)?.IsUser ?? false;
         public int CombatPower => entityTaTracker.GetPlayerEntity(PlayerId)?.CombatPower ?? 0;

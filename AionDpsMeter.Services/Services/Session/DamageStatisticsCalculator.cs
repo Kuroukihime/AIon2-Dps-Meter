@@ -21,6 +21,7 @@ namespace AionDpsMeter.Services.Services.Session
                 IsIdentified = session.IsIdentified,
                 PlayerIcon = session.PlayerIcon,
                 ClassName = session.ClassName,
+                ClassId = session.ClassId,
                 ClassIcon = session.ClassIcon,
                 IsUser = session.IsUser,
                 CombatPower = session.CombatPower,

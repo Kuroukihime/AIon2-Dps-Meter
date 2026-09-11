@@ -375,7 +375,7 @@ namespace AionDpsMeter.UI.ViewModels
             BuffCount = Buffs.Count;
         }
 
-        private bool BuffsMatch(IReadOnlyCollection<Services.Models.BuffStats> newStats)
+        private bool BuffsMatch(IReadOnlyCollection<BuffStats> newStats)
         {
             int i = 0;
             foreach (var stat in newStats)

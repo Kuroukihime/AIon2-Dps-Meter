@@ -44,6 +44,7 @@ namespace AionDpsMeter.UI.ViewModels
         public long    PlayerId          => _stats.PlayerId;
         public string  PlayerName        => _stats.PlayerName;
         public string  ServerName        => _stats.ServerName;
+        public bool    IsIdentified      => _stats.IsIdentified;
 
         /// <summary>
         /// Nickname formatted as <c>Name[Server]</c> when server is known, otherwise just <c>Name</c>.
@@ -64,6 +65,7 @@ namespace AionDpsMeter.UI.ViewModels
 
         public string? PlayerIcon        => _stats.PlayerIcon;
         public string  ClassName         => _stats.ClassName;
+        public int ClassId               => _stats.ClassId;
         public string? ClassIcon         => _stats.ClassIcon;
         public string     CombatPower       => DamageFormatter.Format(_stats.CombatPower);
         public bool    HasPlayerIcon     => !string.IsNullOrEmpty(_stats.PlayerIcon);
@@ -88,6 +90,7 @@ namespace AionDpsMeter.UI.ViewModels
             // Direct property copy — no reflection overhead
             _stats.PlayerIcon        = updatedStats.PlayerIcon;
             _stats.ClassName         = updatedStats.ClassName;
+            _stats.ClassId           = updatedStats.ClassId;
             _stats.ClassIcon         = updatedStats.ClassIcon;
             _stats.CombatPower       = updatedStats.CombatPower;
             _stats.ServerName        = updatedStats.ServerName;
@@ -122,10 +125,12 @@ namespace AionDpsMeter.UI.ViewModels
             OnPropertyChanged(nameof(PlayerDeaths));
             OnPropertyChanged(nameof(IsDeathDisplayVisible));
             OnPropertyChanged(nameof(PlayerDeathsDisplay));
+            OnPropertyChanged(nameof(IsIdentified));
             OnPropertyChanged(nameof(HitCount));
             OnPropertyChanged(nameof(CriticalRate));
             OnPropertyChanged(nameof(BackAttackRate));
             OnPropertyChanged(nameof(ClassName));
+            OnPropertyChanged(nameof(ClassId));
             OnPropertyChanged(nameof(ClassIcon));
             OnPropertyChanged(nameof(PlayerIcon));
             OnPropertyChanged(nameof(HasPlayerIcon));

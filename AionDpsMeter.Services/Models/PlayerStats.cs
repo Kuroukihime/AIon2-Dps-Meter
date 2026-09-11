@@ -8,6 +8,7 @@
         public bool IsIdentified { get; init;  }
         public string? PlayerIcon { get; set; }
         public string ClassName { get; set; } = string.Empty;
+        public int ClassId { get; set; }
         public string? ClassIcon { get; set; }
         public int CombatPower { get; set; }
         public string ServerName { get; set; } = string.Empty;

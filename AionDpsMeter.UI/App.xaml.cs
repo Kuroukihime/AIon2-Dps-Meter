@@ -8,13 +8,16 @@ using AionDpsMeter.Services.Services.Session;
 using AionDpsMeter.Services.Services.Session.Persistence;
 using AionDpsMeter.Services.Services.Settings;
 using AionDpsMeter.Services.Services.Update;
+using AionDpsMeter.UI.UiCommands;
 using AionDpsMeter.UI.ViewModels;
+using Microsoft.AspNetCore.Components.WebView.Wpf;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.Windows;
 using AionDpsMeter.Services.Services.Entity;
+using AionDpsMeter.UI.Services.UiCommands;
 
 namespace AionDpsMeter.UI
 {
@@ -45,8 +48,8 @@ namespace AionDpsMeter.UI
                     services.AddSingleton<FilePacketWriter>();
                     services.AddSingleton<TcpStreamBuffer>();
 
-                    //services.AddSingleton<IPacketCaptureDevice, FilePacketCaptureDevice>();
-                    services.AddSingleton<IPacketCaptureDevice, CaptureDevice>();
+                    services.AddSingleton<IPacketCaptureDevice, FilePacketCaptureDevice>();
+                    //services.AddSingleton<IPacketCaptureDevice, CaptureDevice>();
 
                     services.AddSingleton<EntityTracker>();
                     services.AddSingleton<CombatSessionManager>();
@@ -56,7 +59,9 @@ namespace AionDpsMeter.UI
                    
                     services.AddSingleton<SettingsViewModel>();
                     services.AddSingleton<MainViewModel>();
+                    services.AddSingleton<IUiCommandService, UiCommandService>();
                     services.AddSingleton<MainWindow>();
+                    services.AddWpfBlazorWebView();
 
                 })
                 .Build();

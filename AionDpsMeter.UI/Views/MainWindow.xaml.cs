@@ -1,12 +1,17 @@
 ﻿using AionDpsMeter.Services.Services.Settings;
 using AionDpsMeter.Services.Services.Update;
+using AionDpsMeter.UI.Pages;
+using AionDpsMeter.UI.UiCommands;
 using AionDpsMeter.UI.Utils;
 using AionDpsMeter.UI.ViewModels;
+using Microsoft.AspNetCore.Components.WebView.Wpf;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using System.Linq;
+using AionDpsMeter.UI.Services.UiCommands;
 
 namespace AionDpsMeter.UI
 {
@@ -21,14 +26,16 @@ namespace AionDpsMeter.UI
         private StatEfficiencyCalculatorViewModel? statEfficiencyCalculatorViewModel;
         private DispatcherTimer? _saveBoundsTimer;
         private GlobalHotkey? _globalHotkey;
+        private readonly IUiCommandService _uiCommandService;
 
-        public MainWindow(MainViewModel viewModel, SettingsViewModel settingsViewModel, IAppSettingsService settingsService, UpdateCheckerService updateCheckerService)
+        public MainWindow(MainViewModel viewModel, SettingsViewModel settingsViewModel, IAppSettingsService settingsService, UpdateCheckerService updateCheckerService, IUiCommandService uiCommandService)
         {
             InitializeComponent();
             DataContext = viewModel;
             this.settingsViewModel    = settingsViewModel;
             this.settingsService      = settingsService;
             this.updateCheckerService = updateCheckerService;
+            _uiCommandService = uiCommandService;
 
             _saveBoundsTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(500) };
             _saveBoundsTimer.Tick += (_, _) => { _saveBoundsTimer.Stop(); SaveWindowBounds(); };
@@ -48,20 +55,107 @@ namespace AionDpsMeter.UI
                 });
 
             Loaded += (_, _) => RegisterToggleHotkey();
+            Loaded += (_, _) => InitializeStyle3WebView();
+            _uiCommandService.CommandRequested += OnUiCommandRequested;
             ApplyDisplayStyle();
         }
+
+        private void InitializeStyle3WebView()
+        {
+            Style3WebView.Services = App.AppHost.Services;
+            Style3WebView.RootComponents.Clear();
+            Style3WebView.RootComponents.Add(new RootComponent
+            {
+                Selector = "#app",
+                ComponentType = typeof(Style3Root)
+            });
+        }
+
+        private void OnUiCommandRequested(object? sender, UiCommandRequest request)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                switch (request.Command)
+                {
+                    case UiCommandType.BeginMainWindowDrag:
+                        if (settingsService.UiStyle == 2)
+                        {
+                            try
+                            {
+                                DragMove();
+                            }
+                            catch
+                            {
+                            }
+                        }
+                        break;
+                    case UiCommandType.MinimizeMainWindow:
+                        WindowState = WindowState.Minimized;
+                        break;
+                    case UiCommandType.CloseApplication:
+                        CloseButton_Click(this, new RoutedEventArgs());
+                        break;
+                    case UiCommandType.OpenSettings:
+                        SettingsButton_Click(this, new RoutedEventArgs());
+                        break;
+                    case UiCommandType.OpenStatEff:
+                        StatEfficiencyCalculatorButton_Click(this, new RoutedEventArgs());
+                        break;
+                    case UiCommandType.OpenHistory:
+                        HistoryButton_Click(this, new RoutedEventArgs());
+                        break;
+                    case UiCommandType.OpenWhatsNew:
+                        WhatsNewButton_Click(this, new RoutedEventArgs());
+                        break;
+                    case UiCommandType.OpenPlayerDetails:
+                        if (DataContext is not MainViewModel viewModel || request.PlayerId is null)
+                            return;
+
+                        var player = viewModel.Players.FirstOrDefault(p => p.PlayerId == request.PlayerId);
+                        if (player is null)
+                            return;
+
+                        var detailsWindow = new PlayerDetailsWindow
+                        {
+                            DataContext = new PlayerDetailsViewModel(
+                                viewModel.SessionManager,
+                                player.PlayerId,
+                                player.PlayerName,
+                                player.ClassName,
+                                player.PlayerIcon,
+                                player.ClassIcon,
+                                settingsService,
+                                player.CombatPower,
+                                player.ServerName),
+                            Owner = this
+                        };
+
+                        PositionWindowToRight(detailsWindow);
+                        detailsWindow.Show();
+                        break;
+                }
+            });
+        }
+
         private void ApplyDisplayStyle()
         {
             if (DataContext is not MainViewModel vm) return;
 
             vm.NotifyDisplayStyleChanged();
 
+            // Style 3 (BlazorWebView): apply global content opacity only,
+            // without changing its background.
+            Style3WebView.Opacity = settingsService.UiStyle == 2
+                ? settingsService.WindowOpacity
+                : 1;
+
           
-            if (settingsService.UiStyle == 1)
+            if (settingsService.UiStyle is 1 or 2)
             {
-                // Style 2: fully transparent window — game renders behind it
+                // Styles 2 and 3: fully transparent window — game renders behind it
                 MainBorder.Background = Brushes.Transparent;
                 MainBorder.BorderThickness = new Thickness(0);
+                MainBorder.Opacity = 1;
 
                 // Hide the background image; Style 2 has no backdrop
                 Style1Layout.ClearBackgroundImage();
@@ -207,6 +301,9 @@ namespace AionDpsMeter.UI
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            if (settingsService.UiStyle == 2)
+                return;
+
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
         }
@@ -326,6 +423,7 @@ namespace AionDpsMeter.UI
 
         protected override void OnClosed(EventArgs e)
         {
+            _uiCommandService.CommandRequested -= OnUiCommandRequested;
             _saveBoundsTimer?.Stop();
             _saveBoundsTimer = null;
             SaveWindowBounds();
