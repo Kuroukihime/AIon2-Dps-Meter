@@ -62,6 +62,7 @@ namespace AionDpsMeter.UI
 
         private void InitializeStyle3WebView()
         {
+            Style3WebView.WebView.DefaultBackgroundColor = System.Drawing.Color.Transparent;
             Style3WebView.Services = App.AppHost.Services;
             Style3WebView.RootComponents.Clear();
             Style3WebView.RootComponents.Add(new RootComponent

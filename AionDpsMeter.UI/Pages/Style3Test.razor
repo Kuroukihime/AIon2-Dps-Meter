@@ -59,8 +59,9 @@
                         </div>
                         <div class="score">@GetCombatScoreDisplay(player)</div>
                         <div class="death">@(player.IsDeathDisplayVisible ? player.PlayerDeathsDisplay : string.Empty)</div>
-                        <div class="dps">@FormatDpsMain(player)<span class="sub">@FormatDpsSuffix(player)</span></div>
+                        <div></div>
                         <div class="damage">@player.TotalDamageFormatted</div>
+                        <div class="dps">@FormatDpsMain(player)<span class="sub">@FormatDpsSuffix(player)</span></div>             
                     </div>
                 </div>
             }

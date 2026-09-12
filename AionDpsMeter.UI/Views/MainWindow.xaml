@@ -10,7 +10,7 @@
         Height="170"
         Width="360"
         MinHeight="50"
-        MinWidth="200"
+        MinWidth="370"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
