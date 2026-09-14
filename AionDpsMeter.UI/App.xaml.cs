@@ -18,6 +18,7 @@ using Serilog;
 using System.Windows;
 using AionDpsMeter.Services.Services.Entity;
 using AionDpsMeter.UI.Services.UiCommands;
+using AionDpsMeter.UI.Views;
 
 namespace AionDpsMeter.UI
 {
@@ -48,8 +49,8 @@ namespace AionDpsMeter.UI
                     services.AddSingleton<FilePacketWriter>();
                     services.AddSingleton<TcpStreamBuffer>();
 
-                    //services.AddSingleton<IPacketCaptureDevice, FilePacketCaptureDevice>();
-                    services.AddSingleton<IPacketCaptureDevice, CaptureDevice>();
+                    services.AddSingleton<IPacketCaptureDevice, FilePacketCaptureDevice>();
+                    //services.AddSingleton<IPacketCaptureDevice, CaptureDevice>();
 
                     services.AddSingleton<EntityTracker>();
                     services.AddSingleton<CombatSessionManager>();

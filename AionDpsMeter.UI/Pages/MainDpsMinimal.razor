@@ -54,13 +54,15 @@
                         <div class="icon-wrap">
                             <div class="class-icon" style="background-image: url('@ResolveClassIconUrl(player)');"></div>
                         </div>
-                        <div class="name-block">
-                            @player.PlayerNameDisplay
+                        <div class="player-info">
+                            <div class="name-block">
+                                @player.PlayerNameDisplay
+                            </div>
+                            <div class="score">@GetCombatScoreDisplay(player)</div>
                         </div>
-                        <div class="score">@GetCombatScoreDisplay(player)</div>
-                        <div class="death">@(player.IsDeathDisplayVisible ? player.PlayerDeathsDisplay : string.Empty)</div>
                         <div></div>
-                        <div class="damage">@player.TotalDamageFormatted</div>
+                        <div class="death">@(player.IsDeathDisplayVisible ? player.PlayerDeathsDisplay : string.Empty)</div>
+                        <div class="damage">@player.TotalDamageFormatted (@($"{player.DamagePercentage:F1}%"))</div>
                         <div class="dps">@FormatDpsMain(player)<span class="sub">@FormatDpsSuffix(player)</span></div>             
                     </div>
                 </div>
@@ -68,4 +70,3 @@
         }
     </div>
 </div>
-

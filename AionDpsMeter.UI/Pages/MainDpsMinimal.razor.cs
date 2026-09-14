@@ -1,5 +1,4 @@
 using AionDpsMeter.UI.Services.UiCommands;
-using AionDpsMeter.UI.UiCommands;
 using AionDpsMeter.UI.ViewModels;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components;
@@ -12,7 +11,7 @@ using System.Windows;
 
 namespace AionDpsMeter.UI.Pages
 {
-    public partial class Style3Test : ComponentBase, IDisposable
+    public partial class MainDpsMinimal : ComponentBase, IDisposable
     {
         [Inject] private IUiCommandService UiCommandService { get; set; } = default!;
 

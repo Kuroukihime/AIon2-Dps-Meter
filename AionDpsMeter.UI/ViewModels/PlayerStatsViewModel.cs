@@ -1,6 +1,7 @@
 ﻿using AionDpsMeter.Services.Models;
 using AionDpsMeter.Services.Services.Settings;
 using AionDpsMeter.UI.Utils;
+using System.Xml.Linq;
 
 namespace AionDpsMeter.UI.ViewModels
 {
@@ -57,9 +58,7 @@ namespace AionDpsMeter.UI.ViewModels
                 string name = _settingsService.IsNicknameHidden
                     ? NicknameObfuscator.Mask(_stats.PlayerName)
                     : _stats.PlayerName;
-                return string.IsNullOrEmpty(_stats.ServerName)
-                    ? name
-                    : $"{name}[{_stats.ServerName}]";
+                return name;
             }
         }
 

@@ -1,19 +1,16 @@
-﻿using AionDpsMeter.Services.Services.Settings;
-using AionDpsMeter.Services.Services.Update;
-using AionDpsMeter.UI.Pages;
-using AionDpsMeter.UI.UiCommands;
-using AionDpsMeter.UI.Utils;
-using AionDpsMeter.UI.ViewModels;
-using Microsoft.AspNetCore.Components.WebView.Wpf;
-using Microsoft.Extensions.DependencyInjection;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using System.Linq;
+using AionDpsMeter.Services.Services.Settings;
+using AionDpsMeter.Services.Services.Update;
+using AionDpsMeter.UI.Pages;
 using AionDpsMeter.UI.Services.UiCommands;
+using AionDpsMeter.UI.Utils;
+using AionDpsMeter.UI.ViewModels;
+using Microsoft.AspNetCore.Components.WebView.Wpf;
 
-namespace AionDpsMeter.UI
+namespace AionDpsMeter.UI.Views
 {
     public partial class MainWindow : Window
     {
@@ -68,7 +65,7 @@ namespace AionDpsMeter.UI
             Style3WebView.RootComponents.Add(new RootComponent
             {
                 Selector = "#app",
-                ComponentType = typeof(Style3Root)
+                ComponentType = typeof(MainDpsMinimal)
             });
         }
 
@@ -144,8 +141,7 @@ namespace AionDpsMeter.UI
 
             vm.NotifyDisplayStyleChanged();
 
-            // Style 3 (BlazorWebView): apply global content opacity only,
-            // without changing its background.
+         
             Style3WebView.Opacity = settingsService.UiStyle == 2
                 ? settingsService.WindowOpacity
                 : 1;
@@ -153,19 +149,16 @@ namespace AionDpsMeter.UI
           
             if (settingsService.UiStyle is 1 or 2)
             {
-                // Styles 2 and 3: fully transparent window — game renders behind it
                 MainBorder.Background = Brushes.Transparent;
                 MainBorder.BorderThickness = new Thickness(0);
                 MainBorder.Opacity = 1;
 
-                // Hide the background image; Style 2 has no backdrop
                 Style1Layout.ClearBackgroundImage();
             }
             else
             {
-                // Style 1: restore normal dark background + opacity
                 MainBorder.Background = (Brush)FindResource("PrimaryBackgroundBrush");
-                MainBorder.BorderThickness = new Thickness(0);   // keep your original value
+                MainBorder.BorderThickness = new Thickness(0);  
                 MainBorder.Opacity = settingsService.WindowOpacity;
                 ApplyBackgroundImage(settingsService.BackgroundImagePath);
             }
