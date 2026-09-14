@@ -1,11 +1,12 @@
+using AionDpsMeter.Services.Services.Session;
+using AionDpsMeter.Services.Services.Settings;
+using AionDpsMeter.Services.Services.Update;
 using AionDpsMeter.UI.Services.UiCommands;
+using AionDpsMeter.UI.Utils; 
 using AionDpsMeter.UI.ViewModels;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Components.Web;
 using System.Collections.Concurrent;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using System.IO;
 using System.Windows;
 
@@ -14,128 +15,189 @@ namespace AionDpsMeter.UI.Pages
     public partial class MainDpsMinimal : ComponentBase, IDisposable
     {
         [Inject] private IUiCommandService UiCommandService { get; set; } = default!;
+        [Inject] private CombatSessionManager SessionManager { get; set; } = default!;
+        [Inject] private IAppSettingsService SettingsService { get; set; } = default!;
+        [Inject] private UpdateCheckerService UpdateChecker { get; set; } = default!;
 
-        [Inject] private IServiceProvider Services { get; set; } = default!;
+        private readonly Dictionary<long, PlayerRenderState> _playerStates = new();
 
-        private MainViewModel? _mainViewModel;
-        private readonly ConcurrentDictionary<string, string?> _iconCache = new(StringComparer.OrdinalIgnoreCase);
+        private List<PlayerRenderState> _players = new();
 
-        private MainViewModel? Vm => _mainViewModel;
+        private string _combatDuration = "00:00";
+        private string _totalRaidDamageFormatted = "0/s";
+        private string _pingDisplay = "-- ms";
+        private string _pingColor = "#888888";
+        private int _pingLevel = 0;
+
+        private bool _hasActiveTarget;
+        private string _activeTargetName = string.Empty;
+        private string _activeTargetHpDisplay = string.Empty;
+        private double _activeTargetHpPercentage;
+
+        private bool _updateAvailable;
+        private string _updateVersionText = string.Empty;
+
+        private readonly ConcurrentDictionary<string, string> _iconCache = new(StringComparer.OrdinalIgnoreCase);
+
+        private PeriodicTimer? _refreshTimer;
+        private CancellationTokenSource _cts = new();
 
         protected override void OnInitialized()
         {
-            _mainViewModel = Services.GetService<MainViewModel>();
-            if (_mainViewModel is null)
-                return;
+            SessionManager.PingUpdated += OnPingUpdated;
+            SettingsService.SettingsChanged += OnSettingsChanged;
 
-            _mainViewModel.PropertyChanged += OnMainViewModelPropertyChanged;
-            _mainViewModel.Players.CollectionChanged += OnPlayersCollectionChanged;
-            SubscribeToPlayerChanges(_mainViewModel.Players);
+            _ = CheckForUpdatesAsync();
+
+            _refreshTimer = new PeriodicTimer(TimeSpan.FromMilliseconds(33));
+            _ = UpdateLoopAsync();
         }
 
-        private void OnMainViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
-            => RequestRender();
-
-        private void OnPlayersCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        private async Task UpdateLoopAsync()
         {
-            if (e.OldItems is not null)
+            try
             {
-                foreach (var item in e.OldItems.OfType<PlayerStatsViewModel>())
-                    item.PropertyChanged -= OnPlayerPropertyChanged;
+                while (await _refreshTimer!.WaitForNextTickAsync(_cts.Token))
+                {
+                    UpdateData();
+                }
+            }
+            catch (OperationCanceledException) { }
+        }
+
+        private void UpdateData()
+        {
+            bool uiNeedsUpdate = false;
+
+            var newDuration = SessionManager.GetCombatDuration().ToString(@"mm\:ss");
+            if (_combatDuration != newDuration)
+            {
+                _combatDuration = newDuration;
+                uiNeedsUpdate = true;
             }
 
-            if (e.NewItems is not null)
+            var targetInfo = SessionManager.GetActiveTargetInfo();
+            if (targetInfo is not null)
             {
-                foreach (var item in e.NewItems.OfType<PlayerStatsViewModel>())
-                    item.PropertyChanged += OnPlayerPropertyChanged;
+                _hasActiveTarget = true;
+                _activeTargetName = targetInfo.Name;
+                _activeTargetHpPercentage = targetInfo.HpTotal > 0 ? (double)targetInfo.HpCurrent / targetInfo.HpTotal * 100 : 0;
+                _activeTargetHpDisplay = targetInfo.HpTotal > 0 ? $"{DamageFormatter.Format(targetInfo.HpCurrent)} / {DamageFormatter.Format(targetInfo.HpTotal)}" : string.Empty;
+                uiNeedsUpdate = true;
+            }
+            else if (_hasActiveTarget)
+            {
+                _hasActiveTarget = false;
+                uiNeedsUpdate = true;
             }
 
-            RequestRender();
-        }
+            _totalRaidDamageFormatted = $"{DamageFormatter.Format(SessionManager.GetPartyDps())}/s";
 
-        private void OnPlayerPropertyChanged(object? sender, PropertyChangedEventArgs e)
-            => RequestRender();
+            var currentStats = SessionManager.PlayerStats
+                .Where(r => r.IsIdentified || r.DamagePercentage > 1)
+                .ToList();
 
-        private void SubscribeToPlayerChanges(IEnumerable<PlayerStatsViewModel> players)
-        {
-            foreach (var player in players)
-                player.PropertyChanged += OnPlayerPropertyChanged;
-        }
+            long topDamage = currentStats.Count > 0 ? currentStats.Max(x => x.TotalDamage) : 0;
+            var currentIds = new HashSet<long>();
 
-        private void UnsubscribeFromPlayerChanges(IEnumerable<PlayerStatsViewModel> players)
-        {
-            foreach (var player in players)
-                player.PropertyChanged -= OnPlayerPropertyChanged;
-        }
+            bool isNicknameHidden = SettingsService.IsNicknameHidden;
+            bool showPlayerDeaths = SettingsService.ShowPlayerDeaths;
+            bool useRelativeBar = SettingsService.RelativeProgressBar;
 
-        private void RequestRender()
-            => _ = InvokeAsync(StateHasChanged);
-
-        private static double ClampPercent(double value)
-            => Math.Max(0, Math.Min(100, value));
-
-        private static string GetProgressClass(PlayerStatsViewModel player)
-            => $"dps-class-{player.ClassId}";
-
-        private static string GetPingColor(string? pingColor)
-            => string.IsNullOrWhiteSpace(pingColor) ? "#888" : pingColor;
-
-        private static int GetPingLevel(string? pingDisplay)
-        {
-            if (string.IsNullOrWhiteSpace(pingDisplay))
-                return 0;
-
-            var digits = new string(pingDisplay.Where(char.IsDigit).ToArray());
-            if (!int.TryParse(digits, out var pingMs))
-                return 0;
-
-            return pingMs switch
+            foreach (var stat in currentStats)
             {
-                < 60 => 3,
-                < 100 => 2,
-                < 200 => 1,
-                _ => 1
-            };
-        }
+                currentIds.Add(stat.PlayerId);
 
-        private static string GetCombatScoreDisplay(PlayerStatsViewModel player)
-            => (string.IsNullOrWhiteSpace(player.CombatPower) || player.CombatPower == "0") ? "" : player.CombatPower;
+                if (!_playerStates.TryGetValue(stat.PlayerId, out var player))
+                {
+                    player = new PlayerRenderState { PlayerId = stat.PlayerId };
+                    _playerStates[stat.PlayerId] = player;
+                }
 
-        private static string GetNameTag(PlayerStatsViewModel player)
-            => string.IsNullOrWhiteSpace(player.ServerName) ? string.Empty : $"[{player.ServerName}]";
+                player.IsUser = stat.IsUser;
+                player.ClassId = stat.ClassId.ToString();
+                player.TotalDamage = stat.TotalDamage;
+                player.TotalDamageFormatted = DamageFormatter.Format(stat.TotalDamage);
+                player.DpsFormatted = DamageFormatter.Format(stat.DamagePerSecond);
+                player.DamagePercentage = stat.DamagePercentage;
+                player.CombatPower = DamageFormatter.Format(stat.CombatPower);
+                player.IconUrl = ResolveClassIconUrl(stat.ClassIcon);
 
-        private static string GetScore(PlayerStatsViewModel player)
-            => player.CombatPower;
+                string rawName = stat.PlayerName;
 
-        private static string FormatDpsMain(PlayerStatsViewModel player)
-            => player.DpsFormatted;
+                player.PlayerNameDisplay = isNicknameHidden
+                    ? NicknameObfuscator.Mask(rawName)
+                    : rawName;
 
-        private static string FormatDpsSuffix(PlayerStatsViewModel player)
-            => "/s";
+                player.DeathsDisplay = (showPlayerDeaths && stat.PlayerDeaths > 0)
+                    ? $"💀 {stat.PlayerDeaths}"
+                    : string.Empty;
 
-        private string ResolveClassIconUrl(PlayerStatsViewModel player)
-        {
-            var iconPath = player.ClassIcon;
-            if (string.IsNullOrWhiteSpace(iconPath))
-                return string.Empty;
+                double targetAbs = stat.DamagePercentage;
+                double diffAbs = targetAbs - player.VisualAbsolutePercentage;
+                if (Math.Abs(diffAbs) < 0.05) player.VisualAbsolutePercentage = targetAbs;
+                else player.VisualAbsolutePercentage += diffAbs * 0.25;
 
-            if (_iconCache.TryGetValue(iconPath, out var cached))
-                return cached ?? string.Empty;
+                double targetRel = topDamage > 0 ? ((double)stat.TotalDamage / topDamage) * 100.0 : 0;
+                double diffRel = targetRel - player.VisualRelativePercentage;
+                if (Math.Abs(diffRel) < 0.05) player.VisualRelativePercentage = targetRel;
+                else player.VisualRelativePercentage += diffRel * 0.25;
 
-            string? resolved;
-            if (iconPath.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ||
-                iconPath.StartsWith("https://", StringComparison.OrdinalIgnoreCase) ||
-                iconPath.StartsWith("data:", StringComparison.OrdinalIgnoreCase))
-            {
-                resolved = iconPath;
-            }
-            else
-            {
-                resolved = TryCreateEmbeddedDataUri(iconPath);
+                player.EffectivePercentage = useRelativeBar
+                    ? player.VisualRelativePercentage
+                    : player.VisualAbsolutePercentage;
+
+                uiNeedsUpdate = true; 
             }
 
+            var keysToRemove = _playerStates.Keys.Where(k => !currentIds.Contains(k)).ToList();
+            foreach (var key in keysToRemove)
+            {
+                _playerStates.Remove(key);
+                uiNeedsUpdate = true;
+            }
+
+            if (uiNeedsUpdate)
+            {
+                _players = _playerStates.Values
+                    .OrderByDescending(p => p.TotalDamage)
+                    .ToList();
+
+                InvokeAsync(StateHasChanged);
+            }
+        }
+
+        private async Task CheckForUpdatesAsync()
+        {
+            var release = await UpdateChecker.CheckForUpdateAsync();
+            if (release is not null)
+            {
+                _updateVersionText = $"New version available: {release.Name}";
+                _updateAvailable = true;
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+
+        private void OnPingUpdated(object? sender, int pingMs)
+        {
+            _pingDisplay = $"{pingMs} ms";
+            if (pingMs < 60) { _pingColor = "#4EC9B0"; _pingLevel = 3; }
+            else if (pingMs < 100) { _pingColor = "#DCDCAA"; _pingLevel = 2; }
+            else if (pingMs < 200) { _pingColor = "#CE9178"; _pingLevel = 1; }
+            else { _pingColor = "#F44747"; _pingLevel = 1; }
+        }
+
+
+        private void OnSettingsChanged(object? sender, EventArgs e)
+            => InvokeAsync(StateHasChanged);
+
+        private string ResolveClassIconUrl(string? iconPath)
+        {
+            if (string.IsNullOrWhiteSpace(iconPath)) return string.Empty;
+            if (_iconCache.TryGetValue(iconPath, out var cached)) return cached;
+            string resolved = (iconPath.StartsWith("http") || iconPath.StartsWith("data:")) ? iconPath : TryCreateEmbeddedDataUri(iconPath) ?? string.Empty;
             _iconCache[iconPath] = resolved;
-            return resolved ?? string.Empty;
+            return resolved;
         }
 
         private static string? TryCreateEmbeddedDataUri(string iconPath)
@@ -145,70 +207,59 @@ namespace AionDpsMeter.UI.Pages
                 var normalized = iconPath.StartsWith('/') ? iconPath : $"/{iconPath}";
                 var uri = new Uri($"pack://application:,,,{normalized}", UriKind.Absolute);
                 var streamInfo = Application.GetResourceStream(uri);
-                if (streamInfo?.Stream is null)
-                    return null;
-
+                if (streamInfo?.Stream is null) return null;
                 using var ms = new MemoryStream();
-                using (streamInfo.Stream)
-                {
-                    streamInfo.Stream.CopyTo(ms);
-                }
-
-                var bytes = ms.ToArray();
-                var contentType = GetContentType(iconPath);
-                return $"data:{contentType};base64,{Convert.ToBase64String(bytes)}";
+                streamInfo.Stream.CopyTo(ms);
+                string contentType = iconPath.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) || iconPath.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase) ? "image/jpeg" :
+                                     iconPath.EndsWith(".gif", StringComparison.OrdinalIgnoreCase) ? "image/gif" :
+                                     iconPath.EndsWith(".webp", StringComparison.OrdinalIgnoreCase) ? "image/webp" : "image/png";
+                return $"data:{contentType};base64,{Convert.ToBase64String(ms.ToArray())}";
             }
-            catch
-            {
-                return null;
-            }
+            catch { return null; }
         }
 
-        private static string GetContentType(string path)
-        {
-            if (path.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) || path.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase))
-                return "image/jpeg";
-            if (path.EndsWith(".gif", StringComparison.OrdinalIgnoreCase))
-                return "image/gif";
-            if (path.EndsWith(".webp", StringComparison.OrdinalIgnoreCase))
-                return "image/webp";
-            return "image/png";
-        }
+        private string GetProgressClass(PlayerRenderState player) => $"dps-class-{player.ClassId}";
+        private string GetCombatScoreDisplay(PlayerRenderState player) => (string.IsNullOrWhiteSpace(player.CombatPower) || player.CombatPower == "0") ? "" : player.CombatPower;
+        private double ClampPercent(double value) => Math.Max(0, Math.Min(100, value));
 
-        private void BeginDrag(MouseEventArgs _)
-            => UiCommandService.Request(new UiCommandRequest(UiCommandType.BeginMainWindowDrag));
-
-        private void OpenHistory()
-            => UiCommandService.Request(new UiCommandRequest(UiCommandType.OpenHistory));
-        private void OpenStatEffCalc()
-            => UiCommandService.Request(new UiCommandRequest(UiCommandType.OpenStatEff));
-
-        private void OpenWhatsNew()
-            => UiCommandService.Request(new UiCommandRequest(UiCommandType.OpenWhatsNew));
-
-        private void DismissUpdate()
-            => Vm?.DismissUpdateCommand?.Execute(null);
-
-        private void OpenSettings()
-        {
-            UiCommandService.Request(new UiCommandRequest(UiCommandType.OpenSettings));
-        }
-
+        private void BeginDrag(MouseEventArgs _) => UiCommandService.Request(new UiCommandRequest(UiCommandType.BeginMainWindowDrag));
+        private void OpenHistory() => UiCommandService.Request(new UiCommandRequest(UiCommandType.OpenHistory));
+        private void OpenStatEffCalc() => UiCommandService.Request(new UiCommandRequest(UiCommandType.OpenStatEff));
+        private void OpenWhatsNew() => UiCommandService.Request(new UiCommandRequest(UiCommandType.OpenWhatsNew));
+        private void OpenSettings() => UiCommandService.Request(new UiCommandRequest(UiCommandType.OpenSettings));
         private void Minimize() => UiCommandService.Request(new UiCommandRequest(UiCommandType.MinimizeMainWindow));
-
         private void Close() => UiCommandService.Request(new UiCommandRequest(UiCommandType.CloseApplication));
-
-        private void OpenPlayerDetails(PlayerStatsViewModel player)
-            => UiCommandService.Request(new UiCommandRequest(UiCommandType.OpenPlayerDetails, player.PlayerId, player.PlayerName));
+        private void DismissUpdate() { _updateAvailable = false; StateHasChanged(); }
+        private void OpenPlayerDetails(PlayerRenderState player) => UiCommandService.Request(new UiCommandRequest(UiCommandType.OpenPlayerDetails, player.PlayerId, player.PlayerNameDisplay));
 
         public void Dispose()
         {
-            if (_mainViewModel is null)
-                return;
+            _cts.Cancel();
+            _cts.Dispose();
+            _refreshTimer?.Dispose();
+            SessionManager.PingUpdated -= OnPingUpdated;
+            SettingsService.SettingsChanged -= OnSettingsChanged;
+        }
 
-            _mainViewModel.PropertyChanged -= OnMainViewModelPropertyChanged;
-            _mainViewModel.Players.CollectionChanged -= OnPlayersCollectionChanged;
-            UnsubscribeFromPlayerChanges(_mainViewModel.Players);
+        public class PlayerRenderState
+        {
+            public long PlayerId { get; set; }
+            public bool IsUser { get; set; }
+            public string ClassId { get; set; } = string.Empty;
+
+            public string PlayerNameDisplay { get; set; } = string.Empty;
+            public string DeathsDisplay { get; set; } = string.Empty;
+
+            public long TotalDamage { get; set; }
+            public string TotalDamageFormatted { get; set; } = string.Empty;
+            public string DpsFormatted { get; set; } = string.Empty;
+            public double DamagePercentage { get; set; }
+            public string CombatPower { get; set; } = string.Empty;
+            public string IconUrl { get; set; } = string.Empty;
+
+            public double VisualAbsolutePercentage { get; set; }
+            public double VisualRelativePercentage { get; set; }
+            public double EffectivePercentage { get; set; } 
         }
     }
 }

@@ -140,10 +140,11 @@ namespace AionDpsMeter.UI.Views
 
         private void CloseSettings()
         {
-            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-            {
-                settingsWindow?.Close(); // 'this' = the settings Window
-            }), DispatcherPriority.Background);
+            settingsWindow?.Hide();
+            //Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            //{
+            //    settingsWindow?.Close(); 
+            //}), DispatcherPriority.Background);
         }
         private void ApplyDisplayStyle()
         {
