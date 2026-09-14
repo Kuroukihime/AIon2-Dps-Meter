@@ -7,8 +7,6 @@ using AionDpsMeter.UI.ViewModels;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System.Collections.Concurrent;
-using System.IO;
-using System.Windows;
 
 namespace AionDpsMeter.UI.Pages
 {
@@ -121,7 +119,7 @@ namespace AionDpsMeter.UI.Pages
                 player.DpsFormatted = DamageFormatter.Format(stat.DamagePerSecond);
                 player.DamagePercentage = stat.DamagePercentage;
                 player.CombatPower = DamageFormatter.Format(stat.CombatPower);
-                player.IconUrl = ResolveClassIconUrl(stat.ClassIcon);
+                player.IconUrl = ResolveClassIconUrl(stat.ClassId);
 
                 string rawName = stat.PlayerName;
 
@@ -191,31 +189,14 @@ namespace AionDpsMeter.UI.Pages
         private void OnSettingsChanged(object? sender, EventArgs e)
             => InvokeAsync(StateHasChanged);
 
-        private string ResolveClassIconUrl(string? iconPath)
+        private string ResolveClassIconUrl(int classId)
         {
-            if (string.IsNullOrWhiteSpace(iconPath)) return string.Empty;
-            if (_iconCache.TryGetValue(iconPath, out var cached)) return cached;
-            string resolved = (iconPath.StartsWith("http") || iconPath.StartsWith("data:")) ? iconPath : TryCreateEmbeddedDataUri(iconPath) ?? string.Empty;
-            _iconCache[iconPath] = resolved;
-            return resolved;
-        }
+            string key = classId.ToString();
+            if (_iconCache.TryGetValue(key, out var cached)) return cached;
 
-        private static string? TryCreateEmbeddedDataUri(string iconPath)
-        {
-            try
-            {
-                var normalized = iconPath.StartsWith('/') ? iconPath : $"/{iconPath}";
-                var uri = new Uri($"pack://application:,,,{normalized}", UriKind.Absolute);
-                var streamInfo = Application.GetResourceStream(uri);
-                if (streamInfo?.Stream is null) return null;
-                using var ms = new MemoryStream();
-                streamInfo.Stream.CopyTo(ms);
-                string contentType = iconPath.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) || iconPath.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase) ? "image/jpeg" :
-                                     iconPath.EndsWith(".gif", StringComparison.OrdinalIgnoreCase) ? "image/gif" :
-                                     iconPath.EndsWith(".webp", StringComparison.OrdinalIgnoreCase) ? "image/webp" : "image/png";
-                return $"data:{contentType};base64,{Convert.ToBase64String(ms.ToArray())}";
-            }
-            catch { return null; }
+            string resolved = $"/images/classes/{classId}.png";
+            _iconCache[key] = resolved;
+            return resolved;
         }
 
         private string GetProgressClass(PlayerRenderState player) => $"dps-class-{player.ClassId}";

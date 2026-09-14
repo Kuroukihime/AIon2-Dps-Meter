@@ -54,6 +54,19 @@
     <Resource Include="Assets\**\*.jpg" />
     <Resource Include="Assets\**\*.ico" />
   </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Remove="wwwroot\images\classes\11.png" />
+    <Content Remove="wwwroot\images\classes\12.png" />
+    <Content Remove="wwwroot\images\classes\13.png" />
+    <Content Remove="wwwroot\images\classes\14.png" />
+    <Content Remove="wwwroot\images\classes\15.png" />
+    <Content Remove="wwwroot\images\classes\16.png" />
+    <Content Remove="wwwroot\images\classes\17.png" />
+    <Content Remove="wwwroot\images\classes\18.png" />
+    <Content Remove="wwwroot\images\classes\19.png" />
+  </ItemGroup>
   <ItemGroup>
     <None Remove="appsettings.json" />
     <None Remove="Assets\Fonts\JetBrainsMono-Bold.ttf" />
@@ -68,6 +81,15 @@
   <ItemGroup>
     <Resource Include="Assets\Fonts\JetBrainsMono-Bold.ttf" />
     <Resource Include="Assets\Fonts\JetBrainsMono-Regular.ttf" />
+    <Resource Include="wwwroot\images\classes\13.png" />
+    <Resource Include="wwwroot\images\classes\19.png" />
+    <Resource Include="wwwroot\images\classes\18.png" />
+    <Resource Include="wwwroot\images\classes\17.png" />
+    <Resource Include="wwwroot\images\classes\16.png" />
+    <Resource Include="wwwroot\images\classes\11.png" />
+    <Resource Include="wwwroot\images\classes\14.png" />
+    <Resource Include="wwwroot\images\classes\15.png" />
+    <Resource Include="wwwroot\images\classes\12.png" />
   </ItemGroup>
 
 </Project>

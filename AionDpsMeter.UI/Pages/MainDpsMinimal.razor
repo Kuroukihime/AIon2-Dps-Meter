@@ -50,7 +50,7 @@
                 <div class="progress-bar @GetProgressClass(player)" style="width:@($"{ClampPercent(player.EffectivePercentage):0.##}%")"></div>
                 <div class="player-data">
                     <div class="icon-wrap">
-                        <div class="class-icon" style="background-image: url('@player.IconUrl');"></div>
+                        <div class="class-icon" style="background-image: url('/images/classes/@(player.ClassId).png');"></div>
                     </div>
                     <div class="player-info">
                         <div class="name-block">
