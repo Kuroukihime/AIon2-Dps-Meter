@@ -16,7 +16,7 @@
         ResizeMode="NoResize"
        >
 
-    <blazor:BlazorWebView x:Name="BlazorWebView" HostPage="wwwroot/index.html">
+    <blazor:BlazorWebView x:Name="BlazorWebView" HostPage="wwwroot/index.html"  Background="Transparent">
         <blazor:BlazorWebView.RootComponents>
             <blazor:RootComponent Selector="#app" ComponentType="{x:Type local:SettingsPage}" />
         </blazor:BlazorWebView.RootComponents>

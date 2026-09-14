@@ -55,18 +55,6 @@
     <Resource Include="Assets\**\*.ico" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <Content Remove="wwwroot\images\classes\11.png" />
-    <Content Remove="wwwroot\images\classes\12.png" />
-    <Content Remove="wwwroot\images\classes\13.png" />
-    <Content Remove="wwwroot\images\classes\14.png" />
-    <Content Remove="wwwroot\images\classes\15.png" />
-    <Content Remove="wwwroot\images\classes\16.png" />
-    <Content Remove="wwwroot\images\classes\17.png" />
-    <Content Remove="wwwroot\images\classes\18.png" />
-    <Content Remove="wwwroot\images\classes\19.png" />
-  </ItemGroup>
   <ItemGroup>
     <None Remove="appsettings.json" />
     <None Remove="Assets\Fonts\JetBrainsMono-Bold.ttf" />

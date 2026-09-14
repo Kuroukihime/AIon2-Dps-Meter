@@ -1,4 +1,5 @@
 using AionDpsMeter.UI.Pages;
+using Microsoft.AspNetCore.Components.WebView;
 using Microsoft.AspNetCore.Components.WebView.Wpf;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -18,12 +19,18 @@ namespace AionDpsMeter.UI
         {
             InitializeComponent();
             BlazorWebView.Services = App.AppHost.Services;
-
+        
             //var ver = Assembly.GetEntryAssembly()?.GetName().Version;
             //VersionTextBlock.Text = ver is not null
             //    ? $"v{ver.Major}.{ver.Minor}.{ver.Build}"
             //    : string.Empty;
             //Loaded += (_, _) => InitializeSettingsWebView();
+            BlazorWebView.BlazorWebViewInitialized += BlazorWebViewInitialized;
+        }
+
+        private void BlazorWebViewInitialized(object sender, BlazorWebViewInitializedEventArgs e)
+        {
+            e.WebView.DefaultBackgroundColor = System.Drawing.Color.Transparent;
         }
 
         //private void InitializeSettingsWebView()

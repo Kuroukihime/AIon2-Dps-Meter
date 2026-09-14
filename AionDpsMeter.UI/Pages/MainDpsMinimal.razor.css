@@ -448,7 +448,7 @@
     z-index: 2;
     height: 100%;
     display: grid;
-    grid-template-columns: 28px 1fr  minmax(0, 1fr) 35px 100px 65px;
+    grid-template-columns: 28px 30% 1fr 20px 100px 65px;
     column-gap: 6px;
     align-items: center;
     padding: 0 8px 0 4px;
@@ -461,7 +461,7 @@
 
 .player-info {
     display: grid;
-    grid-template-columns: 1fr 30px;
+    grid-template-columns: 1fr 40px;
     padding: 0;
     align-items: center;
     column-gap: 6px;
