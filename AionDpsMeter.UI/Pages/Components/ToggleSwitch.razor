@@ -1,0 +1,18 @@
+<button type="button"
+        class="toggle-switch @(Checked ? "is-on" : "")"
+        role="switch"
+        aria-checked="@(Checked ? "true" : "false")"
+        @onclick="Toggle">
+    <span class="toggle-switch__thumb"></span>
+</button>
+
+@code {
+    [Parameter] public bool Checked { get; set; }
+    [Parameter] public EventCallback<bool> CheckedChanged { get; set; }
+
+    private async Task Toggle()
+    {
+        Checked = !Checked;
+        await CheckedChanged.InvokeAsync(Checked);
+    }
+}

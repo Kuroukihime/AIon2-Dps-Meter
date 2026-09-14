@@ -1,3 +1,5 @@
+using AionDpsMeter.UI.Pages;
+using Microsoft.AspNetCore.Components.WebView.Wpf;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -15,74 +17,88 @@ namespace AionDpsMeter.UI
         public SettingsWindow()
         {
             InitializeComponent();
+            BlazorWebView.Services = App.AppHost.Services;
 
-            var ver = Assembly.GetEntryAssembly()?.GetName().Version;
-            VersionTextBlock.Text = ver is not null
-                ? $"v{ver.Major}.{ver.Minor}.{ver.Build}"
-                : string.Empty;
+            //var ver = Assembly.GetEntryAssembly()?.GetName().Version;
+            //VersionTextBlock.Text = ver is not null
+            //    ? $"v{ver.Major}.{ver.Minor}.{ver.Build}"
+            //    : string.Empty;
+            //Loaded += (_, _) => InitializeSettingsWebView();
         }
 
-        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
-        }
+        //private void InitializeSettingsWebView()
+        //{
+        //    SettingsWebView.WebView.DefaultBackgroundColor = System.Drawing.Color.Transparent;
+        //    SettingsWebView.Services = App.AppHost.Services;
+        //    SettingsWebView.RootComponents.Clear();
+        //    SettingsWebView.RootComponents.Add(new RootComponent
+        //    {
+        //        Selector = "#app",
+        //        ComponentType = typeof(SettingsPage)
+        //    });
+        //}
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+        //private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    if (e.ChangedButton == MouseButton.Left)
+        //        this.DragMove();
+        //}
 
-        private void RetentionPeriodTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            e.Handled = !IsDigitsOnly(e.Text);
-        }
+        //private void CloseButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    this.Close();
+        //}
 
-        private static bool IsDigitsOnly(string text) => Regex.IsMatch(text, @"^\d+$");
+        //private void RetentionPeriodTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        //{
+        //    e.Handled = !IsDigitsOnly(e.Text);
+        //}
 
-        private void HotkeyBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (sender is TextBox tb)
-            {
-                tb.BorderBrush = _activeBorder;
-                tb.Text = "Press a key...";
-            }
-        }
+        //private static bool IsDigitsOnly(string text) => Regex.IsMatch(text, @"^\d+$");
 
-        private void HotkeyBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (sender is TextBox tb)
-                tb.BorderBrush = _normalBorder;
-        }
+        //private void HotkeyBox_GotFocus(object sender, RoutedEventArgs e)
+        //{
+        //    if (sender is TextBox tb)
+        //    {
+        //        tb.BorderBrush = _activeBorder;
+        //        tb.Text = "Press a key...";
+        //    }
+        //}
 
-        private void HotkeyBox_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            e.Handled = true;
+        //private void HotkeyBox_LostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    if (sender is TextBox tb)
+        //        tb.BorderBrush = _normalBorder;
+        //}
 
-            var key = e.Key == Key.System ? e.SystemKey : e.Key;
+        //private void HotkeyBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        //{
+        //    e.Handled = true;
 
-            // Ignore standalone modifier keys
-            if (key is Key.LeftShift or Key.RightShift or
-                       Key.LeftCtrl or Key.RightCtrl or
-                       Key.LeftAlt or Key.RightAlt or
-                       Key.LWin or Key.RWin or Key.Tab or Key.Escape)
-                return;
+        //    var key = e.Key == Key.System ? e.SystemKey : e.Key;
 
-            var parts = new List<string>();
-            if ((Keyboard.Modifiers & ModifierKeys.Control) != 0) parts.Add("Ctrl");
-            if ((Keyboard.Modifiers & ModifierKeys.Shift) != 0) parts.Add("Shift");
-            if ((Keyboard.Modifiers & ModifierKeys.Alt) != 0) parts.Add("Alt");
-            parts.Add(key.ToString());
+        //    // Ignore standalone modifier keys
+        //    if (key is Key.LeftShift or Key.RightShift or
+        //               Key.LeftCtrl or Key.RightCtrl or
+        //               Key.LeftAlt or Key.RightAlt or
+        //               Key.LWin or Key.RWin or Key.Tab or Key.Escape)
+        //        return;
 
-            var combo = string.Join("+", parts);
+        //    var parts = new List<string>();
+        //    if ((Keyboard.Modifiers & ModifierKeys.Control) != 0) parts.Add("Ctrl");
+        //    if ((Keyboard.Modifiers & ModifierKeys.Shift) != 0) parts.Add("Shift");
+        //    if ((Keyboard.Modifiers & ModifierKeys.Alt) != 0) parts.Add("Alt");
+        //    parts.Add(key.ToString());
 
-            if (sender is TextBox tb && DataContext is ViewModels.SettingsViewModel vm)
-            {
-                vm.ToggleVisibilityHotkey = combo;
-                tb.Text = combo;
-                Keyboard.ClearFocus();
-            }
-        }
+        //    var combo = string.Join("+", parts);
+
+        //    if (sender is TextBox tb && DataContext is ViewModels.SettingsViewModel vm)
+        //    {
+        //        vm.ToggleVisibilityHotkey = combo;
+        //        tb.Text = combo;
+        //        Keyboard.ClearFocus();
+        //    }
+        //}
     }
 }
 

@@ -10,5 +10,6 @@ namespace AionDpsMeter.UI.Services.UiCommands
         OpenWhatsNew,
         OpenPlayerDetails,
         OpenStatEff,
+        CloseSettings,
     }
 }

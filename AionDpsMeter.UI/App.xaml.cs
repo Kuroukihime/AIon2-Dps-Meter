@@ -62,6 +62,7 @@ namespace AionDpsMeter.UI
                     services.AddSingleton<MainViewModel>();
                     services.AddSingleton<IUiCommandService, UiCommandService>();
                     services.AddSingleton<MainWindow>();
+                    services.AddSingleton<SettingsWindow>();
                     services.AddWpfBlazorWebView();
 
                 })

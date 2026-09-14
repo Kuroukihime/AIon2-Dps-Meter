@@ -9,6 +9,7 @@
     overflow: hidden;
     font-family: "JetBrains Mono", Consolas, monospace;
     box-sizing: border-box;
+    user-select: none
 }
 
 

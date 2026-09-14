@@ -34,7 +34,7 @@ namespace AionDpsMeter.UI.Views
             this.updateCheckerService = updateCheckerService;
             _uiCommandService = uiCommandService;
 
-            _saveBoundsTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(500) };
+            _saveBoundsTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(5000) };
             _saveBoundsTimer.Tick += (_, _) => { _saveBoundsTimer.Stop(); SaveWindowBounds(); };
 
             RestoreWindowBounds();
@@ -96,6 +96,9 @@ namespace AionDpsMeter.UI.Views
                     case UiCommandType.OpenSettings:
                         SettingsButton_Click(this, new RoutedEventArgs());
                         break;
+                    case UiCommandType.CloseSettings:
+                        CloseSettings();
+                        break;
                     case UiCommandType.OpenStatEff:
                         StatEfficiencyCalculatorButton_Click(this, new RoutedEventArgs());
                         break;
@@ -135,6 +138,13 @@ namespace AionDpsMeter.UI.Views
             });
         }
 
+        private void CloseSettings()
+        {
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                settingsWindow?.Close(); // 'this' = the settings Window
+            }), DispatcherPriority.Background);
+        }
         private void ApplyDisplayStyle()
         {
             if (DataContext is not MainViewModel vm) return;
@@ -151,7 +161,7 @@ namespace AionDpsMeter.UI.Views
             {
                 MainBorder.Background = Brushes.Transparent;
                 MainBorder.BorderThickness = new Thickness(0);
-                MainBorder.Opacity = 1;
+                //MainBorder.Opacity = 1;
 
                 Style1Layout.ClearBackgroundImage();
             }
