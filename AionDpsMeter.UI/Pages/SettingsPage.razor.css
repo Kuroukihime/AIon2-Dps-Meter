@@ -47,6 +47,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    cursor: move;
 }
 
 .settings-title__mark {

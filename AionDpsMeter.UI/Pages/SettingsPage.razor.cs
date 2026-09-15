@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace AionDpsMeter.UI.Pages
 {
-    partial class SettingsPage (IAppSettingsService settings, WindowHelper windowHelper)
+    partial class SettingsPage (IAppSettingsService settings, WindowHelper windowHelper, IWindowManagerService windowManager)
     {
         private int _windowOpacityPercent;
         private double _playerRowScale;
@@ -103,6 +103,8 @@ namespace AionDpsMeter.UI.Pages
             settings.ToggleVisibilityHotkey = string.Join("+", parts);
             _capturingHotkey = false;
         }
+
+        private void BeginDrag(MouseEventArgs _) => windowManager.Drag(WindowKey.Settings);
 
     }
 }
