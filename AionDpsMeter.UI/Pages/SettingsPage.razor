@@ -66,12 +66,6 @@
                 </ValueSlot>
             </SettingRow>
             
-            <SettingRow Title="Use class colors" Description="Use class colors for player rows instead of highlighting me">
-                <ValueSlot>
-                    <ToggleSwitch Checked="settings.UseClassColors" CheckedChanged="v => { settings.UseClassColors = v; }" />
-                </ValueSlot>
-            </SettingRow>
-
             @if (settings.UiStyle == 1)
             {
                 <SettingRow Title="Row Size" Description="Size of each player row">
@@ -91,6 +85,12 @@
             <SettingRow Title="Relative Damage Bars" Description="Scale bars against the top player instead of absolute damage">
                 <ValueSlot>
                     <ToggleSwitch Checked="settings.RelativeProgressBar" CheckedChanged="v => { settings.RelativeProgressBar = v; }" />
+                </ValueSlot>
+            </SettingRow>
+
+            <SettingRow Title="Use class colors" Description="Use class colors for player rows instead of highlighting me">
+                <ValueSlot>
+                    <ToggleSwitch Checked="settings.UseClassColors" CheckedChanged="v => { settings.UseClassColors = v; }" />
                 </ValueSlot>
             </SettingRow>
 
