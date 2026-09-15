@@ -66,10 +66,9 @@
                 </ValueSlot>
             </SettingRow>
 
-            @* Row scaling only applies to the compact layout — hide it otherwise *@
             @if (settings.UiStyle == 1)
             {
-                <SettingRow Title="Row Size" Description="Size of each player row in the compact layout">
+                <SettingRow Title="Row Size" Description="Size of each player row">
                     <ValueSlot>
                         <div class="slider-field">
                             <input type="range" min="0.5" max="3" step="0.1"

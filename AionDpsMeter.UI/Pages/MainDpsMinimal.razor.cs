@@ -1,21 +1,24 @@
 using AionDpsMeter.Services.Services.Session;
 using AionDpsMeter.Services.Services.Settings;
 using AionDpsMeter.Services.Services.Update;
-using AionDpsMeter.UI.Services.UiCommands;
 using AionDpsMeter.UI.Utils; 
 using AionDpsMeter.UI.ViewModels;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System.Collections.Concurrent;
+using AionDpsMeter.UI.Services.Windowing;
+using AionDpsMeter.UI.Views;
 
 namespace AionDpsMeter.UI.Pages
 {
     public partial class MainDpsMinimal : ComponentBase, IDisposable
     {
-        [Inject] private IUiCommandService UiCommandService { get; set; } = default!;
         [Inject] private CombatSessionManager SessionManager { get; set; } = default!;
         [Inject] private IAppSettingsService SettingsService { get; set; } = default!;
         [Inject] private UpdateCheckerService UpdateChecker { get; set; } = default!;
+        [Inject] private IWindowManagerService WindowManager { get; set; } = default!;
+        [Inject] private WindowHelper WindowHelper { get; set; } = default!;
+        [Inject] private MainWindow MainWin { get; set; } = default!;
 
         private readonly Dictionary<long, PlayerRenderState> _playerStates = new();
 
@@ -120,6 +123,9 @@ namespace AionDpsMeter.UI.Pages
                 player.DamagePercentage = stat.DamagePercentage;
                 player.CombatPower = DamageFormatter.Format(stat.CombatPower);
                 player.IconUrl = ResolveClassIconUrl(stat.ClassId);
+                player.ClassName = stat.ClassName;
+                player.ServerName = stat.ServerName;
+                player.ClassIcon = stat.ClassIcon;
 
                 string rawName = stat.PlayerName;
 
@@ -203,15 +209,17 @@ namespace AionDpsMeter.UI.Pages
         private string GetCombatScoreDisplay(PlayerRenderState player) => (string.IsNullOrWhiteSpace(player.CombatPower) || player.CombatPower == "0") ? "" : player.CombatPower;
         private double ClampPercent(double value) => Math.Max(0, Math.Min(100, value));
 
-        private void BeginDrag(MouseEventArgs _) => UiCommandService.Request(new UiCommandRequest(UiCommandType.BeginMainWindowDrag));
-        private void OpenHistory() => UiCommandService.Request(new UiCommandRequest(UiCommandType.OpenHistory));
-        private void OpenStatEffCalc() => UiCommandService.Request(new UiCommandRequest(UiCommandType.OpenStatEff));
-        private void OpenWhatsNew() => UiCommandService.Request(new UiCommandRequest(UiCommandType.OpenWhatsNew));
-        private void OpenSettings() => UiCommandService.Request(new UiCommandRequest(UiCommandType.OpenSettings));
-        private void Minimize() => UiCommandService.Request(new UiCommandRequest(UiCommandType.MinimizeMainWindow));
-        private void Close() => UiCommandService.Request(new UiCommandRequest(UiCommandType.CloseApplication));
+        private void BeginDrag(MouseEventArgs _) => WindowManager.Drag(WindowKey.Main);
+
+        private void OpenHistory() => WindowHelper.OpenHistory();
+        private void OpenStatEffCalc() => WindowHelper.OpenStatEff();
+        private void OpenWhatsNew() => WindowHelper.OpenWhatsNewWindow();
+
+        private void OpenSettings() => WindowHelper.OpenSettings();
+        private void Minimize() => WindowManager.Minimize(WindowKey.Main);
+        private void Close() => WindowManager.CloseApplication();
         private void DismissUpdate() { _updateAvailable = false; StateHasChanged(); }
-        private void OpenPlayerDetails(PlayerRenderState player) => UiCommandService.Request(new UiCommandRequest(UiCommandType.OpenPlayerDetails, player.PlayerId, player.PlayerNameDisplay));
+        private void OpenPlayerDetails(PlayerRenderState player) => WindowHelper.OpenPlayerDetails(player);
 
         public void Dispose()
         {
@@ -222,25 +230,6 @@ namespace AionDpsMeter.UI.Pages
             SettingsService.SettingsChanged -= OnSettingsChanged;
         }
 
-        public class PlayerRenderState
-        {
-            public long PlayerId { get; set; }
-            public bool IsUser { get; set; }
-            public string ClassId { get; set; } = string.Empty;
-
-            public string PlayerNameDisplay { get; set; } = string.Empty;
-            public string DeathsDisplay { get; set; } = string.Empty;
-
-            public long TotalDamage { get; set; }
-            public string TotalDamageFormatted { get; set; } = string.Empty;
-            public string DpsFormatted { get; set; } = string.Empty;
-            public double DamagePercentage { get; set; }
-            public string CombatPower { get; set; } = string.Empty;
-            public string IconUrl { get; set; } = string.Empty;
-
-            public double VisualAbsolutePercentage { get; set; }
-            public double VisualRelativePercentage { get; set; }
-            public double EffectivePercentage { get; set; } 
-        }
+       
     }
 }

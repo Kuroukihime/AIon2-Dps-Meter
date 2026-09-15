@@ -1,5 +1,4 @@
-﻿using AionDpsMeter.Core.Models;
-using AionDpsMeter.Services.Extensions;
+﻿using AionDpsMeter.Services.Extensions;
 using AionDpsMeter.Services.Models;
 using AionDpsMeter.Services.PacketCapture;
 using AionDpsMeter.Services.Services;
@@ -8,16 +7,12 @@ using AionDpsMeter.Services.Services.Session;
 using AionDpsMeter.Services.Services.Session.Persistence;
 using AionDpsMeter.Services.Services.Settings;
 using AionDpsMeter.Services.Services.Update;
-using AionDpsMeter.UI.UiCommands;
 using AionDpsMeter.UI.ViewModels;
-using Microsoft.AspNetCore.Components.WebView.Wpf;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.Windows;
-using AionDpsMeter.Services.Services.Entity;
-using AionDpsMeter.UI.Services.UiCommands;
+using AionDpsMeter.UI.Services.Windowing;
 using AionDpsMeter.UI.Views;
 
 namespace AionDpsMeter.UI
@@ -49,18 +44,18 @@ namespace AionDpsMeter.UI
                     services.AddSingleton<FilePacketWriter>();
                     services.AddSingleton<TcpStreamBuffer>();
 
-                    //services.AddSingleton<IPacketCaptureDevice, FilePacketCaptureDevice>();
-                    services.AddSingleton<IPacketCaptureDevice, CaptureDevice>();
+                    services.AddSingleton<IPacketCaptureDevice, FilePacketCaptureDevice>();
+                    //services.AddSingleton<IPacketCaptureDevice, CaptureDevice>();
 
                     services.AddSingleton<EntityTracker>();
                     services.AddSingleton<CombatSessionManager>();
                     services.AddPacketProcessingRouting();
                     services.AddSingleton<IPacketService, PacketPipelineService>();
 
+                    services.AddWindowManager();
                    
                     services.AddSingleton<SettingsViewModel>();
                     services.AddSingleton<MainViewModel>();
-                    services.AddSingleton<IUiCommandService, UiCommandService>();
                     services.AddSingleton<MainWindow>();
                     services.AddSingleton<SettingsWindow>();
                     services.AddWpfBlazorWebView();
@@ -76,7 +71,8 @@ namespace AionDpsMeter.UI
             _ = AppHost.Services.GetRequiredService<ICombatHistoryStore>();
 
             var mainWindow = AppHost.Services.GetRequiredService<MainWindow>();
-            mainWindow.Show();
+            var windowManager = AppHost.Services.GetRequiredService<IWindowManagerService>();
+            windowManager.Open(WindowKey.Main, mainWindow, true);
 
             base.OnStartup(e);
         }

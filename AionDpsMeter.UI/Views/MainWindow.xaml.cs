@@ -5,7 +5,7 @@ using System.Windows.Threading;
 using AionDpsMeter.Services.Services.Settings;
 using AionDpsMeter.Services.Services.Update;
 using AionDpsMeter.UI.Pages;
-using AionDpsMeter.UI.Services.UiCommands;
+using AionDpsMeter.UI.Services.Windowing;
 using AionDpsMeter.UI.Utils;
 using AionDpsMeter.UI.ViewModels;
 using Microsoft.AspNetCore.Components.WebView.Wpf;
@@ -14,25 +14,19 @@ namespace AionDpsMeter.UI.Views
 {
     public partial class MainWindow : Window
     {
-        private readonly SettingsViewModel settingsViewModel;
         private readonly IAppSettingsService settingsService;
-        private readonly UpdateCheckerService updateCheckerService;
-        private SettingsWindow? settingsWindow;
-        private HistoryWindow? historyWindow;
-        private StatEfficiencyCalculatorWindow? statEfficiencyCalculatorWindow;
-        private StatEfficiencyCalculatorViewModel? statEfficiencyCalculatorViewModel;
         private DispatcherTimer? _saveBoundsTimer;
         private GlobalHotkey? _globalHotkey;
-        private readonly IUiCommandService _uiCommandService;
+        private readonly IWindowManagerService windowManager;
+        private readonly WindowHelper windowHelper;
 
-        public MainWindow(MainViewModel viewModel, SettingsViewModel settingsViewModel, IAppSettingsService settingsService, UpdateCheckerService updateCheckerService, IUiCommandService uiCommandService)
+        public MainWindow(MainViewModel viewModel, IAppSettingsService settingsService, IWindowManagerService windowManager, WindowHelper windowHelper)
         {
             InitializeComponent();
             DataContext = viewModel;
-            this.settingsViewModel    = settingsViewModel;
             this.settingsService      = settingsService;
-            this.updateCheckerService = updateCheckerService;
-            _uiCommandService = uiCommandService;
+            this.windowManager = windowManager;
+            this.windowHelper = windowHelper;
 
             _saveBoundsTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(5000) };
             _saveBoundsTimer.Tick += (_, _) => { _saveBoundsTimer.Stop(); SaveWindowBounds(); };
@@ -53,8 +47,13 @@ namespace AionDpsMeter.UI.Views
 
             Loaded += (_, _) => RegisterToggleHotkey();
             Loaded += (_, _) => InitializeStyle3WebView();
-            _uiCommandService.CommandRequested += OnUiCommandRequested;
+            windowManager.CloseAppCommand += OnCloseCommand;
             ApplyDisplayStyle();
+        }
+
+        private void OnCloseCommand(object? sender, EventArgs e)
+        {
+            Dispatcher.Invoke(() => { CloseButton_Click(this, new RoutedEventArgs()); });
         }
 
         private void InitializeStyle3WebView()
@@ -69,83 +68,7 @@ namespace AionDpsMeter.UI.Views
             });
         }
 
-        private void OnUiCommandRequested(object? sender, UiCommandRequest request)
-        {
-            Dispatcher.Invoke(() =>
-            {
-                switch (request.Command)
-                {
-                    case UiCommandType.BeginMainWindowDrag:
-                        if (settingsService.UiStyle == 2)
-                        {
-                            try
-                            {
-                                DragMove();
-                            }
-                            catch
-                            {
-                            }
-                        }
-                        break;
-                    case UiCommandType.MinimizeMainWindow:
-                        WindowState = WindowState.Minimized;
-                        break;
-                    case UiCommandType.CloseApplication:
-                        CloseButton_Click(this, new RoutedEventArgs());
-                        break;
-                    case UiCommandType.OpenSettings:
-                        SettingsButton_Click(this, new RoutedEventArgs());
-                        break;
-                    case UiCommandType.CloseSettings:
-                        CloseSettings();
-                        break;
-                    case UiCommandType.OpenStatEff:
-                        StatEfficiencyCalculatorButton_Click(this, new RoutedEventArgs());
-                        break;
-                    case UiCommandType.OpenHistory:
-                        HistoryButton_Click(this, new RoutedEventArgs());
-                        break;
-                    case UiCommandType.OpenWhatsNew:
-                        WhatsNewButton_Click(this, new RoutedEventArgs());
-                        break;
-                    case UiCommandType.OpenPlayerDetails:
-                        if (DataContext is not MainViewModel viewModel || request.PlayerId is null)
-                            return;
-
-                        var player = viewModel.Players.FirstOrDefault(p => p.PlayerId == request.PlayerId);
-                        if (player is null)
-                            return;
-
-                        var detailsWindow = new PlayerDetailsWindow
-                        {
-                            DataContext = new PlayerDetailsViewModel(
-                                viewModel.SessionManager,
-                                player.PlayerId,
-                                player.PlayerName,
-                                player.ClassName,
-                                player.PlayerIcon,
-                                player.ClassIcon,
-                                settingsService,
-                                player.CombatPower,
-                                player.ServerName),
-                            Owner = this
-                        };
-
-                        PositionWindowToRight(detailsWindow);
-                        detailsWindow.Show();
-                        break;
-                }
-            });
-        }
-
-        private void CloseSettings()
-        {
-            settingsWindow?.Hide();
-            //Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-            //{
-            //    settingsWindow?.Close(); 
-            //}), DispatcherPriority.Background);
-        }
+        
         private void ApplyDisplayStyle()
         {
             if (DataContext is not MainViewModel vm) return;
@@ -264,45 +187,6 @@ namespace AionDpsMeter.UI.Views
             settingsService.WindowHeight = Height;
         }
 
-        private void PositionWindowToRight(Window child)
-        {
-            const double gap = 8;
-
-            var wa = ScreenHelper.GetWorkingAreaForWindow(this);
-
-            double mainRight     = Left + Width;
-            double candidateLeft = mainRight + gap;
-
-            double childLeft;
-            if (candidateLeft + child.Width <= wa.Right)
-            {
-                childLeft = candidateLeft;
-            }
-            else
-            {
-                childLeft = Math.Max(wa.Left, wa.Right - child.Width);
-            }
-
-            double childTop = Math.Max(wa.Top, Math.Min(Top, wa.Bottom - child.Height));
-
-            child.WindowStartupLocation = WindowStartupLocation.Manual;
-            child.Left = childLeft;
-            child.Top  = childTop;
-        }
-
-        protected override void OnLocationChanged(EventArgs e)
-        {
-            base.OnLocationChanged(e);
-            _saveBoundsTimer?.Stop();
-            _saveBoundsTimer?.Start();
-        }
-
-        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
-        {
-            base.OnRenderSizeChanged(sizeInfo);
-            _saveBoundsTimer?.Stop();
-            _saveBoundsTimer?.Start();
-        }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -313,72 +197,13 @@ namespace AionDpsMeter.UI.Views
                 this.DragMove();
         }
 
-        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
+        private void MinimizeButton_Click(object sender, RoutedEventArgs e) => windowManager.Minimize(WindowKey.Main); 
 
-        private void HistoryButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is not MainViewModel viewModel) return;
+        private void HistoryButton_Click(object sender, RoutedEventArgs e) => windowHelper.OpenHistory();
 
-            // Singleton: bring existing window to front instead of opening a new one
-            if (historyWindow is { IsVisible: true })
-            {
-                historyWindow.Activate();
-                return;
-            }
+        private void SettingsButton_Click(object sender, RoutedEventArgs e) => windowHelper.OpenSettings();
 
-            historyWindow = new HistoryWindow(viewModel.SessionManager, settingsService)
-            {
-                DataContext = new AionDpsMeter.UI.ViewModels.History.HistoryViewModel(viewModel.SessionManager, settingsService),
-                Owner = this
-            };
-
-            PositionWindowToRight(historyWindow);
-            historyWindow.Show();
-        }
-
-        private void SettingsButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (settingsWindow is { IsVisible: true })
-            {
-                settingsWindow.Activate();
-                return;
-            }
-
-            settingsWindow = new SettingsWindow
-            {
-                DataContext = settingsViewModel,
-                Owner = this
-            };
-
-            PositionWindowToRight(settingsWindow);
-            settingsWindow.Show();
-        }
-
-        private void StatEfficiencyCalculatorButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is not MainViewModel viewModel) return;
-
-            statEfficiencyCalculatorViewModel ??= new StatEfficiencyCalculatorViewModel(settingsService);
-            statEfficiencyCalculatorViewModel.LoadFromSnapshot(viewModel.SessionManager.GetCurrentPlayerStatSnapshot());
-
-            if (statEfficiencyCalculatorWindow is { IsVisible: true })
-            {
-                statEfficiencyCalculatorWindow.Activate();
-                return;
-            }
-
-            statEfficiencyCalculatorWindow = new StatEfficiencyCalculatorWindow
-            {
-                DataContext = statEfficiencyCalculatorViewModel,
-                Owner = this,
-            };
-
-            PositionWindowToRight(statEfficiencyCalculatorWindow);
-            statEfficiencyCalculatorWindow.Show();
-        }
+        private void StatEfficiencyCalculatorButton_Click(object sender, RoutedEventArgs e) => windowHelper.OpenStatEff();
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
@@ -388,17 +213,8 @@ namespace AionDpsMeter.UI.Views
             Application.Current.Shutdown();
         }
 
-        private void WhatsNewButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is not MainViewModel vm || vm.LatestRelease is null) return;
-
-            var win = new WhatsNewWindow(vm.LatestRelease, updateCheckerService)
-            {
-                Owner = this
-            };
-            PositionWindowToRight(win);
-            win.Show();
-        }
+        private void WhatsNewButton_Click(object sender, RoutedEventArgs e) => windowHelper.OpenWhatsNewWindow();
+       
 
         private void PlayerItem_Click(object sender, MouseButtonEventArgs e)
         {
@@ -406,29 +222,32 @@ namespace AionDpsMeter.UI.Views
                 element.Tag is PlayerStatsViewModel player &&
                 DataContext is MainViewModel viewModel)
             {
-                var detailsWindow = new PlayerDetailsWindow
+                windowHelper.OpenPlayerDetails(new PlayerRenderState()
                 {
-                    DataContext = new PlayerDetailsViewModel(
-                        viewModel.SessionManager,
-                        player.PlayerId,
-                        player.PlayerName,
-                        player.ClassName,
-                        player.PlayerIcon,
-                        player.ClassIcon,
-                        settingsService,
-                        player.CombatPower,
-                        player.ServerName),
-                    Owner = this
-                };
-
-                PositionWindowToRight(detailsWindow);
-                detailsWindow.Show();
+                    ClassIcon = player.ClassIcon,
+                    ClassId = player.ClassId.ToString(),
+                    ClassName = player.ClassName,
+                    CombatPower = player.CombatPower,
+                    DamagePercentage = player.DamagePercentage,
+                    DeathsDisplay = player.PlayerDeathsDisplay,
+                    DpsFormatted = player.DpsFormatted,
+                    EffectivePercentage = player.EffectivePercentage,
+                    IsUser = player.IsUser,
+                    PlayerId = player.PlayerId,
+                    PlayerNameDisplay = player.PlayerNameDisplay,
+                    ServerName = player.ServerName,
+                    TotalDamage = player.TotalDamage,
+                    TotalDamageFormatted = player.TotalDamageFormatted,
+                    VisualAbsolutePercentage = player.AbsolutePercentage,
+                    VisualRelativePercentage = player.RelativePercentage,
+                });
             }
+
+
         }
 
         protected override void OnClosed(EventArgs e)
         {
-            _uiCommandService.CommandRequested -= OnUiCommandRequested;
             _saveBoundsTimer?.Stop();
             _saveBoundsTimer = null;
             SaveWindowBounds();

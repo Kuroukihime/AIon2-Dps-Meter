@@ -1,18 +1,18 @@
 ﻿using AionDpsMeter.Services.Services.Settings;
-using AionDpsMeter.UI.Services.UiCommands;
+using AionDpsMeter.UI.Services.Windowing;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
 namespace AionDpsMeter.UI.Pages
 {
-    partial class SettingsPage (IAppSettingsService settings, IUiCommandService uiCommands)
+    partial class SettingsPage (IAppSettingsService settings, WindowHelper windowHelper)
     {
         private int _windowOpacityPercent;
         private double _playerRowScale;
         private bool _capturingHotkey;
         private bool _developerExpanded;
         private string _activeGroup = "appearance";
-        private string _version = "1.8.1";
+        private string _version = "1.0.0";
 
         private sealed record SettingsGroup(string Id, string Label, string Icon);
         private sealed record UiStyleOption(int Value, string Label, string PreviewClass);
@@ -45,10 +45,7 @@ namespace AionDpsMeter.UI.Pages
 
         private void SelectGroup(string id) => _activeGroup = id;
 
-        private void CloseWindow()
-        {
-            uiCommands.Request(new UiCommandRequest(UiCommandType.CloseSettings));
-        }
+        private void CloseWindow() => windowHelper.CloseSettings();
 
         private void ToggleDeveloperSection() => _developerExpanded = !_developerExpanded;
 

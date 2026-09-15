@@ -7,6 +7,9 @@ namespace AionDpsMeter.Services.Services.Update
 {
     public sealed class UpdateCheckerService
     {
+
+        public ReleaseInfo? LatestReleaseInfo { get; private set; }
+
         private const string ReleasesApiUrl = "https://api.github.com/repos/Kuroukihime/AIon2-Dps-Meter/releases/latest";
 
         private static readonly HttpClient _httpClient = new()
@@ -39,7 +42,7 @@ namespace AionDpsMeter.Services.Services.Update
                         ?? dto.ZipballUrl
                         ?? string.Empty;
 
-                    return new ReleaseInfo
+                    LatestReleaseInfo = new ReleaseInfo
                     {
                         TagName = dto.TagName ?? string.Empty,
                         Name    = dto.Name    ?? dto.TagName ?? string.Empty,
@@ -47,6 +50,7 @@ namespace AionDpsMeter.Services.Services.Update
                         HtmlUrl = dto.HtmlUrl ?? string.Empty,
                         ZipUrl  = zipUrl
                     };
+                    return LatestReleaseInfo;
                 }
             }
             catch
