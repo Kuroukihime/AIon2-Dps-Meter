@@ -1,9 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Threading;
 using AionDpsMeter.Services.Services.Settings;
-using AionDpsMeter.Services.Services.Update;
 using AionDpsMeter.UI.Pages;
 using AionDpsMeter.UI.Services.Windowing;
 using AionDpsMeter.UI.Utils;
@@ -34,21 +32,17 @@ namespace AionDpsMeter.UI.Views
             RestoreWindowBounds();
 
             MainBorder.Opacity = settingsService.WindowOpacity;
-            ApplyBackgroundImage(settingsService.BackgroundImagePath);
 
             settingsService.SettingsChanged += (_, _) =>
                 Dispatcher.InvokeAsync(() =>
                 {
                     MainBorder.Opacity = settingsService.WindowOpacity;
-                    ApplyBackgroundImage(settingsService.BackgroundImagePath);
                     RegisterToggleHotkey();
-                    ApplyDisplayStyle();
                 });
 
             Loaded += (_, _) => RegisterToggleHotkey();
-            Loaded += (_, _) => InitializeStyle3WebView();
+            Loaded += (_, _) => InitializeStyle2WebView();
             windowManager.CloseAppCommand += OnCloseCommand;
-            ApplyDisplayStyle();
         }
 
         private void OnCloseCommand(object? sender, EventArgs e)
@@ -56,47 +50,21 @@ namespace AionDpsMeter.UI.Views
             Dispatcher.Invoke(() => { CloseButton_Click(this, new RoutedEventArgs()); });
         }
 
-        private void InitializeStyle3WebView()
+      
+
+        private void InitializeStyle2WebView()
         {
-            Style3WebView.WebView.DefaultBackgroundColor = System.Drawing.Color.Transparent;
-            Style3WebView.Services = App.AppHost.Services;
-            Style3WebView.RootComponents.Clear();
-            Style3WebView.RootComponents.Add(new RootComponent
+            Style2WebView.WebView.DefaultBackgroundColor = System.Drawing.Color.Transparent;
+            Style2WebView.Services = App.AppHost.Services;
+            Style2WebView.RootComponents.Clear();
+            Style2WebView.RootComponents.Add(new RootComponent
             {
                 Selector = "#app",
-                ComponentType = typeof(MainDpsMinimal)
+                ComponentType = typeof(MainDpsPage)
             });
         }
 
-        
-        private void ApplyDisplayStyle()
-        {
-            if (DataContext is not MainViewModel vm) return;
 
-            vm.NotifyDisplayStyleChanged();
-
-         
-            Style3WebView.Opacity = settingsService.UiStyle == 2
-                ? settingsService.WindowOpacity
-                : 1;
-
-          
-            if (settingsService.UiStyle is 1 or 2)
-            {
-                MainBorder.Background = Brushes.Transparent;
-                MainBorder.BorderThickness = new Thickness(0);
-                //MainBorder.Opacity = 1;
-
-                Style1Layout.ClearBackgroundImage();
-            }
-            else
-            {
-                MainBorder.Background = (Brush)FindResource("PrimaryBackgroundBrush");
-                MainBorder.BorderThickness = new Thickness(0);  
-                MainBorder.Opacity = settingsService.WindowOpacity;
-                ApplyBackgroundImage(settingsService.BackgroundImagePath);
-            }
-        }
         private void RegisterToggleHotkey()
         {
             _globalHotkey ??= new GlobalHotkey(this);
@@ -131,26 +99,6 @@ namespace AionDpsMeter.UI.Views
             }
         }
 
-        private void ApplyBackgroundImage(string? path)
-        {
-            if (string.IsNullOrEmpty(path) || !System.IO.File.Exists(path))
-            {
-                Style1Layout.ClearBackgroundImage();
-                MainBorder.Background = (Brush)FindResource("PrimaryBackgroundBrush");
-                return;
-            }
-
-            try
-            {
-                Style1Layout.SetBackgroundImage(path);
-                MainBorder.Background = Brushes.Transparent;
-            }
-            catch
-            {
-                Style1Layout.ClearBackgroundImage();
-                MainBorder.Background = (Brush)FindResource("PrimaryBackgroundBrush");
-            }
-        }
 
         private void RestoreWindowBounds()
         {
@@ -188,62 +136,12 @@ namespace AionDpsMeter.UI.Views
         }
 
 
-        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (settingsService.UiStyle == 2)
-                return;
-
-            if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
-        }
-
-        private void MinimizeButton_Click(object sender, RoutedEventArgs e) => windowManager.Minimize(WindowKey.Main); 
-
-        private void HistoryButton_Click(object sender, RoutedEventArgs e) => windowHelper.OpenHistory();
-
-        private void SettingsButton_Click(object sender, RoutedEventArgs e) => windowHelper.OpenSettings();
-
-        private void StatEfficiencyCalculatorButton_Click(object sender, RoutedEventArgs e) => windowHelper.OpenStatEff();
-
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             _globalHotkey?.Dispose();
             if (DataContext is MainViewModel viewModel)
                 viewModel.Dispose();
             Application.Current.Shutdown();
-        }
-
-        private void WhatsNewButton_Click(object sender, RoutedEventArgs e) => windowHelper.OpenWhatsNewWindow();
-       
-
-        private void PlayerItem_Click(object sender, MouseButtonEventArgs e)
-        {
-            if (sender is FrameworkElement element &&
-                element.Tag is PlayerStatsViewModel player &&
-                DataContext is MainViewModel viewModel)
-            {
-                windowHelper.OpenPlayerDetails(new PlayerRenderState()
-                {
-                    ClassIcon = player.ClassIcon,
-                    ClassId = player.ClassId.ToString(),
-                    ClassName = player.ClassName,
-                    CombatPower = player.CombatPower,
-                    DamagePercentage = player.DamagePercentage,
-                    DeathsDisplay = player.PlayerDeathsDisplay,
-                    DpsFormatted = player.DpsFormatted,
-                    EffectivePercentage = player.EffectivePercentage,
-                    IsUser = player.IsUser,
-                    PlayerId = player.PlayerId,
-                    PlayerNameDisplay = player.PlayerNameDisplay,
-                    ServerName = player.ServerName,
-                    TotalDamage = player.TotalDamage,
-                    TotalDamageFormatted = player.TotalDamageFormatted,
-                    VisualAbsolutePercentage = player.AbsolutePercentage,
-                    VisualRelativePercentage = player.RelativePercentage,
-                });
-            }
-
-
         }
 
         protected override void OnClosed(EventArgs e)

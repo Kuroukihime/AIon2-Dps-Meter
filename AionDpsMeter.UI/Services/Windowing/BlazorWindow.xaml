@@ -9,9 +9,5 @@
         ResizeMode="NoResize"
         >
 
-    <!-- No RootComponents here on purpose: the page type is only known at
-         runtime (passed into the constructor), so it's added in code-behind
-         right after InitializeComponent() — same spot SettingsWindow.xaml.cs
-         already does it, just parameterized instead of hardcoded. -->
     <blazor:BlazorWebView x:Name="BlazorWebView" HostPage="wwwroot/index.html" Background="Transparent" />
 </Window>

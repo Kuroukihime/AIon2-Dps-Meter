@@ -1,0 +1,461 @@
+.dps-style2-root {
+    width: 100%;
+    height: 100%;
+    min-width: 200px;
+    min-height: 40px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: "JetBrains Mono", Consolas, monospace;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+/* =========================================================
+   HEADER — glass panel, matches HeaderGlassBrush + PanelDropShadow
+   ========================================================= */
+
+.s2-header {
+    position: relative;
+    width: 100%;
+    margin: 0 0 6px 0;
+    padding: 7px 8px;
+    border-radius: 6px;
+    box-sizing: border-box;
+    opacity: 0.90;
+    background: linear-gradient(180deg, #202226 0%, #121316 100%);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+    flex: 0 0 auto;
+}
+
+.s2-header-row-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    min-width: 0;
+    cursor: move;
+}
+
+.s2-boss-name {
+    color: #f2f1f5;
+    font-size: 12.5px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    flex: 1 1 auto;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.s2-header-controls {
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+/* ---- ping ---- */
+
+.s2-ping-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-right: 8px;
+}
+
+.s2-ping-bars {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 1px;
+}
+
+.s2-ping-bar {
+    display: inline-block;
+    width: 2px;
+    opacity: 0.35;
+    background: currentColor;
+    margin-right: 1px;
+}
+
+    .s2-ping-bar:nth-child(1) {
+        height: 4px;
+    }
+
+    .s2-ping-bar:nth-child(2) {
+        height: 6px;
+    }
+
+    .s2-ping-bar:nth-child(3) {
+        height: 8px;
+        margin-right: 0;
+    }
+
+    .s2-ping-bar.active {
+        opacity: 1;
+    }
+
+.s2-ping-text {
+    font-size: 10.5px;
+    font-weight: 700;
+}
+
+.s2-combat-duration {
+    color: #a1a8b8;
+    font-size: 11px;
+    margin-right: 8px;
+}
+
+/* ---- header control buttons ---- */
+
+.s2-control-btn {
+    appearance: none;
+    border: 0;
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    background: transparent;
+    color: #8b8fa3;
+    cursor: pointer;
+    font-size: 10px;
+    line-height: 1;
+    padding: 0;
+    margin: 1px 0 1px 1px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+}
+
+    .s2-control-btn:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+/* ---- second header row: boss hp + total dps ---- */
+
+.s2-header-row-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.s2-boss-hp {
+    color: #c9807a;
+    font-size: 10.5px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.s2-total-dps {
+    color: #4adfc4;
+    font-size: 17px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 14px rgba(74, 223, 196, 0.55);
+}
+
+/* ---- boss hp bar ---- */
+
+.s2-hp-bar-track {
+    position: relative;
+    height: 4px;
+    margin-top: 7px;
+    border-radius: 2px;
+    background: #4d4d4d;
+    overflow: hidden;
+}
+
+.s2-hp-bar-fill {
+    position: relative;
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #7a2320 0%, #e0524a 60%, #ff6f63 100%);
+    box-shadow: 0 0 10px rgba(224, 82, 74, 0.6);
+    transition: width 0.15s linear;
+}
+
+.s2-hp-bar-shine {
+    position: absolute;
+    inset: 0;
+    border-radius: 2px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 55%);
+}
+
+/* =========================================================
+   UPDATE MODULE
+   ========================================================= */
+
+.s2-update-module {
+    background: #1a2a1a;
+    border-top: 1px solid #3a6b3a;
+    border-bottom: 1px solid #3a6b3a;
+    border-radius: 4px;
+    padding: 4px 8px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 6px;
+    flex: 0 0 auto;
+    min-width: 0;
+    box-sizing: border-box;
+    margin-bottom: 6px;
+}
+
+.s2-update-dot {
+    width: 6px;
+    height: 6px;
+    min-width: 6px;
+    border-radius: 50%;
+    background: #4caf50;
+}
+
+.s2-update-text {
+    color: #a5d6a7;
+    font-size: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+.s2-update-btn {
+    border: 0;
+    background: #1f4d1f;
+    color: #a5d6a7;
+    font-size: 10px;
+    height: 18px;
+    padding: 0 6px;
+    border-radius: 3px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.s2-update-close {
+    border: 0;
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    background: transparent;
+    color: #6a8f6a;
+    font-size: 9px;
+    cursor: pointer;
+}
+
+/* =========================================================
+   PLAYER LIST
+   ========================================================= */
+
+.s2-players-list {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    width: 100%;
+}
+
+    .s2-players-list::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+
+.s2-row-wrap {
+    cursor: pointer;
+}
+
+.s2-row-root {
+    position: relative;
+    margin-bottom: 5px;
+    border-radius: 7px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* ---- damage fill ----
+   Toned down: lower opacity, darker stops, so text stays legible and
+   it reads closer to the WPF reference instead of a flat saturated block. */
+
+.s2-row-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+    opacity: 0.55;
+    background: linear-gradient( 90deg, rgba(46, 125, 50, 0.6) 0%, rgba(76, 175, 80, 0.82) 100% );
+    transition: width 0.12s linear;
+}
+
+    .s2-row-fill.is-me {
+        background: linear-gradient(90deg, #4a2470 0%, #6b3aa0 60%, #8a4fc9 100%);
+    }
+
+.s2-row-shine {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0) 45%);
+}
+
+/* ---- row content grid: icon col (44px) + info col ---- */
+
+.s2-row-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    align-items: stretch;
+    height: 100%;
+}
+
+.s2-icon-col {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.s2-class-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);
+    flex: 0 0 auto;
+}
+
+.s2-combat-power {
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8), 0 0 2px rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+    line-height: 1;
+}
+
+/* ---- info column ----
+   Explicit row heights + min-width:0 everywhere so long names/numbers
+   truncate with ellipsis instead of overlapping neighboring text. */
+
+.s2-info-col {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: 16px 14px;
+    column-gap: 8px;
+    row-gap: 1px;
+    align-items: center;
+    padding: 4px 10px 4px 0;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.s2-name-line {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.s2-player-name {
+    display: block;
+    color: #f2f1f5;
+    font-size: 11.5px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.s2-sub-line {
+    grid-column: 1;
+    grid-row: 2;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1;
+}
+
+.s2-crit-label {
+    color: #7a7e90;
+    font-size: 8.5px;
+    font-weight: 700;
+}
+
+.s2-crit-value {
+    color: #a8aec0;
+    font-size: 9px;
+    margin-right: 6px;
+}
+
+.s2-deaths {
+    color: #e0787a;
+    font-size: 9px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.s2-dps-line {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    white-space: nowrap;
+    min-width: 0;
+}
+
+.s2-dps-value {
+    color: #f0eff5;
+    font-size: 11.5px;
+    font-weight: 700;
+    margin-right: 7px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.s2-dps-unit {
+    font-size: 9px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.s2-pct-value {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    min-width: 38px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.s2-damage-line {
+    grid-column: 2;
+    grid-row: 2;
+    text-align: right;
+    color: #b3b9c9;
+    font-size: 9.5px;
+    font-weight: 600;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

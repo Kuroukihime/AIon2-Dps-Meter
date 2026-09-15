@@ -1,226 +1,27 @@
-﻿using AionDpsMeter.Core.Models;
-using AionDpsMeter.Services.Models;
-using AionDpsMeter.Services.Services.Session;
-using AionDpsMeter.Services.Services.Settings;
-using AionDpsMeter.Services.Services.Update;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using System.Collections.ObjectModel;
-using System.Windows.Threading;
+﻿using AionDpsMeter.Services.Models;
 
 namespace AionDpsMeter.UI.ViewModels
 {
     public sealed partial class MainViewModel : ViewModelBase, IDisposable
     {
         private readonly IPacketService _packetService;
-        private readonly CombatSessionManager _sessionManager;
-        private readonly IAppSettingsService _settingsService;
-        private readonly UpdateCheckerService _updateChecker;
-        private readonly Dispatcher _dispatcher;
-        private DispatcherTimer? _updateTimer;
-        public bool IsStyle1 => _settingsService.UiStyle == 0;
-        public bool IsStyle2 => _settingsService.UiStyle == 1;
-        public bool IsStyle3 => _settingsService.UiStyle == 2;
-        public bool IsDetailedStyleTransparent => IsStyle2;
-        [ObservableProperty] private string _totalRaidDamageFormatted ="";
 
 
-        [ObservableProperty] private ObservableCollection<PlayerStatsViewModel> _players = new();
-        [ObservableProperty] private string _combatDuration = "00:00";
-        [ObservableProperty] private string _pingDisplay = "-- ms";
-        [ObservableProperty] private string _pingColor = "#888888";
-        [ObservableProperty] private string _activeTargetName = string.Empty;
-        [ObservableProperty] private long _activeTargetHpTotal;
-        [ObservableProperty] private long _activeTargetHpCurrent;
-        [ObservableProperty] private bool _hasActiveTarget;
-        [ObservableProperty] private string _activeTargetHpDisplay = string.Empty;
-        [ObservableProperty] private double _activeTargetHpPercentage;
-
-        [ObservableProperty] private bool _updateAvailable;
-        [ObservableProperty] private string _updateVersionText = string.Empty;
-        [ObservableProperty] private ReleaseInfo? _latestRelease;
-
-        /// <summary>Exposes the session manager for <c>PlayerDetailsWindow</c>.</summary>
-        public CombatSessionManager SessionManager => _sessionManager;
-
-        public MainViewModel(IPacketService packetService, CombatSessionManager sessionManager, IAppSettingsService settingsService, UpdateCheckerService updateChecker)
+        public MainViewModel(IPacketService packetService)
         {
             _packetService = packetService;
-            _sessionManager = sessionManager;
-            _settingsService = settingsService;
-            _updateChecker = updateChecker;
-            _dispatcher = Dispatcher.CurrentDispatcher;
-
-            SessionManager.PingUpdated += OnPingUpdated;    
-            // UI refresh at ~30 FPS
-            _updateTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(33) };
-            _updateTimer.Tick += OnUpdateTimerTick;
-
             StartCapture();
-            _ = CheckForUpdateAsync();
         }
 
-        private async Task CheckForUpdateAsync()
-        {
-            var release = await _updateChecker.CheckForUpdateAsync();
-            if (release is null) return;
-            _dispatcher.Invoke(() =>
-            {
-                LatestRelease     = release;
-                UpdateVersionText = $"New version available: {release.Name}";
-                UpdateAvailable   = true;
-            });
-        }
-
-        [RelayCommand]
-        private void DismissUpdate() => UpdateAvailable = false;
 
         private void StartCapture()
         {
             _packetService.Start();
-            _updateTimer?.Start();
-        }
-
-        public void NotifyDisplayStyleChanged()
-        {
-            // When Style2 is active the main border should be transparent so
-            // the game shows through. Drive this from the ViewModel so
-            // MainWindow.xaml.cs can react to it too.
-            OnPropertyChanged(nameof(IsStyle1));
-            OnPropertyChanged(nameof(IsStyle2));
-            OnPropertyChanged(nameof(IsStyle3));
-            OnPropertyChanged(nameof(IsDetailedStyleTransparent));
-        }
-
-        private void OnPingUpdated(object? sender, int pingMs)
-        {
-            _dispatcher.BeginInvoke(() =>
-            {
-                PingDisplay = $"{pingMs} ms";
-                PingColor   = pingMs switch
-                {
-                    < 60  => "#4EC9B0",  // excellent
-                    < 100 => "#DCDCAA",  // good
-                    < 200 => "#CE9178",  // mediocre
-                    _     => "#F44747"   // bad
-                };
-            });
-        }
-
-        [RelayCommand]
-        private void ResetData()
-        {
-            _packetService.Reset();
-            _sessionManager.Reset();
-            ClearUiState();
-        }
-
-
-        private void OnCombatAutoReset(object? sender, EventArgs e)
-            => _dispatcher.BeginInvoke(ClearUiState);
-
-        private void ClearUiState()
-        {
-            Players.Clear();
-            CombatDuration        = "00:00";
-            ActiveTargetName      = string.Empty;
-            ActiveTargetHpTotal   = 0;
-            ActiveTargetHpCurrent = 0;
-            HasActiveTarget       = false;
-            ActiveTargetHpDisplay = string.Empty;
-            ActiveTargetHpPercentage = 0;
-        }
-
-        private void OnUpdateTimerTick(object? sender, EventArgs e)
-        {
-            UpdatePlayerStats();
-            UpdateCombatDuration();
-            UpdateActiveTarget();
-            UpdateTotalRaidDps();
-        }
-
-        private void UpdateTotalRaidDps()
-        {
-            double totalDamage = _sessionManager.GetPartyDps();
-            TotalRaidDamageFormatted = DamageFormatter.Format(totalDamage) + "/s";
-        }
-
-        private void UpdatePlayerStats()
-        {
-            var currentStats = _sessionManager.PlayerStats.Where(r=>r.IsIdentified || r.DamagePercentage > 1);
-            var currentIds   = currentStats.Select(s => s.PlayerId).ToHashSet();
-
-            foreach (var stats in currentStats)
-            {
-                var existing = Players.FirstOrDefault(p => p.PlayerId == stats.PlayerId);
-                if (existing is not null)
-                    existing.Update(stats);
-                else
-                    Players.Add(new PlayerStatsViewModel(stats, _settingsService));
-            }
-
-            for (int i = Players.Count - 1; i >= 0; i--)
-            {
-                if (!currentIds.Contains(Players[i].PlayerId) || Players[i].TotalDamage <= 0)
-                    Players.RemoveAt(i);
-            }
-
-            var sorted = Players.OrderByDescending(p => p.TotalDamage).ToList();
-            for (int i = 0; i < sorted.Count; i++)
-            {
-                int current = Players.IndexOf(sorted[i]);
-                if (current != i)
-                    Players.Move(current, i);
-
-                sorted[i].UpdateRankIndex(i);
-            }
-
-            // Update relative percentages (top player = 100%)
-            long topDamage = sorted.Count > 0 ? sorted[0].TotalDamage : 0;
-            foreach (var player in sorted)
-            {
-                double relTarget = topDamage > 0
-                    ? (double)player.TotalDamage / topDamage * 100.0
-                    : 0;
-                player.UpdateRelativePercentage(relTarget);
-            }
-        }
-
-        private void UpdateCombatDuration()
-            => CombatDuration = _sessionManager.GetCombatDuration().ToString(@"mm\:ss");
-
-        private void UpdateActiveTarget()
-        {
-            var targetInfo = _sessionManager.GetActiveTargetInfo();
-            if (targetInfo is not null)
-            {
-                HasActiveTarget      = true;
-                ActiveTargetName     = targetInfo.Name;
-                ActiveTargetHpTotal  = targetInfo.HpTotal;
-                ActiveTargetHpCurrent = targetInfo.HpCurrent;
-                ActiveTargetHpPercentage = targetInfo.HpTotal > 0
-                    ? (double)targetInfo.HpCurrent / targetInfo.HpTotal * 100
-                    : 0;
-                ActiveTargetHpDisplay = targetInfo.HpTotal > 0
-                    ? $"{DamageFormatter.Format(targetInfo.HpCurrent)} / {DamageFormatter.Format(targetInfo.HpTotal)}"
-                    : string.Empty;
-            }
-            else
-            {
-                HasActiveTarget          = false;
-                ActiveTargetName         = string.Empty;
-                ActiveTargetHpTotal      = 0;
-                ActiveTargetHpCurrent    = 0;
-                ActiveTargetHpPercentage = 0;
-                ActiveTargetHpDisplay    = string.Empty;
-            }
         }
 
         public void Dispose()
         {
-            SessionManager.PingUpdated      -= OnPingUpdated;
-            _updateTimer?.Stop();
-
+            _packetService.Stop();
             if (_packetService is IDisposable disposable)
                 disposable.Dispose();
         }

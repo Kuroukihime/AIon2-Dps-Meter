@@ -21,7 +21,7 @@ namespace AionDpsMeter.UI.ViewModels
         private readonly DispatcherTimer? _updateTimer;
         private int _knownCombatLogCount;
 
-        /// <summary>True when this VM was created from a history snapshot
+   
         public bool IsSnapshot { get; }
 
         [ObservableProperty] private ObservableCollection<SkillStatsViewModel> _skills = new();

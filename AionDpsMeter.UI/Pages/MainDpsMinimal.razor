@@ -1,70 +1,72 @@
-@page "/"
+@if (ViewModel != null)
+{
 
-<div class="dps-meter-dynamic">
-    <div class="header-module">
-        <div class="header-top" @onmousedown="BeginDrag">
-            <div class="header-row header-row-top">
-                <span class="boss-name" title="@_activeTargetName">@_activeTargetName</span>
-                <div class="global-stats">
-                    <span class="stat-sm ping-group">
-                        <span class="ping-bars" style="color:@_pingColor">
-                            <span class="ping-bar @(_pingLevel >= 1 ? "active" : string.Empty)"></span>
-                            <span class="ping-bar @(_pingLevel >= 2 ? "active" : string.Empty)"></span>
-                            <span class="ping-bar @(_pingLevel >= 3 ? "active" : string.Empty)"></span>
+    <div class="dps-meter-dynamic">
+        <div class="header-module">
+            <div class="header-top" @onmousedown="ViewModel.BeginDrag">
+                <div class="header-row header-row-top">
+                    <span class="boss-name" title="@ViewModel.ActiveTargetName">@ViewModel.ActiveTargetName</span>
+                    <div class="global-stats">
+                        <span class="stat-sm ping-group">
+                            <span class="ping-bars" style="color:@ViewModel.PingColor">
+                                <span class="ping-bar @(ViewModel.PingLevel >= 1 ? "active" : string.Empty)"></span>
+                                <span class="ping-bar @(ViewModel.PingLevel >= 2 ? "active" : string.Empty)"></span>
+                                <span class="ping-bar @(ViewModel.PingLevel >= 3 ? "active" : string.Empty)"></span>
+                            </span>
+                            <span style="color:@ViewModel.PingColor">@ViewModel.PingDisplay</span>
                         </span>
-                        <span style="color:@_pingColor">@_pingDisplay</span>
-                    </span>
-                    <span class="stat-sm">@_combatDuration</span>
+                        <span class="stat-sm">@ViewModel.CombatDuration</span>
+                    </div>
+                    <div class="header-controls">
+                        <button type="button" class="control-btn" @onclick="ViewModel.OpenHistory" @onmousedown:stopPropagation="true" title="History">☰</button>
+                        <button type="button" class="control-btn" @onclick="ViewModel.OpenStatEffCalc" @onmousedown:stopPropagation="true" title="Stat Eff Calculator">⚔</button>
+                        <button type="button" class="control-btn" @onclick="ViewModel.OpenSettings" @onmousedown:stopPropagation="true" title="Settings">⚙</button>
+                        <button type="button" class="control-btn" @onclick="ViewModel.Minimize" @onmousedown:stopPropagation="true" title="Hide">_</button>
+                        <button type="button" class="control-btn" @onclick="ViewModel.Close" @onmousedown:stopPropagation="true" title="Close">✕</button>
+                    </div>
                 </div>
-                <div class="header-controls">
-                    <button type="button" class="control-btn" @onclick="OpenHistory" @onmousedown:stopPropagation="true" title="History">☰</button>
-                    <button type="button" class="control-btn" @onclick="OpenStatEffCalc" @onmousedown:stopPropagation="true" title="Stat Eff Calculator">⚔</button>
-                    <button type="button" class="control-btn" @onclick="OpenSettings" @onmousedown:stopPropagation="true" title="Settings">⚙</button>
-                    <button type="button" class="control-btn" @onclick="Minimize" @onmousedown:stopPropagation="true" title="Hide">_</button>
-                    <button type="button" class="control-btn" @onclick="Close" @onmousedown:stopPropagation="true" title="Close">✕</button>
+                <div class="header-row header-row-bottom">
+                    <span class="boss-hp">@ViewModel.ActiveTargetHpDisplay</span>
+                    <span class="total-dps">@ViewModel.TotalRaidDamageFormatted</span>
                 </div>
             </div>
-            <div class="header-row header-row-bottom">
-                <span class="boss-hp">@_activeTargetHpDisplay</span>
-                <span class="total-dps">@_totalRaidDamageFormatted</span>
+            <div class="boss-hp-track">
+                <div class="boss-hp-fill" style="width:@($"{ViewModel.ClampPercent(ViewModel.ActiveTargetHpPercentage):0.##}%")"></div>
             </div>
         </div>
-        <div class="boss-hp-track">
-            <div class="boss-hp-fill" style="width:@($"{ClampPercent(_activeTargetHpPercentage):0.##}%")"></div>
-        </div>
-    </div>
 
-    @if (_updateAvailable)
-    {
-        <div class="update-module">
-            <div class="update-dot"></div>
-            <span class="update-text">@_updateVersionText</span>
-            <button type="button" class="update-btn" @onclick="OpenWhatsNew">What's New</button>
-            <button type="button" class="update-close" @onclick="DismissUpdate">✕</button>
-        </div>
-    }
-
-    <div class="players-list">
-        @foreach (var player in _players)
+        @if (ViewModel.UpdateAvailable)
         {
-            <div class="player-module @(player.IsUser ? "is-me" : string.Empty)" @onclick="() => OpenPlayerDetails(player)">
-                <div class="progress-bar @GetProgressClass(player)" style="width:@($"{ClampPercent(player.EffectivePercentage):0.##}%")"></div>
-                <div class="player-data">
-                    <div class="icon-wrap">
-                        <div class="class-icon" style="background-image: url('/images/classes/@(player.ClassId).png');"></div>
-                    </div>
-                    <div class="player-info">
-                        <div class="name-block">
-                            @player.PlayerNameDisplay
-                        </div>
-                        <div class="score">@GetCombatScoreDisplay(player)</div>
-                    </div>
-                    <div></div>
-                    <div class="death">@player.DeathsDisplay</div>
-                    <div class="damage">@player.TotalDamageFormatted (@($"{player.DamagePercentage:F1}%"))</div>
-                    <div class="dps">@player.DpsFormatted<span class="sub">/s</span></div>
-                </div>
+            <div class="update-module">
+                <div class="update-dot"></div>
+                <span class="update-text">@ViewModel.UpdateVersionText</span>
+                <button type="button" class="update-btn" @onclick="ViewModel.OpenWhatsNew">What's New</button>
+                <button type="button" class="update-close" @onclick="ViewModel.DismissUpdate">✕</button>
             </div>
         }
+
+        <div class="players-list">
+            @foreach (var player in ViewModel.Players)
+            {
+                <div class="player-module @(player.IsUser ? "is-me" : string.Empty)" @onclick="() => ViewModel.OpenPlayerDetails(player)">
+                    <div class="progress-bar @ViewModel.GetProgressClass(player)" style="width:@($"{ViewModel.ClampPercent(player.EffectivePercentage):0.##}%")"></div>
+                    <div class="player-data">
+                        <div class="icon-wrap">
+                            <div class="class-icon" style="background-image: url('/images/classes/@(player.ClassId).png');"></div>
+                        </div>
+                        <div class="player-info">
+                            <div class="name-block">
+                                @player.PlayerNameDisplay
+                            </div>
+                            <div class="score">@ViewModel.GetCombatScoreDisplay(player)</div>
+                        </div>
+                        <div></div>
+                        <div class="death">@player.DeathsDisplay</div>
+                        <div class="damage">@player.TotalDamageFormatted (@($"{player.DamagePercentage:F1}%"))</div>
+                        <div class="dps">@player.DpsFormatted<span class="sub">/s</span></div>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
-</div>
+}
