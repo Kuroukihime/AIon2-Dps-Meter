@@ -48,8 +48,8 @@
         <div class="players-list">
             @foreach (var player in ViewModel.Players)
             {
-                <div class="player-module @(player.IsUser ? "is-me" : string.Empty)" @onclick="() => ViewModel.OpenPlayerDetails(player)">
-                    <div class="progress-bar @ViewModel.GetProgressClass(player)" style="width:@($"{ViewModel.ClampPercent(player.EffectivePercentage):0.##}%")"></div>
+                <div class="player-module @ViewModel.GetIsUserClass(player)" @onclick="() => ViewModel.OpenPlayerDetails(player)">
+                    <div class="progress-bar @ViewModel.GetPlayerRowClass(player)" style="width:@($"{ViewModel.ClampPercent(player.EffectivePercentage):0.##}%")"></div>
                     <div class="player-data">
                         <div class="icon-wrap">
                             <div class="class-icon" style="background-image: url('/images/classes/@(player.ClassId).png');"></div>

@@ -279,9 +279,7 @@
     box-sizing: border-box;
 }
 
-/* ---- damage fill ----
-   Toned down: lower opacity, darker stops, so text stays legible and
-   it reads closer to the WPF reference instead of a flat saturated block. */
+/* ---- damage fill ---- */
 
 .s2-row-fill {
     position: absolute;
@@ -290,13 +288,14 @@
     bottom: 0;
     z-index: 1;
     opacity: 0.55;
-    background: linear-gradient( 90deg, rgba(46, 125, 50, 0.6) 0%, rgba(76, 175, 80, 0.82) 100% );
     transition: width 0.12s linear;
 }
 
-    .s2-row-fill.is-me {
-        background: linear-gradient(90deg, #4a2470 0%, #6b3aa0 60%, #8a4fc9 100%);
+    .s2-row-fill.is-me-border {
+        border-left: 2px solid #fff;
     }
+
+
 
 .s2-row-shine {
     position: absolute;
@@ -349,9 +348,7 @@
     line-height: 1;
 }
 
-/* ---- info column ----
-   Explicit row heights + min-width:0 everywhere so long names/numbers
-   truncate with ellipsis instead of overlapping neighboring text. */
+/* ---- info column ---- */
 
 .s2-info-col {
     display: grid;

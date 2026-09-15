@@ -23,6 +23,8 @@ namespace AionDpsMeter.Services.Services.Settings
         double PlayerRowScale { get; set; }
         int UiStyle { get; set; }
 
+        public bool UseClassColors { get; set; }
+
         double StatCalcCritChance { get; set; }
         double StatCalcBackAttackRate { get; set; }
         double StatCalcFrontAttackRate { get; set; }

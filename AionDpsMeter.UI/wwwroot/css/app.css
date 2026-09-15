@@ -1,1 +1,60 @@
-﻿
+﻿/* =========================================================
+   DPS CLASS COLORS
+   ========================================================= */
+
+.dps-class-0 {
+    background: linear-gradient( 90deg, rgba(46, 125, 50, 0.4) 0%, rgba(76, 175, 80, 0.82) 100% );
+}
+
+.dps-class-10 {
+    background: linear-gradient( 90deg, rgba(0, 96, 100, 0.45) 0%, rgba(38, 198, 218, 0.88) 100% );
+}
+
+.dps-class-11 {
+    background: linear-gradient( 90deg, rgba(43, 29, 196, 0.42) 0%, rgba(62, 46, 232, 0.86) 100% );
+}
+
+.dps-class-12 {
+    background: linear-gradient( 90deg, rgba(13, 71, 161, 0.42) 0%, rgba(30, 136, 229, 0.86) 100% );
+}
+
+.dps-class-13 {
+    background: linear-gradient( 90deg, rgba(27, 94, 32, 0.42) 0%, rgba(76, 175, 80, 0.86) 100% );
+}
+
+.dps-class-14 {
+    background: linear-gradient( 90deg, rgba(0, 105, 92, 0.42) 0%, rgba(38, 166, 154, 0.86) 100% );
+}
+
+.dps-class-15 {
+    background: linear-gradient( 90deg, rgba(74, 20, 140, 0.42) 0%, rgba(156, 39, 176, 0.86) 100% );
+}
+
+.dps-class-16 {
+    background: linear-gradient( 90deg, rgba(0, 96, 100, 0.42) 0%, rgba(38, 198, 218, 0.86) 100% );
+}
+
+.dps-class-17 {
+    background: linear-gradient( 90deg, rgba(245, 127, 23, 0.42) 0%, rgba(255, 202, 40, 0.86) 100% );
+}
+
+.dps-class-18 {
+    background: linear-gradient( 90deg, rgba(230, 81, 0, 0.42) 0%, rgba(255, 152, 0, 0.86) 100% );
+}
+
+.dps-class-19 {
+    background: linear-gradient( 90deg, rgba(183, 28, 28, 0.42) 0%, rgba(244, 67, 54, 0.86) 100% );
+}
+
+
+/* =========================================================
+   PLAYER COLORS
+   ========================================================= */
+
+.is-me {
+    background: linear-gradient( 90deg, rgba(74, 20, 140, 0.42) 0%, rgba(156, 39, 176, 0.86) 100% );
+}
+
+.player-color {
+    background: linear-gradient( 90deg, rgba(27, 94, 32, 0.42) 0%, rgba(76, 175, 80, 0.86) 100% );
+}

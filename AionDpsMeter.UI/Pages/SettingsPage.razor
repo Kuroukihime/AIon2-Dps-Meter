@@ -65,6 +65,12 @@
                     </div>
                 </ValueSlot>
             </SettingRow>
+            
+            <SettingRow Title="Use class colors" Description="Use class colors for player rows instead of highlighting me">
+                <ValueSlot>
+                    <ToggleSwitch Checked="settings.UseClassColors" CheckedChanged="v => { settings.UseClassColors = v; }" />
+                </ValueSlot>
+            </SettingRow>
 
             @if (settings.UiStyle == 1)
             {

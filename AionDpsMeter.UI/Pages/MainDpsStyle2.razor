@@ -68,7 +68,7 @@
                 <div class="s2-row-scale-wrap" style="@ViewModel.GetRowScaleStyle()">
                     <div class="s2-row-wrap" @onclick="() => ViewModel.OpenPlayerDetails(player)">
                         <div class="s2-row-root">
-                            <div class="s2-row-fill @(player.IsUser ? "is-me" : string.Empty)"
+                            <div class="s2-row-fill @ViewModel.GetIsUserClass(player) @ViewModel.GetPlayerRowClass(player)"
                                  style="width:@($"{ViewModel.ClampPercent(player.EffectivePercentage):0.##}%")"></div>
                             <div class="s2-row-shine"></div>
 

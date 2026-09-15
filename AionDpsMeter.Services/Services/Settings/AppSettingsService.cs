@@ -17,6 +17,23 @@ namespace AionDpsMeter.Services.Services.Settings
             _data.HistoryRetantionPeriod = Math.Clamp(_data.HistoryRetantionPeriod, 1, 9999);
         }
 
+        public bool UseClassColors
+        {
+            get { lock (_lock) return _data.UseClassColors; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    changed = _data.UseClassColors != value;
+                    _data.UseClassColors = value;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+
 
         public double PlayerRowScale
         {
@@ -446,6 +463,8 @@ namespace AionDpsMeter.Services.Services.Settings
 
             [JsonPropertyName("windowOpacity")]
             public double WindowOpacity { get; set; } = 0.92;
+            [JsonPropertyName("useClassColors")]
+            public bool UseClassColors { get; set; }
 
             [JsonPropertyName("toggleVisibilityHotkey")]
             public string ToggleVisibilityHotkey { get; set; } = "Ctrl+Shift+D";

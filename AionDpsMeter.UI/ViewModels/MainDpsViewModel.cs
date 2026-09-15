@@ -219,7 +219,25 @@ namespace AionDpsMeter.UI.ViewModels
             return resolved;
         }
 
-        public string GetProgressClass(PlayerRenderState player) => $"dps-class-{player.ClassId}";
+        public string GetPlayerRowClass(PlayerRenderState player)
+        {
+            if (!settingsService.UseClassColors)
+            {
+                return player.IsUser ? "is-me" : "player-color ";
+            }
+            else
+            {
+                return $"dps-class-{player.ClassId}";
+            }
+        }
+
+        public string GetIsUserClass(PlayerRenderState player)
+        {
+            if (!settingsService.UseClassColors) return string.Empty;
+            return player.IsUser ? "is-me-border" : string.Empty;
+        }
+
+        //public string GetProgressClass(PlayerRenderState player) => $"dps-class-{player.ClassId}";
         public string GetCombatScoreDisplay(PlayerRenderState player) => (string.IsNullOrWhiteSpace(player.CombatPower) || player.CombatPower == "0") ? "" : player.CombatPower;
         public double ClampPercent(double value) => Math.Max(0, Math.Min(100, value));
 
