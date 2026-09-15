@@ -74,7 +74,7 @@
     gap: 8px;
     min-width: 0;
     box-sizing: border-box;
-    padding-right: 84px;
+    padding-right: 95px;
 }
 
 
@@ -448,7 +448,7 @@
     z-index: 2;
     height: 100%;
     display: grid;
-    grid-template-columns: 28px 30% 1fr 20px 100px 65px;
+    grid-template-columns: 28px 30% 1fr 30px 100px 65px;
     column-gap: 6px;
     align-items: center;
     padding: 0 8px 0 4px;
@@ -546,8 +546,7 @@
 
 .death {
     color: #a1a1aa;
-    font-size: 11px;
-    text-align: center;
+    font-size: 10px;
 }
 
 
