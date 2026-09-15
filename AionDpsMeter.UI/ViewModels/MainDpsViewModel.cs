@@ -137,6 +137,7 @@ namespace AionDpsMeter.UI.ViewModels
                 player.ClassName = stat.ClassName;
                 player.ServerName = stat.ServerName;
                 player.ClassIcon = stat.ClassIcon;
+                player.CriticalRate = stat.CriticalRate;
 
                 string rawName = stat.PlayerName;
 

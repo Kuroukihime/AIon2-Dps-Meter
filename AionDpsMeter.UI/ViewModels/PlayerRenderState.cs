@@ -18,7 +18,7 @@
         public string CombatPower { get; set; } = string.Empty;
         public string IconUrl { get; set; } = string.Empty;
         public string? ClassIcon { get; set; }
-        public double CriticalRate { get; set; } = 80;
+        public double CriticalRate { get; set; }
 
         public double VisualAbsolutePercentage { get; set; }
         public double VisualRelativePercentage { get; set; }
