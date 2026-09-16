@@ -1,17 +1,20 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net10.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows10.0.20348.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>1.9.4.277</AssemblyVersion>
-    <FileVersion>1.9.4.277</FileVersion>
+    <AddRazorSupportForMvc>false</AddRazorSupportForMvc>
+    <UseRazorSourceGenerator>true</UseRazorSourceGenerator>
+    <AssemblyVersion>1.8.1.244</AssemblyVersion>
+    <FileVersion>1.8.1.244</FileVersion>
     <ApplicationIcon>ICON_CH_SKILL_006.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="10.0.0" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="MaterialDesignColors" Version="5.3.0" />
     <PackageReference Include="MaterialDesignThemes" Version="5.3.0" />
@@ -51,13 +54,14 @@
     <Resource Include="Assets\**\*.jpg" />
     <Resource Include="Assets\**\*.ico" />
   </ItemGroup>
+
   <ItemGroup>
     <None Remove="appsettings.json" />
     <None Remove="Assets\Fonts\JetBrainsMono-Bold.ttf" />
     <None Remove="Assets\Fonts\JetBrainsMono-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="appsettings.json">
+    <Content Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="ICON_CH_SKILL_006.ico" />
@@ -65,6 +69,15 @@
   <ItemGroup>
     <Resource Include="Assets\Fonts\JetBrainsMono-Bold.ttf" />
     <Resource Include="Assets\Fonts\JetBrainsMono-Regular.ttf" />
+    <Resource Include="wwwroot\images\classes\13.png" />
+    <Resource Include="wwwroot\images\classes\19.png" />
+    <Resource Include="wwwroot\images\classes\18.png" />
+    <Resource Include="wwwroot\images\classes\17.png" />
+    <Resource Include="wwwroot\images\classes\16.png" />
+    <Resource Include="wwwroot\images\classes\11.png" />
+    <Resource Include="wwwroot\images\classes\14.png" />
+    <Resource Include="wwwroot\images\classes\15.png" />
+    <Resource Include="wwwroot\images\classes\12.png" />
   </ItemGroup>
 
 </Project>

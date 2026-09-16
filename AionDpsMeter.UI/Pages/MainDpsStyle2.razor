@@ -1,0 +1,113 @@
+
+@if (ViewModel != null)
+{
+
+    <div class="dps-style2-root">
+
+        <!-- ============================================================
+         HEADER — neutral black/gray glass panel
+         ============================================================ -->
+        <div class="s2-header">
+            <div class="s2-header-row-top" @onmousedown="ViewModel.BeginDrag">
+                <span class="s2-boss-name" title="@ViewModel.ActiveTargetName">@ViewModel.ActiveTargetName</span>
+
+                <div class="s2-header-controls">
+                    <span class="s2-ping-group">
+                        <span class="s2-ping-bars" style="color:@ViewModel.PingColor">
+                            <span class="s2-ping-bar @(ViewModel.PingLevel >= 1 ? "active" : string.Empty)"></span>
+                            <span class="s2-ping-bar @(ViewModel.PingLevel >= 2 ? "active" : string.Empty)"></span>
+                            <span class="s2-ping-bar @(ViewModel.PingLevel >= 3 ? "active" : string.Empty)"></span>
+                        </span>
+                        <span class="s2-ping-text" style="color:@ViewModel.PingColor">@ViewModel.PingDisplay</span>
+                    </span>
+
+                    <span class="s2-combat-duration">@ViewModel.CombatDuration</span>
+
+                    <button type="button" class="s2-control-btn" @onclick="ViewModel.OpenHistory" @onmousedown:stopPropagation="true" title="History">☰</button>
+                    <button type="button" class="s2-control-btn" @onclick="ViewModel.OpenStatEffCalc" @onmousedown:stopPropagation="true" title="Stat efficiency calculator">⚔</button>
+                    <button type="button" class="s2-control-btn" @onclick="ViewModel.OpenSettings" @onmousedown:stopPropagation="true" title="Settings">⚙</button>
+                    <button type="button" class="s2-control-btn" @onclick="ViewModel.Minimize" @onmousedown:stopPropagation="true" title="Hide">━</button>
+                    <button type="button" class="s2-control-btn" @onclick="ViewModel.Close" @onmousedown:stopPropagation="true" title="Close">✖</button>
+                </div>
+            </div>
+
+            <div class="s2-header-row-bottom">
+                <span class="s2-boss-hp">@ViewModel.ActiveTargetHpDisplay</span>
+                <span class="s2-total-dps">@ViewModel.TotalRaidDamageFormatted</span>
+            </div>
+
+            @if (ViewModel.HasActiveTarget)
+            {
+                <div class="s2-hp-bar-track">
+                    <div class="s2-hp-bar-fill" style="width:@($"{ViewModel.ClampPercent(ViewModel.ActiveTargetHpPercentage):0.##}%")">
+                        <div class="s2-hp-bar-shine"></div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- ============================================================
+         UPDATE BANNER
+         ============================================================ -->
+        @if (ViewModel.UpdateAvailable)
+        {
+            <div class="s2-update-module">
+                <div class="s2-update-dot"></div>
+                <span class="s2-update-text">@ViewModel.UpdateVersionText</span>
+                <button type="button" class="s2-update-btn" @onclick="ViewModel.OpenWhatsNew">What's New</button>
+                <button type="button" class="s2-update-close" @onclick="ViewModel.DismissUpdate">✕</button>
+            </div>
+        }
+
+        <!-- ============================================================
+         PLAYER LIST
+         ============================================================ -->
+        <div class="s2-players-list">
+            @foreach (var player in ViewModel.Players)
+            {
+                <div class="s2-row-scale-wrap" style="@ViewModel.GetRowScaleStyle()">
+                    <div class="s2-row-wrap" @onclick="() => ViewModel.OpenPlayerDetails(player)">
+                        <div class="s2-row-root">
+                            <div class="s2-row-fill @ViewModel.GetIsUserClass(player) @ViewModel.GetPlayerRowClass(player)"
+                                 style="width:@($"{ViewModel.ClampPercent(player.EffectivePercentage):0.##}%")"></div>
+                            <div class="s2-row-shine"></div>
+
+                            <div class="s2-row-grid">
+                                <div class="s2-icon-col">
+                                    <div class="s2-class-icon" style="background-image:url('@player.IconUrl')"></div>
+                                    @{
+                                        var score = ViewModel.GetCombatScoreDisplay(player);
+                                    }
+                                    @if (!string.IsNullOrEmpty(score))
+                                    {
+                                        <div class="s2-combat-power">@score</div>
+                                    }
+                                </div>
+
+                                <div class="s2-info-col">
+                                    <div class="s2-name-line">
+                                        <span class="s2-player-name" title="@player.PlayerNameDisplay">@player.PlayerNameDisplay</span>
+                                    </div>
+                                    <div class="s2-sub-line">
+                                        <span class="s2-crit-label">CRIT </span>
+                                        <span class="s2-crit-value">@player.CriticalRate.ToString("F1")%</span>
+                                        @if (!string.IsNullOrEmpty(player.DeathsDisplay))
+                                        {
+                                            <span class="s2-deaths">@player.DeathsDisplay</span>
+                                        }
+                                    </div>
+
+                                    <div class="s2-dps-line">
+                                        <span class="s2-dps-value">@player.DpsFormatted<span class="s2-dps-unit">/s</span></span>
+                                        <span class="s2-pct-value">@($"{player.DamagePercentage:F1}%")</span>
+                                    </div>
+                                    <div class="s2-damage-line">@player.TotalDamageFormatted</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}

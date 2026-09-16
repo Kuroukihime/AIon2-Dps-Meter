@@ -1,0 +1,13 @@
+<Window x:Class="AionDpsMeter.UI.Services.Windowing.BlazorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:blazor="clr-namespace:Microsoft.AspNetCore.Components.WebView.Wpf;assembly=Microsoft.AspNetCore.Components.WebView.Wpf"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True"
+        ResizeMode="NoResize"
+        >
+
+    <blazor:BlazorWebView x:Name="BlazorWebView" HostPage="wwwroot/index.html" Background="Transparent" />
+</Window>

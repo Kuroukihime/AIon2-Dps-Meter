@@ -1,0 +1,524 @@
+﻿.dps-meter-dynamic {
+    width: 100%;
+    height: 100%;
+    min-width: 200px;
+    min-height: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow: hidden;
+    font-family: "JetBrains Mono", Consolas, monospace;
+    box-sizing: border-box;
+    user-select: none
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header-module {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: 61px;
+    min-height: 61px;
+    max-height: 61px;
+    flex: 0 0 61px;
+    background: rgba(15, 15, 20, 0.75);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+
+.header-top {
+    position: relative;
+    height: 53px;
+    min-height: 53px;
+    max-height: 53px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    white-space: nowrap;
+    min-width: 0;
+    width: 100%;
+    padding: 8px 12px;
+    cursor: move;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   HEADER ROWS
+   ========================================================= */
+
+.header-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    width: 100%;
+    min-width: 0;
+}
+
+
+.header-row-top {
+    justify-content: space-between;
+    gap: 8px;
+    min-width: 0;
+    box-sizing: border-box;
+    padding-right: 95px;
+}
+
+
+.header-row-bottom {
+    justify-content: space-between;
+    gap: 8px;
+}
+
+
+.boss-name {
+    color: #fdfdfd;
+    font-weight: 700;
+    font-size: 14px;
+    text-shadow: 0 1px 3px #000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    flex: 0 1 auto;
+}
+
+
+.boss-hp {
+    color: #ff5252;
+    font-size: 11px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    flex: 0 0 auto;
+}
+
+
+/* =========================================================
+   GLOBAL STATS
+   ========================================================= */
+
+.global-stats {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    gap: 12px;
+    flex: 0 0 auto;
+}
+
+
+.stat-sm {
+    color: #aaa;
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+    flex: 0 0 auto;
+}
+
+
+.ping-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    flex: 0 0 auto;
+}
+
+
+.ping-bars {
+    display: inline-flex;
+    align-items: end;
+    gap: 1px;
+    height: 10px;
+    flex: 0 0 auto;
+}
+
+
+.ping-bar {
+    display: inline-block;
+    width: 2px;
+    opacity: 0.35;
+    background: currentColor;
+}
+
+
+    .ping-bar:nth-child(1) {
+        height: 4px;
+    }
+
+
+    .ping-bar:nth-child(2) {
+        height: 7px;
+    }
+
+
+    .ping-bar:nth-child(3) {
+        height: 10px;
+    }
+
+
+    .ping-bar.active {
+        opacity: 1;
+    }
+
+
+.total-dps {
+    color: #4ade80;
+    font-size: 16px;
+    font-weight: 800;
+    text-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    flex: 0 0 auto;
+}
+
+
+/* =========================================================
+   HEADER CONTROLS
+   ========================================================= */
+
+.header-controls {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    white-space: nowrap;
+    z-index: 10;
+    flex: 0 0 auto;
+}
+
+
+.control-btn {
+    appearance: none;
+    border: 0;
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    min-height: 16px;
+    max-width: 16px;
+    max-height: 16px;
+    border-radius: 0;
+    background: transparent;
+    color: #9ca3b2;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 0;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 16px;
+}
+
+
+    .control-btn:hover {
+        color: #fff;
+    }
+
+
+/* =========================================================
+   BOSS HP BAR
+   ========================================================= */
+
+.boss-hp-track {
+    width: 100%;
+    height: 5px;
+    min-height: 5px;
+    max-height: 5px;
+    background: rgba(15, 15, 20, 0.75);
+    flex: 0 0 5px;
+    overflow: hidden;
+}
+
+
+.boss-hp-fill {
+    height: 100%;
+    background: linear-gradient( 90deg, #c62828, #ff5252 );
+}
+
+
+/* =========================================================
+   UPDATE MODULE
+   ========================================================= */
+
+.update-module {
+    background: #1a2a1a;
+    border: 1px solid #3a6b3a;
+    border-radius: 4px;
+    padding: 4px 8px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 6px;
+    flex: 0 0 auto;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+
+.update-dot {
+    width: 6px;
+    height: 6px;
+    min-width: 6px;
+    min-height: 6px;
+    border-radius: 50%;
+    background: #4caf50;
+}
+
+
+.update-text {
+    color: #a5d6a7;
+    font-size: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+
+.update-btn {
+    border: 0;
+    background: #1f4d1f;
+    color: #a5d6a7;
+    font-size: 10px;
+    height: 18px;
+    padding: 0 6px;
+    border-radius: 3px;
+    cursor: pointer;
+    white-space: nowrap;
+    flex: 0 0 auto;
+}
+
+
+.update-close {
+    border: 0;
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    min-height: 18px;
+    background: transparent;
+    color: #6a8f6a;
+    font-size: 9px;
+    cursor: pointer;
+    flex: 0 0 18px;
+}
+
+
+/* =========================================================
+   PLAYERS LIST
+   ========================================================= */
+
+.players-list {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    width: 100%;
+    min-width: 0;
+}
+
+
+    .players-list::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+
+
+/* =========================================================
+   PLAYER ROW
+   ========================================================= */
+
+.player-module {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: 28px;
+    min-height: 28px;
+    max-height: 28px;
+    flex: 0 0 28px;
+    background: rgba(20, 20, 25, 0.7);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+
+    .player-module.is-me-border {
+        border-left: 2px solid #fff;
+    }
+
+
+/* =========================================================
+   PLAYER PROGRESS BAR
+   ========================================================= */
+
+.progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+    box-shadow: inset -2px 0 3px rgba(255, 255, 255, 0.4);
+}
+
+
+
+/* =========================================================
+   PLAYER DATA
+   ========================================================= */
+
+.player-data {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 28px 30% 1fr 30px 100px 65px;
+    column-gap: 6px;
+    align-items: center;
+    padding: 0 8px 0 4px;
+    color: #fff;
+    font-size: 13px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+.player-info {
+    display: grid;
+    grid-template-columns: 1fr 40px;
+    padding: 0;
+    align-items: center;
+    column-gap: 6px;
+    height: 100%;
+    position: relative;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   CLASS ICON
+   ========================================================= */
+
+.icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+}
+
+
+.class-icon {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
+    max-width: 20px;
+    max-height: 20px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    flex: 0 0 20px;
+}
+
+
+/* =========================================================
+   PLAYER NAME
+   ========================================================= */
+
+.name-block {
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
+    text-shadow: 1px 1px 1px #000;
+}
+
+
+.tag {
+    color: #b0b0b7;
+    font-weight: 400;
+    margin-left: 3px;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   PLAYER STATS
+   ========================================================= */
+
+.score,
+.death,
+.dps,
+.damage {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    min-width: 0;
+}
+
+
+.score {
+    font-size: 11px;
+    text-align: right;
+}
+
+
+.death {
+    color: #a1a1aa;
+    font-size: 10px;
+}
+
+
+.dps {
+    font-weight: 700;
+    text-align: right;
+}
+
+
+.sub {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-left: 1px;
+    white-space: nowrap;
+}
+
+
+.damage {
+    color: #a1a1aa;
+    font-size: 12px;
+    text-align: right;
+}

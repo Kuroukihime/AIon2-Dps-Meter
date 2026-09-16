@@ -1,0 +1,184 @@
+@page "/settings"
+
+
+<div class="settings-shell">
+
+    <header class="settings-header">
+        <div class="settings-title" @onmousedown="BeginDrag">
+            <span class="settings-title__mark"></span>
+            <h1>Settings</h1>
+        </div>
+        <div class="settings-header__right">
+            <span class="settings-version">v@(_version)</span>
+            <button type="button" class="settings-close" aria-label="Close settings" title="Close" @onclick="CloseWindow">
+                <svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true">
+                    <path d="M1 1L11 11M11 1L1 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <nav class="settings-tabs" role="tablist" aria-label="Settings groups">
+        @foreach (var group in _groups)
+        {
+            <button type="button"
+                    class="settings-tab @(group.Id == _activeGroup ? "is-active" : "")"
+                    role="tab"
+                    aria-selected="@(group.Id == _activeGroup ? "true" : "false")"
+                    @onclick="() => SelectGroup(group.Id)">
+                <span class="settings-tab__icon">@((MarkupString)group.Icon)</span>
+                <span>@group.Label</span>
+            </button>
+        }
+    </nav>
+
+    <main class="settings-body">
+
+        @* ---------------- APPEARANCE ---------------- *@
+        <section class="settings-group @(_activeGroup == "appearance" ? "" : "is-hidden")">
+
+            <div class="settings-section-label">WINDOW LAYOUT</div>
+
+            <div class="style-picker" role="radiogroup" aria-label="Window layout">
+                @foreach (var style in _uiStyles)
+                {
+                    <button type="button"
+                            class="style-option @(settings.UiStyle == style.Value ? "is-selected" : "")"
+                            role="radio"
+                            aria-checked="@(settings.UiStyle == style.Value ? "true" : "false")"
+                            @onclick="() => SetUiStyle(style.Value)">
+                        <span class="style-option__preview style-option__preview--@style.PreviewClass"></span>
+                        <span class="style-option__label">@style.Label</span>
+                    </button>
+                }
+            </div>
+
+            <div class="settings-section-label settings-section-label--spaced">WINDOW</div>
+
+            <SettingRow Title="Window Opacity" Description="How see-through the overlay is (10–100%)">
+                <ValueSlot>
+                    <div class="slider-field">
+                        <input type="range" min="10" max="100" step="1"
+                               value="@_windowOpacityPercent"
+                               @oninput="OnWindowOpacityInput" />
+                        <span class="slider-field__value">@_windowOpacityPercent%</span>
+                    </div>
+                </ValueSlot>
+            </SettingRow>
+            
+            @if (settings.UiStyle == 1)
+            {
+                <SettingRow Title="Row Size" Description="Size of each player row">
+                    <ValueSlot>
+                        <div class="slider-field">
+                            <input type="range" min="0.5" max="3" step="0.1"
+                                   value="@_playerRowScale.ToString("F1", System.Globalization.CultureInfo.InvariantCulture)"
+                                   @oninput="OnPlayerRowScaleInput" />
+                            <span class="slider-field__value">@_playerRowScale.ToString("F1")×</span>
+                        </div>
+                    </ValueSlot>
+                </SettingRow>
+            }
+
+            <div class="settings-section-label settings-section-label--spaced">PLAYER LIST</div>
+
+            <SettingRow Title="Relative Damage Bars" Description="Scale bars against the top player instead of absolute damage">
+                <ValueSlot>
+                    <ToggleSwitch Checked="settings.RelativeProgressBar" CheckedChanged="v => { settings.RelativeProgressBar = v; }" />
+                </ValueSlot>
+            </SettingRow>
+
+            <SettingRow Title="Use class colors" Description="Use class colors for player rows instead of highlighting me">
+                <ValueSlot>
+                    <ToggleSwitch Checked="settings.UseClassColors" CheckedChanged="v => { settings.UseClassColors = v; }" />
+                </ValueSlot>
+            </SettingRow>
+
+            <SettingRow Title="Combine Summon Damage" Description="Merge all pet and summon damage into the owner's row">
+                <ValueSlot>
+                    <ToggleSwitch Checked="settings.GroupSummonDamage" CheckedChanged="v => { settings.GroupSummonDamage = v; }" />
+                </ValueSlot>
+            </SettingRow>
+
+            <SettingRow Title="Show Death Count" Description="Display a skull icon with death count on each row">
+                <ValueSlot>
+                    <ToggleSwitch Checked="settings.ShowPlayerDeaths" CheckedChanged="v => { settings.ShowPlayerDeaths = v; }" />
+                </ValueSlot>
+            </SettingRow>
+
+            <SettingRow Title="Hide Player Names" Description="Replace names with obfuscated names — useful before sharing screenshots" IsLast="true">
+                <ValueSlot>
+                    <ToggleSwitch Checked="settings.IsNicknameHidden" CheckedChanged="v => { settings.IsNicknameHidden = v; }" />
+                </ValueSlot>
+            </SettingRow>
+
+        </section>
+
+        @* ---------------- HOTKEYS ---------------- *@
+        <section class="settings-group @(_activeGroup == "hotkeys" ? "" : "is-hidden")">
+
+            <SettingRow Title="Toggle Visibility" Description="Click the field, then press the key combo you want to use" IsLast="true">
+                <ValueSlot>
+                    <input class="hotkey-field @(_capturingHotkey ? "is-active" : "")"
+                           readonly
+                           value="@(_capturingHotkey ? "Press a key..." : settings.ToggleVisibilityHotkey)"
+                           @onfocus="OnHotkeyFocus"
+                           @onblur="OnHotkeyBlur"
+                           @onkeydown="OnHotkeyKeyDown"
+                           @onkeydown:preventDefault="true" />
+                </ValueSlot>
+            </SettingRow>
+
+        </section>
+
+        @* ---------------- TRACKING ---------------- *@
+        <section class="settings-group @(_activeGroup == "tracking" ? "" : "is-hidden")">
+
+            <SettingRow Title="Boss Encounters Only" Description="Ignore damage dealt to trash mobs and only track boss fights">
+                <ValueSlot>
+                    <ToggleSwitch Checked="settings.BossOnlyCapture" CheckedChanged="v => { settings.BossOnlyCapture = v; }" />
+                </ValueSlot>
+            </SettingRow>
+
+            <SettingRow Title="Cap Dummy Parses at 1 Minute" Description="Stop counting damage on training dummies after 60 seconds" IsLast="true">
+                <ValueSlot>
+                    <ToggleSwitch Checked="settings.OneMinuteDummyMode" CheckedChanged="v => { settings.OneMinuteDummyMode = v; }" />
+                </ValueSlot>
+            </SettingRow>
+
+            <div class="settings-section-label settings-section-label--spaced">HISTORY</div>
+
+            <SettingRow Title="Keep History For" Description="Older encounters are automatically deleted after this many days" IsLast="true">
+                <ValueSlot>
+                    <div class="number-field-wrap">
+                        <input class="number-field" type="text" inputmode="numeric" maxlength="4"
+                               value="@settings.HistoryRetantionPeriod"
+                               @oninput="OnRetentionPeriodInput" />
+                        <span class="number-field__suffix">days</span>
+                    </div>
+                </ValueSlot>
+            </SettingRow>
+
+            <div class="settings-subsection">
+                <button type="button" class="collapsible-toggle" @onclick="ToggleDeveloperSection">
+                    <span class="collapsible-toggle__arrow @(_developerExpanded ? "is-open" : "")">▸</span>
+                    <span>Developer</span>
+                </button>
+
+                @if (_developerExpanded)
+                {
+                    <div class="settings-subsection__body">
+                        <SettingRow Title="Log Raw Packets" Description="Save incoming network packets to the PacketLogs folder" IsLast="true">
+                            <ValueSlot>
+                                <ToggleSwitch Checked="settings.IsPacketLoggingEnabled" CheckedChanged="v => { settings.IsPacketLoggingEnabled = v; }" />
+                            </ValueSlot>
+                        </SettingRow>
+                    </div>
+                }
+            </div>
+
+        </section>
+
+    </main>
+</div>
+

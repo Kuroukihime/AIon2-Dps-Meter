@@ -73,11 +73,10 @@ namespace AionDpsMeter.Services.PacketCapture
             this.logger = logger;
             this.tcpStreamBuffer = tcpStreamBuffer;
             packetQueue = new BlockingCollection<PooledRawPacket>(100_000);
-            DiscoverAdapters();
         }
 
 
-        private void DiscoverAdapters()
+        public void DiscoverAdapters()
         {
             foreach (var dev in CaptureDeviceList.Instance)
             {

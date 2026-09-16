@@ -1,80 +1,70 @@
-﻿using AionDpsMeter.Services.Services.Settings;
-using AionDpsMeter.Services.Services.Update;
+﻿using System.Windows;
+using System.Windows.Input;
+using System.Windows.Threading;
+using AionDpsMeter.Services.Services.Settings;
+using AionDpsMeter.UI.Pages;
+using AionDpsMeter.UI.Services.Windowing;
 using AionDpsMeter.UI.Utils;
 using AionDpsMeter.UI.ViewModels;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Threading;
+using Microsoft.AspNetCore.Components.WebView.Wpf;
 
-namespace AionDpsMeter.UI
+namespace AionDpsMeter.UI.Views
 {
     public partial class MainWindow : Window
     {
-        private readonly SettingsViewModel settingsViewModel;
         private readonly IAppSettingsService settingsService;
-        private readonly UpdateCheckerService updateCheckerService;
-        private SettingsWindow? settingsWindow;
-        private HistoryWindow? historyWindow;
-        private StatEfficiencyCalculatorWindow? statEfficiencyCalculatorWindow;
-        private StatEfficiencyCalculatorViewModel? statEfficiencyCalculatorViewModel;
         private DispatcherTimer? _saveBoundsTimer;
         private GlobalHotkey? _globalHotkey;
+        private readonly IWindowManagerService windowManager;
+        private readonly WindowHelper windowHelper;
 
-        public MainWindow(MainViewModel viewModel, SettingsViewModel settingsViewModel, IAppSettingsService settingsService, UpdateCheckerService updateCheckerService)
+        public MainWindow(MainViewModel viewModel, IAppSettingsService settingsService, IWindowManagerService windowManager, WindowHelper windowHelper)
         {
             InitializeComponent();
             DataContext = viewModel;
-            this.settingsViewModel    = settingsViewModel;
             this.settingsService      = settingsService;
-            this.updateCheckerService = updateCheckerService;
+            this.windowManager = windowManager;
+            this.windowHelper = windowHelper;
 
-            _saveBoundsTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(500) };
+            _saveBoundsTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(5000) };
             _saveBoundsTimer.Tick += (_, _) => { _saveBoundsTimer.Stop(); SaveWindowBounds(); };
 
             RestoreWindowBounds();
 
             MainBorder.Opacity = settingsService.WindowOpacity;
-            ApplyBackgroundImage(settingsService.BackgroundImagePath);
 
             settingsService.SettingsChanged += (_, _) =>
                 Dispatcher.InvokeAsync(() =>
                 {
                     MainBorder.Opacity = settingsService.WindowOpacity;
-                    ApplyBackgroundImage(settingsService.BackgroundImagePath);
                     RegisterToggleHotkey();
-                    ApplyDisplayStyle();
                 });
 
             Loaded += (_, _) => RegisterToggleHotkey();
-            ApplyDisplayStyle();
+            Loaded += (_, _) => InitializeStyle2WebView();
+            windowManager.CloseAppCommand += OnCloseCommand;
         }
-        private void ApplyDisplayStyle()
+
+        private void OnCloseCommand(object? sender, EventArgs e)
         {
-            if (DataContext is not MainViewModel vm) return;
-
-            vm.NotifyDisplayStyleChanged();
-
-          
-            if (settingsService.UiStyle == 1)
-            {
-                // Style 2: fully transparent window — game renders behind it
-                MainBorder.Background = Brushes.Transparent;
-                MainBorder.BorderThickness = new Thickness(0);
-
-                // Hide the background image; Style 2 has no backdrop
-                Style1Layout.ClearBackgroundImage();
-            }
-            else
-            {
-                // Style 1: restore normal dark background + opacity
-                MainBorder.Background = (Brush)FindResource("PrimaryBackgroundBrush");
-                MainBorder.BorderThickness = new Thickness(0);   // keep your original value
-                MainBorder.Opacity = settingsService.WindowOpacity;
-                ApplyBackgroundImage(settingsService.BackgroundImagePath);
-            }
+            Dispatcher.Invoke(() => { CloseButton_Click(this, new RoutedEventArgs()); });
         }
+
+      
+
+        private void InitializeStyle2WebView()
+        {
+            Style2WebView.WebView.DefaultBackgroundColor = System.Drawing.Color.Transparent;
+            Style2WebView.Services = App.AppHost.Services;
+            Style2WebView.RootComponents.Clear();
+            Style2WebView.RootComponents.Add(new RootComponent
+            {
+                Selector = "#app",
+                ComponentType = typeof(MainDpsPage)
+            });
+        }
+
+
         private void RegisterToggleHotkey()
         {
             _globalHotkey ??= new GlobalHotkey(this);
@@ -109,26 +99,6 @@ namespace AionDpsMeter.UI
             }
         }
 
-        private void ApplyBackgroundImage(string? path)
-        {
-            if (string.IsNullOrEmpty(path) || !System.IO.File.Exists(path))
-            {
-                Style1Layout.ClearBackgroundImage();
-                MainBorder.Background = (Brush)FindResource("PrimaryBackgroundBrush");
-                return;
-            }
-
-            try
-            {
-                Style1Layout.SetBackgroundImage(path);
-                MainBorder.Background = Brushes.Transparent;
-            }
-            catch
-            {
-                Style1Layout.ClearBackgroundImage();
-                MainBorder.Background = (Brush)FindResource("PrimaryBackgroundBrush");
-            }
-        }
 
         private void RestoreWindowBounds()
         {
@@ -165,118 +135,6 @@ namespace AionDpsMeter.UI
             settingsService.WindowHeight = Height;
         }
 
-        private void PositionWindowToRight(Window child)
-        {
-            const double gap = 8;
-
-            var wa = ScreenHelper.GetWorkingAreaForWindow(this);
-
-            double mainRight     = Left + Width;
-            double candidateLeft = mainRight + gap;
-
-            double childLeft;
-            if (candidateLeft + child.Width <= wa.Right)
-            {
-                childLeft = candidateLeft;
-            }
-            else
-            {
-                childLeft = Math.Max(wa.Left, wa.Right - child.Width);
-            }
-
-            double childTop = Math.Max(wa.Top, Math.Min(Top, wa.Bottom - child.Height));
-
-            child.WindowStartupLocation = WindowStartupLocation.Manual;
-            child.Left = childLeft;
-            child.Top  = childTop;
-        }
-
-        protected override void OnLocationChanged(EventArgs e)
-        {
-            base.OnLocationChanged(e);
-            _saveBoundsTimer?.Stop();
-            _saveBoundsTimer?.Start();
-        }
-
-        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
-        {
-            base.OnRenderSizeChanged(sizeInfo);
-            _saveBoundsTimer?.Stop();
-            _saveBoundsTimer?.Start();
-        }
-
-        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
-        }
-
-        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
-
-        private void HistoryButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is not MainViewModel viewModel) return;
-
-            // Singleton: bring existing window to front instead of opening a new one
-            if (historyWindow is { IsVisible: true })
-            {
-                historyWindow.Activate();
-                return;
-            }
-
-            historyWindow = new HistoryWindow(viewModel.SessionManager, settingsService)
-            {
-                DataContext = new AionDpsMeter.UI.ViewModels.History.HistoryViewModel(viewModel.SessionManager, settingsService),
-                Owner = this
-            };
-
-            PositionWindowToRight(historyWindow);
-            historyWindow.Show();
-        }
-
-        private void SettingsButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (settingsWindow is { IsVisible: true })
-            {
-                settingsWindow.Activate();
-                return;
-            }
-
-            settingsWindow = new SettingsWindow
-            {
-                DataContext = settingsViewModel,
-                Owner = this
-            };
-
-            PositionWindowToRight(settingsWindow);
-            settingsWindow.Show();
-        }
-
-        private void StatEfficiencyCalculatorButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is not MainViewModel viewModel) return;
-
-            statEfficiencyCalculatorViewModel ??= new StatEfficiencyCalculatorViewModel(settingsService);
-            statEfficiencyCalculatorViewModel.LoadFromSnapshot(viewModel.SessionManager.GetCurrentPlayerStatSnapshot());
-
-            if (statEfficiencyCalculatorWindow is { IsVisible: true })
-            {
-                statEfficiencyCalculatorWindow.Activate();
-                return;
-            }
-
-            statEfficiencyCalculatorWindow = new StatEfficiencyCalculatorWindow
-            {
-                DataContext = statEfficiencyCalculatorViewModel,
-                Owner = this,
-            };
-
-            PositionWindowToRight(statEfficiencyCalculatorWindow);
-            statEfficiencyCalculatorWindow.Show();
-        }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
@@ -284,44 +142,6 @@ namespace AionDpsMeter.UI
             if (DataContext is MainViewModel viewModel)
                 viewModel.Dispose();
             Application.Current.Shutdown();
-        }
-
-        private void WhatsNewButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is not MainViewModel vm || vm.LatestRelease is null) return;
-
-            var win = new WhatsNewWindow(vm.LatestRelease, updateCheckerService)
-            {
-                Owner = this
-            };
-            PositionWindowToRight(win);
-            win.Show();
-        }
-
-        private void PlayerItem_Click(object sender, MouseButtonEventArgs e)
-        {
-            if (sender is FrameworkElement element &&
-                element.Tag is PlayerStatsViewModel player &&
-                DataContext is MainViewModel viewModel)
-            {
-                var detailsWindow = new PlayerDetailsWindow
-                {
-                    DataContext = new PlayerDetailsViewModel(
-                        viewModel.SessionManager,
-                        player.PlayerId,
-                        player.PlayerName,
-                        player.ClassName,
-                        player.PlayerIcon,
-                        player.ClassIcon,
-                        settingsService,
-                        player.CombatPower,
-                        player.ServerName),
-                    Owner = this
-                };
-
-                PositionWindowToRight(detailsWindow);
-                detailsWindow.Show();
-            }
         }
 
         protected override void OnClosed(EventArgs e)

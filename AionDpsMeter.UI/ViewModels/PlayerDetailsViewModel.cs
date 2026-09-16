@@ -21,7 +21,7 @@ namespace AionDpsMeter.UI.ViewModels
         private readonly DispatcherTimer? _updateTimer;
         private int _knownCombatLogCount;
 
-        /// <summary>True when this VM was created from a history snapshot
+   
         public bool IsSnapshot { get; }
 
         [ObservableProperty] private ObservableCollection<SkillStatsViewModel> _skills = new();
@@ -375,7 +375,7 @@ namespace AionDpsMeter.UI.ViewModels
             BuffCount = Buffs.Count;
         }
 
-        private bool BuffsMatch(IReadOnlyCollection<Services.Models.BuffStats> newStats)
+        private bool BuffsMatch(IReadOnlyCollection<BuffStats> newStats)
         {
             int i = 0;
             foreach (var stat in newStats)

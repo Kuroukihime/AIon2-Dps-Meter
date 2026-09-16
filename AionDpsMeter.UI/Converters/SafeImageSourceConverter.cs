@@ -1,6 +1,7 @@
 
 using AionDpsMeter.Core.Data;
 using System;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
@@ -13,10 +14,15 @@ namespace AionDpsMeter.UI.Converters
    
     public class SafeImageSourceConverter : IValueConverter
     {
+        private static readonly ConcurrentDictionary<string, BitmapImage> PackImageCache = new(StringComparer.Ordinal);
+        private static readonly ConcurrentDictionary<string, Uri> PackUriCache = new(StringComparer.Ordinal);
+
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value is not string path || string.IsNullOrWhiteSpace(path))
                 return null;
+
+            path = path.Trim();
 
             if (path.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ||
                 path.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
@@ -71,16 +77,22 @@ namespace AionDpsMeter.UI.Converters
         {
             try
             {
-                var uriString = path.StartsWith("/")
-                    ? $"pack://application:,,,{path}"
-                    : $"pack://application:,,,/{path}";
+                var normalizedPath = path.StartsWith("/", StringComparison.Ordinal) ? path : "/" + path;
+
+                if (PackImageCache.TryGetValue(normalizedPath, out var cachedBitmap))
+                    return cachedBitmap;
+
+                var uri = PackUriCache.GetOrAdd(normalizedPath,
+                    static p => new Uri($"pack://application:,,,{p}", UriKind.Absolute));
+
                 var bitmap = new BitmapImage();
                 bitmap.BeginInit();
-                bitmap.UriSource = new Uri(uriString, UriKind.Absolute);
+                bitmap.UriSource = uri;
                 bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                bitmap.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
                 bitmap.EndInit();
                 if (bitmap.CanFreeze) bitmap.Freeze();
+
+                PackImageCache.TryAdd(normalizedPath, bitmap);
                 return bitmap;
             }
             catch { return null; }
