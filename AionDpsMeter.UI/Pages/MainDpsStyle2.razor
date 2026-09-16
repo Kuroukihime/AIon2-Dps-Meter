@@ -1,3 +1,4 @@
+@using System.Globalization
 
 @if (ViewModel != null)
 {
@@ -39,7 +40,7 @@
             @if (ViewModel.HasActiveTarget)
             {
                 <div class="s2-hp-bar-track">
-                    <div class="s2-hp-bar-fill" style="width:@($"{ViewModel.ClampPercent(ViewModel.ActiveTargetHpPercentage):0.##}%")">
+                    <div class="s2-hp-bar-fill" style="width:@($"{ViewModel.ClampPercent(ViewModel.ActiveTargetHpPercentage).ToString("0.##", CultureInfo.InvariantCulture)}%")">
                         <div class="s2-hp-bar-shine"></div>
                     </div>
                 </div>
@@ -69,7 +70,7 @@
                     <div class="s2-row-wrap" @onclick="() => ViewModel.OpenPlayerDetails(player)">
                         <div class="s2-row-root">
                             <div class="s2-row-fill @ViewModel.GetIsUserClass(player) @ViewModel.GetPlayerRowClass(player)"
-                                 style="width:@($"{ViewModel.ClampPercent(player.EffectivePercentage):0.##}%")"></div>
+                                 style="width:@(ViewModel.ClampPercent(player.EffectivePercentage).ToString("0.##", CultureInfo.InvariantCulture))%"></div>
                             <div class="s2-row-shine"></div>
 
                             <div class="s2-row-grid">

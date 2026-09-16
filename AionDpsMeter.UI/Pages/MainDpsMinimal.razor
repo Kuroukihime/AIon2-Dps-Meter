@@ -1,3 +1,4 @@
+@using System.Globalization
 @if (ViewModel != null)
 {
 
@@ -31,7 +32,7 @@
                 </div>
             </div>
             <div class="boss-hp-track">
-                <div class="boss-hp-fill" style="width:@($"{ViewModel.ClampPercent(ViewModel.ActiveTargetHpPercentage):0.##}%")"></div>
+                <div class="boss-hp-fill" style="width:@($"{ViewModel.ClampPercent(ViewModel.ActiveTargetHpPercentage).ToString("0.##", CultureInfo.InvariantCulture)}%")"></div>
             </div>
         </div>
 
@@ -49,7 +50,7 @@
             @foreach (var player in ViewModel.Players)
             {
                 <div class="player-module @ViewModel.GetIsUserClass(player)" @onclick="() => ViewModel.OpenPlayerDetails(player)">
-                    <div class="progress-bar @ViewModel.GetPlayerRowClass(player)" style="width:@($"{ViewModel.ClampPercent(player.EffectivePercentage):0.##}%")"></div>
+                    <div class="progress-bar @ViewModel.GetPlayerRowClass(player)" style="width:@($"{ViewModel.ClampPercent(player.EffectivePercentage).ToString("0.##", CultureInfo.InvariantCulture)}%")"></div>
                     <div class="player-data">
                         <div class="icon-wrap">
                             <div class="class-icon" style="background-image: url('/images/classes/@(player.ClassId).png');"></div>
