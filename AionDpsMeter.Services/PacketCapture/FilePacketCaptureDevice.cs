@@ -69,6 +69,10 @@ namespace AionDpsMeter.Services.PacketCapture
             playbackTask = null;
         }
 
+        public void DiscoverAdapters()
+        {
+        }
+
         private async Task PlaybackPacketsAsync(CancellationToken cancellationToken)
         {
             DateTime? previousTimestamp = null;

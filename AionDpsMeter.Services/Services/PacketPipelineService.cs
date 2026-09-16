@@ -42,6 +42,7 @@ namespace AionDpsMeter.Services.Services
         {
             if (isRunning) return;
             isRunning = true;
+            captureDevice.DiscoverAdapters();
             captureDevice.StartCapture();
         }
 

@@ -6,4 +6,5 @@ public interface IPacketCaptureDevice : IDisposable
     string? DeviceName { get; }
     void StartCapture();
     void StopCapture();
+    void DiscoverAdapters();
 }
