@@ -172,7 +172,7 @@ namespace AionDpsMeter.Services.PacketCapture
                 ctx.Device.OnPacketArrival += (s, e) => OnPacketArrival(ctx, e);
                 ctx.Device.Open(new DeviceConfiguration
                 {
-                    Mode = DeviceModes.Promiscuous,
+                    Mode = DeviceModes.None,
                     ReadTimeout = ReadTimeoutMs,
                     BufferSize = KernelBufferSize
                 });
