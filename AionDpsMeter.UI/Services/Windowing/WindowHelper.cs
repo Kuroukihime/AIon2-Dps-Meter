@@ -12,6 +12,7 @@ namespace AionDpsMeter.UI.Services.Windowing
     public class WindowHelper
     {
         //window states
+        public EventHandler? WindowStateUpdated { get; set; }
         public bool IsBuffEdit { get; private set; }
         public bool IsSkillCdEdit { get; private set; }
 
@@ -67,6 +68,7 @@ namespace AionDpsMeter.UI.Services.Windowing
         {
             IsBuffEdit = true;
             IsSkillCdEdit = true;
+            WindowStateUpdated?.Invoke(this, EventArgs.Empty);
             var win = new BlazorWindow(App.AppHost.Services, typeof(SettingsPage))
             {
                 Width = 500,
@@ -79,6 +81,7 @@ namespace AionDpsMeter.UI.Services.Windowing
         {
             IsBuffEdit = false;
             IsSkillCdEdit = false;
+            WindowStateUpdated?.Invoke(this, EventArgs.Empty);
             windowManager.Hide(WindowKey.Settings);
         }
         public void OpenHistory()

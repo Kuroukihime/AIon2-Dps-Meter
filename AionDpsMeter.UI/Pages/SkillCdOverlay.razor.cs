@@ -12,7 +12,8 @@ namespace AionDpsMeter.UI.Pages
     {
 
         private bool IsEditable => windowHelper.IsSkillCdEdit;
-
+        private int Count => skillCdTracker.Items.Count;
+        private CancellationTokenSource? timerCts;
         private OverlaySettings settings = new();
 
         protected override void OnInitialized()
@@ -21,6 +22,33 @@ namespace AionDpsMeter.UI.Pages
 
             skillCdTracker.StateChanged += OnLiveStateChanged;
             appSettingsService.SettingsChanged += OnSettingsChanged;
+            windowHelper.WindowStateUpdated += OnLiveStateChanged;
+
+
+            timerCts = new CancellationTokenSource();
+            _ = RunRefreshTimerAsync(timerCts.Token);
+        }
+
+        private async Task RunRefreshTimerAsync(CancellationToken cancellationToken)
+        {
+            using var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(100));
+
+            try
+            {
+                while (await timer.WaitForNextTickAsync(cancellationToken))
+                {
+                    await InvokeAsync(StateHasChanged);
+                }
+            }
+            catch (OperationCanceledException)
+            {
+
+            }
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender) await InvokeAsync(StateHasChanged);
         }
 
         private void OnLiveStateChanged(object? sender, EventArgs e) =>
@@ -72,7 +100,7 @@ namespace AionDpsMeter.UI.Pages
         private static string FormatTimeLeft(TimeSpan timeLeft)
         {
             var seconds = Math.Max(0, timeLeft.TotalSeconds);
-            return seconds.ToString("0", System.Globalization.CultureInfo.InvariantCulture);
+            return seconds.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture);
         }
 
 
@@ -80,6 +108,11 @@ namespace AionDpsMeter.UI.Pages
         {
             skillCdTracker.StateChanged -= OnLiveStateChanged;
             appSettingsService.SettingsChanged -= OnSettingsChanged;
+            windowHelper.WindowStateUpdated = OnLiveStateChanged;
+
+            timerCts?.Cancel();
+            timerCts?.Dispose();
+            timerCts = null;
         }
     }
 }

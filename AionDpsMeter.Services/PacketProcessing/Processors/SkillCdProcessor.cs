@@ -24,7 +24,7 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors
                 ProcessEntry(r);
             }
         }
-
+       
         private void ProcessEntry(PacketReader r)
         {
             var skillId = r.ReadU32();

@@ -150,7 +150,7 @@ namespace AionDpsMeter.Services.Services.Timed
 
         private void OnTick(object? state)
         {
-            bool expiredSomething;
+            bool expiredSomething = false;
             lock (@lock)
             {
                 var now = DateTime.UtcNow;
@@ -163,8 +163,7 @@ namespace AionDpsMeter.Services.Services.Timed
                 expiredSomething = expiredIds.Count > 0;
             }
 
-            StateChanged?.Invoke(this, EventArgs.Empty);
-            _ = expiredSomething; 
+            if(expiredSomething) StateChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public void Dispose()
