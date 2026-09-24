@@ -61,6 +61,8 @@ namespace AionDpsMeter.UI.Services.Windowing
         {
             ManageBuffOverlay();
             ManageSkillCdOverlay();
+            windowManager.SetClickThrough(WindowKey.BuffOverlay);
+            windowManager.SetClickThrough(WindowKey.SkillCdOverlay);
         }
 
 
@@ -68,6 +70,8 @@ namespace AionDpsMeter.UI.Services.Windowing
         {
             IsBuffEdit = true;
             IsSkillCdEdit = true;
+            windowManager.RestoreClickThrough(WindowKey.BuffOverlay);
+            windowManager.RestoreClickThrough(WindowKey.SkillCdOverlay);
             WindowStateUpdated?.Invoke(this, EventArgs.Empty);
             var win = new BlazorWindow(App.AppHost.Services, typeof(SettingsPage))
             {
@@ -81,6 +85,8 @@ namespace AionDpsMeter.UI.Services.Windowing
         {
             IsBuffEdit = false;
             IsSkillCdEdit = false;
+            windowManager.SetClickThrough(WindowKey.BuffOverlay);
+            windowManager.SetClickThrough(WindowKey.SkillCdOverlay);
             WindowStateUpdated?.Invoke(this, EventArgs.Empty);
             windowManager.Hide(WindowKey.Settings);
         }

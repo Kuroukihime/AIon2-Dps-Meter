@@ -22,6 +22,10 @@ namespace AionDpsMeter.UI.Services.Windowing
 
         void Drag(WindowKey key, string? instanceId = null);
 
+        void SetClickThrough(WindowKey key, string? instanceId = null);
+
+        void RestoreClickThrough(WindowKey key, string? instanceId = null);
+
         bool IsOpen(WindowKey key, string? instanceId = null);
     }
 }
