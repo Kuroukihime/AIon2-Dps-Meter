@@ -19,10 +19,13 @@ namespace AionDpsMeter.UI.Pages
         private string _activeGroup = "appearance";
         private string _version = "1.0.0";
 
-        // ---- Overlays / Buffs tab state ----
+       
         private const int MaxTrackedBuffSkills = 10;
+        private const int MaxTrackedCdSkills = 10;
         private bool _buffPickerOpen;
+        private bool _skillCdPickerOpen;
         private string _skillSearchQuery = string.Empty;
+        private string _cdSkillSearchQuery = string.Empty;
         private bool _hasOpenedOverlaysTab;
 
         private sealed record SettingsGroup(string Id, string Label, string Icon);
@@ -147,7 +150,7 @@ namespace AionDpsMeter.UI.Pages
 
         private void BeginDrag(MouseEventArgs _) => windowManager.Drag(WindowKey.Settings);
 
-        // ---------------- Buff overlay ----------------
+  
 
         private void SetBuffOverlayEnabled(bool value)
         {
@@ -156,11 +159,25 @@ namespace AionDpsMeter.UI.Pages
             settings.BufOverlaySettings = s;
         }
 
+        private void SetSkillOverlayEnabled(bool value)
+        {
+            var s = settings.SkillCdOverlaySettings;
+            s.Enabled = value;
+            settings.SkillCdOverlaySettings = s;
+        }
+
         private void SetBuffOverlayOrder(OverlayOrderMode mode)
         {
             var s = settings.BufOverlaySettings;
             s.Order = mode;
             settings.BufOverlaySettings = s;
+        }
+
+        private void SetSkillOverlayOrder(OverlayOrderMode mode)
+        {
+            var s = settings.SkillCdOverlaySettings;
+            s.Order = mode;
+            settings.SkillCdOverlaySettings = s;
         }
 
         private void OnBuffOverlayIconSizeInput(ChangeEventArgs e)
@@ -173,6 +190,16 @@ namespace AionDpsMeter.UI.Pages
             settings.BufOverlaySettings = s;
         }
 
+        private void OnSkillIconSizeInput(ChangeEventArgs e)
+        {
+            if (!double.TryParse(e.Value?.ToString(), System.Globalization.NumberStyles.Any,
+                    System.Globalization.CultureInfo.InvariantCulture, out var size)) return;
+
+            var s = settings.SkillCdOverlaySettings;
+            s.IconSize = Math.Clamp(size, 20, 50);
+            settings.SkillCdOverlaySettings = s;
+        }
+
         private List<Skill> TrackedBuffSkills =>
             settings.BufOverlaySettings.TrackedIdList
                 .Select(id => AllSkills.FirstOrDefault(sk => sk.Id == id))
@@ -180,7 +207,16 @@ namespace AionDpsMeter.UI.Pages
                 .Select(sk => sk!)
                 .ToList();
 
+        private List<Skill> TrackedCdSkills =>
+            settings.SkillCdOverlaySettings.TrackedIdList
+                .Select(id => AllSkills.FirstOrDefault(sk => sk.Id == id))
+                .Where(sk => sk is not null)
+                .Select(sk => sk!)
+                .ToList();
+
         private bool CanAddMoreBuffSkills => settings.BufOverlaySettings.TrackedIdList.Count < MaxTrackedBuffSkills;
+
+        private bool CanAddMoreCdSkills => settings.SkillCdOverlaySettings.TrackedIdList.Count < MaxTrackedCdSkills;
 
         private IEnumerable<Skill> FilteredSkillResults
         {
@@ -188,6 +224,21 @@ namespace AionDpsMeter.UI.Pages
             {
                 var query = _skillSearchQuery.Trim();
                 var tracked = settings.BufOverlaySettings.TrackedIdList;
+
+                IEnumerable<Skill> source = AllSkills.Where(sk => !tracked.Contains(sk.Id));
+
+                if (!string.IsNullOrEmpty(query))
+                    source = source.Where(sk => sk.Name.Contains(query, StringComparison.OrdinalIgnoreCase));
+
+                return source.Take(50);
+            }
+        }
+        private IEnumerable<Skill> FilteredSkillCdResults
+        {
+            get
+            {
+                var query = _cdSkillSearchQuery.Trim();
+                var tracked = settings.SkillCdOverlaySettings.TrackedIdList;
 
                 IEnumerable<Skill> source = AllSkills.Where(sk => !tracked.Contains(sk.Id));
 
@@ -205,9 +256,19 @@ namespace AionDpsMeter.UI.Pages
             _buffPickerOpen = true;
         }
 
+        private void OpenSkillCdPicker()
+        {
+            if (!CanAddMoreCdSkills) return;
+            _cdSkillSearchQuery = string.Empty;
+            _skillCdPickerOpen = true;
+        }
+
         private void CloseBuffPicker() => _buffPickerOpen = false;
+        private void CloseSkillCdPicker() => _skillCdPickerOpen = false;
 
         private void OnSkillSearchInput(ChangeEventArgs e) => _skillSearchQuery = e.Value?.ToString() ?? string.Empty;
+
+        private void OnCdSkillSearchInput(ChangeEventArgs e) => _cdSkillSearchQuery = e.Value?.ToString() ?? string.Empty;
 
         private void AddTrackedBuffSkill(int skillId)
         {
@@ -220,11 +281,29 @@ namespace AionDpsMeter.UI.Pages
             _buffPickerOpen = false;
         }
 
+        private void AddTrackedCdSkill(int skillId)
+        {
+            var s = settings.SkillCdOverlaySettings;
+            if (s.TrackedIdList.Count >= MaxTrackedCdSkills) return;
+            if (s.TrackedIdList.Contains(skillId)) return;
+
+            s.TrackedIdList.Add(skillId);
+            settings.SkillCdOverlaySettings = s;
+            _buffPickerOpen = false;
+        }
+
         private void RemoveTrackedBuffSkill(int skillId)
         {
             var s = settings.BufOverlaySettings;
             s.TrackedIdList.Remove(skillId);
             settings.BufOverlaySettings = s;
+        }
+
+        private void RemoveTrackedCdSkill(int skillId)
+        {
+            var s = settings.SkillCdOverlaySettings;
+            s.TrackedIdList.Remove(skillId);
+            settings.SkillCdOverlaySettings = s;
         }
 
     }

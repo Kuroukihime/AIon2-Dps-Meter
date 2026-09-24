@@ -8,6 +8,7 @@ namespace AionDpsMeter.Core.Windowing
         StatEfficiencyCalculator,
         WhatsNew,
         PlayerDetails,
-        BuffOverlay
+        BuffOverlay,
+        SkillCdOverlay,
     }
 }

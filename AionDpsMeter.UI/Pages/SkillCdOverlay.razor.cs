@@ -1,5 +1,4 @@
-﻿using AionDpsMeter.Core.GameData.Services;
-using AionDpsMeter.Core.Windowing;
+﻿using AionDpsMeter.Core.Windowing;
 using AionDpsMeter.Services.Services.Settings;
 using AionDpsMeter.Services.Services.Timed;
 using AionDpsMeter.UI.Services.Windowing;
@@ -9,18 +8,18 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AionDpsMeter.UI.Pages
 {
-    partial class BuffOverlay(IWindowManagerService windowManager, WindowHelper windowHelper, IAppSettingsService appSettingsService, [FromKeyedServices("Buffs")] ITimedEventTracker buffTracker)
+    partial class SkillCdOverlay(IWindowManagerService windowManager, WindowHelper windowHelper, IAppSettingsService appSettingsService, [FromKeyedServices("SkillCd")] ITimedEventTracker skillCdTracker)
     {
 
-        private bool IsEditable => windowHelper.IsBuffEdit;
+        private bool IsEditable => windowHelper.IsSkillCdEdit;
 
         private OverlaySettings settings = new();
 
         protected override void OnInitialized()
         {
-            settings = appSettingsService.BufOverlaySettings;
+            settings = appSettingsService.SkillCdOverlaySettings;
 
-            buffTracker.StateChanged += OnLiveStateChanged;
+            skillCdTracker.StateChanged += OnLiveStateChanged;
             appSettingsService.SettingsChanged += OnSettingsChanged;
         }
 
@@ -29,21 +28,21 @@ namespace AionDpsMeter.UI.Pages
 
         private void OnSettingsChanged(object? sender, EventArgs e)
         {
-            settings = appSettingsService.BufOverlaySettings;
+            settings = appSettingsService.SkillCdOverlaySettings;
             InvokeAsync(StateHasChanged);
         }
 
         private void BeginDrag(MouseEventArgs _)
         {
             if (!IsEditable) return;
-            windowManager.Drag(WindowKey.BuffOverlay);
+            windowManager.Drag(WindowKey.SkillCdOverlay);
         }
 
         private IEnumerable<TimedItemState> OrderedItems
         {
             get
             {
-                var items = buffTracker.Items.AsEnumerable();
+                var items = skillCdTracker.Items.AsEnumerable();
                 items = settings.Order == OverlayOrderMode.Ascending
                     ? items.OrderBy(i => i.TimeLeft)
                     : items.OrderByDescending(i => i.TimeLeft);
@@ -79,7 +78,7 @@ namespace AionDpsMeter.UI.Pages
 
         public void Dispose()
         {
-            buffTracker.StateChanged -= OnLiveStateChanged;
+            skillCdTracker.StateChanged -= OnLiveStateChanged;
             appSettingsService.SettingsChanged -= OnSettingsChanged;
         }
     }

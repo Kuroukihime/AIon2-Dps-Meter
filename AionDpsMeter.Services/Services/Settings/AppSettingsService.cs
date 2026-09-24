@@ -32,6 +32,20 @@ namespace AionDpsMeter.Services.Services.Settings
             }
         }
 
+        public OverlaySettings SkillCdOverlaySettings
+        {
+            get { lock (_lock) return _data.SkillCdOverlaySettings; }
+            set
+            {
+                lock (_lock)
+                {
+                    _data.SkillCdOverlaySettings = value;
+                    Save();
+                }
+                SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
 
         public bool UseClassColors
         {
@@ -567,6 +581,9 @@ namespace AionDpsMeter.Services.Services.Settings
 
             [JsonPropertyName("bufOverlaySettings")]
             public OverlaySettings BufOverlaySettings { get; set; } = new OverlaySettings();
+
+            [JsonPropertyName("skillCdOverlaySettings")]
+            public OverlaySettings SkillCdOverlaySettings { get; set; } = new OverlaySettings();
 
         }
     }

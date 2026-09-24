@@ -24,6 +24,7 @@ namespace AionDpsMeter.Services.Services.Session
         private PlayerStatSnapshot? latestPlayerStatSnapshot;
         private readonly List<BuffEvent> activeBuffBacklog = new();
         private readonly ITimedEventTracker buffEventTracker;
+        private readonly ITimedEventTracker skillCdEventTracker;
 
 
         public CombatSessionManager(
@@ -31,12 +32,14 @@ namespace AionDpsMeter.Services.Services.Session
             ILoggerFactory loggerFactory,
             IAppSettingsService settingsService,
             ICombatHistoryStore historyStore,
-            [FromKeyedServices("Buffs")] ITimedEventTracker buffEventTracker)
+            [FromKeyedServices("Buffs")] ITimedEventTracker buffEventTracker,
+            [FromKeyedServices("SkillCd")] ITimedEventTracker skillCdEventTracker)
         {
             this.entityTracker = entityTracker;
             this.settingsService = settingsService;
             this.historyStore = historyStore;
             this.buffEventTracker = buffEventTracker;
+            this.skillCdEventTracker = skillCdEventTracker;
             targetResolver = new ActiveTargetResolver(entityTracker);
             logger = loggerFactory.CreateLogger<CombatSessionManager>();
             entityTracker.SummonRegistered += OnSummonRegistered;
@@ -289,6 +292,11 @@ namespace AionDpsMeter.Services.Services.Session
             {
                 logger.LogError(ex, "Error processing buff event");
             }
+        }
+
+        public void RegisterSkillCdEvent(TimedEvent skillCdEvent)
+        {
+            skillCdEventTracker.Register(skillCdEvent);
         }
 
         private void RegisterTimedBuffEvent(BuffEvent buffEvent)

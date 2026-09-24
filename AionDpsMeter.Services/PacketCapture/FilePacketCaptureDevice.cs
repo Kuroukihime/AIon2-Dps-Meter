@@ -26,7 +26,7 @@ namespace AionDpsMeter.Services.PacketCapture
         {
             var packetsTxt = "D:\\xdd\\packets_20260914_214717.txt";
             bool playback = true;
-            double speed = 5;
+            double speed = 1;
             if (string.IsNullOrWhiteSpace(packetsTxt))
                 throw new ArgumentException("File path cannot be null or empty.", nameof(packetsTxt));
 

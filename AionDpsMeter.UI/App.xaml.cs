@@ -51,6 +51,7 @@ namespace AionDpsMeter.UI
 
                     services.AddSingleton<EntityTracker>();
                     services.AddKeyedSingleton<ITimedEventTracker, BuffTimedEventTracker>("Buffs");
+                    services.AddKeyedSingleton<ITimedEventTracker, SkillCdTimedEventTracker>("SkillCd");
                     services.AddSingleton<CombatSessionManager>();
                     services.AddPacketProcessingRouting();
                     services.AddSingleton<IPacketService, PacketPipelineService>();

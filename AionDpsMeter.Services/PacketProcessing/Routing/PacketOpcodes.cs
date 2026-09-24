@@ -16,4 +16,5 @@ public static class PacketOpcodes
     public const ushort PlayerStats = 0x3649;         // 49 36
     public const ushort PartyInfo = 0x9702;           // 02 97
     public const ushort EntityDeath = 0x8D04;         // 04 8D
+    public const ushort SkillCd = 0x3847;             // 47 38
 }
