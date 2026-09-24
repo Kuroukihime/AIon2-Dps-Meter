@@ -6,14 +6,16 @@ using AionDpsMeter.Services.Services.Entity;
 using AionDpsMeter.Services.Services.Session;
 using AionDpsMeter.Services.Services.Session.Persistence;
 using AionDpsMeter.Services.Services.Settings;
+using AionDpsMeter.Services.Services.Timed;
 using AionDpsMeter.Services.Services.Update;
+using AionDpsMeter.Core.Windowing;
+using AionDpsMeter.UI.Services.Windowing;
 using AionDpsMeter.UI.ViewModels;
+using AionDpsMeter.UI.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.Windows;
-using AionDpsMeter.UI.Services.Windowing;
-using AionDpsMeter.UI.Views;
 
 namespace AionDpsMeter.UI
 {
@@ -48,12 +50,14 @@ namespace AionDpsMeter.UI
                     services.AddSingleton<IPacketCaptureDevice, CaptureDevice>();
 
                     services.AddSingleton<EntityTracker>();
+                    services.AddKeyedSingleton<ITimedEventTracker, BuffTimedEventTracker>("Buffs");
                     services.AddSingleton<CombatSessionManager>();
                     services.AddPacketProcessingRouting();
                     services.AddSingleton<IPacketService, PacketPipelineService>();
 
                     services.AddWindowManager();
-                   
+
+
                     services.AddSingleton<SettingsViewModel>();
                     services.AddSingleton<MainViewModel>();
                     services.AddSingleton<MainWindow>();
@@ -72,8 +76,9 @@ namespace AionDpsMeter.UI
 
             var mainWindow = AppHost.Services.GetRequiredService<MainWindow>();
             var windowManager = AppHost.Services.GetRequiredService<IWindowManagerService>();
+            var windowHelper = AppHost.Services.GetRequiredService<WindowHelper>();
             windowManager.Open(WindowKey.Main, mainWindow, true);
-
+            windowHelper.OpenRequiredWindows();
             base.OnStartup(e);
         }
 

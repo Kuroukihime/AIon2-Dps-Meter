@@ -1,3 +1,4 @@
+using AionDpsMeter.Core.Windowing;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -15,7 +16,22 @@ namespace AionDpsMeter.Services.Services.Settings
         {
             _data = Load();
             _data.HistoryRetantionPeriod = Math.Clamp(_data.HistoryRetantionPeriod, 1, 9999);
+            _data.WindowBoundsByKey ??= [];
         }
+
+        public OverlaySettings BufOverlaySettings
+        {
+            get { lock (_lock) return _data.BufOverlaySettings; }
+            set
+            {
+                lock (_lock)
+                {
+                    _data.BufOverlaySettings = value;
+                    Save();
+                } SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
 
         public bool UseClassColors
         {
@@ -30,6 +46,23 @@ namespace AionDpsMeter.Services.Services.Settings
                     if (changed) Save();
                 }
                 if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public bool TryGetWindowBounds(WindowKey key, out WindowBounds? bounds)
+        {
+            lock (_lock)
+            {
+                return _data.WindowBoundsByKey.TryGetValue(key.ToString(), out bounds);
+            }
+        }
+
+        public void SetWindowBounds(WindowKey key, WindowBounds bounds)
+        {
+            lock (_lock)
+            {
+                _data.WindowBoundsByKey[key.ToString()] = bounds;
+                Save();
             }
         }
 
@@ -528,6 +561,13 @@ namespace AionDpsMeter.Services.Services.Settings
 
             [JsonPropertyName("statCalcBossSmiteResist")]
             public double StatCalcBossSmiteResist { get; set; } = 30;
+
+            [JsonPropertyName("windowBoundsByKey")]
+            public Dictionary<string, WindowBounds> WindowBoundsByKey { get; set; } = [];
+
+            [JsonPropertyName("bufOverlaySettings")]
+            public OverlaySettings BufOverlaySettings { get; set; } = new OverlaySettings();
+
         }
     }
 }

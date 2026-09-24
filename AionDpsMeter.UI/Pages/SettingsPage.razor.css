@@ -1,5 +1,3 @@
-
-
 .settings-shell {
     --bg: #0A0C10;
     --panel: #12151B;
@@ -27,9 +25,9 @@
     -webkit-font-smoothing: antialiased;
 }
 
-.settings-shell * {
-    box-sizing: border-box;
-}
+    .settings-shell * {
+        box-sizing: border-box;
+    }
 
 /* ---------------- Header ---------------- */
 
@@ -93,16 +91,16 @@
     transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
 }
 
-.settings-close:hover {
-    background: var(--danger);
-    border-color: var(--danger);
-    color: #fff;
-}
+    .settings-close:hover {
+        background: var(--danger);
+        border-color: var(--danger);
+        color: #fff;
+    }
 
-.settings-close:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-}
+    .settings-close:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+    }
 
 /* ---------------- Horizontal group navigation ---------------- */
 
@@ -117,9 +115,9 @@
     scrollbar-width: none;
 }
 
-.settings-tabs::-webkit-scrollbar {
-    display: none;
-}
+    .settings-tabs::-webkit-scrollbar {
+        display: none;
+    }
 
 .settings-tab {
     position: relative;
@@ -153,20 +151,20 @@
     color: var(--text);
 }
 
-.settings-tab.is-active .settings-tab__icon {
-    opacity: 1;
-}
+    .settings-tab.is-active .settings-tab__icon {
+        opacity: 1;
+    }
 
-.settings-tab.is-active::after {
-    content: "";
-    position: absolute;
-    left: 14px;
-    right: 14px;
-    bottom: -1px;
-    height: 2px;
-    background: var(--accent);
-    border-radius: 2px 2px 0 0;
-}
+    .settings-tab.is-active::after {
+        content: "";
+        position: absolute;
+        left: 14px;
+        right: 14px;
+        bottom: -1px;
+        height: 2px;
+        background: var(--accent);
+        border-radius: 2px 2px 0 0;
+    }
 
 /* ---------------- Body / scroll area ---------------- */
 
@@ -177,23 +175,23 @@
     background: var(--bg);
 }
 
-.settings-body::-webkit-scrollbar {
-    width: 8px;
-}
+    .settings-body::-webkit-scrollbar {
+        width: 8px;
+    }
 
-.settings-body::-webkit-scrollbar-thumb {
-    background: var(--line-strong);
-    border-radius: 4px;
-}
+    .settings-body::-webkit-scrollbar-thumb {
+        background: var(--line-strong);
+        border-radius: 4px;
+    }
 
 .settings-group {
     display: flex;
     flex-direction: column;
 }
 
-.settings-group.is-hidden {
-    display: none;
-}
+    .settings-group.is-hidden {
+        display: none;
+    }
 
 /* Section label above a block of related rows */
 .settings-section-label {
@@ -232,15 +230,15 @@
     transition: border-color 120ms ease, background-color 120ms ease;
 }
 
-.style-option:hover {
-    border-color: #3A4150;
-    background: var(--panel-raised);
-}
+    .style-option:hover {
+        border-color: #3A4150;
+        background: var(--panel-raised);
+    }
 
-.style-option.is-selected {
-    border-color: var(--accent);
-    background: var(--accent-soft);
-}
+    .style-option.is-selected {
+        border-color: var(--accent);
+        background: var(--accent-soft);
+    }
 
 .style-option__label {
     font-size: 11.5px;
@@ -263,14 +261,7 @@
     content: "";
     position: absolute;
     inset: 6px 8px;
-    background:
-        repeating-linear-gradient(
-            to bottom,
-            var(--text-dim) 0px,
-            var(--text-dim) 3px,
-            transparent 3px,
-            transparent 9px
-        );
+    background: repeating-linear-gradient( to bottom, var(--text-dim) 0px, var(--text-dim) 3px, transparent 3px, transparent 9px );
     opacity: 0.35;
 }
 
@@ -294,14 +285,7 @@
     left: 8px;
     right: 8px;
     bottom: 8px;
-    background:
-        repeating-linear-gradient(
-            to bottom,
-            var(--text-dim) 0px,
-            var(--text-dim) 5px,
-            transparent 5px,
-            transparent 14px
-        );
+    background: repeating-linear-gradient( to bottom, var(--text-dim) 0px, var(--text-dim) 5px, transparent 5px, transparent 14px );
     opacity: 0.35;
 }
 
@@ -331,9 +315,9 @@
     cursor: pointer;
 }
 
-.collapsible-toggle:hover {
-    color: var(--text);
-}
+    .collapsible-toggle:hover {
+        color: var(--text);
+    }
 
 .collapsible-toggle__arrow {
     font-size: 9px;
@@ -341,13 +325,287 @@
     color: inherit;
 }
 
-.collapsible-toggle__arrow.is-open {
-    transform: rotate(90deg);
-    color: var(--accent);
-}
+    .collapsible-toggle__arrow.is-open {
+        transform: rotate(90deg);
+        color: var(--accent);
+    }
 
 .settings-subsection__body {
     border-top: 1px solid var(--line);
+}
+
+/* ---------------- Segmented control (order picker) ---------------- */
+
+.segmented {
+    display: flex;
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.segmented__option {
+    padding: 6px 10px;
+    font-size: 11px;
+    font-weight: 500;
+    font-family: var(--font-ui);
+    color: var(--text-dim);
+    background: var(--panel);
+    border: none;
+    border-left: 1px solid var(--line-strong);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 120ms ease, color 120ms ease;
+}
+
+    .segmented__option:first-child {
+        border-left: none;
+    }
+
+    .segmented__option:hover {
+        color: var(--text);
+        background: var(--panel-raised);
+    }
+
+    .segmented__option.is-selected {
+        color: var(--text);
+        background: var(--accent-soft);
+    }
+
+/* ---------------- Empty state (Skill Cooldowns placeholder) ---------------- */
+
+.settings-empty-state {
+    padding: 22px 14px;
+    text-align: center;
+    font-size: 11.5px;
+    color: var(--text-dim);
+    background: var(--panel);
+    border: 1px dashed var(--line-strong);
+    border-radius: 6px;
+}
+
+/* ---------------- Skill tiles (tracked buffs) ---------------- */
+
+.skill-tiles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-width: 100%;
+}
+
+.skill-tile {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    background: var(--panel-raised);
+    border: 1px solid var(--line-strong);
+    padding: 0;
+    overflow: visible;
+}
+
+.skill-tile__icon {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--panel);
+}
+
+    .skill-tile__icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+.skill-tile__fallback {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dim);
+}
+
+.skill-tile__remove {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--danger);
+    border: 1px solid var(--bg);
+    color: #fff;
+    cursor: pointer;
+    padding: 0;
+    opacity: 0;
+    transform: scale(0.85);
+    transition: opacity 120ms ease, transform 120ms ease;
+}
+
+.skill-tile:hover .skill-tile__remove {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.skill-tile--add {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--panel);
+    border-style: dashed;
+    color: var(--text-dim);
+    transition: border-color 120ms ease, color 120ms ease, background-color 120ms ease;
+}
+
+    .skill-tile--add:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+        background: var(--accent-soft);
+    }
+
+.skill-tile__plus {
+    font-size: 18px;
+    line-height: 1;
+    font-weight: 300;
+}
+
+/* ---------------- Skill picker (search popover) ---------------- */
+
+.skill-picker-backdrop {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+}
+
+.skill-picker {
+    width: 320px;
+    max-height: 420px;
+    display: flex;
+    flex-direction: column;
+    background: var(--panel);
+    border: 1px solid var(--line-strong);
+    border-radius: 8px;
+    box-shadow: 0 20px 50px -16px rgba(0, 0, 0, 0.75);
+    overflow: hidden;
+}
+
+.skill-picker__search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+    color: var(--text-dim);
+    flex-shrink: 0;
+}
+
+    .skill-picker__search input {
+        flex: 1;
+        min-width: 0;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: var(--text);
+        font-size: 12.5px;
+        font-family: var(--font-ui);
+    }
+
+        .skill-picker__search input::placeholder {
+            color: var(--text-dim);
+        }
+
+.skill-picker__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: none;
+    background: transparent;
+    color: var(--text-dim);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+    .skill-picker__close:hover {
+        background: var(--danger);
+        color: #fff;
+    }
+
+.skill-picker__list {
+    overflow-y: auto;
+    padding: 6px;
+}
+
+    .skill-picker__list::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .skill-picker__list::-webkit-scrollbar-thumb {
+        background: var(--line-strong);
+        border-radius: 4px;
+    }
+
+.skill-picker__row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 7px 8px;
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+    color: var(--text);
+    font-size: 12px;
+    font-family: var(--font-ui);
+    text-align: left;
+    cursor: pointer;
+}
+
+    .skill-picker__row:hover {
+        background: var(--panel-raised);
+    }
+
+.skill-picker__row-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--panel-raised);
+    flex-shrink: 0;
+}
+
+    .skill-picker__row-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+.skill-picker__row-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.skill-picker__empty {
+    padding: 18px 10px;
+    text-align: center;
+    font-size: 11.5px;
+    color: var(--text-dim);
 }
 
 /* ---------------- Reduced motion ---------------- */
@@ -356,7 +614,10 @@
     .settings-tab,
     .collapsible-toggle__arrow,
     .style-option,
-    .settings-close {
+    .settings-close,
+    .segmented__option,
+    .skill-tile--add,
+    .skill-tile__remove {
         transition: none !important;
     }
 }

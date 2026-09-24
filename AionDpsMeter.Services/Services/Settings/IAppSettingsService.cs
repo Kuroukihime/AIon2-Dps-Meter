@@ -1,3 +1,5 @@
+using AionDpsMeter.Core.Windowing;
+
 namespace AionDpsMeter.Services.Services.Settings
 {
     public interface IAppSettingsService
@@ -34,6 +36,9 @@ namespace AionDpsMeter.Services.Services.Settings
         double StatCalcBossDamageTolerance { get; set; }
         double StatCalcPartySmiteBuff { get; set; }
         double StatCalcBossSmiteResist { get; set; }
+        OverlaySettings BufOverlaySettings { get; set; }
+        bool TryGetWindowBounds(WindowKey key, out WindowBounds? bounds);
+        void SetWindowBounds(WindowKey key, WindowBounds bounds);
 
         event EventHandler SettingsChanged;
     }

@@ -1,10 +1,12 @@
+using AionDpsMeter.Core.Windowing;
+using AionDpsMeter.Services.Services.Settings;
 using AionDpsMeter.UI.Utils;
 using System.Windows;
 using System.Windows.Threading;
 
 namespace AionDpsMeter.UI.Services.Windowing
 {
-    public sealed class WindowManagerService : IWindowManagerService
+    public sealed class WindowManagerService(IAppSettingsService settingsService) : IWindowManagerService
     {
 
         public event EventHandler? CloseAppCommand;
@@ -19,7 +21,7 @@ namespace AionDpsMeter.UI.Services.Windowing
 
         public void CloseApplication() => CloseAppCommand?.Invoke(this, EventArgs.Empty);
 
-        public void Open(WindowKey key, Window window, bool isSingleton, string? instanceId = null, Window? owner = null)
+        public void Open(WindowKey key, Window window, bool isSingleton, string? instanceId = null, Window? owner = null, WindowPersistenceMode persistenceMode = WindowPersistenceMode.None)
         {
             RunOnUiThread(() =>
             {
@@ -39,6 +41,8 @@ namespace AionDpsMeter.UI.Services.Windowing
                     window.Owner = owner;
                     PositionToRightOf(window, owner);
                 }
+
+                TryRestoreWindowBounds(window, key, persistenceMode);
 
                 lock (gate) { open[slot] = window; }
 
@@ -84,6 +88,8 @@ namespace AionDpsMeter.UI.Services.Windowing
                     // Not in an active left-button-down, or window isn't in Normal
                     // state. Harmless — just ignore.
                 }
+
+                SaveWindowBounds(key, w);
             }));
 
         public bool IsOpen(WindowKey key, string? instanceId = null)
@@ -137,6 +143,52 @@ namespace AionDpsMeter.UI.Services.Windowing
             child.WindowStartupLocation = WindowStartupLocation.Manual;
             child.Left = left;
             child.Top = top;
+        }
+
+        private void TryRestoreWindowBounds(Window window, WindowKey key, WindowPersistenceMode persistenceMode)
+        {
+            if (persistenceMode == WindowPersistenceMode.None)
+                return;
+
+            if (!settingsService.TryGetWindowBounds(key, out var saved) || saved is null)
+                return;
+
+            var workArea = ScreenHelper.GetWorkingAreaForPoint(saved.Left, saved.Top);
+
+            double width = persistenceMode == WindowPersistenceMode.Bounds
+                ? Math.Max(window.MinWidth, saved.Width)
+                : window.Width;
+
+            double height = persistenceMode == WindowPersistenceMode.Bounds
+                ? Math.Max(window.MinHeight, saved.Height)
+                : window.Height;
+
+            if (persistenceMode == WindowPersistenceMode.Bounds)
+            {
+                window.Width = width;
+                window.Height = height;
+            }
+
+            double left = Math.Max(workArea.Left, Math.Min(saved.Left, workArea.Right - width));
+            double top = Math.Max(workArea.Top, Math.Min(saved.Top, workArea.Bottom - height));
+
+            window.WindowStartupLocation = WindowStartupLocation.Manual;
+            window.Left = left;
+            window.Top = top;
+        }
+
+        private void SaveWindowBounds(WindowKey key, Window window)
+        {
+            if (window.WindowState != WindowState.Normal)
+                return;
+
+            settingsService.SetWindowBounds(key, new WindowBounds
+            {
+                Left = window.Left,
+                Top = window.Top,
+                Width = window.Width,
+                Height = window.Height
+            });
         }
 
         private void RunOnUiThread(Action action)
