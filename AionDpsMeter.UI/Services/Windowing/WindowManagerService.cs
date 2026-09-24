@@ -17,6 +17,7 @@ namespace AionDpsMeter.UI.Services.Windowing
 
         private readonly Lock gate = new();
         private readonly Dictionary<(WindowKey Key, string InstanceId), Window> open = new();
+        private readonly Dictionary<(WindowKey Key, string InstanceId), WindowPersistenceMode> persistenceModes = new();
 
 
         public void CloseApplication() => CloseAppCommand?.Invoke(this, EventArgs.Empty);
@@ -44,14 +45,21 @@ namespace AionDpsMeter.UI.Services.Windowing
 
                 TryRestoreWindowBounds(window, key, persistenceMode);
 
-                lock (gate) { open[slot] = window; }
+                lock (gate)
+                {
+                    open[slot] = window;
+                    persistenceModes[slot] = persistenceMode;
+                }
 
                 window.Closed += (_, _) =>
                 {
                     lock (gate)
                     {
                         if (open.TryGetValue(slot, out var tracked) && ReferenceEquals(tracked, window))
+                        {
                             open.Remove(slot);
+                            persistenceModes.Remove(slot);
+                        }
                     }
                 };
 
@@ -88,8 +96,8 @@ namespace AionDpsMeter.UI.Services.Windowing
                     // Not in an active left-button-down, or window isn't in Normal
                     // state. Harmless — just ignore.
                 }
-
-                SaveWindowBounds(key, w);
+                if (GetPersistenceMode(key, instanceId) != WindowPersistenceMode.None)
+                    SaveWindowBounds(key, w);
             }));
 
         public bool IsOpen(WindowKey key, string? instanceId = null)
@@ -99,6 +107,14 @@ namespace AionDpsMeter.UI.Services.Windowing
                 // Singleton windows are stored under InstanceId == ""
                 return open.ContainsKey((key, instanceId ?? string.Empty));
             }
+        }
+
+        private WindowPersistenceMode GetPersistenceMode(WindowKey key, string? instanceId)
+        {
+            lock (gate)
+                return persistenceModes.TryGetValue((key, instanceId ?? string.Empty), out var mode)
+                    ? mode
+                    : WindowPersistenceMode.None;
         }
 
         // ---------------------------------------------------------------
