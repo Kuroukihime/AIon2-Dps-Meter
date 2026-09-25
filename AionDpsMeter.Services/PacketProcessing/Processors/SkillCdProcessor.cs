@@ -30,7 +30,6 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors
             var skillId = r.ReadU32();
             var msLeft = r.ReadVarInt();
             var skill = gameData.GetSkillOrDefault((int)skillId);
-            if (msLeft < 500) return;
 
             sessionManager.RegisterSkillCdEvent(new TimedEvent()
             {

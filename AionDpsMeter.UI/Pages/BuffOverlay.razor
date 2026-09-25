@@ -9,7 +9,7 @@
                 <div class="timed-icon-overlay__icon @(item.IsExpiring ? "blink" : "")"
                      style="@IconStyle">
                     <img src="@item.IconUrl" draggable="false"/>
-                    <span class="timed-icon-overlay__time">@FormatTimeLeft(item.TimeLeft)</span>
+                    <span class="timed-icon-overlay__time" style="@CdTextStyle">@FormatTimeLeft(item.TimeLeft)</span>
                 </div>
             }
         </div>
@@ -61,7 +61,6 @@
         left: 50%;
         transform: translate(-50%, -50%);
         font-weight: 700;
-        font-size: 1em;
         color: #fff;
         text-shadow: 0 0 2px #000, 0 0 4px #000;
         pointer-events: none;

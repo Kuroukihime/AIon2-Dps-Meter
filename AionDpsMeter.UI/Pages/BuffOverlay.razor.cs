@@ -97,6 +97,8 @@ namespace AionDpsMeter.UI.Pages
             $"width: {settings.IconSize.ToString(System.Globalization.CultureInfo.InvariantCulture)}px; " +
             $"height: {settings.IconSize.ToString(System.Globalization.CultureInfo.InvariantCulture)}px;";
 
+        private string CdTextStyle =>
+            $"font-size: {(settings.IconSize / 3).ToString("0", System.Globalization.CultureInfo.InvariantCulture)}px";
         private static string FormatTimeLeft(TimeSpan timeLeft)
         {
             var seconds = Math.Max(0, timeLeft.TotalSeconds);
