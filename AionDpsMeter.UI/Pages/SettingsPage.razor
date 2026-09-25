@@ -65,7 +65,7 @@
                     </div>
                 </ValueSlot>
             </SettingRow>
-            
+
             @if (settings.UiStyle == 1)
             {
                 <SettingRow Title="Row Size" Description="Size of each player row">
@@ -176,6 +176,247 @@
                     </div>
                 }
             </div>
+
+        </section>
+
+        @* ---------------- OVERLAYS ---------------- *@
+        <section class="settings-group @(_activeGroup == "overlays" ? "" : "is-hidden")">
+
+            <div class="settings-section-label">BUFF OVERLAY</div>
+
+            <SettingRow Title="Enabled" Description="Show a floating overlay with active buff timers">
+                <ValueSlot>
+                    <ToggleSwitch Checked="settings.BufOverlaySettings.Enabled" CheckedChanged="v => SetBuffOverlayEnabled(v)" />
+                </ValueSlot>
+            </SettingRow>
+
+            <SettingRow Title="Sort Order" Description="How tracked buffs are ordered by remaining time">
+                <ValueSlot>
+                    <div class="segmented">
+                        @foreach (var option in _orderOptions)
+                        {
+                            <button type="button"
+                                    class="segmented__option @(settings.BufOverlaySettings.Order == option.Value ? "is-selected" : "")"
+                                    @onclick="() => SetBuffOverlayOrder(option.Value)">
+                                @option.Label
+                            </button>
+                        }
+                    </div>
+                </ValueSlot>
+            </SettingRow>
+
+            <SettingRow Title="Icon Size" Description="Size of each buff icon (20–50px)">
+                <ValueSlot>
+                    <div class="slider-field">
+                        <input type="range" min="20" max="50" step="1"
+                               value="@settings.BufOverlaySettings.IconSize.ToString("F0", System.Globalization.CultureInfo.InvariantCulture)"
+                               @oninput="OnBuffOverlayIconSizeInput" />
+                        <span class="slider-field__value">@settings.BufOverlaySettings.IconSize.ToString("F0")px</span>
+                    </div>
+                </ValueSlot>
+            </SettingRow>
+
+            <SettingRow Title="Tracked Buffs" Description="@($"Buffs shown on the overlay ({TrackedBuffSkills.Count}/{MaxTrackedBuffSkills})")" IsLast="true">
+                <ValueSlot>
+                    <div class="skill-tiles">
+                        @foreach (var skill in TrackedBuffSkills)
+                        {
+                            <div class="skill-tile" title="@skill.Name">
+                                <div class="skill-tile__icon">
+                                    @if (skill.HasIcon)
+                                    {
+                                        <img src="@skill.Icon" alt="" />
+                                    }
+                                    else
+                                    {
+                                        <span class="skill-tile__fallback">@(skill.Name.Length > 0 ? skill.Name[0].ToString().ToUpperInvariant() : "?")</span>
+                                    }
+                                </div>
+                                <button type="button" class="skill-tile__remove" aria-label="Remove @skill.Name" @onclick="() => RemoveTrackedBuffSkill(skill.Id)">
+                                    <svg viewBox="0 0 12 12" width="9" height="9" aria-hidden="true">
+                                        <path d="M1 1L11 11M11 1L1 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+                                    </svg>
+                                </button>
+                            </div>
+                        }
+
+                        @if (CanAddMoreBuffSkills)
+                        {
+                            <button type="button" class="skill-tile skill-tile--add" title="Add skill" @onclick="OpenBuffPicker">
+                                <span class="skill-tile__plus">+</span>
+                            </button>
+                        }
+                    </div>
+
+                    @if (_buffPickerOpen)
+                    {
+                        <div class="skill-picker-backdrop" @onclick="CloseBuffPicker">
+                            <div class="skill-picker" @onclick:stopPropagation="true">
+                                <div class="skill-picker__search">
+                                    <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true">
+                                        <circle cx="7" cy="7" r="5.2" stroke="currentColor" stroke-width="1.3" fill="none" />
+                                        <path d="M11 11L15 15" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+                                    </svg>
+                                    <input type="text"
+                                           placeholder="Search skills…"
+                                           value="@_skillSearchQuery"
+                                           @oninput="OnSkillSearchInput"
+                                           autofocus />
+                                    <button type="button" class="skill-picker__close" aria-label="Close" @onclick="CloseBuffPicker">
+                                        <svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true">
+                                            <path d="M1 1L11 11M11 1L1 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                                        </svg>
+                                    </button>
+                                </div>
+
+                                <div class="skill-picker__list">
+                                    @foreach (var skill in FilteredSkillResults)
+                                    {
+                                        <button type="button" class="skill-picker__row" @onclick="() => AddTrackedBuffSkill(skill.Id)">
+                                            <span class="skill-picker__row-icon">
+                                                @if (skill.HasIcon)
+                                                {
+                                                    <img src="@skill.Icon" alt="" />
+                                                }
+                                                else
+                                                {
+                                                    <span class="skill-tile__fallback">@(skill.Name.Length > 0 ? skill.Name[0].ToString().ToUpperInvariant() : "?")</span>
+                                                }
+                                            </span>
+                                            <span class="skill-picker__row-name">@skill.Name</span>
+                                        </button>
+                                    }
+
+                                    @if (!FilteredSkillResults.Any())
+                                    {
+                                        <div class="skill-picker__empty">No skills found</div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </ValueSlot>
+            </SettingRow>
+
+            <div class="settings-section-label settings-section-label--spaced">SKILL COOLDOWNS</div>
+
+            @*   <div class="settings-empty-state">
+                Skill cooldown overlay settings are coming soon.
+            </div> *@
+            
+            <SettingRow Title="Enabled" Description="Show a floating overlay with active skill cd timers">
+                <ValueSlot>
+                    <ToggleSwitch Checked="settings.SkillCdOverlaySettings.Enabled" CheckedChanged="v => SetSkillOverlayEnabled(v)" />
+                </ValueSlot>
+            </SettingRow>
+
+            <SettingRow Title="Sort Order" Description="How tracked skills are ordered by remaining cd time">
+                <ValueSlot>
+                    <div class="segmented">
+                        @foreach (var option in _orderOptions)
+                        {
+                            <button type="button"
+                                    class="segmented__option @(settings.SkillCdOverlaySettings.Order == option.Value ? "is-selected" : "")"
+                                    @onclick="() => SetSkillOverlayOrder(option.Value)">
+                                @option.Label
+                            </button>
+                        }
+                    </div>
+                </ValueSlot>
+            </SettingRow>
+
+            <SettingRow Title="Icon Size" Description="Size of each skill icon (20–50px)">
+                <ValueSlot>
+                    <div class="slider-field">
+                        <input type="range" min="20" max="50" step="1"
+                               value="@settings.SkillCdOverlaySettings.IconSize.ToString("F0", System.Globalization.CultureInfo.InvariantCulture)"
+                               @oninput="OnSkillIconSizeInput" />
+                        <span class="slider-field__value">@settings.SkillCdOverlaySettings.IconSize.ToString("F0")px</span>
+                    </div>
+                </ValueSlot>
+            </SettingRow>
+
+            <SettingRow Title="Tracked skills" Description="@($"Skills shown on the overlay ({TrackedCdSkills.Count}/{MaxTrackedCdSkills})")" IsLast="true">
+                <ValueSlot>
+                    <div class="skill-tiles">
+                        @foreach (var skill in TrackedCdSkills)
+                        {
+                            <div class="skill-tile" title="@skill.Name">
+                                <div class="skill-tile__icon">
+                                    @if (skill.HasIcon)
+                                    {
+                                        <img src="@skill.Icon" alt="" />
+                                    }
+                                    else
+                                    {
+                                        <span class="skill-tile__fallback">@(skill.Name.Length > 0 ? skill.Name[0].ToString().ToUpperInvariant() : "?")</span>
+                                    }
+                                </div>
+                                <button type="button" class="skill-tile__remove" aria-label="Remove @skill.Name" @onclick="() => RemoveTrackedCdSkill(skill.Id)">
+                                    <svg viewBox="0 0 12 12" width="9" height="9" aria-hidden="true">
+                                        <path d="M1 1L11 11M11 1L1 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+                                    </svg>
+                                </button>
+                            </div>
+                        }
+
+                        @if (CanAddMoreCdSkills)
+                        {
+                            <button type="button" class="skill-tile skill-tile--add" title="Add skill" @onclick="OpenSkillCdPicker">
+                                <span class="skill-tile__plus">+</span>
+                            </button>
+                        }
+                    </div>
+
+                    @if (_skillCdPickerOpen)
+                    {
+                        <div class="skill-picker-backdrop" @onclick="CloseSkillCdPicker">
+                            <div class="skill-picker" @onclick:stopPropagation="true">
+                                <div class="skill-picker__search">
+                                    <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true">
+                                        <circle cx="7" cy="7" r="5.2" stroke="currentColor" stroke-width="1.3" fill="none" />
+                                        <path d="M11 11L15 15" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+                                    </svg>
+                                    <input type="text"
+                                           placeholder="Search skills…"
+                                           value="@_cdSkillSearchQuery"
+                                           @oninput="OnCdSkillSearchInput"
+                                           autofocus />
+                                    <button type="button" class="skill-picker__close" aria-label="Close" @onclick="CloseSkillCdPicker">
+                                        <svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true">
+                                            <path d="M1 1L11 11M11 1L1 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                                        </svg>
+                                    </button>
+                                </div>
+
+                                <div class="skill-picker__list">
+                                    @foreach (var skill in FilteredSkillCdResults)
+                                    {
+                                        <button type="button" class="skill-picker__row" @onclick="() => AddTrackedCdSkill(skill.Id)">
+                                            <span class="skill-picker__row-icon">
+                                                @if (skill.HasIcon)
+                                                {
+                                                    <img src="@skill.Icon" alt="" />
+                                                }
+                                                else
+                                                {
+                                                    <span class="skill-tile__fallback">@(skill.Name.Length > 0 ? skill.Name[0].ToString().ToUpperInvariant() : "?")</span>
+                                                }
+                                            </span>
+                                            <span class="skill-picker__row-name">@skill.Name</span>
+                                        </button>
+                                    }
+
+                                    @if (!FilteredSkillCdResults.Any())
+                                    {
+                                        <div class="skill-picker__empty">No skills found</div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </ValueSlot>
+            </SettingRow>
 
         </section>
 

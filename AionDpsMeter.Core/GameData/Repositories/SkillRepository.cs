@@ -8,6 +8,7 @@ namespace AionDpsMeter.Core.GameData.Repositories
   
     public sealed class SkillRepository
     {
+        public  Dictionary<int, Skill> Skills => skillsByPrefix;
 
         private readonly Dictionary<int, Skill> skillsByPrefix = [];
         private HashSet<int> dotSkillIds = new();

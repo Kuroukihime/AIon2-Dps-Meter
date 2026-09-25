@@ -1,6 +1,7 @@
 ﻿using AionDpsMeter.Services.Services.Session;
 using AionDpsMeter.Services.Services.Settings;
 using AionDpsMeter.Services.Services.Update;
+using AionDpsMeter.Core.Windowing;
 using AionDpsMeter.UI.Pages;
 using AionDpsMeter.UI.ViewModels;
 using AionDpsMeter.UI.Views;
@@ -8,12 +9,70 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AionDpsMeter.UI.Services.Windowing
 {
-    public class WindowHelper (IWindowManagerService windowManager, IServiceProvider serviceProvider, CombatSessionManager sessionManager, IAppSettingsService settingsService, UpdateCheckerService updateService)
+    public class WindowHelper
     {
+        //window states
+        public EventHandler? WindowStateUpdated { get; set; }
+        public bool IsBuffEdit { get; private set; }
+        public bool IsSkillCdEdit { get; private set; }
+
+        private bool IsBuffOverlayEnabled { get; set; }
+        private bool IsSkillCdOverlayEnabled { get; set; }
+
         private MainWindow MainWindow => serviceProvider.GetRequiredService<MainWindow>();
+
+        private readonly IWindowManagerService windowManager;
+        private readonly IServiceProvider serviceProvider;
+        private readonly CombatSessionManager sessionManager;
+        private readonly IAppSettingsService settingsService;
+        private readonly UpdateCheckerService updateService;
+
+        public WindowHelper(IWindowManagerService windowManager, IServiceProvider serviceProvider, CombatSessionManager sessionManager, IAppSettingsService settingsService, UpdateCheckerService updateService)
+        {
+
+            this.windowManager = windowManager;
+            this.serviceProvider = serviceProvider;
+            this.sessionManager = sessionManager;
+            this.settingsService = settingsService;
+            this.updateService = updateService;
+
+            IsBuffOverlayEnabled = settingsService.BufOverlaySettings.Enabled;
+            IsSkillCdOverlayEnabled = settingsService.SkillCdOverlaySettings.Enabled;
+            settingsService.SettingsChanged += SettingsChanged;
+        }
+
+        private void SettingsChanged(object? sender, EventArgs e)
+        {
+            if (IsBuffOverlayEnabled != settingsService.BufOverlaySettings.Enabled)
+            {
+                IsBuffOverlayEnabled = settingsService.BufOverlaySettings.Enabled;
+                ManageBuffOverlay();
+            }
+
+            if (IsSkillCdOverlayEnabled != settingsService.SkillCdOverlaySettings.Enabled)
+            {
+                IsSkillCdOverlayEnabled = settingsService.SkillCdOverlaySettings.Enabled;
+                ManageSkillCdOverlay();
+            }
+                
+        }
+
+        public void OpenRequiredWindows()
+        {
+            ManageBuffOverlay();
+            ManageSkillCdOverlay();
+            windowManager.SetClickThrough(WindowKey.BuffOverlay);
+            windowManager.SetClickThrough(WindowKey.SkillCdOverlay);
+        }
+
 
         public void OpenSettings()
         {
+            IsBuffEdit = true;
+            IsSkillCdEdit = true;
+            windowManager.RestoreClickThrough(WindowKey.BuffOverlay);
+            windowManager.RestoreClickThrough(WindowKey.SkillCdOverlay);
+            WindowStateUpdated?.Invoke(this, EventArgs.Empty);
             var win = new BlazorWindow(App.AppHost.Services, typeof(SettingsPage))
             {
                 Width = 500,
@@ -24,9 +83,13 @@ namespace AionDpsMeter.UI.Services.Windowing
 
         public void CloseSettings()
         {
+            IsBuffEdit = false;
+            IsSkillCdEdit = false;
+            windowManager.SetClickThrough(WindowKey.BuffOverlay);
+            windowManager.SetClickThrough(WindowKey.SkillCdOverlay);
+            WindowStateUpdated?.Invoke(this, EventArgs.Empty);
             windowManager.Hide(WindowKey.Settings);
         }
-
         public void OpenHistory()
         {
             var historyWindow = new HistoryWindow(sessionManager, settingsService)
@@ -34,7 +97,7 @@ namespace AionDpsMeter.UI.Services.Windowing
                 DataContext = new ViewModels.History.HistoryViewModel(sessionManager, settingsService),
                 Owner = MainWindow
             };
-            windowManager.Open(WindowKey.History, historyWindow, true, null, MainWindow );
+            windowManager.Open(WindowKey.History, historyWindow, true, null, MainWindow);
         }
 
         public void OpenStatEff()
@@ -82,5 +145,37 @@ namespace AionDpsMeter.UI.Services.Windowing
         }
 
 
+        private void ManageBuffOverlay()
+        {
+            if (IsBuffOverlayEnabled) OpenBuffOverlay();
+            else HideBuffOverlay();
+        }
+        private void ManageSkillCdOverlay()
+        {
+            if (IsSkillCdOverlayEnabled) OpenSkillCdOverlay();
+            else HideSkillCdOverlay();
+        }
+
+        private void OpenBuffOverlay()
+        {
+            var buffOverlay = new BuffOverlayWindow();
+            windowManager.Open(WindowKey.BuffOverlay, buffOverlay, true, persistenceMode: WindowPersistenceMode.OnlyPosition);
+        }
+
+        private void HideBuffOverlay()
+        {
+            windowManager.Hide(WindowKey.BuffOverlay);
+        }
+
+        private void OpenSkillCdOverlay()
+        {
+            var skillCdOverlay = new SkillCdOverlayWindow();
+            windowManager.Open(WindowKey.SkillCdOverlay, skillCdOverlay, true, persistenceMode: WindowPersistenceMode.OnlyPosition);
+        }
+
+        private void HideSkillCdOverlay()
+        {
+            windowManager.Hide(WindowKey.SkillCdOverlay);
+        }
     }
 }

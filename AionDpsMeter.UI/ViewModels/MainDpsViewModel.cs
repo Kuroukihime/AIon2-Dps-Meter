@@ -1,6 +1,7 @@
 ﻿using AionDpsMeter.Services.Services.Session;
 using AionDpsMeter.Services.Services.Settings;
 using AionDpsMeter.Services.Services.Update;
+using AionDpsMeter.Core.Windowing;
 using AionDpsMeter.UI.Services.Windowing;
 using AionDpsMeter.UI.Utils;
 using Microsoft.AspNetCore.Components.Web;

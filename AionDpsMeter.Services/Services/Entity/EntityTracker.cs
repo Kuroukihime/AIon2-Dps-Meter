@@ -42,6 +42,8 @@ namespace AionDpsMeter.Services.Services.Entity
 
         public bool IsIdentifiedPlayer(int entityId) => sessionPlayers.TryGetValue(entityId, out var player) && player.IsIdentified;
 
+        public bool IsCurrentPlayer(int entityId) => sessionPlayers.TryGetValue(entityId, out var player) && player.IsUser;
+
 
         public bool UpdateTargetEntityHpCurrent(int entityId, long hpCurrent)
         {

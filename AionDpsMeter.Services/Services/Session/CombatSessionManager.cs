@@ -5,6 +5,8 @@ using AionDpsMeter.Services.Services.Session.Persistence;
 using AionDpsMeter.Services.Services.Settings;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
+using AionDpsMeter.Services.Services.Timed;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AionDpsMeter.Services.Services.Session
 {
@@ -21,17 +23,23 @@ namespace AionDpsMeter.Services.Services.Session
         private readonly ICombatHistoryStore historyStore;
         private PlayerStatSnapshot? latestPlayerStatSnapshot;
         private readonly List<BuffEvent> activeBuffBacklog = new();
+        private readonly ITimedEventTracker buffEventTracker;
+        private readonly ITimedEventTracker skillCdEventTracker;
 
 
         public CombatSessionManager(
             EntityTracker entityTracker,
             ILoggerFactory loggerFactory,
             IAppSettingsService settingsService,
-            ICombatHistoryStore historyStore)
+            ICombatHistoryStore historyStore,
+            [FromKeyedServices("Buffs")] ITimedEventTracker buffEventTracker,
+            [FromKeyedServices("SkillCd")] ITimedEventTracker skillCdEventTracker)
         {
             this.entityTracker = entityTracker;
             this.settingsService = settingsService;
             this.historyStore = historyStore;
+            this.buffEventTracker = buffEventTracker;
+            this.skillCdEventTracker = skillCdEventTracker;
             targetResolver = new ActiveTargetResolver(entityTracker);
             logger = loggerFactory.CreateLogger<CombatSessionManager>();
             entityTracker.SummonRegistered += OnSummonRegistered;
@@ -269,6 +277,7 @@ namespace AionDpsMeter.Services.Services.Session
             {
                 lock (lockObject)
                 {
+                    RegisterTimedBuffEvent(buffEvent);
                     activeBuffBacklog.RemoveAll(b => b.AppliedAt.AddMilliseconds(b.DurationMs) <= buffEvent.AppliedAt);
                     activeBuffBacklog.Add(buffEvent);
 
@@ -283,6 +292,23 @@ namespace AionDpsMeter.Services.Services.Session
             {
                 logger.LogError(ex, "Error processing buff event");
             }
+        }
+
+        public void RegisterSkillCdEvent(TimedEvent skillCdEvent)
+        {
+            skillCdEventTracker.Register(skillCdEvent);
+        }
+
+        private void RegisterTimedBuffEvent(BuffEvent buffEvent)
+        {
+            if (!entityTracker.IsCurrentPlayer(buffEvent.EntityId)) return;
+            buffEventTracker.Register(new TimedEvent()
+            {
+                Name = buffEvent.BuffName,
+                IconUrl = buffEvent.BuffIcon ?? string.Empty,
+                Duration = TimeSpan.FromMilliseconds(buffEvent.DurationMs),
+                Id = (uint)buffEvent.BuffId
+            });
         }
 
         public void Reset()
