@@ -9,8 +9,8 @@
     <UseWindowsForms>true</UseWindowsForms>
     <AddRazorSupportForMvc>false</AddRazorSupportForMvc>
     <UseRazorSourceGenerator>true</UseRazorSourceGenerator>
-    <AssemblyVersion>1.11.3.320</AssemblyVersion>
-    <FileVersion>1.11.3.320</FileVersion>
+    <AssemblyVersion>1.11.4.0</AssemblyVersion>
+    <FileVersion>1.11.4.0</FileVersion>
     <ApplicationIcon>ICON_CH_SKILL_006.ico</ApplicationIcon>
   </PropertyGroup>
 

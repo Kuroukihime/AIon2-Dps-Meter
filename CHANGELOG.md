@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.11.4.0] - 2026-10-04
 
 ### Added
 - **Minimize to tray**: the Hide button and the toggle-visibility hotkey send the meter and its overlays to the system tray. Double-click the tray icon or use its menu (Show / Exit) to bring them back.
