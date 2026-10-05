@@ -67,7 +67,7 @@ namespace AionDpsMeter.UI.StatEfficiency
             StatEfficiencyEnvironment environment,
             double effectiveAttack)
         {
-            double critMult = (150 + stats.CriticalDamageBoostPercent) / 100.0;
+            double critMult = (150 + stats.CriticalDamageBoostPercent + environment.CriticalDamageBoost) / 100.0;
             double mCrit = 1 + PercentMath.ToRate(PercentMath.Clamp01Percent(environment.CritChance)) * (critMult - 1);
 
             double smiteProc = Math.Max(0,

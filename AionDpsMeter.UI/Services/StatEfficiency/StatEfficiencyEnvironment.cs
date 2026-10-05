@@ -3,6 +3,7 @@ namespace AionDpsMeter.UI.StatEfficiency
     public sealed class StatEfficiencyEnvironment
     {
         public double CritChance { get; init; }
+        public double CriticalDamageBoost { get; init; }
         public double BackAttackRate { get; init; }
         public double FrontAttackRate { get; init; }
         public AttackType AttackType { get; init; }

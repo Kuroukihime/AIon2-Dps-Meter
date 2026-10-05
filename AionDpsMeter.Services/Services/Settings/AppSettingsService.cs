@@ -115,6 +115,23 @@ namespace AionDpsMeter.Services.Services.Settings
             }
         }
 
+        public double StatCalcCriticalDamageBoost
+        {
+            get { lock (_lock) return _data.StatCalcCriticalDamageBoost; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    double clamped = Math.Max(0, value);
+                    changed = _data.StatCalcCriticalDamageBoost != clamped;
+                    _data.StatCalcCriticalDamageBoost = clamped;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public double StatCalcBackAttackRate
         {
             get { lock (_lock) return _data.StatCalcBackAttackRate; }
@@ -550,7 +567,10 @@ namespace AionDpsMeter.Services.Services.Settings
             public int UiStyle { get; set; } = 1;
 
             [JsonPropertyName("statCalcCritChance")]
-            public double StatCalcCritChance { get; set; } = 80;
+            public double StatCalcCritChance { get; set; } = 50;
+
+            [JsonPropertyName("statCalcCriticalDamageBoost")]
+            public double StatCalcCriticalDamageBoost { get; set; }
 
             [JsonPropertyName("statCalcBackAttackRate")]
             public double StatCalcBackAttackRate { get; set; } = 80;
@@ -568,13 +588,13 @@ namespace AionDpsMeter.Services.Services.Settings
             public double StatCalcPartyDamageBoost { get; set; }
 
             [JsonPropertyName("statCalcBossDamageTolerance")]
-            public double StatCalcBossDamageTolerance { get; set; } = 30;
+            public double StatCalcBossDamageTolerance { get; set; } = 0;
 
             [JsonPropertyName("statCalcPartySmiteBuff")]
             public double StatCalcPartySmiteBuff { get; set; }
 
             [JsonPropertyName("statCalcBossSmiteResist")]
-            public double StatCalcBossSmiteResist { get; set; } = 30;
+            public double StatCalcBossSmiteResist { get; set; } = 0;
 
             [JsonPropertyName("windowBoundsByKey")]
             public Dictionary<string, WindowBounds> WindowBoundsByKey { get; set; } = [];
