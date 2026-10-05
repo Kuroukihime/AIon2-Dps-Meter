@@ -4,6 +4,7 @@
     {
         public long PlayerId { get; set; }
         public bool IsUser { get; set; }
+        public int Rank { get; set; }
         public string ClassId { get; set; } = string.Empty;
         public string ClassName { get; set; } = string.Empty;
         public string ServerName { get; set; } = string.Empty;

@@ -112,6 +112,12 @@
                 </ValueSlot>
             </SettingRow>
 
+            <SettingRow Title="Keep Me on Top" Description="Pin your row first and show your rank, even in a large force">
+                <ValueSlot>
+                    <ToggleSwitch Checked="settings.PinUserOnTop" CheckedChanged="v => { settings.PinUserOnTop = v; }" />
+                </ValueSlot>
+            </SettingRow>
+
             <SettingRow Title="Hide Player Names" Description="Replace names with obfuscated names — useful before sharing screenshots" IsLast="true">
                 <ValueSlot>
                     <ToggleSwitch Checked="settings.IsNicknameHidden" CheckedChanged="v => { settings.IsNicknameHidden = v; }" />

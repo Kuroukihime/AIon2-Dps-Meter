@@ -24,6 +24,7 @@ namespace AionDpsMeter.UI.ViewModels
         public List<PlayerRenderState> Players = new();
 
         public string CombatDuration = "00:00";
+        public bool PinUserOnTop;
         public string TotalRaidDamageFormatted = "0/s";
         public string PingDisplay = "-- ms";
         public string PingColor = "#888888";
@@ -109,8 +110,15 @@ namespace AionDpsMeter.UI.ViewModels
 
             TotalRaidDamageFormatted = $"{DamageFormatter.Format(sessionManager.GetPartyDps())}/s";
 
+            bool pinUserOnTop = settingsService.PinUserOnTop;
+            if (PinUserOnTop != pinUserOnTop)
+            {
+                PinUserOnTop = pinUserOnTop;
+                uiNeedsUpdate = true;
+            }
+
             var currentStats = sessionManager.PlayerStats
-                .Where(r => r.IsIdentified || r.DamagePercentage > 1)
+                .Where(r => r.IsIdentified || r.DamagePercentage > 1 || (pinUserOnTop && r.IsUser && r.TotalDamage > 0))
                 .ToList();
 
             long topDamage = currentStats.Count > 0 ? currentStats.Max(x => x.TotalDamage) : 0;
@@ -179,9 +187,15 @@ namespace AionDpsMeter.UI.ViewModels
 
             if (uiNeedsUpdate)
             {
-                Players = PlayerStates.Values
+                var ranked = PlayerStates.Values
                     .OrderByDescending(p => p.TotalDamage)
                     .ToList();
+                for (int i = 0; i < ranked.Count; i++)
+                    ranked[i].Rank = i + 1;
+
+                Players = pinUserOnTop
+                    ? ranked.OrderByDescending(p => p.IsUser).ToList()
+                    : ranked;
 
                 onStateChanged.Invoke();
             }
@@ -243,6 +257,7 @@ namespace AionDpsMeter.UI.ViewModels
 
         //public string GetProgressClass(PlayerRenderState player) => $"dps-class-{player.ClassId}";
         public string GetCombatScoreDisplay(PlayerRenderState player) => (string.IsNullOrWhiteSpace(player.CombatPower) || player.CombatPower == "0") ? "" : player.CombatPower;
+        public string GetRankPrefix(PlayerRenderState player) => PinUserOnTop && player.IsUser ? $"#{player.Rank} " : string.Empty;
         public double ClampPercent(double value) => Math.Max(0, Math.Min(100, value));
 
         public string GetRowScaleStyle() => RowScale != 1.0

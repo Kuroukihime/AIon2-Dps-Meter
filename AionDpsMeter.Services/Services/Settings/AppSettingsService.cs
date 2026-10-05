@@ -35,6 +35,22 @@ namespace AionDpsMeter.Services.Services.Settings
             }
         }
 
+        public bool PinUserOnTop
+        {
+            get { lock (_lock) return _data.PinUserOnTop; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    changed = _data.PinUserOnTop != value;
+                    _data.PinUserOnTop = value;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public OverlaySettings BufOverlaySettings
         {
             get { lock (_lock) return _data.BufOverlaySettings; }
@@ -600,6 +616,9 @@ namespace AionDpsMeter.Services.Services.Settings
 
             [JsonPropertyName("skillCdOverlaySettings")]
             public OverlaySettings SkillCdOverlaySettings { get; set; } = new OverlaySettings();
+
+            [JsonPropertyName("pinUserOnTop")]
+            public bool PinUserOnTop { get; set; }
 
             [JsonPropertyName("showOnlyOverGame")]
             public bool ShowOnlyOverGame { get; set; } = true;
