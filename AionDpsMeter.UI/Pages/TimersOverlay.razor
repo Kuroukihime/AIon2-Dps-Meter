@@ -1,0 +1,79 @@
+@implements IDisposable
+
+@if (overlaySettings.Enabled)
+{
+    <div class="timers-overlay @(IsEditable ? "editable" : "")" @onmousedown="BeginDrag">
+        @if (overlaySettings.ShowClock)
+        {
+            <div class="timers-overlay__clock">@clock</div>
+        }
+        @if (corridorSettings.ShowTimer && !string.IsNullOrEmpty(corridorCountdown))
+        {
+            <div class="timers-overlay__event @(isCorridorSoon ? "is-soon" : "")">
+                <span class="timers-overlay__label">Abyss Corridor</span>
+                <span class="timers-overlay__time">@corridorCountdown</span>
+            </div>
+        }
+    </div>
+}
+
+<style>
+    .timers-overlay {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        gap: 2px;
+        padding: 4px 8px;
+        user-select: none;
+        box-sizing: border-box;
+        color: #f2f1f5;
+        font-variant-numeric: tabular-nums;
+        text-shadow: 0 0 2px #000, 0 0 4px #000;
+        white-space: nowrap;
+    }
+
+        .timers-overlay.editable {
+            background-color: rgba(0, 0, 0, 0.35);
+            border: 1px dashed rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            cursor: move;
+        }
+
+    .timers-overlay__clock {
+        font-size: 22px;
+        font-weight: 700;
+    }
+
+    .timers-overlay__event {
+        display: flex;
+        gap: 8px;
+        align-items: baseline;
+        font-size: 13px;
+    }
+
+    .timers-overlay__label {
+        color: #a1a8b8;
+        font-weight: 600;
+    }
+
+    .timers-overlay__time {
+        font-weight: 700;
+    }
+
+    .timers-overlay__event.is-soon .timers-overlay__time {
+        color: #f5b14c;
+        animation: timers-overlay-blink 1.2s ease-in-out infinite;
+    }
+
+    @@keyframes timers-overlay-blink {
+        0%, 100% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.4;
+        }
+    }
+</style>

@@ -10,5 +10,6 @@ namespace AionDpsMeter.Core.Windowing
         PlayerDetails,
         BuffOverlay,
         SkillCdOverlay,
+        TimersOverlay,
     }
 }

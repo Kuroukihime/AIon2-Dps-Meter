@@ -38,6 +38,8 @@ namespace AionDpsMeter.Services.Services.Settings
         double StatCalcBossSmiteResist { get; set; }
         OverlaySettings BufOverlaySettings { get; set; }
         OverlaySettings SkillCdOverlaySettings { get; set; }
+        AbyssCorridorSettings AbyssCorridorSettings { get; set; }
+        TimersOverlaySettings TimersOverlaySettings { get; set; }
         bool PinUserOnTop { get; set; }
         bool ShowOnlyOverGame { get; set; }
         bool TryGetWindowBounds(WindowKey key, out WindowBounds? bounds);

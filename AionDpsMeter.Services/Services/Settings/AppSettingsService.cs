@@ -17,6 +17,40 @@ namespace AionDpsMeter.Services.Services.Settings
             _data = Load();
             _data.HistoryRetantionPeriod = Math.Clamp(_data.HistoryRetantionPeriod, 1, 9999);
             _data.WindowBoundsByKey ??= [];
+            _data.AbyssCorridorSettings ??= new AbyssCorridorSettings();
+            _data.AbyssCorridorSettings.LeadMinutes = Math.Clamp(_data.AbyssCorridorSettings.LeadMinutes,
+                AbyssCorridorSettings.MinLeadMinutes, AbyssCorridorSettings.MaxLeadMinutes);
+            _data.TimersOverlaySettings ??= new TimersOverlaySettings();
+        }
+
+        public TimersOverlaySettings TimersOverlaySettings
+        {
+            get { lock (_lock) return _data.TimersOverlaySettings; }
+            set
+            {
+                lock (_lock)
+                {
+                    _data.TimersOverlaySettings = value;
+                    Save();
+                }
+                SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public AbyssCorridorSettings AbyssCorridorSettings
+        {
+            get { lock (_lock) return _data.AbyssCorridorSettings; }
+            set
+            {
+                lock (_lock)
+                {
+                    value.LeadMinutes = Math.Clamp(value.LeadMinutes,
+                        AbyssCorridorSettings.MinLeadMinutes, AbyssCorridorSettings.MaxLeadMinutes);
+                    _data.AbyssCorridorSettings = value;
+                    Save();
+                }
+                SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         public bool ShowOnlyOverGame
@@ -616,6 +650,12 @@ namespace AionDpsMeter.Services.Services.Settings
 
             [JsonPropertyName("skillCdOverlaySettings")]
             public OverlaySettings SkillCdOverlaySettings { get; set; } = new OverlaySettings();
+
+            [JsonPropertyName("abyssCorridorSettings")]
+            public AbyssCorridorSettings AbyssCorridorSettings { get; set; } = new AbyssCorridorSettings();
+
+            [JsonPropertyName("timersOverlaySettings")]
+            public TimersOverlaySettings TimersOverlaySettings { get; set; } = new TimersOverlaySettings();
 
             [JsonPropertyName("pinUserOnTop")]
             public bool PinUserOnTop { get; set; }

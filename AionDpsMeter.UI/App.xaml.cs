@@ -9,6 +9,7 @@ using AionDpsMeter.Services.Services.Settings;
 using AionDpsMeter.Services.Services.Timed;
 using AionDpsMeter.Services.Services.Update;
 using AionDpsMeter.Core.Windowing;
+using AionDpsMeter.UI.Services.Events;
 using AionDpsMeter.UI.Services.Tray;
 using AionDpsMeter.UI.Services.Windowing;
 using AionDpsMeter.UI.ViewModels;
@@ -61,6 +62,7 @@ namespace AionDpsMeter.UI
                     services.AddSingleton<GameFocusWatcher>();
                     services.AddSingleton<WindowVisibilityService>();
                     services.AddSingleton<TrayService>();
+                    services.AddSingleton<AbyssCorridorAlertService>();
 
 
                     services.AddSingleton<SettingsViewModel>();
@@ -78,6 +80,7 @@ namespace AionDpsMeter.UI
             await AppHost.StartAsync();
 
             _ = AppHost.Services.GetRequiredService<ICombatHistoryStore>();
+            AppHost.Services.GetRequiredService<AbyssCorridorAlertService>().Start();
 
             var mainWindow = AppHost.Services.GetRequiredService<MainWindow>();
             var windowManager = AppHost.Services.GetRequiredService<IWindowManagerService>();
@@ -92,6 +95,7 @@ namespace AionDpsMeter.UI
         {
             try
             {
+                AppHost.Services.GetRequiredService<AbyssCorridorAlertService>().Dispose();
                 AppHost.Services.GetRequiredService<TrayService>().Dispose();
                 AppHost.Services.GetRequiredService<GameFocusWatcher>().Dispose();
                 var sessionManager = AppHost.Services.GetRequiredService<CombatSessionManager>();

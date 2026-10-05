@@ -1,4 +1,5 @@
 @page "/settings"
+@using AionDpsMeter.Services.Services.Settings
 
 
 <div class="settings-shell">
@@ -427,6 +428,56 @@
                             </div>
                         </div>
                     }
+                </ValueSlot>
+            </SettingRow>
+
+            <div class="settings-section-label settings-section-label--spaced">TIMERS OVERLAY</div>
+
+            <SettingRow Title="Enabled" Description="Show a floating overlay with the clock and event timers">
+                <ValueSlot>
+                    <ToggleSwitch Checked="settings.TimersOverlaySettings.Enabled" CheckedChanged="v => SetTimersOverlayEnabled(v)" />
+                </ValueSlot>
+            </SettingRow>
+
+            <SettingRow Title="Show Clock" Description="Display the local time on the timers overlay" IsLast="true">
+                <ValueSlot>
+                    <ToggleSwitch Checked="settings.TimersOverlaySettings.ShowClock" CheckedChanged="v => SetTimersShowClock(v)" />
+                </ValueSlot>
+            </SettingRow>
+
+        </section>
+
+        @* ---------------- EVENTS ---------------- *@
+        <section class="settings-group @(_activeGroup == "events" ? "" : "is-hidden")">
+
+            <div class="settings-section-label">ABYSS CORRIDOR</div>
+
+            <SettingRow Title="Show Countdown" Description="Show the time until the next spawn on the timers overlay">
+                <ValueSlot>
+                    <ToggleSwitch Checked="settings.AbyssCorridorSettings.ShowTimer" CheckedChanged="v => SetCorridorShowTimer(v)" />
+                </ValueSlot>
+            </SettingRow>
+
+            <SettingRow Title="Tray Notification" Description="Show a Windows notification before it spawns">
+                <ValueSlot>
+                    <ToggleSwitch Checked="settings.AbyssCorridorSettings.TrayNotification" CheckedChanged="v => SetCorridorTrayNotification(v)" />
+                </ValueSlot>
+            </SettingRow>
+
+            <SettingRow Title="Sound Alert" Description="Play a sound before it spawns">
+                <ValueSlot>
+                    <ToggleSwitch Checked="settings.AbyssCorridorSettings.Sound" CheckedChanged="v => SetCorridorSound(v)" />
+                </ValueSlot>
+            </SettingRow>
+
+            <SettingRow Title="Alert Before Spawn" Description="@($"Minutes before the spawn to alert ({AbyssCorridorSettings.MinLeadMinutes}–{AbyssCorridorSettings.MaxLeadMinutes})")" IsLast="true">
+                <ValueSlot>
+                    <div class="number-field-wrap">
+                        <input class="number-field" type="text" inputmode="numeric" maxlength="2"
+                               value="@settings.AbyssCorridorSettings.LeadMinutes"
+                               @oninput="OnCorridorLeadMinutesInput" />
+                        <span class="number-field__suffix">min</span>
+                    </div>
                 </ValueSlot>
             </SettingRow>
 

@@ -38,6 +38,7 @@ namespace AionDpsMeter.UI.Pages
         new("hotkeys", "Hotkeys", "&#9000;"),
         new("tracking", "Tracking", "&#9881;"),
         new("overlays", "[BETA] Overlays", "&#9635;"),
+        new("events", "Events", "&#9201;"),
     };
 
         private readonly List<UiStyleOption> _uiStyles = new()
@@ -164,6 +165,51 @@ namespace AionDpsMeter.UI.Pages
             var s = settings.SkillCdOverlaySettings;
             s.Enabled = value;
             settings.SkillCdOverlaySettings = s;
+        }
+
+        private void SetTimersOverlayEnabled(bool value)
+        {
+            var s = settings.TimersOverlaySettings;
+            s.Enabled = value;
+            settings.TimersOverlaySettings = s;
+        }
+
+        private void SetTimersShowClock(bool value)
+        {
+            var s = settings.TimersOverlaySettings;
+            s.ShowClock = value;
+            settings.TimersOverlaySettings = s;
+        }
+
+        private void SetCorridorShowTimer(bool value)
+        {
+            var s = settings.AbyssCorridorSettings;
+            s.ShowTimer = value;
+            settings.AbyssCorridorSettings = s;
+        }
+
+        private void SetCorridorTrayNotification(bool value)
+        {
+            var s = settings.AbyssCorridorSettings;
+            s.TrayNotification = value;
+            settings.AbyssCorridorSettings = s;
+        }
+
+        private void SetCorridorSound(bool value)
+        {
+            var s = settings.AbyssCorridorSettings;
+            s.Sound = value;
+            settings.AbyssCorridorSettings = s;
+        }
+
+        private void OnCorridorLeadMinutesInput(ChangeEventArgs e)
+        {
+            var digitsOnly = new string((e.Value?.ToString() ?? string.Empty).Where(char.IsDigit).ToArray());
+            if (!int.TryParse(digitsOnly, out var minutes)) return;
+
+            var s = settings.AbyssCorridorSettings;
+            s.LeadMinutes = minutes;
+            settings.AbyssCorridorSettings = s;
         }
 
         private void SetBuffOverlayOrder(OverlayOrderMode mode)

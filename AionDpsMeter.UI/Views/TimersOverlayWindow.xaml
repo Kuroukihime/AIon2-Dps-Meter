@@ -1,0 +1,27 @@
+<Window x:Class="AionDpsMeter.UI.Views.TimersOverlayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:blazor="clr-namespace:Microsoft.AspNetCore.Components.WebView.Wpf;assembly=Microsoft.AspNetCore.Components.WebView.Wpf"
+        mc:Ignorable="d"
+        Title=""
+        Height="90"
+        Width="240"
+        WindowStyle="None"
+        ShowInTaskbar="False"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True">
+
+    <Border Background="Transparent"
+            BorderThickness="0">
+
+        <Grid>
+
+            <blazor:BlazorWebView x:Name="TimersWebView"
+                                  HostPage="wwwroot/index.html"/>
+
+        </Grid>
+    </Border>
+</Window>

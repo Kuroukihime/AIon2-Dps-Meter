@@ -15,9 +15,11 @@ namespace AionDpsMeter.UI.Services.Windowing
         public EventHandler? WindowStateUpdated { get; set; }
         public bool IsBuffEdit { get; private set; }
         public bool IsSkillCdEdit { get; private set; }
+        public bool IsTimersEdit { get; private set; }
 
         private bool IsBuffOverlayEnabled { get; set; }
         private bool IsSkillCdOverlayEnabled { get; set; }
+        private bool IsTimersOverlayEnabled { get; set; }
 
         private MainWindow MainWindow => serviceProvider.GetRequiredService<MainWindow>();
 
@@ -38,6 +40,7 @@ namespace AionDpsMeter.UI.Services.Windowing
 
             IsBuffOverlayEnabled = settingsService.BufOverlaySettings.Enabled;
             IsSkillCdOverlayEnabled = settingsService.SkillCdOverlaySettings.Enabled;
+            IsTimersOverlayEnabled = settingsService.TimersOverlaySettings.Enabled;
             settingsService.SettingsChanged += SettingsChanged;
         }
 
@@ -54,6 +57,12 @@ namespace AionDpsMeter.UI.Services.Windowing
                 IsSkillCdOverlayEnabled = settingsService.SkillCdOverlaySettings.Enabled;
                 ManageSkillCdOverlay();
             }
+
+            if (IsTimersOverlayEnabled != settingsService.TimersOverlaySettings.Enabled)
+            {
+                IsTimersOverlayEnabled = settingsService.TimersOverlaySettings.Enabled;
+                ManageTimersOverlay();
+            }
                 
         }
 
@@ -61,8 +70,10 @@ namespace AionDpsMeter.UI.Services.Windowing
         {
             ManageBuffOverlay();
             ManageSkillCdOverlay();
+            ManageTimersOverlay();
             windowManager.SetClickThrough(WindowKey.BuffOverlay);
             windowManager.SetClickThrough(WindowKey.SkillCdOverlay);
+            windowManager.SetClickThrough(WindowKey.TimersOverlay);
         }
 
 
@@ -70,8 +81,10 @@ namespace AionDpsMeter.UI.Services.Windowing
         {
             IsBuffEdit = true;
             IsSkillCdEdit = true;
+            IsTimersEdit = true;
             windowManager.RestoreClickThrough(WindowKey.BuffOverlay);
             windowManager.RestoreClickThrough(WindowKey.SkillCdOverlay);
+            windowManager.RestoreClickThrough(WindowKey.TimersOverlay);
             WindowStateUpdated?.Invoke(this, EventArgs.Empty);
             var win = new BlazorWindow(App.AppHost.Services, typeof(SettingsPage))
             {
@@ -85,8 +98,10 @@ namespace AionDpsMeter.UI.Services.Windowing
         {
             IsBuffEdit = false;
             IsSkillCdEdit = false;
+            IsTimersEdit = false;
             windowManager.SetClickThrough(WindowKey.BuffOverlay);
             windowManager.SetClickThrough(WindowKey.SkillCdOverlay);
+            windowManager.SetClickThrough(WindowKey.TimersOverlay);
             WindowStateUpdated?.Invoke(this, EventArgs.Empty);
             windowManager.Hide(WindowKey.Settings);
         }
@@ -176,6 +191,14 @@ namespace AionDpsMeter.UI.Services.Windowing
         private void HideSkillCdOverlay()
         {
             windowManager.Hide(WindowKey.SkillCdOverlay);
+        }
+
+        private void ManageTimersOverlay()
+        {
+            if (IsTimersOverlayEnabled)
+                windowManager.Open(WindowKey.TimersOverlay, new TimersOverlayWindow(), true, persistenceMode: WindowPersistenceMode.OnlyPosition);
+            else
+                windowManager.Hide(WindowKey.TimersOverlay);
         }
     }
 }
