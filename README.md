@@ -20,6 +20,10 @@ A lightweight, **network-based** DPS meter and Stat Efficiency Calculator for **
 - **🔍 Detailed Player Stats** — per-player breakdown: crit/back-attack/perfect-hit/parry rates, skill-by-skill damage, buffs, DPS graph with buff timeline, live combat log
 - **📜 Combat History** — every fight auto-saved as a session snapshot, browsable with configurable retention
 - **🔔 Buff & Skill Cooldown Overlays** — floating overlays tracking up to 10 buffs + 10 skill cooldowns, with a pick-list to choose exactly what to track, sortable by time remaining, adjustable icon size (20–50px), and each overlay can be toggled independently
+- **⏰ Timers Overlay** — floating clock plus an Abyss Corridor countdown (3-hour cycle, schedule in `GameData/Assets/abyss_corridor.json`), with optional tray notification and sound before each spawn
+- **📌 Keep Me on Top** — pin your own row first with your real DPS rank, so you can find yourself in a full force
+- **🎮 Shows Only Over the Game** — the meter and overlays hide when you alt-tab away from AION2 and come back when you return (toggleable)
+- **🗕 Minimize to Tray** — the Hide button and hotkey send the meter and overlays to the system tray
 - **🙈 Nickname Hiding** — mask player names for streaming/screenshots
 - **💾 Persistent Settings** — window layout & preferences saved automatically
 
