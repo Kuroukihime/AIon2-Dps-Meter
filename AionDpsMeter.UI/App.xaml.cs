@@ -9,6 +9,7 @@ using AionDpsMeter.Services.Services.Settings;
 using AionDpsMeter.Services.Services.Timed;
 using AionDpsMeter.Services.Services.Update;
 using AionDpsMeter.Core.Windowing;
+using AionDpsMeter.UI.Services.Tray;
 using AionDpsMeter.UI.Services.Windowing;
 using AionDpsMeter.UI.ViewModels;
 using AionDpsMeter.UI.Views;
@@ -57,6 +58,9 @@ namespace AionDpsMeter.UI
                     services.AddSingleton<IPacketService, PacketPipelineService>();
 
                     services.AddWindowManager();
+                    services.AddSingleton<GameFocusWatcher>();
+                    services.AddSingleton<WindowVisibilityService>();
+                    services.AddSingleton<TrayService>();
 
 
                     services.AddSingleton<SettingsViewModel>();
@@ -80,6 +84,7 @@ namespace AionDpsMeter.UI
             var windowHelper = AppHost.Services.GetRequiredService<WindowHelper>();
             windowManager.Open(WindowKey.Main, mainWindow, true);
             windowHelper.OpenRequiredWindows();
+            AppHost.Services.GetRequiredService<WindowVisibilityService>().Start();
             base.OnStartup(e);
         }
 
@@ -87,6 +92,8 @@ namespace AionDpsMeter.UI
         {
             try
             {
+                AppHost.Services.GetRequiredService<TrayService>().Dispose();
+                AppHost.Services.GetRequiredService<GameFocusWatcher>().Dispose();
                 var sessionManager = AppHost.Services.GetRequiredService<CombatSessionManager>();
                 var historyStore = AppHost.Services.GetRequiredService<ICombatHistoryStore>();
                 sessionManager.CompleteAndPersistActiveSessions();

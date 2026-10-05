@@ -3,6 +3,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using AionDpsMeter.Services.Services.Settings;
 using AionDpsMeter.UI.Pages;
+using AionDpsMeter.UI.Services.Tray;
 using AionDpsMeter.UI.Services.Windowing;
 using AionDpsMeter.UI.Utils;
 using AionDpsMeter.UI.ViewModels;
@@ -17,14 +18,16 @@ namespace AionDpsMeter.UI.Views
         private GlobalHotkey? _globalHotkey;
         private readonly IWindowManagerService windowManager;
         private readonly WindowHelper windowHelper;
+        private readonly TrayService trayService;
 
-        public MainWindow(MainViewModel viewModel, IAppSettingsService settingsService, IWindowManagerService windowManager, WindowHelper windowHelper)
+        public MainWindow(MainViewModel viewModel, IAppSettingsService settingsService, IWindowManagerService windowManager, WindowHelper windowHelper, TrayService trayService)
         {
             InitializeComponent();
             DataContext = viewModel;
             this.settingsService      = settingsService;
             this.windowManager = windowManager;
             this.windowHelper = windowHelper;
+            this.trayService = trayService;
 
             _saveBoundsTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(5000) };
             _saveBoundsTimer.Tick += (_, _) => { _saveBoundsTimer.Stop(); SaveWindowBounds(); };
@@ -79,25 +82,7 @@ namespace AionDpsMeter.UI.Views
             }
         }
 
-        private void ToggleWindowVisibility()
-        {
-            var appWindows = Application.Current.Windows.OfType<Window>().ToList();
-
-            if (WindowState != WindowState.Minimized)
-            {
-                foreach (var window in appWindows)
-                    window.WindowState = WindowState.Minimized;
-            }
-            else
-            {
-                foreach (var window in appWindows)
-                {
-                    window.WindowState = WindowState.Normal;
-                    window.Activate();
-                }
-                Activate();
-            }
-        }
+        private void ToggleWindowVisibility() => trayService.Toggle();
 
 
         private void RestoreWindowBounds()

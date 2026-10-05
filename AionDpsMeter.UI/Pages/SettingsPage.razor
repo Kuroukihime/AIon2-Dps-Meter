@@ -66,6 +66,12 @@
                 </ValueSlot>
             </SettingRow>
 
+            <SettingRow Title="Show Only Over the Game" Description="Hide the meter and overlays while another app is focused, or while AION2 isn't running (the tray icon's Show still works)">
+                <ValueSlot>
+                    <ToggleSwitch Checked="settings.ShowOnlyOverGame" CheckedChanged="v => { settings.ShowOnlyOverGame = v; }" />
+                </ValueSlot>
+            </SettingRow>
+
             @if (settings.UiStyle == 1)
             {
                 <SettingRow Title="Row Size" Description="Size of each player row">

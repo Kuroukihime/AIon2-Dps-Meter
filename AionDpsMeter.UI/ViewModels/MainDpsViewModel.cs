@@ -2,6 +2,7 @@
 using AionDpsMeter.Services.Services.Settings;
 using AionDpsMeter.Services.Services.Update;
 using AionDpsMeter.Core.Windowing;
+using AionDpsMeter.UI.Services.Tray;
 using AionDpsMeter.UI.Services.Windowing;
 using AionDpsMeter.UI.Utils;
 using Microsoft.AspNetCore.Components.Web;
@@ -16,6 +17,7 @@ namespace AionDpsMeter.UI.ViewModels
         private readonly UpdateCheckerService updateChecker;
         private readonly IWindowManagerService windowManager;
         private readonly WindowHelper windowHelper;
+        private readonly TrayService trayService;
 
         public readonly Dictionary<long, PlayerRenderState> PlayerStates = new();
 
@@ -44,13 +46,14 @@ namespace AionDpsMeter.UI.ViewModels
 
         private readonly Func<Task> onStateChanged;
 
-        public MainDpsViewModel(CombatSessionManager sessionManager, IAppSettingsService settingsService, UpdateCheckerService updateChecker, IWindowManagerService windowManager, WindowHelper windowHelper, Func<Task> onStateChanged)
+        public MainDpsViewModel(CombatSessionManager sessionManager, IAppSettingsService settingsService, UpdateCheckerService updateChecker, IWindowManagerService windowManager, WindowHelper windowHelper, TrayService trayService, Func<Task> onStateChanged)
         {
             this.sessionManager = sessionManager;
             this.settingsService = settingsService;
             this.updateChecker = updateChecker;
             this.windowManager = windowManager;
             this.windowHelper = windowHelper;
+            this.trayService = trayService;
             this.onStateChanged = onStateChanged;
         }
 
@@ -253,7 +256,7 @@ namespace AionDpsMeter.UI.ViewModels
         public void OpenWhatsNew() => windowHelper.OpenWhatsNewWindow();
 
         public void OpenSettings() => windowHelper.OpenSettings();
-        public void Minimize() => windowManager.Minimize(WindowKey.Main);
+        public void Minimize() => trayService.HideToTray();
         public void Close() => windowManager.CloseApplication();
         public void DismissUpdate() { UpdateAvailable = false; onStateChanged.Invoke(); }
         public void OpenPlayerDetails(PlayerRenderState player) => windowHelper.OpenPlayerDetails(player);
