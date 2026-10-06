@@ -22,6 +22,14 @@ namespace AionDpsMeter.Services.Services.Session
 
         public long TotalDamage { get; private set; }
         public int HitCount { get; private set; }
+
+        // Running counts over non-DoT hits, so stats are O(1) per refresh instead of rescanning every hit.
+        public int CriticalHits { get; private set; }
+        public int BackAttacks { get; private set; }
+        public int FrontAttacks { get; private set; }
+        public int PerfectHits { get; private set; }
+        public int DoubleDamageHits { get; private set; }
+        public int ParryHits { get; private set; }
         public DateTime? FirstHit { get; private set; }
         public DateTime? LastHit { get; private set; }
 
@@ -39,7 +47,16 @@ namespace AionDpsMeter.Services.Services.Session
         {
             hits.Add(damage);
             TotalDamage += damage.Damage;
-            if (!damage.IsDot) HitCount++;
+            if (!damage.IsDot)
+            {
+                HitCount++;
+                if (damage.IsCritical) CriticalHits++;
+                if (damage.IsBackAttack) BackAttacks++;
+                if (damage.IsFrontAttack) FrontAttacks++;
+                if (damage.IsPerfect) PerfectHits++;
+                if (damage.IsDoubleDamage) DoubleDamageHits++;
+                if (damage.IsParry) ParryHits++;
+            }
 
             if (FirstHit is null || damage.DateTime < FirstHit) FirstHit = damage.DateTime;
             if (LastHit is null || damage.DateTime > LastHit) LastHit = damage.DateTime;
@@ -66,6 +83,12 @@ namespace AionDpsMeter.Services.Services.Session
             hits.Clear();
             TotalDamage = 0;
             HitCount = 0;
+            CriticalHits = 0;
+            BackAttacks = 0;
+            FrontAttacks = 0;
+            PerfectHits = 0;
+            DoubleDamageHits = 0;
+            ParryHits = 0;
             FirstHit = null;
             LastHit = null;
         }

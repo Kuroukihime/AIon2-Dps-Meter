@@ -20,6 +20,7 @@ namespace AionDpsMeter.UI.ViewModels
         private readonly string? _classIcon;
         private readonly DispatcherTimer? _updateTimer;
         private int _knownCombatLogCount;
+        private const int MaxCombatLogEntries = 200;
 
    
         public bool IsSnapshot { get; }
@@ -221,7 +222,7 @@ namespace AionDpsMeter.UI.ViewModels
 
             if (!isSnapshot)
             {
-                _updateTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(66) };
+                _updateTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(250) };
                 _updateTimer.Tick += OnUpdateTimerTick;
                 _updateTimer.Start();
                 RefreshData();
@@ -261,7 +262,12 @@ namespace AionDpsMeter.UI.ViewModels
             skill.IsExpanded = shouldExpand;
         }
 
-        private void OnUpdateTimerTick(object? sender, EventArgs e) => RefreshData();
+        // Every refresh recomputes stats over all of the player's hits, so skip it while no new hit arrived.
+        private void OnUpdateTimerTick(object? sender, EventArgs e)
+        {
+            if (_sessionManager?.GetPlayerHitCount(_playerId) == _knownCombatLogCount) return;
+            RefreshData();
+        }
 
         private void RefreshData()
         {
@@ -393,32 +399,28 @@ namespace AionDpsMeter.UI.ViewModels
         {
             if (_sessionManager is null) return;
 
-            var allEntries = _sessionManager.GetPlayerCombatLog(_playerId);
+            var (totalCount, newHits) = _sessionManager.GetPlayerHitsSince(_playerId, _knownCombatLogCount, MaxCombatLogEntries);
             bool combatLogChanged = false;
 
-            if (allEntries.Count < _knownCombatLogCount)
+            if (totalCount < _knownCombatLogCount)
             {
                 CombatLog.Clear();
-                _knownCombatLogCount = 0;
                 Skills.Clear();
                 SkillCount = 0;
                 combatLogChanged = true;
             }
 
-            if (allEntries.Count > _knownCombatLogCount)
+            if (newHits.Count > 0)
             {
-                int newCount = allEntries.Count - _knownCombatLogCount;
-                for (int i = newCount - 1; i >= 0; i--)
-                    CombatLog.Insert(0, new CombatLogEntryViewModel(allEntries[i]));
-                _knownCombatLogCount = allEntries.Count;
+                foreach (var hit in newHits)
+                    CombatLog.Insert(0, new CombatLogEntryViewModel(hit));
                 combatLogChanged = true;
 
-                while (CombatLog.Count > 200)
-                {
+                while (CombatLog.Count > MaxCombatLogEntries)
                     CombatLog.RemoveAt(CombatLog.Count - 1);
-                    combatLogChanged = true;
-                }
             }
+
+            _knownCombatLogCount = totalCount;
 
             if (combatLogChanged)
             {

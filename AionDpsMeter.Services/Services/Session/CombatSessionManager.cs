@@ -170,16 +170,36 @@ namespace AionDpsMeter.Services.Services.Session
 
         public double GetPartyDps()
         {
-            double totalDamage = PlayerStats.Sum(r => r.TotalDamage);
-            var combatDuration = GetCombatDuration();
-            return totalDamage / combatDuration.TotalSeconds;
+            lock (lockObject)
+            {
+                double totalDamage = GetActiveTargetSession()?.TotalDamage ?? 0;
+                double seconds = GetCombatDuration().TotalSeconds;
+                return seconds > 0 ? totalDamage / seconds : 0;
+            }
         }
 
-        public IReadOnlyList<PlayerDamage> GetPlayerCombatLog(long playerId)
+        /// <summary>
+        /// Hits of <paramref name="playerId"/> in the active session after the first <paramref name="knownCount"/>,
+        /// oldest first and at most the latest <paramref name="maxCount"/>. When the session restarted (fewer hits
+        /// than known), the hits are returned from the start.
+        /// </summary>
+        public (int TotalCount, IReadOnlyList<PlayerDamage> NewHits) GetPlayerHitsSince(long playerId, int knownCount, int maxCount)
         {
             lock (lockObject)
             {
-                return GetActiveTargetSession()?.GetCombatLog(playerId) ?? [];
+                var hits = GetActiveTargetSession()?.GetHits(playerId) ?? [];
+                var start = Math.Max(hits.Count < knownCount ? 0 : knownCount, hits.Count - maxCount);
+                var newHits = new List<PlayerDamage>(hits.Count - start);
+                for (var i = start; i < hits.Count; i++) newHits.Add(hits[i]);
+                return (hits.Count, newHits);
+            }
+        }
+
+        public int GetPlayerHitCount(long playerId)
+        {
+            lock (lockObject)
+            {
+                return GetActiveTargetSession()?.GetHits(playerId).Count ?? 0;
             }
         }
 
@@ -421,6 +441,9 @@ namespace AionDpsMeter.Services.Services.Session
             {
                 if (id == excludeTargetId) continue;
                 entry.CheckIdleTimeout(now);
+
+                // A finished entry holds no session; dropping it keeps the per-event scans from growing with every mob ever hit.
+                if (entry.CurrentSession is null) targetEntries.TryRemove(id, out _);
             }
         }
 

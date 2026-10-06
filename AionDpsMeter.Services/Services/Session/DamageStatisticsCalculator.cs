@@ -5,14 +5,9 @@ namespace AionDpsMeter.Services.Services.Session
 {
     public static class DamageStatisticsCalculator
     {
-        private const double MinDurationSeconds = 0.1;
-
-        public static PlayerStats ComputePlayerStats(PlayerSession session, long totalCombatDamage)
+        // DPS is damage over the whole fight's duration, so every row and skill adds up to the fight's total.
+        public static PlayerStats ComputePlayerStats(PlayerSession session, long totalCombatDamage, double fightSeconds)
         {
-            var hits = session.Hits.ToList();
-            var nonDotHits = hits.Where(h => !h.IsDot).ToList();
-
-            var duration = GetDuration(session);
 
             return new PlayerStats
             {
@@ -29,15 +24,15 @@ namespace AionDpsMeter.Services.Services.Session
                 PlayerDeaths = session.PlayerDeaths,
                 TotalDamage = session.TotalDamage,
 
-                HitCount = nonDotHits.Count,
-                CriticalHits = nonDotHits.Count(h => h.IsCritical),
-                BackAttacks = nonDotHits.Count(h => h.IsBackAttack),
-                FrontAttacks = nonDotHits.Count(h => h.IsFrontAttack),
-                PerfectHits = nonDotHits.Count(h => h.IsPerfect),
-                DoubleDamageHits = nonDotHits.Count(h => h.IsDoubleDamage),
-                ParryHits = nonDotHits.Count(h => h.IsParry),
+                HitCount = session.HitCount,
+                CriticalHits = session.CriticalHits,
+                BackAttacks = session.BackAttacks,
+                FrontAttacks = session.FrontAttacks,
+                PerfectHits = session.PerfectHits,
+                DoubleDamageHits = session.DoubleDamageHits,
+                ParryHits = session.ParryHits,
 
-                DamagePerSecond = session.TotalDamage / duration,
+                DamagePerSecond = PerSecond(session.TotalDamage, fightSeconds),
                 DamagePercentage = GetPercentage(session.TotalDamage, totalCombatDamage),
 
                 FirstHit = session.FirstHit ?? default,
@@ -45,9 +40,9 @@ namespace AionDpsMeter.Services.Services.Session
             };
         }
 
-        public static IReadOnlyCollection<SkillStats> ComputeSkillStats(PlayerSession session, bool groupSummonDamage)
+        public static IReadOnlyCollection<SkillStats> ComputeSkillStats(PlayerSession session, bool groupSummonDamage, double fightSeconds)
         {
-            var duration = GetDuration(session);
+            var duration = fightSeconds;
             var hits = session.Hits.ToList();
 
             var regularHitsList = hits.Where(h => h.SourceSummon is null).ToList();
@@ -159,7 +154,7 @@ namespace AionDpsMeter.Services.Services.Session
             merged.MinHit = stats.Min(s => s.MinHit);
             merged.MaxHit = stats.Max(s => s.MaxHit);
 
-            merged.DamagePerSecond = merged.TotalDamage / duration;
+            merged.DamagePerSecond = PerSecond(merged.TotalDamage, duration);
             merged.DamagePercentage = GetPercentage(merged.TotalDamage, sessionTotalDamage);
 
             return merged;
@@ -195,7 +190,7 @@ namespace AionDpsMeter.Services.Services.Session
             merged.MinHit = skillStats.Min(s => s.MinHit);
             merged.MaxHit = skillStats.Max(s => s.MaxHit);
 
-            merged.DamagePerSecond = merged.TotalDamage / duration;
+            merged.DamagePerSecond = PerSecond(merged.TotalDamage, duration);
 
             merged.DamagePercentage = GetPercentage(
                 merged.TotalDamage,
@@ -239,20 +234,13 @@ namespace AionDpsMeter.Services.Services.Session
 
                 IsClassSkill = group.Any(r => r.CharacterClass.Id > 10),
 
-                DamagePerSecond = totalDamage / duration,
+                DamagePerSecond = PerSecond(totalDamage, duration),
                 DamagePercentage = GetPercentage(totalDamage, sessionTotalDamage),
             };
         }
 
-        private static double GetDuration(PlayerSession session)
-        {
-            if (session.FirstHit is null || session.LastHit is null)
-                return MinDurationSeconds;
-
-            return Math.Max(
-                (session.LastHit.Value - session.FirstHit.Value).TotalSeconds,
-                MinDurationSeconds);
-        }
+        // Zero until the fight spans some time: the first hits often share one timestamp.
+        private static double PerSecond(long damage, double seconds) => seconds > 0 ? damage / seconds : 0;
 
         private static double GetPercentage(long value, long total)
             => total > 0 ? (double)value / total * 100 : 0;

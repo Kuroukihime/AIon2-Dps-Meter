@@ -126,10 +126,16 @@ namespace AionDpsMeter.Services.Services.Session
             long totalDamage = activeSessions.Sum(s => s.TotalDamage);
 
             return activeSessions
-                .Select(s => DamageStatisticsCalculator.ComputePlayerStats(s, totalDamage))
+                .Select(s => DamageStatisticsCalculator.ComputePlayerStats(s, totalDamage, GetCombatDuration().TotalSeconds))
                 .OrderByDescending(s => s.TotalDamage)
                 .ToList();
         }
+
+        // Same population as GetPlayerStats: sessions with only DoT hits are not listed, so they don't count either.
+        public long TotalDamage => playerSessions.Values.Where(s => s.HitCount > 0).Sum(s => s.TotalDamage);
+
+        public IReadOnlyList<PlayerDamage> GetHits(long playerId) =>
+            playerSessions.TryGetValue(playerId, out var session) ? session.Hits : [];
 
         public IReadOnlyList<PlayerDamage> GetCombatLog(long playerId)
         {
@@ -144,7 +150,7 @@ namespace AionDpsMeter.Services.Services.Session
             if (!playerSessions.TryGetValue(playerId, out var session))
                 return [];
 
-            return DamageStatisticsCalculator.ComputeSkillStats(session, settingsService.GroupSummonDamage);
+            return DamageStatisticsCalculator.ComputeSkillStats(session, settingsService.GroupSummonDamage, GetCombatDuration().TotalSeconds);
         }
 
         public IReadOnlyList<BuffEvent> GetBuffEvents(long playerId, DateTime from, DateTime to)

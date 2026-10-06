@@ -21,8 +21,6 @@
         public string? ClassIcon { get; set; }
         public double CriticalRate { get; set; }
 
-        public double VisualAbsolutePercentage { get; set; }
-        public double VisualRelativePercentage { get; set; }
         public double EffectivePercentage { get; set; }
     }
 }

@@ -44,6 +44,7 @@ namespace AionDpsMeter.UI.ViewModels
         private readonly ConcurrentDictionary<string, string> _iconCache = new(StringComparer.OrdinalIgnoreCase);
 
         private PeriodicTimer? _refreshTimer;
+        private string _lastDisplaySignature = string.Empty;
         private static readonly TimeSpan EditModeFollowUpRender = TimeSpan.FromMilliseconds(100);
         private CancellationTokenSource _cts = new();
 
@@ -70,7 +71,8 @@ namespace AionDpsMeter.UI.ViewModels
 
             _ = CheckForUpdatesAsync();
 
-            _refreshTimer = new PeriodicTimer(TimeSpan.FromMilliseconds(33));
+            // 10 Hz keeps the readout live; renders still only happen when a displayed value changes, and bars glide via CSS.
+            _refreshTimer = new PeriodicTimer(TimeSpan.FromMilliseconds(100));
             _ = UpdateLoopAsync();
         }
         private async Task UpdateLoopAsync()
@@ -91,44 +93,28 @@ namespace AionDpsMeter.UI.ViewModels
             // browser idle so the drag and button clicks are handled immediately instead of queuing behind updates.
             if (windowHelper.IsMoveKeyHeld) return;
 
-            bool uiNeedsUpdate = false;
-
-            var newDuration = sessionManager.GetCombatDuration().ToString(@"mm\:ss");
-            if (CombatDuration != newDuration)
-            {
-                CombatDuration = newDuration;
-                uiNeedsUpdate = true;
-            }
+            CombatDuration = sessionManager.GetCombatDuration().ToString(@"mm\:ss");
 
             var targetInfo = sessionManager.GetActiveTargetInfo();
+            HasActiveTarget = targetInfo is not null;
             if (targetInfo is not null)
             {
-                HasActiveTarget = true;
                 ActiveTargetName = targetInfo.Name;
                 ActiveTargetHpPercentage = targetInfo.HpTotal > 0 ? (double)targetInfo.HpCurrent / targetInfo.HpTotal * 100 : 0;
                 ActiveTargetHpDisplay = targetInfo.HpTotal > 0 ? $"{DamageFormatter.Format(targetInfo.HpCurrent)} / {DamageFormatter.Format(targetInfo.HpTotal)}" : string.Empty;
-                uiNeedsUpdate = true;
-            }
-            else if (HasActiveTarget)
-            {
-                HasActiveTarget = false;
-                uiNeedsUpdate = true;
             }
 
             TotalRaidDamageFormatted = $"{DamageFormatter.Format(sessionManager.GetPartyDps())}/s";
 
             bool pinUserOnTop = settingsService.PinUserOnTop;
-            if (PinUserOnTop != pinUserOnTop)
-            {
-                PinUserOnTop = pinUserOnTop;
-                uiNeedsUpdate = true;
-            }
+            PinUserOnTop = pinUserOnTop;
 
             var currentStats = sessionManager.PlayerStats
                 .Where(r => r.IsIdentified || r.DamagePercentage > 1 || (pinUserOnTop && r.IsUser && r.TotalDamage > 0))
                 .ToList();
 
             long topDamage = currentStats.Count > 0 ? currentStats.Max(x => x.TotalDamage) : 0;
+
             var currentIds = new HashSet<long>();
 
             bool isNicknameHidden = settingsService.IsNicknameHidden;
@@ -168,44 +154,44 @@ namespace AionDpsMeter.UI.ViewModels
                     ? $"💀 {stat.PlayerDeaths}"
                     : string.Empty;
 
-                double targetAbs = stat.DamagePercentage;
-                double diffAbs = targetAbs - player.VisualAbsolutePercentage;
-                if (Math.Abs(diffAbs) < 0.05) player.VisualAbsolutePercentage = targetAbs;
-                else player.VisualAbsolutePercentage += diffAbs * 0.25;
-
-                double targetRel = topDamage > 0 ? ((double)stat.TotalDamage / topDamage) * 100.0 : 0;
-                double diffRel = targetRel - player.VisualRelativePercentage;
-                if (Math.Abs(diffRel) < 0.05) player.VisualRelativePercentage = targetRel;
-                else player.VisualRelativePercentage += diffRel * 0.25;
-
                 player.EffectivePercentage = useRelativeBar
-                    ? player.VisualRelativePercentage
-                    : player.VisualAbsolutePercentage;
-
-                uiNeedsUpdate = true;
+                    ? (topDamage > 0 ? (double)stat.TotalDamage / topDamage * 100.0 : 0)
+                    : player.DamagePercentage;
             }
 
-            var keysToRemove = PlayerStates.Keys.Where(k => !currentIds.Contains(k)).ToList();
-            foreach (var key in keysToRemove)
-            {
+            foreach (var key in PlayerStates.Keys.Where(k => !currentIds.Contains(k)).ToList())
                 PlayerStates.Remove(key);
-                uiNeedsUpdate = true;
-            }
 
-            if (uiNeedsUpdate)
+            var ranked = PlayerStates.Values
+                .OrderByDescending(p => p.TotalDamage)
+                .ToList();
+            for (int i = 0; i < ranked.Count; i++)
+                ranked[i].Rank = i + 1;
+
+            Players = pinUserOnTop
+                ? ranked.OrderByDescending(p => p.IsUser).ToList()
+                : ranked;
+
+            // Re-render only when something on screen changed; idle ticks and identical readouts cost the browser nothing.
+            var signature = BuildDisplaySignature();
+            if (signature == _lastDisplaySignature) return;
+            _lastDisplaySignature = signature;
+            onStateChanged.Invoke();
+        }
+
+        private string BuildDisplaySignature()
+        {
+            var sb = new System.Text.StringBuilder();
+            sb.Append(CombatDuration).Append('|').Append(TotalRaidDamageFormatted).Append('|').Append(PingDisplay)
+              .Append('|').Append(HasActiveTarget).Append('|').Append(ActiveTargetName).Append('|').Append(ActiveTargetHpDisplay)
+              .Append('|').Append(ActiveTargetHpPercentage.ToString("F1")).Append('|').Append(PinUserOnTop);
+            foreach (var p in Players)
             {
-                var ranked = PlayerStates.Values
-                    .OrderByDescending(p => p.TotalDamage)
-                    .ToList();
-                for (int i = 0; i < ranked.Count; i++)
-                    ranked[i].Rank = i + 1;
-
-                Players = pinUserOnTop
-                    ? ranked.OrderByDescending(p => p.IsUser).ToList()
-                    : ranked;
-
-                onStateChanged.Invoke();
+                sb.Append('#').Append(p.PlayerId).Append(p.PlayerNameDisplay).Append(p.DpsFormatted).Append(p.TotalDamageFormatted)
+                  .Append(p.DamagePercentage.ToString("F1")).Append(p.EffectivePercentage.ToString("F1")).Append(p.CriticalRate.ToString("F1"))
+                  .Append(p.DeathsDisplay).Append(p.CombatPower).Append(p.Rank).Append(p.ClassId).Append(p.IsUser);
             }
+            return sb.ToString();
         }
 
         private async Task CheckForUpdatesAsync()
