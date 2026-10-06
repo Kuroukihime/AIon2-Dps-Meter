@@ -38,6 +38,17 @@
         @* ---------------- APPEARANCE ---------------- *@
         <section class="settings-group @(_activeGroup == "appearance" ? "" : "is-hidden")">
 
+            <SettingRow Title="My Display Name" Description="Name shown for your character everywhere; leave empty to use the game's name"
+                        Tooltip="The game sends your character name only on certain events (logging in, changing zone or teleporting); until then your row shows your player id. A name set here is shown for your row instead, as soon as the meter knows which row is you.">
+                <ValueSlot>
+                    <div class="number-field-wrap">
+                        <input class="number-field text-field" type="text" maxlength="24" placeholder="Game name"
+                               value="@settings.UserNameOverride"
+                               @onchange="e => settings.UserNameOverride = e.Value?.ToString() ?? string.Empty" />
+                    </div>
+                </ValueSlot>
+            </SettingRow>
+
             <div class="settings-section-label">WINDOW LAYOUT</div>
 
             <div class="style-picker" role="radiogroup" aria-label="Window layout">
@@ -70,6 +81,12 @@
             <SettingRow Title="Show Only Over the Game" Description="Hide the meter and overlays while another app is focused, or while AION2 isn't running (the tray icon's Show still works)">
                 <ValueSlot>
                     <ToggleSwitch Checked="settings.ShowOnlyOverGame" CheckedChanged="v => { settings.ShowOnlyOverGame = v; }" />
+                </ValueSlot>
+            </SettingRow>
+
+            <SettingRow Title="Show Meter Only in Combat" Description="Hide the meter outside combat; it appears when you or your group deal damage and hides 10 s after the last hit. Hold Ctrl to show it anyway">
+                <ValueSlot>
+                    <ToggleSwitch Checked="settings.ShowMeterOnlyInCombat" CheckedChanged="v => { settings.ShowMeterOnlyInCombat = v; }" />
                 </ValueSlot>
             </SettingRow>
 
@@ -122,6 +139,12 @@
             <SettingRow Title="Keep Me on Top" Description="Pin your row first and show your rank, even in a large force">
                 <ValueSlot>
                     <ToggleSwitch Checked="settings.PinUserOnTop" CheckedChanged="v => { settings.PinUserOnTop = v; }" />
+                </ValueSlot>
+            </SettingRow>
+
+            <SettingRow Title="Solo Mode" Description="Show only your row, and count only your damage in the total (also the SOLO switch on the meter). Turns off automatically while you're in a party or force">
+                <ValueSlot>
+                    <ToggleSwitch Checked="settings.TotalShowsOnlyMyDps" CheckedChanged="v => { settings.TotalShowsOnlyMyDps = v; }" />
                 </ValueSlot>
             </SettingRow>
 

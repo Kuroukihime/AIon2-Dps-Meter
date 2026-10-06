@@ -176,6 +176,36 @@
     }
 
 
+.total-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.solo-btn {
+    border: 1px solid currentColor;
+    border-radius: 3px;
+    background: transparent;
+    padding: 0 4px;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    line-height: 14px;
+    cursor: pointer;
+}
+
+.solo-btn.is-on {
+    color: #ff5252;
+}
+
+.solo-btn.is-off {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.solo-btn:disabled {
+    cursor: default;
+}
+
 .total-dps {
     color: #4ade80;
     font-size: 16px;
@@ -325,6 +355,14 @@
 /* =========================================================
    PLAYERS LIST
    ========================================================= */
+
+.solo-hint {
+    padding: 8px 6px;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 11px;
+    text-align: center;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
 
 .players-list {
     flex: 1 1 auto;
@@ -529,3 +567,14 @@
     outline-offset: -1px;
     cursor: move;
 }
+
+/* The user's own row stands out at a glance, regardless of bar colors or pinning. */
+.player-module.is-self {
+    border: 1px solid rgba(255, 214, 102, 0.9);
+    box-shadow: 0 0 8px rgba(255, 214, 102, 0.35);
+}
+
+    .player-module.is-self .name-block {
+        color: #ffd666;
+        font-size: 1.08em;
+    }

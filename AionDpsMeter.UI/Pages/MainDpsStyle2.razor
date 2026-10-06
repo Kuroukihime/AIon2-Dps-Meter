@@ -34,7 +34,11 @@
 
             <div class="s2-header-row-bottom">
                 <span class="s2-boss-hp">@ViewModel.ActiveTargetHpDisplay</span>
-                <span class="s2-total-dps">@ViewModel.TotalRaidDamageFormatted</span>
+                <span class="s2-total-group">
+                    <button type="button" class="s2-solo-btn @ViewModel.SoloClass" disabled="@ViewModel.IsGrouped"
+                            @onclick="ViewModel.ToggleSolo" @onmousedown:stopPropagation="true" title="@ViewModel.SoloTitle">SOLO</button>
+                    <span class="s2-total-dps">@ViewModel.TotalRaidDamageFormatted</span>
+                </span>
             </div>
 
             @if (ViewModel.HasActiveTarget)
@@ -64,11 +68,15 @@
          PLAYER LIST
          ============================================================ -->
         <div class="s2-players-list">
+            @if (ViewModel.IsSoloWaiting)
+            {
+                <div class="s2-solo-hint">Solo: use a skill so the meter can recognize you</div>
+            }
             @foreach (var player in ViewModel.Players)
             {
                 <div class="s2-row-scale-wrap" style="@ViewModel.GetRowScaleStyle()">
                     <div class="s2-row-wrap" @onclick="() => ViewModel.OpenPlayerDetails(player)">
-                        <div class="s2-row-root">
+                        <div class="s2-row-root @ViewModel.GetSelfClass(player)">
                             <div class="s2-row-fill @ViewModel.GetIsUserClass(player) @ViewModel.GetPlayerRowClass(player)"
                                  style="width:@(ViewModel.ClampPercent(player.EffectivePercentage).ToString("0.##", CultureInfo.InvariantCulture))%"></div>
                             <div class="s2-row-shine"></div>

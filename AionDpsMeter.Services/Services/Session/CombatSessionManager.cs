@@ -26,6 +26,10 @@ namespace AionDpsMeter.Services.Services.Session
         private readonly ITimedEventTracker buffEventTracker;
         private readonly ITimedEventTracker skillCdEventTracker;
         private readonly GroupTracker groupTracker;
+        private readonly SelfDetector selfDetector;
+
+        // Arrival time (UTC ticks) of the last hit by the user or their group; written by the packet thread, read by the UI.
+        private long lastCombatHitTicks;
 
 
         public CombatSessionManager(
@@ -45,7 +49,10 @@ namespace AionDpsMeter.Services.Services.Session
             this.skillCdEventTracker = skillCdEventTracker;
             targetResolver = new ActiveTargetResolver(entityTracker);
             logger = loggerFactory.CreateLogger<CombatSessionManager>();
+            selfDetector = new SelfDetector(entityTracker, logger);
             entityTracker.SummonRegistered += OnSummonRegistered;
+            entityTracker.UserNameOverride = settingsService.UserNameOverride;
+            settingsService.SettingsChanged += (_, _) => entityTracker.UserNameOverride = settingsService.UserNameOverride;
         }
 
 
@@ -159,6 +166,26 @@ namespace AionDpsMeter.Services.Services.Session
 
         public bool IsGrouped => groupTracker.IsGrouped;
 
+        public bool IsInCombat(TimeSpan window) => SecondsSinceCombatHit() is { } seconds && seconds <= window.TotalSeconds;
+
+        public double? SecondsSinceCombatHit()
+        {
+            long ticks = Interlocked.Read(ref lastCombatHitTicks);
+            return ticks == 0 ? null : (DateTime.UtcNow - new DateTime(ticks, DateTimeKind.Utc)).TotalSeconds;
+        }
+
+        // Combat means the user or their group hit something; until the user's row is recognized, any player's hit counts.
+        private void RecordCombatHit(PlayerDamage damageEvent)
+        {
+            if (damageEvent.SourceEntity is not Player source) return;
+
+            bool counts = !entityTracker.HasUser || source.IsUser || groupTracker.GetGroupKind(source) != GroupKind.None;
+            if (counts) Interlocked.Exchange(ref lastCombatHitTicks, DateTime.UtcNow.Ticks);
+        }
+
+        // Solo is suspended while grouped without touching the setting, so leaving the group restores it.
+        public bool IsSoloActive => settingsService.TotalShowsOnlyMyDps && !groupTracker.IsGrouped;
+
         public PlayerStatSnapshot? GetCurrentPlayerStatSnapshot()
         {
             lock (lockObject)
@@ -186,9 +213,11 @@ namespace AionDpsMeter.Services.Services.Session
         {
             lock (lockObject)
             {
-                Func<PlayerSession, bool> counts = groupTracker.IsGrouped
-                    ? s => s.IsUser || groupTracker.GetGroupKind(entityTracker.GetPlayerEntity(s.PlayerId)) != GroupKind.None
-                    : _ => true;
+                Func<PlayerSession, bool> counts = IsSoloActive
+                    ? s => s.IsUser
+                    : groupTracker.IsGrouped
+                        ? s => s.IsUser || groupTracker.GetGroupKind(entityTracker.GetPlayerEntity(s.PlayerId)) != GroupKind.None
+                        : _ => true;
 
                 double totalDamage = GetActiveTargetSession()?.SumDamage(counts) ?? 0;
                 double seconds = GetCombatDuration().TotalSeconds;
@@ -295,6 +324,9 @@ namespace AionDpsMeter.Services.Services.Session
                     if (entityTracker.IsSummon(damageEvent.SourceEntity.Id) &&
                         !ResolveSummonSource(damageEvent))
                         return;
+                    if (!damageEvent.IsDot && damageEvent.SourceEntity is Player)
+                        selfDetector.OnHit(damageEvent.SourceEntity.Id, damageEvent.Skill.Id, DateTime.UtcNow);
+                    RecordCombatHit(damageEvent);
                     RouteToTargetEntry(damageEvent);
 
                     // Check all other entries for idle timeout on each new event
@@ -335,6 +367,7 @@ namespace AionDpsMeter.Services.Services.Session
         public void RegisterSkillCdEvent(TimedEvent skillCdEvent)
         {
             skillCdEventTracker.Register(skillCdEvent);
+            lock (lockObject) selfDetector.OnCooldownStarted((int)skillCdEvent.Id, DateTime.UtcNow);
         }
 
         private void RegisterTimedBuffEvent(BuffEvent buffEvent)
@@ -492,6 +525,7 @@ namespace AionDpsMeter.Services.Services.Session
 
         private void ResetInternal()
         {
+            selfDetector.Reset();
             foreach (var entry in targetEntries.Values)
                 entry.Reset();
             targetEntries.Clear();

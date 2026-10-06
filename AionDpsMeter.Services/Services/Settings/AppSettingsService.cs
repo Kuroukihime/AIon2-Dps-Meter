@@ -21,6 +21,7 @@ namespace AionDpsMeter.Services.Services.Settings
             _data.SpacetimeRiftSettings.LeadMinutes = Math.Clamp(_data.SpacetimeRiftSettings.LeadMinutes,
                 SpacetimeRiftSettings.MinLeadMinutes, SpacetimeRiftSettings.MaxLeadMinutes);
             _data.TimersOverlaySettings ??= new TimersOverlaySettings();
+            _data.UserNameOverride ??= string.Empty;
         }
 
         public TimersOverlaySettings TimersOverlaySettings
@@ -102,6 +103,38 @@ namespace AionDpsMeter.Services.Services.Settings
             }
         }
 
+        public bool TotalShowsOnlyMyDps
+        {
+            get { lock (_lock) return _data.TotalShowsOnlyMyDps; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    changed = _data.TotalShowsOnlyMyDps != value;
+                    _data.TotalShowsOnlyMyDps = value;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public bool ShowMeterOnlyInCombat
+        {
+            get { lock (_lock) return _data.ShowMeterOnlyInCombat; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    changed = _data.ShowMeterOnlyInCombat != value;
+                    _data.ShowMeterOnlyInCombat = value;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public bool ShowItemLevel
         {
             get { lock (_lock) return _data.ShowItemLevel; }
@@ -112,6 +145,23 @@ namespace AionDpsMeter.Services.Services.Settings
                 {
                     changed = _data.ShowItemLevel != value;
                     _data.ShowItemLevel = value;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public string UserNameOverride
+        {
+            get { lock (_lock) return _data.UserNameOverride; }
+            set
+            {
+                var trimmed = value?.Trim() ?? string.Empty;
+                bool changed;
+                lock (_lock)
+                {
+                    changed = _data.UserNameOverride != trimmed;
+                    _data.UserNameOverride = trimmed;
                     if (changed) Save();
                 }
                 if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
@@ -598,7 +648,7 @@ namespace AionDpsMeter.Services.Services.Settings
             [JsonPropertyName("windowOpacity")]
             public double WindowOpacity { get; set; } = 0.92;
             [JsonPropertyName("useClassColors")]
-            public bool UseClassColors { get; set; }
+            public bool UseClassColors { get; set; } = true;
 
             [JsonPropertyName("toggleVisibilityHotkey")]
             public string ToggleVisibilityHotkey { get; set; } = "Ctrl+Shift+D";
@@ -673,10 +723,19 @@ namespace AionDpsMeter.Services.Services.Settings
             public TimersOverlaySettings TimersOverlaySettings { get; set; } = new TimersOverlaySettings();
 
             [JsonPropertyName("pinUserOnTop")]
-            public bool PinUserOnTop { get; set; }
+            public bool PinUserOnTop { get; set; } = true;
+
+            [JsonPropertyName("totalShowsOnlyMyDps")]
+            public bool TotalShowsOnlyMyDps { get; set; }
 
             [JsonPropertyName("showItemLevel")]
             public bool ShowItemLevel { get; set; } = true;
+
+            [JsonPropertyName("showMeterOnlyInCombat")]
+            public bool ShowMeterOnlyInCombat { get; set; }
+
+            [JsonPropertyName("userNameOverride")]
+            public string UserNameOverride { get; set; } = string.Empty;
 
             [JsonPropertyName("showOnlyOverGame")]
             public bool ShowOnlyOverGame { get; set; } = true;

@@ -1,6 +1,12 @@
 <div class="setting-row @(IsLast ? "setting-row--last" : "")">
     <div class="setting-row__text">
-        <span class="setting-row__title">@Title</span>
+        <span class="setting-row__title">
+            @Title
+            @if (!string.IsNullOrEmpty(Tooltip))
+            {
+                <span class="setting-row__info" title="@Tooltip">ⓘ</span>
+            }
+        </span>
         @if (!string.IsNullOrEmpty(Description))
         {
             <span class="setting-row__desc">@Description</span>
@@ -15,5 +21,6 @@
     [Parameter] public string Title { get; set; } = string.Empty;
     [Parameter] public string? Description { get; set; }
     [Parameter] public bool IsLast { get; set; }
+    [Parameter] public string? Tooltip { get; set; }
     [Parameter] public RenderFragment? ValueSlot { get; set; }
 }

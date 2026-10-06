@@ -158,6 +158,36 @@
     text-shadow: 0 0 14px rgba(74, 223, 196, 0.55);
 }
 
+.s2-total-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.s2-solo-btn {
+    border: 1px solid currentColor;
+    border-radius: 3px;
+    background: transparent;
+    padding: 0 4px;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    line-height: 14px;
+    cursor: pointer;
+}
+
+.s2-solo-btn.is-on {
+    color: #c9807a;
+}
+
+.s2-solo-btn.is-off {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.s2-solo-btn:disabled {
+    cursor: default;
+}
+
 /* ---- boss hp bar ---- */
 
 .s2-hp-bar-track {
@@ -264,6 +294,14 @@
         width: 0;
         height: 0;
     }
+
+.s2-solo-hint {
+    padding: 8px 6px;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 11px;
+    text-align: center;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
 
 .s2-row-wrap {
     cursor: pointer;
@@ -469,3 +507,14 @@
     outline-offset: -1px;
     cursor: move;
 }
+
+/* The user's own row stands out at a glance, regardless of bar colors or pinning. */
+.s2-row-root.is-self {
+    border: 1px solid rgba(255, 214, 102, 0.9);
+    box-shadow: 0 0 8px rgba(255, 214, 102, 0.35);
+}
+
+    .s2-row-root.is-self .s2-player-name {
+        color: #ffd666;
+        font-size: 12.5px;
+    }

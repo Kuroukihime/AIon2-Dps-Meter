@@ -27,6 +27,8 @@ namespace AionDpsMeter.UI.ViewModels
         public string CombatDuration = "00:00";
         public bool PinUserOnTop;
         public bool IsGrouped;
+        public bool IsSoloActive;
+        public bool IsSoloWaiting;
         public bool IsEditable => windowHelper.IsMeterEdit;
         public string TotalRaidDamageFormatted = "0/s";
         public string PingDisplay = "-- ms";
@@ -108,16 +110,23 @@ namespace AionDpsMeter.UI.ViewModels
 
             TotalRaidDamageFormatted = $"{DamageFormatter.Format(sessionManager.GetPartyDps())}/s";
 
+            IsSoloActive = sessionManager.IsSoloActive;
+
             bool pinUserOnTop = settingsService.PinUserOnTop;
             PinUserOnTop = pinUserOnTop;
 
-            // While grouped only the party and force are listed; everyone is still recorded.
+            // Solo lists only the user and grouped play only the group; everyone is still recorded.
             bool isGrouped = sessionManager.IsGrouped;
             IsGrouped = isGrouped;
-            var currentStats = sessionManager.PlayerStats
-                .Where(r => r.IsIdentified || r.DamagePercentage > 1 || (pinUserOnTop && r.IsUser && r.TotalDamage > 0))
-                .Where(r => !isGrouped || r.IsUser || r.Group != GroupKind.None)
+            var allStats = sessionManager.PlayerStats;
+            var listedStats = MeterRowFilter.Apply(allStats, isGrouped, IsSoloActive, out bool waitingForUser);
+            // The hint only makes sense while other players' damage is listed and none of it is the user's.
+            IsSoloWaiting = waitingForUser && allStats.Count > 0;
+            bool soloFiltered = IsSoloActive;
+            var currentStats = listedStats
+                .Where(r => soloFiltered || r.IsIdentified || r.DamagePercentage > 1 || (pinUserOnTop && r.IsUser && r.TotalDamage > 0))
                 .ToList();
+            bool shareOverShown = isGrouped || soloFiltered;
 
             long topDamage = currentStats.Count > 0 ? currentStats.Max(x => x.TotalDamage) : 0;
             long shownDamage = currentStats.Sum(x => x.TotalDamage);
@@ -145,7 +154,7 @@ namespace AionDpsMeter.UI.ViewModels
                 player.TotalDamage = stat.TotalDamage;
                 player.TotalDamageFormatted = DamageFormatter.Format(stat.TotalDamage);
                 player.DpsFormatted = DamageFormatter.Format(stat.DamagePerSecond);
-                player.DamagePercentage = isGrouped
+                player.DamagePercentage = shareOverShown
                     ? (shownDamage > 0 ? (double)stat.TotalDamage / shownDamage * 100.0 : 0)
                     : stat.DamagePercentage;
                 player.CombatPower = DamageFormatter.Format(stat.CombatPower);
@@ -196,7 +205,7 @@ namespace AionDpsMeter.UI.ViewModels
             var sb = new System.Text.StringBuilder();
             sb.Append(CombatDuration).Append('|').Append(TotalRaidDamageFormatted).Append('|').Append(PingDisplay)
               .Append('|').Append(HasActiveTarget).Append('|').Append(ActiveTargetName).Append('|').Append(ActiveTargetHpDisplay)
-              .Append('|').Append(ActiveTargetHpPercentage.ToString("F1")).Append('|').Append(PinUserOnTop).Append('|').Append(IsGrouped);
+              .Append('|').Append(ActiveTargetHpPercentage.ToString("F1")).Append('|').Append(PinUserOnTop).Append('|').Append(IsGrouped).Append(IsSoloActive).Append(IsSoloWaiting);
             foreach (var p in Players)
             {
                 sb.Append('#').Append(p.PlayerId).Append(p.PlayerNameDisplay).Append(p.DpsFormatted).Append(p.TotalDamageFormatted)
@@ -280,6 +289,7 @@ namespace AionDpsMeter.UI.ViewModels
 
         //public string GetProgressClass(PlayerRenderState player) => $"dps-class-{player.ClassId}";
         public string GetCombatScoreDisplay(PlayerRenderState player) => (string.IsNullOrWhiteSpace(player.CombatPower) || player.CombatPower == "0") ? "" : player.CombatPower;
+        public string GetSelfClass(PlayerRenderState player) => player.IsUser ? "is-self" : string.Empty;
         public string GetRankPrefix(PlayerRenderState player) => PinUserOnTop && player.IsUser ? $"#{player.Rank} " : string.Empty;
 
         public string GetGroupIcon(PlayerRenderState player) => player.Group switch
@@ -301,6 +311,22 @@ namespace AionDpsMeter.UI.ViewModels
         public void OpenWhatsNew() => windowHelper.OpenWhatsNewWindow();
 
         public void OpenSettings() => windowHelper.OpenSettings();
+
+        public string SoloClass => IsSoloActive ? "is-on" : "is-off";
+
+        public string SoloTitle => IsGrouped
+            ? "Solo is off while you're in a party or force"
+            : IsSoloActive ? "Solo: showing only you and your damage (click to show everyone)" : "Click to show only you and your damage";
+
+        // Updates the readout at once: data renders are paused while the move key is held to click.
+        public void ToggleSolo()
+        {
+            if (IsGrouped) return;
+            settingsService.TotalShowsOnlyMyDps = !settingsService.TotalShowsOnlyMyDps;
+            IsSoloActive = sessionManager.IsSoloActive;
+            TotalRaidDamageFormatted = $"{DamageFormatter.Format(sessionManager.GetPartyDps())}/s";
+            onStateChanged.Invoke();
+        }
         public void Minimize() => trayService.HideToTray();
         public void Close() => windowManager.CloseApplication();
         public void DismissUpdate() { UpdateAvailable = false; onStateChanged.Invoke(); }

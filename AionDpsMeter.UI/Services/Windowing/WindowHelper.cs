@@ -21,6 +21,7 @@ namespace AionDpsMeter.UI.Services.Windowing
         public bool IsTimersEdit { get; private set; }
         public bool IsMeterEdit { get; private set; }
         public bool IsMoveKeyHeld => _moveKeyHeld;
+        public bool IsSettingsOpen => _settingsOpen;
 
         private bool IsBuffOverlayEnabled { get; set; }
         private bool IsSkillCdOverlayEnabled { get; set; }

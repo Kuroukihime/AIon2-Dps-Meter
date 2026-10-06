@@ -26,6 +26,27 @@ namespace AionDpsMeter.Services.Services.Entity
 
         private string currentUserName = string.Empty;
 
+        // True once the game's own player info named the user; inference never overrides that.
+        public bool IsUserConfirmed { get; private set; }
+
+        public string UserNameOverride { get; set; } = string.Empty;
+
+        public string GetDisplayName(Player player) =>
+            player.IsUser && !string.IsNullOrWhiteSpace(UserNameOverride) ? UserNameOverride : player.Name;
+
+        /// <summary>Marks an inferred session player as the user; returns false when the user is already confirmed or unchanged.</summary>
+        public bool MarkUserSession(int sessionId)
+        {
+            if (IsUserConfirmed) return false;
+
+            var user = GetOrCreateSessionPlayer(sessionId);
+            if (user.IsUser) return false;
+
+            foreach (var player in sessionPlayers.Values) player.IsUser = false;
+            user.IsUser = true;
+            return true;
+        }
+
         private const int UnknownEntityHpThreshold = 1_000_000;
 
 
@@ -136,6 +157,8 @@ namespace AionDpsMeter.Services.Services.Entity
         }
 
         public Player? GetPlayerEntity(int sessionId) => sessionPlayers.GetValueOrDefault(sessionId);
+
+        public bool HasUser => sessionPlayers.Values.Any(p => p.IsUser);
 
         // ----- Flow 2: server sends global player metadata, any time -----------
 
@@ -260,11 +283,12 @@ namespace AionDpsMeter.Services.Services.Entity
         private void SetCurrentUser(string name)
         {
             currentUserName = name;
+            IsUserConfirmed = true;
 
-  
+            // The game named the user, so an inferred guess on another row is cleared.
             foreach (var player in sessionPlayers.Values)
             {
-                if (player.Name == name) player.IsUser = true;
+                player.IsUser = player.Name == name;
             }
             foreach (var identity in globalPlayers.Values)
             {

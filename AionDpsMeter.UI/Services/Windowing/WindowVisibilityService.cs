@@ -24,6 +24,8 @@ namespace AionDpsMeter.UI.Services.Windowing
 
         public bool IsHiddenBy(HideReason reason) => (_reasons & reason) != 0;
 
+        public bool IsHidden => _reasons != HideReason.None;
+
         public void Start()
         {
             focusWatcher.ForegroundChanged += (_, _) => ApplyGameFocus();

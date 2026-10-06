@@ -64,6 +64,7 @@ namespace AionDpsMeter.UI
                     services.AddSingleton<GameFocusWatcher>();
                     services.AddSingleton<ModifierKeyWatcher>();
                     services.AddSingleton<WindowVisibilityService>();
+                    services.AddSingleton<CombatVisibilityService>();
                     services.AddSingleton<TrayService>();
                     services.AddSingleton<SpacetimeRiftAlertService>();
 
@@ -91,6 +92,7 @@ namespace AionDpsMeter.UI
             windowManager.Open(WindowKey.Main, mainWindow, true);
             windowHelper.OpenRequiredWindows();
             AppHost.Services.GetRequiredService<WindowVisibilityService>().Start();
+            AppHost.Services.GetRequiredService<CombatVisibilityService>().Start();
             base.OnStartup(e);
         }
 
@@ -100,6 +102,7 @@ namespace AionDpsMeter.UI
             {
                 AppHost.Services.GetRequiredService<SpacetimeRiftAlertService>().Dispose();
                 AppHost.Services.GetRequiredService<TrayService>().Dispose();
+                AppHost.Services.GetRequiredService<CombatVisibilityService>().Dispose();
                 AppHost.Services.GetRequiredService<GameFocusWatcher>().Dispose();
                 AppHost.Services.GetRequiredService<ModifierKeyWatcher>().Dispose();
                 var sessionManager = AppHost.Services.GetRequiredService<CombatSessionManager>();
