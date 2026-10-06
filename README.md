@@ -20,7 +20,7 @@ A lightweight, **network-based** DPS meter and Stat Efficiency Calculator for **
 - **🔍 Detailed Player Stats** — per-player breakdown: crit/back-attack/perfect-hit/parry rates, skill-by-skill damage, buffs, DPS graph with buff timeline, live combat log
 - **📜 Combat History** — every fight auto-saved as a session snapshot, browsable with configurable retention
 - **🔔 Buff & Skill Cooldown Overlays** — floating overlays tracking up to 10 buffs + 10 skill cooldowns, with a pick-list to choose exactly what to track, sortable by time remaining, adjustable icon size (20–50px), and each overlay can be toggled independently
-- **⏰ Timers Overlay** — floating clock plus an Abyss Corridor countdown (3-hour cycle, schedule in `GameData/Assets/abyss_corridor.json`), with optional tray notification and sound before each spawn
+- **⏰ Timers Overlay** — on by default: floating clock (24 h / 12 h) plus a Spacetime Rift countdown (3-hour cycle, schedule in `GameData/Assets/spacetime_rift.json`), with optional tray notification and sound before each spawn
 - **📌 Keep Me on Top** — pin your own row first with your real DPS rank, so you can find yourself in a full force
 - **🎮 Shows Only Over the Game** — the meter and overlays sit over the game window, follow it across monitors, and hide when you alt-tab away (toggleable)
 - **🖱️ Click-Through, Hold to Move** — clicks go to the game; hold Ctrl (configurable) to use, drag (by the header bar) or resize the meter and overlays
@@ -118,6 +118,12 @@ AionDpsMeter.sln
 Open `AionDpsMeter.sln`, set **AionDpsMeter.UI** as startup project, press **F5** (run as Administrator if packet capture fails to start).
 
 </details>
+
+---
+
+## 🗺️ Roadmap
+
+- **Spacetime Rift entry and stay timers**: a 10-minute "time left to enter" countdown after each spawn, and a 1-hour stay timer once you're inside the rift (needs the game message for entering the rift to be identified first)
 
 ---
 

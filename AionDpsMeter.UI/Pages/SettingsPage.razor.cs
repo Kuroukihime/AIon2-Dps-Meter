@@ -37,8 +37,8 @@ namespace AionDpsMeter.UI.Pages
         new("appearance", "Appearance", "&#9707;"),
         new("hotkeys", "Hotkeys", "&#9000;"),
         new("tracking", "Tracking", "&#9881;"),
+        new("clock", "Clock & Timers", "&#9201;"),
         new("overlays", "[BETA] Overlays", "&#9635;"),
-        new("events", "Events", "&#9201;"),
     };
 
         private readonly List<UiStyleOption> _uiStyles = new()
@@ -183,35 +183,42 @@ namespace AionDpsMeter.UI.Pages
             settings.TimersOverlaySettings = s;
         }
 
-        private void SetCorridorShowTimer(bool value)
+        private void SetTimersUse24HourClock(bool value)
         {
-            var s = settings.AbyssCorridorSettings;
+            var s = settings.TimersOverlaySettings;
+            s.Use24HourClock = value;
+            settings.TimersOverlaySettings = s;
+        }
+
+        private void SetRiftShowTimer(bool value)
+        {
+            var s = settings.SpacetimeRiftSettings;
             s.ShowTimer = value;
-            settings.AbyssCorridorSettings = s;
+            settings.SpacetimeRiftSettings = s;
         }
 
-        private void SetCorridorTrayNotification(bool value)
+        private void SetRiftTrayNotification(bool value)
         {
-            var s = settings.AbyssCorridorSettings;
+            var s = settings.SpacetimeRiftSettings;
             s.TrayNotification = value;
-            settings.AbyssCorridorSettings = s;
+            settings.SpacetimeRiftSettings = s;
         }
 
-        private void SetCorridorSound(bool value)
+        private void SetRiftSound(bool value)
         {
-            var s = settings.AbyssCorridorSettings;
+            var s = settings.SpacetimeRiftSettings;
             s.Sound = value;
-            settings.AbyssCorridorSettings = s;
+            settings.SpacetimeRiftSettings = s;
         }
 
-        private void OnCorridorLeadMinutesInput(ChangeEventArgs e)
+        private void OnRiftLeadMinutesInput(ChangeEventArgs e)
         {
             var digitsOnly = new string((e.Value?.ToString() ?? string.Empty).Where(char.IsDigit).ToArray());
             if (!int.TryParse(digitsOnly, out var minutes)) return;
 
-            var s = settings.AbyssCorridorSettings;
+            var s = settings.SpacetimeRiftSettings;
             s.LeadMinutes = minutes;
-            settings.AbyssCorridorSettings = s;
+            settings.SpacetimeRiftSettings = s;
         }
 
         private void SetBuffOverlayOrder(OverlayOrderMode mode)

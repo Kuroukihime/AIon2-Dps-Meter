@@ -10,12 +10,17 @@ namespace AionDpsMeter.UI.Services.Tray
         private readonly WindowVisibilityService visibility;
         private readonly Forms.NotifyIcon _notifyIcon;
 
-        public TrayService(IWindowManagerService windowManager, WindowVisibilityService visibility)
+        public TrayService(IWindowManagerService windowManager, WindowVisibilityService visibility, WindowHelper windowHelper)
         {
             this.visibility = visibility;
 
             var menu = new Forms.ContextMenuStrip();
             menu.Items.Add("Show", null, (_, _) => Restore());
+            menu.Items.Add("Settings", null, (_, _) =>
+            {
+                Restore();
+                windowHelper.OpenSettings();
+            });
             menu.Items.Add("Exit", null, (_, _) => windowManager.CloseApplication());
 
             _notifyIcon = new Forms.NotifyIcon

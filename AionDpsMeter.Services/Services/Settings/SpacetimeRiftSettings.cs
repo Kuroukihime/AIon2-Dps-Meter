@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace AionDpsMeter.Services.Services.Settings
 {
-    public sealed class AbyssCorridorSettings
+    public sealed class SpacetimeRiftSettings
     {
         public const int MinLeadMinutes = 1;
         public const int MaxLeadMinutes = 60;

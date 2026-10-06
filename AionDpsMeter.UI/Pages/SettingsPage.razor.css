@@ -13,7 +13,8 @@
     user-select: none;
     display: flex;
     flex-direction: column;
-    width: 480px;
+    /* Wide enough for all group tabs on one row (measured 623 px in the page's Consolas fallback). */
+    width: 660px;
     max-height: 860px;
     background: var(--bg);
     border: 1px solid var(--line-strong);
@@ -32,6 +33,7 @@
 /* ---------------- Header ---------------- */
 
 .settings-header {
+    cursor: move;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -45,7 +47,6 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    cursor: move;
 }
 
 .settings-title__mark {
@@ -111,13 +112,8 @@
     background: var(--panel);
     border-bottom: 1px solid var(--line);
     flex-shrink: 0;
-    overflow-x: auto;
-    scrollbar-width: none;
+    flex-wrap: wrap;
 }
-
-    .settings-tabs::-webkit-scrollbar {
-        display: none;
-    }
 
 .settings-tab {
     position: relative;

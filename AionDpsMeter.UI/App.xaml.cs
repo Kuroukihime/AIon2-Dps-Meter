@@ -64,7 +64,7 @@ namespace AionDpsMeter.UI
                     services.AddSingleton<ModifierKeyWatcher>();
                     services.AddSingleton<WindowVisibilityService>();
                     services.AddSingleton<TrayService>();
-                    services.AddSingleton<AbyssCorridorAlertService>();
+                    services.AddSingleton<SpacetimeRiftAlertService>();
 
 
                     services.AddSingleton<SettingsViewModel>();
@@ -82,7 +82,7 @@ namespace AionDpsMeter.UI
             await AppHost.StartAsync();
 
             _ = AppHost.Services.GetRequiredService<ICombatHistoryStore>();
-            AppHost.Services.GetRequiredService<AbyssCorridorAlertService>().Start();
+            AppHost.Services.GetRequiredService<SpacetimeRiftAlertService>().Start();
 
             var mainWindow = AppHost.Services.GetRequiredService<MainWindow>();
             var windowManager = AppHost.Services.GetRequiredService<IWindowManagerService>();
@@ -97,7 +97,7 @@ namespace AionDpsMeter.UI
         {
             try
             {
-                AppHost.Services.GetRequiredService<AbyssCorridorAlertService>().Dispose();
+                AppHost.Services.GetRequiredService<SpacetimeRiftAlertService>().Dispose();
                 AppHost.Services.GetRequiredService<TrayService>().Dispose();
                 AppHost.Services.GetRequiredService<GameFocusWatcher>().Dispose();
                 AppHost.Services.GetRequiredService<ModifierKeyWatcher>().Dispose();

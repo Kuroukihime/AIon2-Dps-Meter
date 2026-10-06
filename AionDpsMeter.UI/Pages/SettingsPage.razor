@@ -4,14 +4,14 @@
 
 <div class="settings-shell">
 
-    <header class="settings-header">
-        <div class="settings-title" @onmousedown="BeginDrag">
+    <header class="settings-header" @onmousedown="BeginDrag">
+        <div class="settings-title">
             <span class="settings-title__mark"></span>
             <h1>Settings</h1>
         </div>
         <div class="settings-header__right">
             <span class="settings-version">v@(_version)</span>
-            <button type="button" class="settings-close" aria-label="Close settings" title="Close" @onclick="CloseWindow">
+            <button type="button" class="settings-close" aria-label="Close settings" title="Close" @onclick="CloseWindow" @onmousedown:stopPropagation="true">
                 <svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true">
                     <path d="M1 1L11 11M11 1L1 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
                 </svg>
@@ -446,7 +446,12 @@
                 </ValueSlot>
             </SettingRow>
 
-            <div class="settings-section-label settings-section-label--spaced">TIMERS OVERLAY</div>
+        </section>
+
+        @* ---------------- CLOCK & TIMERS ---------------- *@
+        <section class="settings-group @(_activeGroup == "clock" ? "" : "is-hidden")">
+
+            <div class="settings-section-label">TIMERS OVERLAY</div>
 
             <SettingRow Title="Enabled" Description="Show a floating overlay with the clock and event timers">
                 <ValueSlot>
@@ -454,43 +459,55 @@
                 </ValueSlot>
             </SettingRow>
 
-            <SettingRow Title="Show Clock" Description="Display the local time on the timers overlay" IsLast="true">
+            <SettingRow Title="Show Clock" Description="Display the local time on the timers overlay">
                 <ValueSlot>
                     <ToggleSwitch Checked="settings.TimersOverlaySettings.ShowClock" CheckedChanged="v => SetTimersShowClock(v)" />
                 </ValueSlot>
             </SettingRow>
 
-        </section>
+            <SettingRow Title="Clock Format" Description="24-hour (21:30:00) or 12-hour (9:30:00 PM)" IsLast="true">
+                <ValueSlot>
+                    <div class="segmented">
+                        <button type="button"
+                                class="segmented__option @(settings.TimersOverlaySettings.Use24HourClock ? "is-selected" : "")"
+                                @onclick="() => SetTimersUse24HourClock(true)">
+                            24h
+                        </button>
+                        <button type="button"
+                                class="segmented__option @(settings.TimersOverlaySettings.Use24HourClock ? "" : "is-selected")"
+                                @onclick="() => SetTimersUse24HourClock(false)">
+                            12h
+                        </button>
+                    </div>
+                </ValueSlot>
+            </SettingRow>
 
-        @* ---------------- EVENTS ---------------- *@
-        <section class="settings-group @(_activeGroup == "events" ? "" : "is-hidden")">
-
-            <div class="settings-section-label">ABYSS CORRIDOR</div>
+            <div class="settings-section-label settings-section-label--spaced">SPACETIME RIFT</div>
 
             <SettingRow Title="Show Countdown" Description="Show the time until the next spawn on the timers overlay">
                 <ValueSlot>
-                    <ToggleSwitch Checked="settings.AbyssCorridorSettings.ShowTimer" CheckedChanged="v => SetCorridorShowTimer(v)" />
+                    <ToggleSwitch Checked="settings.SpacetimeRiftSettings.ShowTimer" CheckedChanged="v => SetRiftShowTimer(v)" />
                 </ValueSlot>
             </SettingRow>
 
             <SettingRow Title="Tray Notification" Description="Show a Windows notification before it spawns">
                 <ValueSlot>
-                    <ToggleSwitch Checked="settings.AbyssCorridorSettings.TrayNotification" CheckedChanged="v => SetCorridorTrayNotification(v)" />
+                    <ToggleSwitch Checked="settings.SpacetimeRiftSettings.TrayNotification" CheckedChanged="v => SetRiftTrayNotification(v)" />
                 </ValueSlot>
             </SettingRow>
 
             <SettingRow Title="Sound Alert" Description="Play a sound before it spawns">
                 <ValueSlot>
-                    <ToggleSwitch Checked="settings.AbyssCorridorSettings.Sound" CheckedChanged="v => SetCorridorSound(v)" />
+                    <ToggleSwitch Checked="settings.SpacetimeRiftSettings.Sound" CheckedChanged="v => SetRiftSound(v)" />
                 </ValueSlot>
             </SettingRow>
 
-            <SettingRow Title="Alert Before Spawn" Description="@($"Minutes before the spawn to alert ({AbyssCorridorSettings.MinLeadMinutes}–{AbyssCorridorSettings.MaxLeadMinutes})")" IsLast="true">
+            <SettingRow Title="Alert Before Spawn" Description="@($"Minutes before the spawn to alert ({SpacetimeRiftSettings.MinLeadMinutes}–{SpacetimeRiftSettings.MaxLeadMinutes})")" IsLast="true">
                 <ValueSlot>
                     <div class="number-field-wrap">
                         <input class="number-field" type="text" inputmode="numeric" maxlength="2"
-                               value="@settings.AbyssCorridorSettings.LeadMinutes"
-                               @oninput="OnCorridorLeadMinutesInput" />
+                               value="@settings.SpacetimeRiftSettings.LeadMinutes"
+                               @oninput="OnRiftLeadMinutesInput" />
                         <span class="number-field__suffix">min</span>
                     </div>
                 </ValueSlot>

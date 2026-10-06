@@ -17,9 +17,9 @@ namespace AionDpsMeter.Services.Services.Settings
             _data = Load();
             _data.HistoryRetantionPeriod = Math.Clamp(_data.HistoryRetantionPeriod, 1, 9999);
             _data.GameRelativePositions ??= [];
-            _data.AbyssCorridorSettings ??= new AbyssCorridorSettings();
-            _data.AbyssCorridorSettings.LeadMinutes = Math.Clamp(_data.AbyssCorridorSettings.LeadMinutes,
-                AbyssCorridorSettings.MinLeadMinutes, AbyssCorridorSettings.MaxLeadMinutes);
+            _data.SpacetimeRiftSettings ??= new SpacetimeRiftSettings();
+            _data.SpacetimeRiftSettings.LeadMinutes = Math.Clamp(_data.SpacetimeRiftSettings.LeadMinutes,
+                SpacetimeRiftSettings.MinLeadMinutes, SpacetimeRiftSettings.MaxLeadMinutes);
             _data.TimersOverlaySettings ??= new TimersOverlaySettings();
         }
 
@@ -37,16 +37,16 @@ namespace AionDpsMeter.Services.Services.Settings
             }
         }
 
-        public AbyssCorridorSettings AbyssCorridorSettings
+        public SpacetimeRiftSettings SpacetimeRiftSettings
         {
-            get { lock (_lock) return _data.AbyssCorridorSettings; }
+            get { lock (_lock) return _data.SpacetimeRiftSettings; }
             set
             {
                 lock (_lock)
                 {
                     value.LeadMinutes = Math.Clamp(value.LeadMinutes,
-                        AbyssCorridorSettings.MinLeadMinutes, AbyssCorridorSettings.MaxLeadMinutes);
-                    _data.AbyssCorridorSettings = value;
+                        SpacetimeRiftSettings.MinLeadMinutes, SpacetimeRiftSettings.MaxLeadMinutes);
+                    _data.SpacetimeRiftSettings = value;
                     Save();
                 }
                 SettingsChanged?.Invoke(this, EventArgs.Empty);
@@ -650,8 +650,8 @@ namespace AionDpsMeter.Services.Services.Settings
             [JsonPropertyName("skillCdOverlaySettings")]
             public OverlaySettings SkillCdOverlaySettings { get; set; } = new OverlaySettings();
 
-            [JsonPropertyName("abyssCorridorSettings")]
-            public AbyssCorridorSettings AbyssCorridorSettings { get; set; } = new AbyssCorridorSettings();
+            [JsonPropertyName("spacetimeRiftSettings")]
+            public SpacetimeRiftSettings SpacetimeRiftSettings { get; set; } = new SpacetimeRiftSettings();
 
             [JsonPropertyName("timersOverlaySettings")]
             public TimersOverlaySettings TimersOverlaySettings { get; set; } = new TimersOverlaySettings();

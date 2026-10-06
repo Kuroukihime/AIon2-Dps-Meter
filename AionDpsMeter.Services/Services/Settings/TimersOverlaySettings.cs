@@ -9,5 +9,8 @@ namespace AionDpsMeter.Services.Services.Settings
 
         [JsonPropertyName("showClock")]
         public bool ShowClock { get; set; } = true;
+
+        [JsonPropertyName("use24HourClock")]
+        public bool Use24HourClock { get; set; } = true;
     }
 }

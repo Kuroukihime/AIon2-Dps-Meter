@@ -36,7 +36,7 @@ namespace AionDpsMeter.Services.Services.Settings
         double StatCalcBossSmiteResist { get; set; }
         OverlaySettings BufOverlaySettings { get; set; }
         OverlaySettings SkillCdOverlaySettings { get; set; }
-        AbyssCorridorSettings AbyssCorridorSettings { get; set; }
+        SpacetimeRiftSettings SpacetimeRiftSettings { get; set; }
         TimersOverlaySettings TimersOverlaySettings { get; set; }
         bool PinUserOnTop { get; set; }
         bool ShowOnlyOverGame { get; set; }

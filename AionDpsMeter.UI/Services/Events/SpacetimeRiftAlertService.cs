@@ -7,9 +7,9 @@ using AionDpsMeter.UI.Services.Tray;
 namespace AionDpsMeter.UI.Services.Events
 {
     /// <summary>
-    /// Fires the tray/sound alert once per Abyss Corridor spawn, independent of window visibility.
+    /// Fires the tray/sound alert once per Spacetime Rift spawn, independent of window visibility.
     /// </summary>
-    public sealed class AbyssCorridorAlertService(IAppSettingsService settingsService, TrayService trayService) : IDisposable
+    public sealed class SpacetimeRiftAlertService(IAppSettingsService settingsService, TrayService trayService) : IDisposable
     {
         private readonly DispatcherTimer _timer = new() { Interval = TimeSpan.FromSeconds(1) };
         private DateTime? _alertedSpawnUtc;
@@ -23,10 +23,10 @@ namespace AionDpsMeter.UI.Services.Events
         private void OnTick(object? sender, EventArgs e)
         {
             var nowUtc = DateTime.UtcNow;
-            var nextSpawnUtc = GameDataProvider.Instance.AbyssCorridor.NextOccurrenceUtc(nowUtc);
+            var nextSpawnUtc = GameDataProvider.Instance.SpacetimeRift.NextOccurrenceUtc(nowUtc);
             if (nextSpawnUtc is null || nextSpawnUtc == _alertedSpawnUtc) return;
 
-            var settings = settingsService.AbyssCorridorSettings;
+            var settings = settingsService.SpacetimeRiftSettings;
             var remaining = nextSpawnUtc.Value - nowUtc;
             if (remaining > TimeSpan.FromMinutes(settings.LeadMinutes)) return;
 
@@ -35,7 +35,7 @@ namespace AionDpsMeter.UI.Services.Events
             if (settings.TrayNotification)
             {
                 var minutes = (int)Math.Ceiling(remaining.TotalMinutes);
-                trayService.ShowNotification("Abyss Corridor", $"Opens in {minutes} min ({nextSpawnUtc.Value.ToLocalTime():HH:mm})");
+                trayService.ShowNotification("Spacetime Rift", $"Opens in {minutes} min ({nextSpawnUtc.Value.ToLocalTime():HH:mm})");
             }
 
             if (settings.Sound)

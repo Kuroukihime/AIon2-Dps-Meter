@@ -11,17 +11,18 @@ namespace AionDpsMeter.UI.Pages
         private bool IsEditable => windowHelper.IsTimersEdit;
         private CancellationTokenSource? timerCts;
         private TimersOverlaySettings overlaySettings = new();
-        private AbyssCorridorSettings corridorSettings = new();
+        private SpacetimeRiftSettings riftSettings = new();
 
         private string clock = string.Empty;
-        private string corridorCountdown = string.Empty;
-        private bool isCorridorSoon;
+        private string riftCountdown = string.Empty;
+        private bool isRiftSoon;
 
         protected override void OnInitialized()
         {
             LoadSettings();
             Refresh();
             appSettingsService.SettingsChanged += OnSettingsChanged;
+            windowHelper.WindowStateUpdated += OnEditModeChanged;
 
             timerCts = new CancellationTokenSource();
             _ = RunRefreshTimerAsync(timerCts.Token);
@@ -50,25 +51,25 @@ namespace AionDpsMeter.UI.Pages
         private void Refresh()
         {
             var nowUtc = DateTime.UtcNow;
-            clock = nowUtc.ToLocalTime().ToString("HH:mm:ss");
+            clock = nowUtc.ToLocalTime().ToString(overlaySettings.Use24HourClock ? "HH:mm:ss" : "h:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
 
-            var nextSpawnUtc = GameDataProvider.Instance.AbyssCorridor.NextOccurrenceUtc(nowUtc);
+            var nextSpawnUtc = GameDataProvider.Instance.SpacetimeRift.NextOccurrenceUtc(nowUtc);
             if (nextSpawnUtc is null)
             {
-                corridorCountdown = string.Empty;
-                isCorridorSoon = false;
+                riftCountdown = string.Empty;
+                isRiftSoon = false;
                 return;
             }
 
             var remaining = nextSpawnUtc.Value - nowUtc;
-            corridorCountdown = $"{(int)remaining.TotalHours}:{remaining:mm\\:ss}";
-            isCorridorSoon = remaining <= TimeSpan.FromMinutes(corridorSettings.LeadMinutes);
+            riftCountdown = $"{(int)remaining.TotalHours}:{remaining:mm\\:ss}";
+            isRiftSoon = remaining <= TimeSpan.FromMinutes(riftSettings.LeadMinutes);
         }
 
         private void LoadSettings()
         {
             overlaySettings = appSettingsService.TimersOverlaySettings;
-            corridorSettings = appSettingsService.AbyssCorridorSettings;
+            riftSettings = appSettingsService.SpacetimeRiftSettings;
         }
 
         private void OnSettingsChanged(object? sender, EventArgs e)
@@ -76,6 +77,8 @@ namespace AionDpsMeter.UI.Pages
             LoadSettings();
             InvokeAsync(StateHasChanged);
         }
+
+        private void OnEditModeChanged(object? sender, EventArgs e) => InvokeAsync(StateHasChanged);
 
         private void BeginDrag(MouseEventArgs _)
         {
@@ -86,6 +89,7 @@ namespace AionDpsMeter.UI.Pages
         public void Dispose()
         {
             appSettingsService.SettingsChanged -= OnSettingsChanged;
+            windowHelper.WindowStateUpdated -= OnEditModeChanged;
             timerCts?.Cancel();
             timerCts?.Dispose();
             timerCts = null;

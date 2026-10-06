@@ -12,7 +12,7 @@ namespace AionDpsMeter.Core.GameData.Services
         public SkillRepository Skills { get; } = new();
         public ClassRepository Classes { get; } = new();
         public MobRepository Mobs { get; } = new();
-        public EventScheduleRepository AbyssCorridor { get; } = new();
+        public EventScheduleRepository SpacetimeRift { get; } = new();
 
 
         public static GameDataProvider Instance
@@ -40,7 +40,7 @@ namespace AionDpsMeter.Core.GameData.Services
             Skills.LoadDotSkillIds(Path.Combine(dataDir, "dot_skill_ids.json"));
             Skills.LoadHealingSkills(Path.Combine(dataDir, "healing_skill_ids.json"));
             Mobs.Load(Path.Combine(dataDir, "mobs.json"));
-            AbyssCorridor.Load(Path.Combine(dataDir, "abyss_corridor.json"));
+            SpacetimeRift.Load(Path.Combine(dataDir, "spacetime_rift.json"));
 
         }
 

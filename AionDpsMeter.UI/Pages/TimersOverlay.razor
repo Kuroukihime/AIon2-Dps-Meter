@@ -7,11 +7,11 @@
         {
             <div class="timers-overlay__clock">@clock</div>
         }
-        @if (corridorSettings.ShowTimer && !string.IsNullOrEmpty(corridorCountdown))
+        @if (riftSettings.ShowTimer && !string.IsNullOrEmpty(riftCountdown))
         {
-            <div class="timers-overlay__event @(isCorridorSoon ? "is-soon" : "")">
-                <span class="timers-overlay__label">Abyss Corridor</span>
-                <span class="timers-overlay__time">@corridorCountdown</span>
+            <div class="timers-overlay__event @(isRiftSoon ? "is-soon" : "")">
+                <span class="timers-overlay__label">Spacetime Rift</span>
+                <span class="timers-overlay__time">@riftCountdown</span>
             </div>
         }
     </div>
