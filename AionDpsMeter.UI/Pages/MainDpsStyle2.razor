@@ -75,6 +75,10 @@
 
                             <div class="s2-row-grid">
                                 <div class="s2-icon-col">
+                                    @if (!string.IsNullOrEmpty(player.ItemLevel))
+                                    {
+                                        <div class="s2-item-level">@player.ItemLevel</div>
+                                    }
                                     <div class="s2-class-icon" style="background-image:url('@player.IconUrl')"></div>
                                     @{
                                         var score = ViewModel.GetCombatScoreDisplay(player);
@@ -87,7 +91,7 @@
 
                                 <div class="s2-info-col">
                                     <div class="s2-name-line">
-                                        <span class="s2-player-name" title="@player.PlayerNameDisplay">@ViewModel.GetRankPrefix(player)@player.PlayerNameDisplay</span>
+                                        <span class="s2-player-name" title="@player.PlayerNameDisplay">@ViewModel.GetGroupIcon(player)@ViewModel.GetRankPrefix(player)@player.PlayerNameDisplay</span>
                                     </div>
                                     <div class="s2-sub-line">
                                         <span class="s2-crit-label">CRIT </span>

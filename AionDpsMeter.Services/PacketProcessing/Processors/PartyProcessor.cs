@@ -3,12 +3,12 @@ using AionDpsMeter.Core.Models;
 using AionDpsMeter.Services.PacketProcessing.Routing;
 using AionDpsMeter.Services.PacketProcessing.Shared;
 using AionDpsMeter.Services.Services.Entity;
-using System.Diagnostics;
+using Microsoft.Extensions.Logging;
 
 namespace AionDpsMeter.Services.PacketProcessing.Processors
 {
     [PacketOpcode(PacketOpcodes.PartyInfo)]
-    internal class PartyProcessor(EntityTracker entityTracker) : IOpcodeProcessor
+    internal class PartyProcessor(EntityTracker entityTracker, GroupTracker groupTracker, ILogger<PartyProcessor> logger) : IOpcodeProcessor
     {
         private const byte MaskHasUnknown01 = 0x01;
         private const byte MaskHasUnknown02 = 0x02;
@@ -37,6 +37,7 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors
             {
 
                 var result = Parse(packet);
+                groupTracker.SetParty(result.ValidMembers.Select(m => new GroupTracker.Member((int)m.Id, m.Name)));
 
                 foreach (var partyMember in result.ValidMembers)
                 {
@@ -47,13 +48,14 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors
                         ServerName = partyMember.ServerName,
                         Name = partyMember.Name,
                         CharacterLevel = (int)partyMember.CharactedLevel,
-                        CombatPower = (int)(partyMember.CombatPower ?? 0)
+                        CombatPower = (int)(partyMember.CombatPower ?? 0),
+                        ItemLevel = (int)(partyMember.GearScore ?? 0)
                     });
                 }
             }
             catch (Exception e)
             {
-                Debug.WriteLine(BitConverter.ToString(packet));
+                logger.LogWarning(e, "Party packet could not be parsed: {Hex}", Convert.ToHexString(packet));
             }
 
             return results;

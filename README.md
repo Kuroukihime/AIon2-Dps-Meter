@@ -21,6 +21,8 @@ A lightweight, **network-based** DPS meter and Stat Efficiency Calculator for **
 - **📜 Combat History** — every fight auto-saved as a session snapshot, browsable with configurable retention
 - **🔔 Buff & Skill Cooldown Overlays** — floating overlays tracking up to 10 buffs + 10 skill cooldowns, with a pick-list to choose exactly what to track, sortable by time remaining, adjustable icon size (20–50px), and each overlay can be toggled independently
 - **⏰ Timers Overlay** — on by default: floating clock (24 h / 12 h) plus a Spacetime Rift countdown (3-hour cycle, schedule in `GameData/Assets/spacetime_rift.json`), with optional tray notification and sound before each spawn
+- **👥 Party & Force Aware** — party members marked 👥 and force members ⚔️; while grouped only your group is listed and counted in the total (strangers are still recorded)
+- **🎒 Item Level & Combat Power** — item level above the class icon and combat power below it, for you and your party and force members (item level can be turned off in Settings)
 - **📌 Keep Me on Top** — pin your own row first with your real DPS rank, so you can find yourself in a full force
 - **🎮 Shows Only Over the Game** — the meter and overlays sit over the game window, follow it across monitors, and hide when you alt-tab away (toggleable)
 - **🖱️ Click-Through, Hold to Move** — clicks go to the game; hold Ctrl (configurable) to use, drag (by the header bar) or resize the meter and overlays

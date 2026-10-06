@@ -17,4 +17,12 @@ public static class PacketOpcodes
     public const ushort PartyInfo = 0x9702;           // 02 97
     public const ushort EntityDeath = 0x8D04;         // 04 8D
     public const ushort SkillCd = 0x3847;             // 47 38
+    public const ushort GroupRoster = 0x9200;         // 00 92
+    public const ushort GroupLeft = 0x9213;           // 13 92
+    public const ushort PartyMemberJoined = 0x920D;   // 0D 92
+    public const ushort ForceRoster = 0x9602;         // 02 96
+    public const ushort ForceMemberJoined = 0x960A;   // 0A 96
+    public const ushort ForcePartyAdded = 0x961D;     // 1D 96
+    public const ushort ForceMemberLeft = 0x9622;     // 22 96
+    public const ushort ForceLeft = 0x960C;           // 0C 96
 }

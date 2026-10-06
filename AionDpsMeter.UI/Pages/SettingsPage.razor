@@ -113,6 +113,12 @@
                 </ValueSlot>
             </SettingRow>
 
+            <SettingRow Title="Show Item Level" Description="Show item level above the class icon for you and your party and force members">
+                <ValueSlot>
+                    <ToggleSwitch Checked="settings.ShowItemLevel" CheckedChanged="v => { settings.ShowItemLevel = v; }" />
+                </ValueSlot>
+            </SettingRow>
+
             <SettingRow Title="Keep Me on Top" Description="Pin your row first and show your rank, even in a large force">
                 <ValueSlot>
                     <ToggleSwitch Checked="settings.PinUserOnTop" CheckedChanged="v => { settings.PinUserOnTop = v; }" />

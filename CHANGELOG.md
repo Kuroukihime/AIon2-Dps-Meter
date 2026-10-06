@@ -10,6 +10,8 @@
 - **Windows follow the game**: the meter and overlays are placed over the game window wherever it is, and follow it live when it moves to another monitor. Positions are remembered relative to the game window, never as screen coordinates.
 - **Hold-to-move**: the meter and overlays are click-through, so clicks go to the game. Hold Ctrl (configurable: Settings → Hotkeys) to use, drag (the meter by its whole header bar) or resize them; a dashed outline and the resize grip show only while it is held. Dropping them at a screen edge no longer snap-resizes them.
 - **Keep Me on Top**: an optional setting that pins your row first in the player list and shows your real DPS rank (Settings → Appearance).
+- **Party and force awareness**: the meter reads your party and force rosters from the game. Party members get a 👥 before their name and other force members a ⚔️. While you're in a party or force only your group is listed and the total counts only your group; strangers hitting the same target are still recorded, just not shown. Solo, everyone is listed as before.
+- **Item level**: shown above the class icon (combat power stays below) for you and your party and force members, read from the group rosters. Combat power is now also filled in from party rosters. Players outside your group show neither, since the game doesn't send them. Toggle it in Settings → Appearance → Show Item Level (on by default).
 - New defaults: the meter is 473×297 at the game's left edge, the timers overlay centered near the top.
 
 ### Changed

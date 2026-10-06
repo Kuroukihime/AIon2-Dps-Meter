@@ -20,6 +20,7 @@ namespace AionDpsMeter.Services.Services.Session
                 ClassIcon = session.ClassIcon,
                 IsUser = session.IsUser,
                 CombatPower = session.CombatPower,
+                ItemLevel = session.ItemLevel,
                 ServerName = session.ServerName,
                 PlayerDeaths = session.PlayerDeaths,
                 TotalDamage = session.TotalDamage,

@@ -154,7 +154,27 @@ namespace AionDpsMeter.Services.Services.Entity
             identity.CombatPower = data.CombatPower;
             identity.ServerId = data.ServerId;
             identity.ServerName = data.ServerName;
+            if (data.ItemLevel > 0) identity.ItemLevel = data.ItemLevel;
             if (data.CharacterClass != null) identity.CharacterClass = data.CharacterClass;
+            identity.IsIdentified = true;
+            identity.IsUser = identity.IsUser || identity.Name == currentUserName;
+
+            PropagateIdentityToLinkedSessions(globalId);
+            TryFallbackLinkByName(identity.Name);
+        }
+
+        // Group rosters carry only some fields, so values a roster doesn't have never overwrite known ones.
+        public void SetGroupStats(int globalId, string name, int itemLevel, int combatPower)
+        {
+            if (!globalPlayers.TryGetValue(globalId, out var identity))
+            {
+                identity = new Player { Id = globalId };
+                globalPlayers[globalId] = identity;
+            }
+
+            identity.Name = name;
+            if (itemLevel > 0) identity.ItemLevel = itemLevel;
+            if (combatPower > 0) identity.CombatPower = combatPower;
             identity.IsIdentified = true;
             identity.IsUser = identity.IsUser || identity.Name == currentUserName;
 
@@ -178,6 +198,7 @@ namespace AionDpsMeter.Services.Services.Entity
                     Name = session.Name,
                     CharacterLevel = session.CharacterLevel,
                     CombatPower = session.CombatPower,
+                    ItemLevel = session.ItemLevel,
                     ServerId = session.ServerId,
                     ServerName = session.ServerName,
                     CharacterClass = session.CharacterClass,
@@ -209,9 +230,10 @@ namespace AionDpsMeter.Services.Services.Entity
                 session.IsIdentified = true;
             }
 
-            session.CharacterLevel = identity.CharacterLevel;
-            session.CombatPower = identity.CombatPower;
-            session.ServerId = identity.ServerId;
+            if (identity.CharacterLevel > 0) session.CharacterLevel = identity.CharacterLevel;
+            if (identity.CombatPower > 0) session.CombatPower = identity.CombatPower;
+            if (identity.ItemLevel > 0) session.ItemLevel = identity.ItemLevel;
+            if (identity.ServerId > 0) session.ServerId = identity.ServerId;
             if (!string.IsNullOrEmpty(identity.ServerName)) session.ServerName = identity.ServerName;
             session.CharacterClass ??= identity.CharacterClass;
             session.IsUser = session.IsUser || identity.IsUser;

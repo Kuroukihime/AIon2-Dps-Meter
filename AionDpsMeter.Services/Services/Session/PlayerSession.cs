@@ -17,6 +17,7 @@ namespace AionDpsMeter.Services.Services.Session
         public string? ClassIcon => entityTaTracker.GetPlayerEntity(PlayerId)?.CharacterClass?.Icon;
         public bool IsUser => entityTaTracker.GetPlayerEntity(PlayerId)?.IsUser ?? false;
         public int CombatPower => entityTaTracker.GetPlayerEntity(PlayerId)?.CombatPower ?? 0;
+        public int ItemLevel => entityTaTracker.GetPlayerEntity(PlayerId)?.ItemLevel ?? 0;
         public string ServerName => entityTaTracker.GetPlayerEntity(PlayerId)?.ServerName ?? "";
         public int PlayerDeaths { get; private set; }
 

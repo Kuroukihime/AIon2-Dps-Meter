@@ -334,6 +334,7 @@
     flex: 0 0 auto;
 }
 
+.s2-item-level,
 .s2-combat-power {
     position: absolute;
     bottom: 2px;
@@ -346,6 +347,11 @@
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8), 0 0 2px rgba(0, 0, 0, 0.8);
     pointer-events: none;
     line-height: 1;
+}
+
+.s2-item-level {
+    top: 2px;
+    bottom: auto;
 }
 
 /* ---- info column ---- */

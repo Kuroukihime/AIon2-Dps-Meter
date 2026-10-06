@@ -1,4 +1,5 @@
-﻿using AionDpsMeter.Services.Services.Session;
+﻿using AionDpsMeter.Services.Models;
+using AionDpsMeter.Services.Services.Session;
 using AionDpsMeter.Services.Services.Settings;
 using AionDpsMeter.Services.Services.Update;
 using AionDpsMeter.Core.Windowing;
@@ -25,6 +26,7 @@ namespace AionDpsMeter.UI.ViewModels
 
         public string CombatDuration = "00:00";
         public bool PinUserOnTop;
+        public bool IsGrouped;
         public bool IsEditable => windowHelper.IsMeterEdit;
         public string TotalRaidDamageFormatted = "0/s";
         public string PingDisplay = "-- ms";
@@ -109,16 +111,22 @@ namespace AionDpsMeter.UI.ViewModels
             bool pinUserOnTop = settingsService.PinUserOnTop;
             PinUserOnTop = pinUserOnTop;
 
+            // While grouped only the party and force are listed; everyone is still recorded.
+            bool isGrouped = sessionManager.IsGrouped;
+            IsGrouped = isGrouped;
             var currentStats = sessionManager.PlayerStats
                 .Where(r => r.IsIdentified || r.DamagePercentage > 1 || (pinUserOnTop && r.IsUser && r.TotalDamage > 0))
+                .Where(r => !isGrouped || r.IsUser || r.Group != GroupKind.None)
                 .ToList();
 
             long topDamage = currentStats.Count > 0 ? currentStats.Max(x => x.TotalDamage) : 0;
+            long shownDamage = currentStats.Sum(x => x.TotalDamage);
 
             var currentIds = new HashSet<long>();
 
             bool isNicknameHidden = settingsService.IsNicknameHidden;
             bool showPlayerDeaths = settingsService.ShowPlayerDeaths;
+            bool showItemLevel = settingsService.ShowItemLevel;
             bool useRelativeBar = settingsService.RelativeProgressBar;
 
             foreach (var stat in currentStats)
@@ -132,12 +140,16 @@ namespace AionDpsMeter.UI.ViewModels
                 }
 
                 player.IsUser = stat.IsUser;
+                player.Group = stat.Group;
                 player.ClassId = stat.ClassId.ToString();
                 player.TotalDamage = stat.TotalDamage;
                 player.TotalDamageFormatted = DamageFormatter.Format(stat.TotalDamage);
                 player.DpsFormatted = DamageFormatter.Format(stat.DamagePerSecond);
-                player.DamagePercentage = stat.DamagePercentage;
+                player.DamagePercentage = isGrouped
+                    ? (shownDamage > 0 ? (double)stat.TotalDamage / shownDamage * 100.0 : 0)
+                    : stat.DamagePercentage;
                 player.CombatPower = DamageFormatter.Format(stat.CombatPower);
+                player.ItemLevel = showItemLevel && stat.ItemLevel > 0 ? stat.ItemLevel.ToString() : string.Empty;
                 player.IconUrl = ResolveClassIconUrl(stat.ClassId);
                 player.ClassName = stat.ClassName;
                 player.ServerName = stat.ServerName;
@@ -184,12 +196,12 @@ namespace AionDpsMeter.UI.ViewModels
             var sb = new System.Text.StringBuilder();
             sb.Append(CombatDuration).Append('|').Append(TotalRaidDamageFormatted).Append('|').Append(PingDisplay)
               .Append('|').Append(HasActiveTarget).Append('|').Append(ActiveTargetName).Append('|').Append(ActiveTargetHpDisplay)
-              .Append('|').Append(ActiveTargetHpPercentage.ToString("F1")).Append('|').Append(PinUserOnTop);
+              .Append('|').Append(ActiveTargetHpPercentage.ToString("F1")).Append('|').Append(PinUserOnTop).Append('|').Append(IsGrouped);
             foreach (var p in Players)
             {
                 sb.Append('#').Append(p.PlayerId).Append(p.PlayerNameDisplay).Append(p.DpsFormatted).Append(p.TotalDamageFormatted)
                   .Append(p.DamagePercentage.ToString("F1")).Append(p.EffectivePercentage.ToString("F1")).Append(p.CriticalRate.ToString("F1"))
-                  .Append(p.DeathsDisplay).Append(p.CombatPower).Append(p.Rank).Append(p.ClassId).Append(p.IsUser);
+                  .Append(p.DeathsDisplay).Append(p.CombatPower).Append(p.ItemLevel).Append(p.Rank).Append(p.ClassId).Append(p.IsUser).Append(p.Group);
             }
             return sb.ToString();
         }
@@ -269,6 +281,13 @@ namespace AionDpsMeter.UI.ViewModels
         //public string GetProgressClass(PlayerRenderState player) => $"dps-class-{player.ClassId}";
         public string GetCombatScoreDisplay(PlayerRenderState player) => (string.IsNullOrWhiteSpace(player.CombatPower) || player.CombatPower == "0") ? "" : player.CombatPower;
         public string GetRankPrefix(PlayerRenderState player) => PinUserOnTop && player.IsUser ? $"#{player.Rank} " : string.Empty;
+
+        public string GetGroupIcon(PlayerRenderState player) => player.Group switch
+        {
+            GroupKind.Party => "👥 ",
+            GroupKind.Force => "⚔️ ",
+            _ => string.Empty
+        };
         public double ClampPercent(double value) => Math.Max(0, Math.Min(100, value));
 
         public string GetRowScaleStyle() => RowScale != 1.0

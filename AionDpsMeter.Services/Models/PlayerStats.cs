@@ -11,6 +11,7 @@
         public int ClassId { get; set; }
         public string? ClassIcon { get; set; }
         public int CombatPower { get; set; }
+        public int ItemLevel { get; set; }
         public string ServerName { get; set; } = string.Empty;
         public int PlayerDeaths { get; set; }
         public long TotalDamage { get; set; }
@@ -25,6 +26,7 @@
         public double DamagePercentage { get; set; }
         public DateTime FirstHit { get; set; }
         public DateTime LastHit { get; set; }
+        public GroupKind Group { get; set; }
 
         public double CriticalRate => HitCount > 0 ? (double)CriticalHits / HitCount * 100 : 0;
         public double BackAttackRate => HitCount > 0 ? (double)BackAttacks / HitCount * 100 : 0;

@@ -5,6 +5,7 @@
         public string? Icon { get; set; }
         public int CharacterLevel { get; set; }
         public int CombatPower { get; set; }
+        public int ItemLevel { get; set; }
         public int ServerId { get; set; }
         public string ServerName { get; set; } = "";
         public bool IsUser { get; set; }

@@ -25,6 +25,7 @@ namespace AionDpsMeter.Services.Services.Session
         private readonly List<BuffEvent> activeBuffBacklog = new();
         private readonly ITimedEventTracker buffEventTracker;
         private readonly ITimedEventTracker skillCdEventTracker;
+        private readonly GroupTracker groupTracker;
 
 
         public CombatSessionManager(
@@ -33,9 +34,11 @@ namespace AionDpsMeter.Services.Services.Session
             IAppSettingsService settingsService,
             ICombatHistoryStore historyStore,
             [FromKeyedServices("Buffs")] ITimedEventTracker buffEventTracker,
-            [FromKeyedServices("SkillCd")] ITimedEventTracker skillCdEventTracker)
+            [FromKeyedServices("SkillCd")] ITimedEventTracker skillCdEventTracker,
+            GroupTracker groupTracker)
         {
             this.entityTracker = entityTracker;
+            this.groupTracker = groupTracker;
             this.settingsService = settingsService;
             this.historyStore = historyStore;
             this.buffEventTracker = buffEventTracker;
@@ -142,8 +145,19 @@ namespace AionDpsMeter.Services.Services.Session
 
         public IReadOnlyCollection<PlayerStats> PlayerStats
         {
-            get { lock (lockObject) { return GetActiveTargetSession()?.GetPlayerStats() ?? []; } }
+            get
+            {
+                lock (lockObject)
+                {
+                    var stats = GetActiveTargetSession()?.GetPlayerStats() ?? [];
+                    foreach (var stat in stats)
+                        stat.Group = groupTracker.GetGroupKind(entityTracker.GetPlayerEntity((int)stat.PlayerId));
+                    return stats;
+                }
+            }
         }
+
+        public bool IsGrouped => groupTracker.IsGrouped;
 
         public PlayerStatSnapshot? GetCurrentPlayerStatSnapshot()
         {
@@ -172,7 +186,11 @@ namespace AionDpsMeter.Services.Services.Session
         {
             lock (lockObject)
             {
-                double totalDamage = GetActiveTargetSession()?.TotalDamage ?? 0;
+                Func<PlayerSession, bool> counts = groupTracker.IsGrouped
+                    ? s => s.IsUser || groupTracker.GetGroupKind(entityTracker.GetPlayerEntity(s.PlayerId)) != GroupKind.None
+                    : _ => true;
+
+                double totalDamage = GetActiveTargetSession()?.SumDamage(counts) ?? 0;
                 double seconds = GetCombatDuration().TotalSeconds;
                 return seconds > 0 ? totalDamage / seconds : 0;
             }
