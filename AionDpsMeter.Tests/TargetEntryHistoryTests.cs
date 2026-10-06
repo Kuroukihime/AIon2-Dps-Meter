@@ -8,7 +8,7 @@ namespace AionDpsMeter.Tests;
 public sealed class TargetEntryHistoryTests
 {
     [Fact]
-    public void CompleteActiveSession_PersistsNonBossCombat()
+    public void CompleteActiveSession_DoesNotPersistNonBossCombat()
     {
         const int targetId = 123;
         const int nonBossMobCode = 2_000_002;
@@ -32,9 +32,7 @@ public sealed class TargetEntryHistoryTests
         });
         entry.CompleteActiveSession();
 
-        var savedSession = Assert.Single(completed);
-        Assert.Equal(targetId, savedSession.TargetId);
-        Assert.Equal(SessionState.Completed, savedSession.State);
+        Assert.Empty(completed);
         Assert.Null(entry.CurrentSession);
     }
 }

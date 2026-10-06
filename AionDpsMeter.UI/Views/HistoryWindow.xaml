@@ -343,7 +343,6 @@
                         <ColumnDefinition Width="60"/>
                         <ColumnDefinition Width="80"/>
                         <ColumnDefinition Width="40"/>
-                        <ColumnDefinition Width="94"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text=""      FontSize="10" FontWeight="Bold" Foreground="{StaticResource SecondaryTextBrush}" VerticalAlignment="Center"/>
                     <TextBlock Grid.Column="1" Text="Mob"   FontSize="10" FontWeight="Bold" Foreground="{StaticResource SecondaryTextBrush}" VerticalAlignment="Center" Margin="4,0,0,0"/>
@@ -351,7 +350,6 @@
                     <TextBlock Grid.Column="3" Text="Time"  FontSize="10" FontWeight="Bold" Foreground="{StaticResource SecondaryTextBrush}" VerticalAlignment="Center"/>
                     <TextBlock Grid.Column="4" Text="Damage" FontSize="10" FontWeight="Bold" Foreground="{StaticResource SecondaryTextBrush}" HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center"/>
                     <TextBlock Grid.Column="5" Text="Players" FontSize="10" FontWeight="Bold" Foreground="{StaticResource SecondaryTextBrush}" HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="6" Text="Copy DPS" FontSize="10" FontWeight="Bold" Foreground="{StaticResource SecondaryTextBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
             </Border>
 
@@ -413,7 +411,6 @@
                                     <ColumnDefinition Width="60"/>
                                     <ColumnDefinition Width="80"/>
                                     <ColumnDefinition Width="40"/>
-                                    <ColumnDefinition Width="94"/>
                                 </Grid.ColumnDefinitions>
 
                                 <!-- State indicator -->
@@ -465,18 +462,6 @@
                                            TextAlignment="Center"
                                            VerticalAlignment="Center"/>
 
-                                <Button Grid.Column="6"
-                                        Content="Copy DPS"
-                                        Tag="{Binding}"
-                                        Width="86" Height="22"
-                                        FontSize="9"
-                                        Padding="3,1"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Click="CopyDpsButton_Click"
-                                        Style="{StaticResource ModernButtonStyle}"
-                                        Background="{StaticResource AccentBrush}"
-                                        Foreground="{StaticResource PrimaryBackgroundBrush}"/>
                             </Grid>
                         </Border>
                     </DataTemplate>

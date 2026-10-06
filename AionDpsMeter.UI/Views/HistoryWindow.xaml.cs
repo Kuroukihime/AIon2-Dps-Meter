@@ -73,18 +73,5 @@ namespace AionDpsMeter.UI
             }
         }
 
-        private void CopyDpsButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is not FrameworkElement { Tag: HistoryEntryViewModel entry })
-                return;
-
-            var snapshot = _sessionManager.GetHistorySession(entry.SessionId);
-            if (snapshot is null)
-                return;
-
-            var text = CopyDpsFormatter.Format(snapshot.PlayerStats);
-            if (text.Length > 0)
-                Clipboard.SetText(text);
-        }
     }
 }

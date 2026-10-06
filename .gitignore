@@ -369,3 +369,6 @@ PROJECT_MEMORY.md
 
 # Temporary files created
 combat-history.db
+combat-history.db-shm
+combat-history.db-wal
+appsettings.user.json

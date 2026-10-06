@@ -14,7 +14,12 @@ namespace AionDpsMeter.UI.Utils
             return string.Join(", ", players
                 .OrderByDescending(player => player.TotalDamage)
                 .Take(MaxPlayers)
-                .Select(player => $"{player.PlayerName} : {player.TotalDamage.ToString("N0", CultureInfo.InvariantCulture)} dmg"));
+                .Select(player =>
+                {
+                    var dps = ((long)player.DamagePerSecond).ToString("N0", CultureInfo.InvariantCulture);
+                    var totalDamage = player.TotalDamage.ToString("N0", CultureInfo.InvariantCulture);
+                    return $"{player.PlayerName} : {dps} DPS ({totalDamage} dmg)";
+                }));
         }
     }
 }

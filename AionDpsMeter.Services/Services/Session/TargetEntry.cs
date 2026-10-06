@@ -121,7 +121,7 @@ namespace AionDpsMeter.Services.Services.Session
         {
             if (CurrentSession is null) return;
             CurrentSession.Complete();
-            onSessionCompleted?.Invoke(CurrentSession);
+            if(CurrentSession.TargetInfo.IsBoss) onSessionCompleted?.Invoke(CurrentSession);
             CurrentSession = null;
         }
 

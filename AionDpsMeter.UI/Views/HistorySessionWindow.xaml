@@ -128,13 +128,9 @@
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
                         <Button Content="Copy DPS"
-                                Width="88" Height="26" FontSize="9"
                                 Margin="0,0,6,0"
                                 Click="CopyDpsButton_Click"
-                                Style="{StaticResource ModernButtonStyle}"
-                                Background="{StaticResource AccentBrush}"
-                                Foreground="{StaticResource PrimaryBackgroundBrush}"
-                                Padding="4,2"/>
+                                Style="{StaticResource ModernButtonStyle}"/>
                         <Button Content="&#x2715;"
                                 Width="26" Height="26" FontSize="10"
                                 HorizontalAlignment="Right"
