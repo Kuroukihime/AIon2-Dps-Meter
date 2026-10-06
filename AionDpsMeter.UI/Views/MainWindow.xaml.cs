@@ -1,5 +1,7 @@
 ﻿using System.Windows;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 using AionDpsMeter.Services.Services.Settings;
 using AionDpsMeter.UI.Pages;
@@ -19,10 +21,12 @@ namespace AionDpsMeter.UI.Views
         private readonly IWindowManagerService windowManager;
         private readonly WindowHelper windowHelper;
         private readonly TrayService trayService;
+        private ResizeGrip? _resizeGrip;
 
         public MainWindow(MainViewModel viewModel, IAppSettingsService settingsService, IWindowManagerService windowManager, WindowHelper windowHelper, TrayService trayService)
         {
             InitializeComponent();
+            WebViewEnvironment.Configure(Style2WebView);
             DataContext = viewModel;
             this.settingsService      = settingsService;
             this.windowManager = windowManager;
@@ -30,9 +34,9 @@ namespace AionDpsMeter.UI.Views
             this.trayService = trayService;
 
             _saveBoundsTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(5000) };
-            _saveBoundsTimer.Tick += (_, _) => { _saveBoundsTimer.Stop(); SaveWindowBounds(); };
+            _saveBoundsTimer.Tick += (_, _) => { _saveBoundsTimer.Stop(); SaveWindowSize(); };
 
-            RestoreWindowBounds();
+            RestoreWindowSize();
 
             MainBorder.Opacity = settingsService.WindowOpacity;
 
@@ -46,6 +50,7 @@ namespace AionDpsMeter.UI.Views
             Loaded += (_, _) => RegisterToggleHotkey();
             Loaded += (_, _) => InitializeStyle2WebView();
             windowManager.CloseAppCommand += OnCloseCommand;
+            windowHelper.WindowStateUpdated += (_, _) => SetResizeGripVisible(windowHelper.IsMeterEdit);
         }
 
         private void OnCloseCommand(object? sender, EventArgs e)
@@ -84,38 +89,43 @@ namespace AionDpsMeter.UI.Views
 
         private void ToggleWindowVisibility() => trayService.Toggle();
 
-
-        private void RestoreWindowBounds()
+        public override void OnApplyTemplate()
         {
-            var left   = settingsService.WindowLeft;
-            var top    = settingsService.WindowTop;
-            var width  = settingsService.WindowWidth;
-            var height = settingsService.WindowHeight;
-
-            if (!left.HasValue || !top.HasValue)
-                return;
-
-            double w = width.HasValue  ? Math.Max(MinWidth,  width.Value)  : Width;
-            double h = height.HasValue ? Math.Max(MinHeight, height.Value) : Height;
-
-            var wa = ScreenHelper.GetWorkingAreaForPoint(left.Value, top.Value);
-
-            double l = Math.Max(wa.Left, Math.Min(left.Value, wa.Right  - w));
-            double t = Math.Max(wa.Top,  Math.Min(top.Value,  wa.Bottom - h));
-
-            WindowStartupLocation = WindowStartupLocation.Manual;
-            Left   = l;
-            Top    = t;
-            Width  = w;
-            Height = h;
+            base.OnApplyTemplate();
+            _resizeGrip = FindVisualChild<ResizeGrip>(this);
+            SetResizeGripVisible(windowHelper.IsMeterEdit);
         }
 
-      
-        private void SaveWindowBounds()
+        // The grip only shows while the meter accepts the mouse. Toggling the element, not ResizeMode,
+        // avoids a window-style change that re-lays out the WebView and briefly blocks input.
+        private void SetResizeGripVisible(bool visible)
+        {
+            if (_resizeGrip is null) return;
+            _resizeGrip.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private static T? FindVisualChild<T>(DependencyObject parent) where T : DependencyObject
+        {
+            for (var i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+                if (child is T match) return match;
+                if (FindVisualChild<T>(child) is { } nested) return nested;
+            }
+            return null;
+        }
+
+
+        // Only the size is persisted; the position is game-relative (see WindowHelper.PlaceWindowsOverGame).
+        private void RestoreWindowSize()
+        {
+            if (settingsService.WindowWidth is { } width)   Width  = Math.Max(MinWidth,  width);
+            if (settingsService.WindowHeight is { } height) Height = Math.Max(MinHeight, height);
+        }
+
+        private void SaveWindowSize()
         {
             if (WindowState != WindowState.Normal) return;
-            settingsService.WindowLeft   = Left;
-            settingsService.WindowTop    = Top;
             settingsService.WindowWidth  = Width;
             settingsService.WindowHeight = Height;
         }
@@ -133,7 +143,7 @@ namespace AionDpsMeter.UI.Views
         {
             _saveBoundsTimer?.Stop();
             _saveBoundsTimer = null;
-            SaveWindowBounds();
+            SaveWindowSize();
             if (DataContext is MainViewModel viewModel)
                 viewModel.Dispose();
             base.OnClosed(e);

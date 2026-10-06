@@ -32,6 +32,7 @@ namespace AionDpsMeter.UI.Services.Windowing
         public BlazorWindow(IServiceProvider services, Type componentType, string? hostPage = null)
         {
             InitializeComponent();
+            WebViewEnvironment.Configure(BlazorWebView);
 
             if (hostPage is not null)
                 BlazorWebView.HostPage = hostPage;

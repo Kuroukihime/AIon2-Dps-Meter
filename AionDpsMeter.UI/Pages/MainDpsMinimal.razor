@@ -2,9 +2,9 @@
 @if (ViewModel != null)
 {
 
-    <div class="dps-meter-dynamic">
-        <div class="header-module">
-            <div class="header-top" @onmousedown="ViewModel.BeginDrag">
+    <div class="dps-meter-dynamic @(ViewModel.IsEditable ? "editable" : "")">
+        <div class="header-module" @onmousedown="ViewModel.BeginDrag">
+            <div class="header-top">
                 <div class="header-row header-row-top">
                     <span class="boss-name" title="@ViewModel.ActiveTargetName">@ViewModel.ActiveTargetName</span>
                     <div class="global-stats">

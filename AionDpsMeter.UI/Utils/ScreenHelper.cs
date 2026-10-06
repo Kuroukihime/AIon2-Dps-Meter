@@ -32,14 +32,13 @@ namespace AionDpsMeter.UI.Utils
         [DllImport("user32.dll")]
         private static extern bool GetMonitorInfo(IntPtr hMonitor, ref MONITORINFO lpmi);
 
-       
-        public static Rect GetWorkingAreaForPoint(double x, double y)
-        {
-            var pt = new POINT { X = (int)x, Y = (int)y };
-            var hMonitor = MonitorFromPoint(pt, MONITOR_DEFAULTTONEAREST);
-            return GetWorkArea(hMonitor, 96.0, 96.0);
-        }
+        [DllImport("user32.dll")]
+        private static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
 
+        [DllImport("user32.dll")]
+        private static extern bool IsIconic(IntPtr hWnd);
+
+       
         public static Rect GetWorkingAreaForWindow(Window window)
         {
             GetDpi(window, out double dpiX, out double dpiY);
@@ -61,6 +60,23 @@ namespace AionDpsMeter.UI.Utils
             }
 
             return GetWorkArea(hMonitor, dpiX, dpiY);
+        }
+
+        /// <summary>
+        /// Screen rectangle of another process's window in the DIPs of <paramref name="dpiSource"/>,
+        /// or null when it is minimized or gone.
+        /// </summary>
+        public static Rect? GetWindowRectDips(IntPtr hwnd, Visual dpiSource)
+        {
+            if (IsIconic(hwnd) || !GetWindowRect(hwnd, out var r))
+                return null;
+
+            GetDpi(dpiSource, out double dpiX, out double dpiY);
+            return new Rect(
+                r.Left * 96.0 / dpiX,
+                r.Top * 96.0 / dpiY,
+                (r.Right - r.Left) * 96.0 / dpiX,
+                (r.Bottom - r.Top) * 96.0 / dpiY);
         }
 
         private static Rect GetWorkArea(IntPtr hMonitor, double dpiX, double dpiY)

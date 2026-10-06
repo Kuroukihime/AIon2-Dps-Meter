@@ -19,11 +19,14 @@ namespace AionDpsMeter.UI.Services.Windowing
         private readonly List<Window> _hiddenWindows = new();
         private HideReason _reasons;
 
+        // Set by an explicit tray restore so the app stays reachable without the game; cleared once focus leaves the app.
+        private bool _restoredByUser;
+
         public bool IsHiddenBy(HideReason reason) => (_reasons & reason) != 0;
 
         public void Start()
         {
-            focusWatcher.FocusChanged += (_, _) => ApplyGameFocus();
+            focusWatcher.ForegroundChanged += (_, _) => ApplyGameFocus();
             settingsService.SettingsChanged += (_, _) =>
                 Application.Current.Dispatcher.InvokeAsync(ApplyGameFocus);
 
@@ -61,6 +64,7 @@ namespace AionDpsMeter.UI.Services.Windowing
         /// </summary>
         public void RestoreAll()
         {
+            _restoredByUser = true;
             if (_reasons != HideReason.None)
             {
                 _reasons = HideReason.None;
@@ -72,10 +76,18 @@ namespace AionDpsMeter.UI.Services.Windowing
 
         private void ApplyGameFocus()
         {
-            if (settingsService.ShowOnlyOverGame && !focusWatcher.IsGameOrSelfFocused)
-                Hide(HideReason.GameNotFocused);
-            else
+            var foreground = focusWatcher.Foreground;
+            if (foreground == ForegroundKind.Other)
+                _restoredByUser = false;
+
+            var visible = !settingsService.ShowOnlyOverGame
+                || foreground == ForegroundKind.Game
+                || (foreground == ForegroundKind.Self && (_restoredByUser || focusWatcher.IsGameRunning()));
+
+            if (visible)
                 Clear(HideReason.GameNotFocused);
+            else
+                Hide(HideReason.GameNotFocused);
         }
 
         private void ShowHiddenWindows()

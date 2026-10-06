@@ -1,6 +1,7 @@
 using AionDpsMeter.UI.Pages;
 using Microsoft.AspNetCore.Components.WebView;
 using Microsoft.AspNetCore.Components.WebView.Wpf;
+using AionDpsMeter.UI.Services.Windowing;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -18,6 +19,7 @@ namespace AionDpsMeter.UI
         public SettingsWindow()
         {
             InitializeComponent();
+            WebViewEnvironment.Configure(BlazorWebView);
             BlazorWebView.Services = App.AppHost.Services;
         
             //var ver = Assembly.GetEntryAssembly()?.GetName().Version;

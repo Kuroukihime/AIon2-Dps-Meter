@@ -456,3 +456,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+/* Shown while the move key is held: the meter accepts the mouse and can be dragged. */
+.dps-style2-root.editable {
+    outline: 1px dashed rgba(255, 255, 255, 0.5);
+    outline-offset: -1px;
+    cursor: move;
+}

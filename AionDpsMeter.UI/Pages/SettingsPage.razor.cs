@@ -47,6 +47,8 @@ namespace AionDpsMeter.UI.Pages
         new(2, "Compact", "compact"),
     };
 
+        private readonly string[] _overlayMoveKeys = ["Ctrl", "Shift", "Alt"];
+
         private readonly List<OrderOption> _orderOptions = new()
     {
         new(OverlayOrderMode.Ascending, "Least time"),

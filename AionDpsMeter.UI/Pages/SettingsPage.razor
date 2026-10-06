@@ -130,7 +130,7 @@
         @* ---------------- HOTKEYS ---------------- *@
         <section class="settings-group @(_activeGroup == "hotkeys" ? "" : "is-hidden")">
 
-            <SettingRow Title="Toggle Visibility" Description="Click the field, then press the key combo you want to use" IsLast="true">
+            <SettingRow Title="Toggle Visibility" Description="Click the field, then press the key combo you want to use">
                 <ValueSlot>
                     <input class="hotkey-field @(_capturingHotkey ? "is-active" : "")"
                            readonly
@@ -139,6 +139,21 @@
                            @onblur="OnHotkeyBlur"
                            @onkeydown="OnHotkeyKeyDown"
                            @onkeydown:preventDefault="true" />
+                </ValueSlot>
+            </SettingRow>
+
+            <SettingRow Title="Move Overlays While Holding" Description="Overlays ignore the mouse unless this key is held; hold it to drag them" IsLast="true">
+                <ValueSlot>
+                    <div class="segmented">
+                        @foreach (var key in _overlayMoveKeys)
+                        {
+                            <button type="button"
+                                    class="segmented__option @(settings.OverlayMoveKey == key ? "is-selected" : "")"
+                                    @onclick="() => settings.OverlayMoveKey = key">
+                                @key
+                            </button>
+                        }
+                    </div>
                 </ValueSlot>
             </SettingRow>
 

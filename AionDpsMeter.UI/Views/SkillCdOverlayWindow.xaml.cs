@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using AionDpsMeter.UI.Pages;
 using Microsoft.AspNetCore.Components.WebView.Wpf;
+using AionDpsMeter.UI.Services.Windowing;
 
 namespace AionDpsMeter.UI.Views
 {
@@ -12,6 +13,7 @@ namespace AionDpsMeter.UI.Views
         public SkillCdOverlayWindow()
         {
             InitializeComponent();
+            WebViewEnvironment.Configure(SkillWebView);
             Loaded += (_, _) => InitializeSkillWebView();
         }
 

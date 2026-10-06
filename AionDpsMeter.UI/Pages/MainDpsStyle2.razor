@@ -3,13 +3,13 @@
 @if (ViewModel != null)
 {
 
-    <div class="dps-style2-root">
+    <div class="dps-style2-root @(ViewModel.IsEditable ? "editable" : "")">
 
         <!-- ============================================================
          HEADER — neutral black/gray glass panel
          ============================================================ -->
-        <div class="s2-header">
-            <div class="s2-header-row-top" @onmousedown="ViewModel.BeginDrag">
+        <div class="s2-header" @onmousedown="ViewModel.BeginDrag">
+            <div class="s2-header-row-top">
                 <span class="s2-boss-name" title="@ViewModel.ActiveTargetName">@ViewModel.ActiveTargetName</span>
 
                 <div class="s2-header-controls">

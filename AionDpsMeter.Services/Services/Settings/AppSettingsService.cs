@@ -16,7 +16,7 @@ namespace AionDpsMeter.Services.Services.Settings
         {
             _data = Load();
             _data.HistoryRetantionPeriod = Math.Clamp(_data.HistoryRetantionPeriod, 1, 9999);
-            _data.WindowBoundsByKey ??= [];
+            _data.GameRelativePositions ??= [];
             _data.AbyssCorridorSettings ??= new AbyssCorridorSettings();
             _data.AbyssCorridorSettings.LeadMinutes = Math.Clamp(_data.AbyssCorridorSettings.LeadMinutes,
                 AbyssCorridorSettings.MinLeadMinutes, AbyssCorridorSettings.MaxLeadMinutes);
@@ -50,6 +50,23 @@ namespace AionDpsMeter.Services.Services.Settings
                     Save();
                 }
                 SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public string OverlayMoveKey
+        {
+            get { lock (_lock) return _data.OverlayMoveKey; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    var normalized = value is "Shift" or "Alt" ? value : "Ctrl";
+                    changed = _data.OverlayMoveKey != normalized;
+                    _data.OverlayMoveKey = normalized;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -129,19 +146,19 @@ namespace AionDpsMeter.Services.Services.Settings
             }
         }
 
-        public bool TryGetWindowBounds(WindowKey key, out WindowBounds? bounds)
+        public bool TryGetGameRelativePosition(WindowKey key, out GameRelativePosition? position)
         {
             lock (_lock)
             {
-                return _data.WindowBoundsByKey.TryGetValue(key.ToString(), out bounds);
+                return _data.GameRelativePositions.TryGetValue(key.ToString(), out position);
             }
         }
 
-        public void SetWindowBounds(WindowKey key, WindowBounds bounds)
+        public void SetGameRelativePosition(WindowKey key, GameRelativePosition position)
         {
             lock (_lock)
             {
-                _data.WindowBoundsByKey[key.ToString()] = bounds;
+                _data.GameRelativePositions[key.ToString()] = position;
                 Save();
             }
         }
@@ -448,18 +465,6 @@ namespace AionDpsMeter.Services.Services.Settings
             }
         }
 
-        public double? WindowLeft
-        {
-            get { lock (_lock) return _data.WindowLeft; }
-            set { lock (_lock) { _data.WindowLeft = value; Save(); } }
-        }
-
-        public double? WindowTop
-        {
-            get { lock (_lock) return _data.WindowTop; }
-            set { lock (_lock) { _data.WindowTop = value; Save(); } }
-        }
-
         public double? WindowWidth
         {
             get { lock (_lock) return _data.WindowWidth; }
@@ -582,12 +587,6 @@ namespace AionDpsMeter.Services.Services.Settings
             [JsonPropertyName("toggleVisibilityHotkey")]
             public string ToggleVisibilityHotkey { get; set; } = "Ctrl+Shift+D";
 
-            [JsonPropertyName("windowLeft")]
-            public double? WindowLeft { get; set; }
-
-            [JsonPropertyName("windowTop")]
-            public double? WindowTop { get; set; }
-
             [JsonPropertyName("windowWidth")]
             public double? WindowWidth { get; set; }
 
@@ -642,8 +641,8 @@ namespace AionDpsMeter.Services.Services.Settings
             [JsonPropertyName("statCalcBossSmiteResist")]
             public double StatCalcBossSmiteResist { get; set; } = 30;
 
-            [JsonPropertyName("windowBoundsByKey")]
-            public Dictionary<string, WindowBounds> WindowBoundsByKey { get; set; } = [];
+            [JsonPropertyName("gameRelativePositions")]
+            public Dictionary<string, GameRelativePosition> GameRelativePositions { get; set; } = [];
 
             [JsonPropertyName("bufOverlaySettings")]
             public OverlaySettings BufOverlaySettings { get; set; } = new OverlaySettings();
@@ -662,6 +661,9 @@ namespace AionDpsMeter.Services.Services.Settings
 
             [JsonPropertyName("showOnlyOverGame")]
             public bool ShowOnlyOverGame { get; set; } = true;
+
+            [JsonPropertyName("overlayMoveKey")]
+            public string OverlayMoveKey { get; set; } = "Ctrl";
 
         }
     }

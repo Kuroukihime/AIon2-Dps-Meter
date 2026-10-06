@@ -1,5 +1,6 @@
 ﻿using AionDpsMeter.UI.Pages;
 using Microsoft.AspNetCore.Components.WebView.Wpf;
+using AionDpsMeter.UI.Services.Windowing;
 using System.Windows;
 
 namespace AionDpsMeter.UI.Views
@@ -12,6 +13,7 @@ namespace AionDpsMeter.UI.Views
         public BuffOverlayWindow()
         {
             InitializeComponent();
+            WebViewEnvironment.Configure(BuffWebView);
             Loaded += (_, _) => InitializeBuffWebView();
         }
 

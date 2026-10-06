@@ -17,9 +17,7 @@ namespace AionDpsMeter.Services.Services.Settings
 
         string ToggleVisibilityHotkey { get; set; }
 
-        // Main window position & size
-        double? WindowLeft { get; set; }
-        double? WindowTop { get; set; }
+        // Main window size; its position is game-relative
         double? WindowWidth { get; set; }
         double? WindowHeight { get; set; }
         double PlayerRowScale { get; set; }
@@ -42,8 +40,10 @@ namespace AionDpsMeter.Services.Services.Settings
         TimersOverlaySettings TimersOverlaySettings { get; set; }
         bool PinUserOnTop { get; set; }
         bool ShowOnlyOverGame { get; set; }
-        bool TryGetWindowBounds(WindowKey key, out WindowBounds? bounds);
-        void SetWindowBounds(WindowKey key, WindowBounds bounds);
+        /// <summary>Modifier held to make overlays movable: "Ctrl", "Shift" or "Alt".</summary>
+        string OverlayMoveKey { get; set; }
+        bool TryGetGameRelativePosition(WindowKey key, out GameRelativePosition? position);
+        void SetGameRelativePosition(WindowKey key, GameRelativePosition position);
 
         event EventHandler SettingsChanged;
     }

@@ -522,3 +522,10 @@
     font-size: 12px;
     text-align: right;
 }
+
+/* Shown while the move key is held: the meter accepts the mouse and can be dragged. */
+.dps-meter-dynamic.editable {
+    outline: 1px dashed rgba(255, 255, 255, 0.5);
+    outline-offset: -1px;
+    cursor: move;
+}

@@ -1,5 +1,6 @@
 using AionDpsMeter.UI.Pages;
 using Microsoft.AspNetCore.Components.WebView.Wpf;
+using AionDpsMeter.UI.Services.Windowing;
 using System.Windows;
 
 namespace AionDpsMeter.UI.Views
@@ -9,6 +10,7 @@ namespace AionDpsMeter.UI.Views
         public TimersOverlayWindow()
         {
             InitializeComponent();
+            WebViewEnvironment.Configure(TimersWebView);
             Loaded += (_, _) => InitializeTimersWebView();
         }
 
