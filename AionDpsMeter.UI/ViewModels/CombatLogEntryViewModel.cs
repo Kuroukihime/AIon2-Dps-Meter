@@ -1,4 +1,5 @@
 using AionDpsMeter.Core.Models;
+using AionDpsMeter.UI.Utils;
 
 namespace AionDpsMeter.UI.ViewModels
 {

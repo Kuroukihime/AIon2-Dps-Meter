@@ -16,9 +16,7 @@ namespace AionDpsMeter.UI.Utils
                 .Take(MaxPlayers)
                 .Select(player =>
                 {
-                    var dps = ((long)player.DamagePerSecond).ToString("N0", CultureInfo.InvariantCulture);
-                    var totalDamage = player.TotalDamage.ToString("N0", CultureInfo.InvariantCulture);
-                    return $"{player.PlayerName} : {dps} DPS ({totalDamage} dmg)";
+                    return $"{player.PlayerName} : {DamageFormatter.Format(player.DamagePerSecond)} DPS ({DamageFormatter.Format(player.TotalDamage)} dmg)";
                 }));
         }
     }
