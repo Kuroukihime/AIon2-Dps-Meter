@@ -53,8 +53,10 @@ namespace AionDpsMeter.UI.ViewModels.History
         [RelayCommand]
         private void Search()
         {
-            LoadPage(1);
+            Refresh();
         }
+
+        public void Refresh() => LoadPage(1);
 
         [RelayCommand]
         private void ResetFilters()

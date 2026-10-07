@@ -338,18 +338,18 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="16"/>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="60"/>
                         <ColumnDefinition Width="80"/>
                         <ColumnDefinition Width="40"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text=""      FontSize="10" FontWeight="Bold" Foreground="{StaticResource SecondaryTextBrush}" VerticalAlignment="Center"/>
                     <TextBlock Grid.Column="1" Text="Mob"   FontSize="10" FontWeight="Bold" Foreground="{StaticResource SecondaryTextBrush}" VerticalAlignment="Center" Margin="4,0,0,0"/>
-                    <TextBlock Grid.Column="2" Text="Date"  FontSize="10" FontWeight="Bold" Foreground="{StaticResource SecondaryTextBrush}" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2" Text="Date"  FontSize="10" FontWeight="Bold" Foreground="{StaticResource SecondaryTextBrush}" HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center"/>
                     <TextBlock Grid.Column="3" Text="Time"  FontSize="10" FontWeight="Bold" Foreground="{StaticResource SecondaryTextBrush}" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="4" Text="Damage" FontSize="10" FontWeight="Bold" Foreground="{StaticResource SecondaryTextBrush}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="5" Text="Players" FontSize="10" FontWeight="Bold" Foreground="{StaticResource SecondaryTextBrush}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="4" Text="Damage" FontSize="10" FontWeight="Bold" Foreground="{StaticResource SecondaryTextBrush}" HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="5" Text="Players" FontSize="10" FontWeight="Bold" Foreground="{StaticResource SecondaryTextBrush}" HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
             </Border>
 
@@ -406,8 +406,8 @@
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="16"/>
-                                    <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition Width="120"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="60"/>
                                     <ColumnDefinition Width="80"/>
                                     <ColumnDefinition Width="40"/>
@@ -434,6 +434,7 @@
                                            Text="{Binding DateDisplay}"
                                            FontSize="10" FontFamily="Consolas"
                                            Foreground="{StaticResource SecondaryTextBrush}"
+                                           TextAlignment="Center"
                                            VerticalAlignment="Center"/>
 
                                 <!-- Duration -->
@@ -448,7 +449,8 @@
                                            Text="{Binding TotalDamageDisplay}"
                                            FontSize="10" FontWeight="Bold"
                                            Foreground="{StaticResource DamageBarBrush}"
-                                           HorizontalAlignment="Right"
+                                           HorizontalAlignment="Stretch"
+                                           TextAlignment="Center"
                                            VerticalAlignment="Center"/>
 
                                 <!-- Player count -->
@@ -456,8 +458,10 @@
                                            Text="{Binding PlayerCount}"
                                            FontSize="10"
                                            Foreground="{StaticResource SecondaryTextBrush}"
-                                           HorizontalAlignment="Right"
+                                           HorizontalAlignment="Stretch"
+                                           TextAlignment="Center"
                                            VerticalAlignment="Center"/>
+
                             </Grid>
                         </Border>
                     </DataTemplate>

@@ -126,7 +126,11 @@
                         </WrapPanel>
                     </StackPanel>
 
-                    <StackPanel Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right">
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
+                        <Button Content="Copy DPS"
+                                Margin="0,0,6,0"
+                                Click="CopyDpsButton_Click"
+                                Style="{StaticResource ModernButtonStyle}"/>
                         <Button Content="&#x2715;"
                                 Width="26" Height="26" FontSize="10"
                                 HorizontalAlignment="Right"
