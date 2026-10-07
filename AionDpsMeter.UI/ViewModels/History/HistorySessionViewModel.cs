@@ -1,5 +1,6 @@
 using AionDpsMeter.Services.Services.Session;
 using AionDpsMeter.Services.Services.Settings;
+using AionDpsMeter.UI.Utils;
 
 namespace AionDpsMeter.UI.ViewModels.History
 {
@@ -19,6 +20,7 @@ namespace AionDpsMeter.UI.ViewModels.History
         public string StateColor  => IsCompleted ? "#888888" : "#4EC9B0";
 
         public IReadOnlyList<HistoryPlayerViewModel> Players { get; }
+        public string CopyDpsText => CopyDpsFormatter.Format(_snapshot.PlayerStats);
 
         public HistorySessionViewModel(HistorySessionSnapshot snapshot, IAppSettingsService settingsService)
         {

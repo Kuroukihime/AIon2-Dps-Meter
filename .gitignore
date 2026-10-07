@@ -361,3 +361,14 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Coding agents et skills 
+.codex
+AGENTS.md
+PROJECT_MEMORY.md
+
+# Temporary files created
+combat-history.db
+combat-history.db-shm
+combat-history.db-wal
+appsettings.user.json
