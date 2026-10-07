@@ -25,7 +25,7 @@ public sealed class CopyDpsFormatterTests
             ]);
 
             Assert.Equal(
-                "Player1 : 123,456 DPS (240,678,147 dmg), Player2 : 98,765 DPS (198,450,147 dmg), Player3 : 1,234 DPS (15,245 dmg)",
+                "Player1 : 123.46K DPS (240.68M dmg), Player2 : 98.77K DPS (198.45M dmg), Player3 : 1.23K DPS (15.24K dmg)",
                 result);
         }
         finally
@@ -35,15 +35,6 @@ public sealed class CopyDpsFormatterTests
         }
     }
 
-    [Theory]
-    [InlineData(999, "A : 999 DPS (999 dmg)")]
-    [InlineData(1000, "A : 1,000 DPS (1,000 dmg)")]
-    [InlineData(15245, "A : 15,245 DPS (15,245 dmg)")]
-    [InlineData(240678147, "A : 240,678,147 DPS (240,678,147 dmg)")]
-    public void Format_UsesCommaThousandsSeparators(long damage, string expected)
-    {
-        Assert.Equal(expected, CopyDpsFormatter.Format([Player("A", damage)]));
-    }
 
     [Fact]
     public void Format_SortsByNumericDamageAndKeepsOnlyTenPlayers()
@@ -78,7 +69,10 @@ public sealed class CopyDpsFormatterTests
     {
         var players = new[] { Player("Player2", 1000), Player("Player1", 999) };
 
-        Assert.Equal("Player2 : 1,000 DPS (1,000 dmg), Player1 : 999 DPS (999 dmg)", CopyDpsFormatter.Format(players));
+        var xd1= CopyDpsFormatter.Format(players);
+        var xd2 = CopyDpsFormatter.Format([Player("Only", 999)]);
+
+        Assert.Equal("Player2 : 1.00K DPS (1.00K dmg), Player1 : 999 DPS (999 dmg)", CopyDpsFormatter.Format(players));
         Assert.Equal("Only : 999 DPS (999 dmg)", CopyDpsFormatter.Format([Player("Only", 999)]));
     }
 
@@ -117,7 +111,7 @@ public sealed class CopyDpsFormatterTests
             TestAppSettingsService.Create());
 
         Assert.Equal(
-            "Player1 : 240,678,147 DPS (240,678,147 dmg), Player2 : 198,450,147 DPS (198,450,147 dmg), Player3 : 15,245 DPS (15,245 dmg)",
+            "Player1 : 240.68M DPS (240.68M dmg), Player2 : 198.45M DPS (198.45M dmg), Player3 : 15.24K DPS (15.24K dmg)",
             viewModel.CopyDpsText);
     }
 
