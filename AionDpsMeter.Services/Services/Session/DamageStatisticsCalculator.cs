@@ -237,7 +237,8 @@ namespace AionDpsMeter.Services.Services.Session
                 MinHit = group.Min(h => h.Damage),
                 MaxHit = group.Max(h => h.Damage),
 
-                IsClassSkill = group.Any(r => r.CharacterClass.Id > 10),
+                // A theostone hit carries no class until its player's class is known.
+                IsClassSkill = group.Any(r => r.CharacterClass?.Id > 10),
 
                 DamagePerSecond = totalDamage / duration,
                 DamagePercentage = GetPercentage(totalDamage, sessionTotalDamage),
