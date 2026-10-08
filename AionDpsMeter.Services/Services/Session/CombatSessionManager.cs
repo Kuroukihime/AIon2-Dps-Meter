@@ -471,13 +471,7 @@ namespace AionDpsMeter.Services.Services.Session
                     if (entry.CurrentSession is not { } current) continue;
 
                     int result = current.TransferSummonDamage(summonId, ownerId);
-                    if (result == 0)
-                    {
-                        logger.LogWarning(
-                            "Summon late-registration: summon {SummonId} found in target entry {TargetId} but owner player entity {OwnerId} is unknown. Skipping transfer.",
-                            summonId, targetId, ownerId);
-                    }
-                    else if (result > 0)
+                    if (result > 0)
                     {
                         totalTransferred += result;
                         entriesAffected++;

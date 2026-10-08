@@ -171,19 +171,23 @@ namespace AionDpsMeter.Services.Services.Session
         /// <summary>
         /// Transfers all damage recorded under <paramref name="summonId"/> to the owner's player session.
         /// Returns:
-        ///   -1  – no summon session found in this combat session (nothing to do)
-        ///    0  – summon session found but owner player entity is unknown; session kept as-is,
-        ///         a placeholder entity named "Summon_{summonId}" is registered in the tracker
-        ///   >0  – number of hits successfully transferred to the owner's session
+        ///   -1  – no summon session with hits in this combat session (nothing to do)
+        ///   >0  – number of hits transferred to the owner's session
         /// </summary>
         public int TransferSummonDamage(int summonId, int ownerId)
         {
-            if (!playerSessions.TryGetValue(summonId, out var summonSession))
+            if (!playerSessions.TryGetValue(summonId, out var summonSession) || summonSession.Hits.Count == 0)
                 return -1;
 
-            var ownerEntity = entityTracker.GetPlayerEntity(ownerId);
-            if (ownerEntity is null)
-                return 0;
+            // An owner not seen yet gets the same stand-in that later summon hits are credited to (ResolveSummonSource).
+            var summonEntity = summonSession.Hits[0].SourceEntity;
+            var ownerEntity = entityTracker.GetPlayerEntity(ownerId) ?? new Player
+            {
+                CharacterClass = summonEntity.CharacterClass,
+                Icon = summonEntity.Icon,
+                Name = summonEntity.Name,
+                Id = ownerId,
+            };
 
             if (!playerSessions.TryGetValue(ownerId, out var ownerSession))
             {
