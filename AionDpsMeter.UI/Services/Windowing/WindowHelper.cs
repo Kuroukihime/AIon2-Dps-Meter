@@ -12,7 +12,7 @@ namespace AionDpsMeter.UI.Services.Windowing
     public class WindowHelper
     {
         //window states
-        public EventHandler? WindowStateUpdated { get; set; }
+        public event EventHandler? WindowStateUpdated;
         public bool IsBuffEdit { get; private set; }
         public bool IsSkillCdEdit { get; private set; }
 

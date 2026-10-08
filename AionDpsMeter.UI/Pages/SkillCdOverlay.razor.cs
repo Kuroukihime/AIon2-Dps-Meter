@@ -110,7 +110,7 @@ namespace AionDpsMeter.UI.Pages
         public void Dispose()
         {
             appSettingsService.SettingsChanged -= OnSettingsChanged;
-            windowHelper.WindowStateUpdated = OnLiveStateChanged;
+            windowHelper.WindowStateUpdated -= OnLiveStateChanged;
 
             timerCts?.Cancel();
             timerCts?.Dispose();
