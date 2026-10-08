@@ -80,7 +80,7 @@ namespace AionDpsMeter.Core.Data
             }
         }
 
-        public string? GetLocalPathOrStartDownload(string url, Action? onDownloaded = null)
+        public string? GetLocalPathOrStartDownload(string url)
         {
             if (string.IsNullOrWhiteSpace(url)) return null;
 
@@ -95,12 +95,7 @@ namespace AionDpsMeter.Core.Data
                 return localPath;
             }
 
-            _ = Task.Run(async () =>
-            {
-                var result = await GetLocalPathAsync(url).ConfigureAwait(false);
-                if (result is not null)
-                    onDownloaded?.Invoke();
-            });
+            _ = Task.Run(() => GetLocalPathAsync(url));
 
             return null;
         }

@@ -467,7 +467,7 @@ namespace AionDpsMeter.UI.Views.Controls
             {
                 if (path.StartsWith("http", StringComparison.OrdinalIgnoreCase))
                 {
-                    var local = SkillIconCache.Instance.GetLocalPathOrStartDownload(path, null);
+                    var local = SkillIconCache.Instance.GetLocalPathOrStartDownload(path);
                     if (local is null || !File.Exists(local)) return null;
                     return LoadFile(local);
                 }

@@ -2,7 +2,6 @@
 using AionDpsMeter.Core.Data;
 using System;
 using System.Collections.Concurrent;
-using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Windows;
@@ -27,34 +26,29 @@ namespace AionDpsMeter.UI.Converters
             if (path.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ||
                 path.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
             {
-                return LoadFromCdn(path, parameter);
+                return LoadFromCdn(path);
             }
 
             return LoadFromPack(path);
         }
 
-        private static BitmapImage? LoadFromCdn(string url, object? notifyTarget)
+        // A cached icon loads from disk. An uncached one loads straight from the CDN: WPF downloads it in the
+        // background and the Image redraws itself once it arrives, while the cache saves a copy for next time.
+        private static BitmapImage? LoadFromCdn(string url)
         {
-            var cache = SkillIconCache.Instance;
+            var localPath = SkillIconCache.Instance.GetLocalPathOrStartDownload(url);
+            if (localPath is not null) return LoadBitmapFromFile(localPath);
 
-            var localPath = cache.GetLocalPathOrStartDownload(url, onDownloaded: () =>
+            try
             {
-                Application.Current?.Dispatcher.BeginInvoke(() =>
-                {
-                    if (notifyTarget is INotifyPropertyChanged npc)
-                    {
-                        var field = npc.GetType()
-                            .GetField("PropertyChanged",
-                                System.Reflection.BindingFlags.Instance |
-                                System.Reflection.BindingFlags.NonPublic);
-                        var handler = field?.GetValue(npc) as PropertyChangedEventHandler;
-                        handler?.Invoke(npc, new PropertyChangedEventArgs(string.Empty));
-                    }
-                });
-            });
-
-            if (localPath is null) return null;
-            return LoadBitmapFromFile(localPath);
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(url, UriKind.Absolute);
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+                return bitmap;
+            }
+            catch { return null; }
         }
 
         private static BitmapImage? LoadBitmapFromFile(string filePath)
