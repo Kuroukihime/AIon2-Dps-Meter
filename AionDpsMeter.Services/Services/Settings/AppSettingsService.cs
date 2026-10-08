@@ -511,7 +511,7 @@ namespace AionDpsMeter.Services.Services.Settings
             [JsonPropertyName("windowOpacity")]
             public double WindowOpacity { get; set; } = 0.92;
             [JsonPropertyName("useClassColors")]
-            public bool UseClassColors { get; set; }
+            public bool UseClassColors { get; set; } = true;
 
             [JsonPropertyName("toggleVisibilityHotkey")]
             public string ToggleVisibilityHotkey { get; set; } = "Ctrl+Shift+D";
