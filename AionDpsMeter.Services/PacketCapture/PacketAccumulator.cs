@@ -66,7 +66,7 @@ public sealed class PacketAccumulator
                     // === SYNCHRONIZATION SEARCH MODE (06 00 36) ===
 
                     // Search for pattern 06 00 36
-                    int syncIndex = buffer.IndexOfArray([0x0E, 0x00, 0x36], length);
+                    int syncIndex = buffer.AsSpan(0, length).IndexOf((ReadOnlySpan<byte>)[0x0E, 0x00, 0x36]);
 
                     if (syncIndex == -1)
                     {
