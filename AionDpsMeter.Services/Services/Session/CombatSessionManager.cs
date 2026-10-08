@@ -421,6 +421,9 @@ namespace AionDpsMeter.Services.Services.Session
             {
                 if (id == excludeTargetId) continue;
                 entry.CheckIdleTimeout(now);
+
+                // A finished entry holds no session; dropping it keeps the per-event scans from growing with every mob ever hit.
+                if (entry.CurrentSession is null) targetEntries.TryRemove(id, out _);
             }
         }
 
