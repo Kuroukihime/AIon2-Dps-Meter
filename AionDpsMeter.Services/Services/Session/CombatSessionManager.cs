@@ -43,6 +43,7 @@ namespace AionDpsMeter.Services.Services.Session
             targetResolver = new ActiveTargetResolver(entityTracker);
             logger = loggerFactory.CreateLogger<CombatSessionManager>();
             entityTracker.SummonRegistered += OnSummonRegistered;
+            entityTracker.TargetHpDepleted += OnTargetHpDepleted;
         }
 
 
@@ -75,6 +76,11 @@ namespace AionDpsMeter.Services.Services.Session
         {
             lock (lockObject)
             {
+                // Idle checks otherwise only run on new damage, so a fight left with nothing hit afterwards would stay active.
+                var now = DateTime.Now;
+                foreach (var entry in targetEntries.Values)
+                    entry.CheckIdleTimeout(now);
+
                 int pageNumber = Math.Max(1, query.PageNumber);
                 int pageSize = Math.Clamp(query.PageSize, 1, 500);
                 int globalSkip = (pageNumber - 1) * pageSize;
@@ -457,6 +463,17 @@ namespace AionDpsMeter.Services.Services.Session
             targetResolver.Reset();
             latestPlayerStatSnapshot = null;
             activeBuffBacklog.Clear();
+        }
+
+        // A kill ends the fight at once (and saves a boss fight); waiting for the idle timeout would leave it active when
+        // nothing else is hit afterwards, as after a dungeon's last boss.
+        private void OnTargetHpDepleted(int targetId)
+        {
+            lock (lockObject)
+            {
+                if (targetEntries.TryGetValue(targetId, out var entry))
+                    entry.CompleteOnKill();
+            }
         }
 
         private void OnSummonRegistered(int summonId, int ownerId)

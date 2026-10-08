@@ -9,6 +9,9 @@ namespace AionDpsMeter.Services.Services.Entity
         // Fired when a summon is registered: (summonId, ownerId)
         public event Action<int, int>? SummonRegistered;
 
+        /// <summary>A target's HP went from above zero to zero: it was killed.</summary>
+        public event Action<int>? TargetHpDepleted;
+
         public List<Player> PlayerEntities => sessionPlayers.Values.ToList();
         public List<Mob> TargetEntities => targetEntities.Values.ToList();
         public int PlayerEntityCount => sessionPlayers.Count;
@@ -53,11 +56,13 @@ namespace AionDpsMeter.Services.Services.Entity
                 entity = CreateOrUpdateTargetEntity(entityId, 0, 0);
             }
 
+            bool killed = entity.HpCurrent > 0 && hpCurrent == 0;
             entity.HpCurrent = hpCurrent;
             if (entity.HpCurrent > entity.HpTotal + 10_000_000)
             {
                 entity.HpTotal = entity.HpCurrent;
             }
+            if (killed) TargetHpDepleted?.Invoke(entityId);
             return true;
         }
 
