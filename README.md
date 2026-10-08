@@ -20,6 +20,15 @@ A lightweight, **network-based** DPS meter and Stat Efficiency Calculator for **
 - **🔍 Detailed Player Stats** — per-player breakdown: crit/back-attack/perfect-hit/parry rates, skill-by-skill damage, buffs, DPS graph with buff timeline, live combat log
 - **📜 Combat History** — every fight auto-saved as a session snapshot, browsable with configurable retention
 - **🔔 Buff & Skill Cooldown Overlays** — floating overlays tracking up to 10 buffs + 10 skill cooldowns, with a pick-list to choose exactly what to track, sortable by time remaining, adjustable icon size (20–50px), and each overlay can be toggled independently
+- **⏰ Timers Overlay** — on by default: floating clock (24 h / 12 h) plus a Spacetime Rift countdown (3-hour cycle, schedule in `GameData/Assets/spacetime_rift.json`) that switches to the time left to enter once the portals open and to the time left inside after you enter, with optional tray notification and sound before each spawn
+- **👥 Party & Force Aware** — party members marked 👥 and force members ⚔️; while grouped only your group is listed and counted in the total (strangers are still recorded); an option makes the total show only your own DPS
+- **🎒 Item Level & Combat Power** — item level above the class icon and combat power below it, for you and your party and force members (item level can be turned off in Settings)
+- **🎯 Solo Mode & Display Name** — SOLO switch on the meter bar to show only you and your damage (auto-off in groups); optional display name for your character; your row is recognized from your first casts
+- **⚔️ Meter Only in Combat** — optional: the meter appears when you or your group deal damage and hides 10 s after the last hit
+- **📌 Keep Me on Top** — on by default: pins your own row first with your real DPS rank, so you can find yourself in a full force; your row is also always outlined in gold
+- **🎮 Shows Only Over the Game** — the meter and overlays sit over the game window, follow it across monitors, and hide when you alt-tab away (toggleable)
+- **🖱️ Click-Through, Hold to Move** — clicks go to the game; hold Ctrl (configurable) to use, drag (by the header bar) or resize the meter and overlays
+- **🗕 Minimize to Tray** — the Hide button and hotkey send the meter and overlays to the system tray
 - **🙈 Nickname Hiding** — mask player names for streaming/screenshots
 - **💾 Persistent Settings** — window layout & preferences saved automatically
 
@@ -54,7 +63,9 @@ Simulate stat changes and see their exact damage impact **before** committing th
 2. Download the latest `.zip` from the **[Releases](../../releases)** page and extract it anywhere.
 3. Run **`AionDpsMeter.UI.exe`** and launch Aion 2 — tracking starts automatically.
 
-> You may need to run as **Administrator** depending on your system's packet-capture permissions.
+> The meter asks for **Administrator** rights at launch (UAC prompt). AION2 runs elevated, and the hold-to-move key only reaches the meter at the same privilege level.
+
+> Your settings, combat history, logs and icon cache are stored in `%LocalAppData%\Aion2DPSMeter`, so updating or deleting the program folder keeps them. Data left in the program folder by earlier versions is copied there on first start.
 
 ---
 
@@ -89,6 +100,8 @@ cd AIon2-Dps-Meter
 dotnet restore
 dotnet build
 ```
+
+Skill and buff icons ship in `AionDpsMeter.UI/wwwroot/icons/skills`. When the game data adds skills, refresh them with `dotnet run --project tools/SkillIconPacker`.
 
 ### Self-contained release
 
