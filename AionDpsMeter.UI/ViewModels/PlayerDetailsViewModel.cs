@@ -119,9 +119,7 @@ namespace AionDpsMeter.UI.ViewModels
                 string name = _settingsService.IsNicknameHidden
                     ? NicknameObfuscator.Mask(_playerNameDisplay)
                     : _playerNameDisplay;
-                return string.IsNullOrEmpty(_serverName)
-                    ? name
-                    : $"{name}[{_serverName}]";
+                return name;
             }
         }
 
