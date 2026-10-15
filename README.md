@@ -12,16 +12,16 @@ A lightweight, **network-based** DPS meter and Stat Efficiency Calculator for **
 
 ---
 
-## ✨ Features
+## Features
 
-- **📊 Real-Time DPS Tracking** — live DPS & total damage per player, contribution bars, party DPS, auto session reset
-- **🎯 Smart Target Tracking** — auto-detects your current target with name, HP and a live HP bar
-- **📶 Ping Monitor** — colour-coded live ping (🟢 <60ms · 🟡 60–99ms · 🟠 100–199ms · 🔴 ≥200ms)
-- **🔍 Detailed Player Stats** — per-player breakdown: crit/back-attack/perfect-hit/parry rates, skill-by-skill damage, buffs, DPS graph with buff timeline, live combat log
-- **📜 Combat History** — every fight auto-saved as a session snapshot, browsable with configurable retention
-- **🔔 Buff & Skill Cooldown Overlays** — floating overlays tracking up to 10 buffs + 10 skill cooldowns, with a pick-list to choose exactly what to track, sortable by time remaining, adjustable icon size (20–50px), and each overlay can be toggled independently
-- **🙈 Nickname Hiding** — mask player names for streaming/screenshots
-- **💾 Persistent Settings** — window layout & preferences saved automatically
+- **Real-Time DPS Tracking** — live DPS & total damage per player, contribution bars, party DPS, auto session reset
+- **Smart Target Tracking** — auto-detects your current target with name, HP and a live HP bar
+- **Ping Monitor** — colour-coded live ping (🟢 <60ms · 🟡 60–99ms · 🟠 100–199ms · 🔴 ≥200ms)
+- **Detailed Player Stats** — per-player breakdown: crit/back-attack/perfect-hit/parry rates, skill-by-skill damage, buffs, DPS graph with buff timeline, live combat log
+- **Combat History** — every fight auto-saved as a session snapshot, browsable with configurable retention
+- **Buff & Skill Cooldown Overlays** — floating overlays tracking up to 10 buffs + 10 skill cooldowns, with a pick-list to choose exactly what to track, sortable by time remaining, adjustable icon size (20–50px), and each overlay can be toggled independently
+- **Nickname Hiding** — mask player names for streaming/screenshots
+- **Persistent Settings** — window layout & preferences saved automatically
 
 <table>
 <tr>
@@ -40,7 +40,7 @@ A lightweight, **network-based** DPS meter and Stat Efficiency Calculator for **
 
 ---
 
-## ⚔️ Stat Efficiency Calculator
+## Stat Efficiency Calculator
 
 Simulate stat changes and see their exact damage impact **before** committing them in-game. Pulls a read-only snapshot of your current Attack stats and derived power, then lets you layer combat assumptions (crit chance, front/back attack rate, positional stance) on top. Enter deltas for any stat and instantly see **Total Damage**, **Total Damage (With Option)**, and overall **Damage Gain %** — so you know if a gear swap or buff is actually worth it.
 
@@ -48,7 +48,7 @@ Simulate stat changes and see their exact damage impact **before** committing th
 
 ---
 
-## 📦 Installation
+## Installation
 
 1. Install **[Npcap](https://npcap.com/#download)** — during setup, check **"Install Npcap in WinPcap API-compatible Mode"** (required).
 2. Download the latest `.zip` from the **[Releases](../../releases)** page and extract it anywhere.
@@ -58,7 +58,7 @@ Simulate stat changes and see their exact damage impact **before** committing th
 
 ---
 
-## ❓ FAQ
+## FAQ
 
 **Q: Why is my nickname displayed as `Player_xxxx`?**
  - The server does not include player nicknames in damage packets. A nickname is only sent in specific events, such as teleporting or entering a dungeon. Until one of those events occurs, the meter displays a placeholder name.
@@ -70,7 +70,7 @@ Simulate stat changes and see their exact damage impact **before** committing th
 ---
 
 <details>
-<summary>🛠️ <b>Developer Build Guide</b></summary>
+<summary> <b>Developer Build Guide</b></summary>
 
 ### Prerequisites
 
@@ -116,17 +116,17 @@ Open `AionDpsMeter.sln`, set **AionDpsMeter.UI** as startup project, press **F5*
 
 ---
 
-## 🙏 Credits
+##  Credits
 
 - **Game data reverse engineering** — huge thanks to [**@taengu**](https://github.com/taengu/) and  [**@Karim**](https://github.com/karim-mo/) for helping reverse-engineer Aion 2 game data.
 - **Mobs and Skills database** — [**@Karim**](https://github.com/karim-mo/)
 - Built with [**SharpPcap**](https://github.com/dotpcap/sharppcap) and [**Packet.Net**](https://github.com/dotpcap/packetnet) for packet capture.
 - UI built with **WPF** on **.NET 10** using [**CommunityToolkit.Mvvm**](https://github.com/CommunityToolkit/dotnet).
 
-## 📧 Contact
+## Contact
 
 Kuroyukihimexdd@proton.me
 
-## 📄 License
+## License
 
 See [LICENSE](LICENSE).
