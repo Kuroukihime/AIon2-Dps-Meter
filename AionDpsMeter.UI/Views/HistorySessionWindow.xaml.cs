@@ -1,4 +1,5 @@
 using AionDpsMeter.Services.Services.Settings;
+using AionDpsMeter.UI.Utils;
 using AionDpsMeter.UI.ViewModels;
 using AionDpsMeter.UI.ViewModels.History;
 using System.Windows;
@@ -23,6 +24,16 @@ namespace AionDpsMeter.UI
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e) => Close();
+
+        private void CopyDpsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is not HistorySessionViewModel session)
+                return;
+
+            var text = session.CopyDpsText;
+            if (text.Length > 0)
+                Clipboard.SetText(text);
+        }
 
         private void PlayerItem_Click(object sender, MouseButtonEventArgs e)
         {

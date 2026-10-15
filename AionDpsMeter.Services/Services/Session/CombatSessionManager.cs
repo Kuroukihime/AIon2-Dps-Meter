@@ -33,7 +33,7 @@ namespace AionDpsMeter.Services.Services.Session
             IAppSettingsService settingsService,
             ICombatHistoryStore historyStore,
             [FromKeyedServices("Buffs")] ITimedEventTracker buffEventTracker,
-            [FromKeyedServices("SkillCd")] ITimedEventTracker skillCdEventTracker)
+            [FromKeyedServices("SkillCdUpdate")] ITimedEventTracker skillCdEventTracker)
         {
             this.entityTracker = entityTracker;
             this.settingsService = settingsService;
@@ -294,7 +294,19 @@ namespace AionDpsMeter.Services.Services.Session
             }
         }
 
-        public void RegisterSkillCdEvent(TimedEvent skillCdEvent)
+        public void RegisterSkillCastEvent(SkillCastEvent skillCastEvent)
+        {
+            if (!entityTracker.IsCurrentPlayer(skillCastEvent.EntityId)) return;
+            skillCdEventTracker.Register(new TimedEvent()
+            {
+                Name = skillCastEvent.Name,
+                IconUrl = skillCastEvent.IconUrl ?? string.Empty,
+                Duration = skillCastEvent.Cd,
+                Id = (uint)skillCastEvent.SkillId
+            });
+        }
+
+        public void RegisterSkillCdUpdateEvent(TimedEvent skillCdEvent)
         {
             skillCdEventTracker.Register(skillCdEvent);
         }

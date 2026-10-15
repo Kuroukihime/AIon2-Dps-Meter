@@ -1,4 +1,5 @@
 using AionDpsMeter.Services.Services.Session;
+using AionDpsMeter.UI.Utils;
 
 namespace AionDpsMeter.UI.ViewModels.History
 {

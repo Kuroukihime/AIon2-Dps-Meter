@@ -31,6 +31,7 @@ namespace AionDpsMeter.UI.ViewModels
         private double _combatSpeedPercent;
 
         private double _critChance;
+        private double _criticalDamageBoost;
         private double _backAttackRate;
         private double _frontAttackRate;
         private AttackType _selectedAttackType;
@@ -43,6 +44,7 @@ namespace AionDpsMeter.UI.ViewModels
 
         private double _optionBaseAttack;
         private double _optionGearAttack;
+        private double _optionMinAttack;
         private double _optionMaxAttack;
         private double _optionPveAttack;
         private double _optionBossAttack;
@@ -67,6 +69,7 @@ namespace AionDpsMeter.UI.ViewModels
             _settingsService = settingsService;
 
             _critChance = PercentMath.ClampNonNegative(_settingsService.StatCalcCritChance);
+            _criticalDamageBoost = PercentMath.ClampNonNegative(_settingsService.StatCalcCriticalDamageBoost);
             _backAttackRate = PercentMath.ClampNonNegative(_settingsService.StatCalcBackAttackRate);
             _frontAttackRate = PercentMath.ClampNonNegative(_settingsService.StatCalcFrontAttackRate);
             _selectedAttackType = ParseAttackType(_settingsService.StatCalcAttackType);
@@ -105,6 +108,12 @@ namespace AionDpsMeter.UI.ViewModels
         {
             get => _critChance;
             set => SetEnvironment(ref _critChance, value, v => _settingsService.StatCalcCritChance = v);
+        }
+
+        public double CriticalDamageBoost
+        {
+            get => _criticalDamageBoost;
+            set => SetEnvironment(ref _criticalDamageBoost, value, v => _settingsService.StatCalcCriticalDamageBoost = v);
         }
 
         public double BackAttackRate
@@ -185,6 +194,7 @@ namespace AionDpsMeter.UI.ViewModels
 
         public double OptionBaseAttack { get => _optionBaseAttack; set => SetOption(ref _optionBaseAttack, value); }
         public double OptionGearAttack { get => _optionGearAttack; set => SetOption(ref _optionGearAttack, value); }
+        public double OptionMinAttack { get => _optionMinAttack; set => SetOption(ref _optionMinAttack, value); }
         public double OptionMaxAttack { get => _optionMaxAttack; set => SetOption(ref _optionMaxAttack, value); }
         public double OptionPveAttack { get => _optionPveAttack; set => SetOption(ref _optionPveAttack, value); }
         public double OptionBossAttack { get => _optionBossAttack; set => SetOption(ref _optionBossAttack, value); }
@@ -349,6 +359,7 @@ namespace AionDpsMeter.UI.ViewModels
             return new StatEfficiencyEnvironment
             {
                 CritChance = CritChance,
+                CriticalDamageBoost = CriticalDamageBoost,
                 BackAttackRate = BackAttackRate,
                 FrontAttackRate = FrontAttackRate,
                 AttackType = SelectedAttackType,
@@ -366,6 +377,7 @@ namespace AionDpsMeter.UI.ViewModels
             {
                 BaseAttack = OptionBaseAttack,
                 GearAttack = OptionGearAttack,
+                MinAttack = OptionMinAttack,
                 MaxAttack = OptionMaxAttack,
                 PveAttack = OptionPveAttack,
                 BossAttack = OptionBossAttack,

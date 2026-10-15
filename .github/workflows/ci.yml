@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore
+        run: dotnet restore AionDpsMeter.slnx
+
+      - name: Tests
+        run: dotnet test AionDpsMeter.slnx --no-restore
+
+      - name: Build
+        run: dotnet build AionDpsMeter.slnx --no-restore

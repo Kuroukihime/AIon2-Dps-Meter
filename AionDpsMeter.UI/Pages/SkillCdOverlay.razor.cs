@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace AionDpsMeter.UI.Pages
 {
-    partial class SkillCdOverlay(IWindowManagerService windowManager, WindowHelper windowHelper, IAppSettingsService appSettingsService, [FromKeyedServices("SkillCd")] ITimedEventTracker skillCdTracker)
+    partial class SkillCdOverlay(IWindowManagerService windowManager, WindowHelper windowHelper, IAppSettingsService appSettingsService, [FromKeyedServices("SkillCdUpdate")] ITimedEventTracker skillCdTracker)
     {
 
         private bool IsEditable => windowHelper.IsSkillCdEdit;

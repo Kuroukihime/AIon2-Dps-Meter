@@ -1,4 +1,4 @@
-namespace AionDpsMeter.UI.ViewModels
+namespace AionDpsMeter.UI.Utils
 {
     /// <summary>
     /// Centralised number and duration formatting used across all ViewModels.

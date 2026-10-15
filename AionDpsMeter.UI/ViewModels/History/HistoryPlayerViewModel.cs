@@ -29,9 +29,7 @@ namespace AionDpsMeter.UI.ViewModels.History
                     ? NicknameObfuscator.Mask(_stats.PlayerName)
                     : _stats.PlayerName;
 
-                return string.IsNullOrEmpty(_stats.ServerName)
-                    ? name
-                    : $"{name}[{_stats.ServerName}]";
+                return name;
             }
         }
 

@@ -28,6 +28,7 @@ namespace AionDpsMeter.Services.Services.Settings
         public bool UseClassColors { get; set; }
 
         double StatCalcCritChance { get; set; }
+        double StatCalcCriticalDamageBoost { get; set; }
         double StatCalcBackAttackRate { get; set; }
         double StatCalcFrontAttackRate { get; set; }
         string StatCalcAttackType { get; set; }

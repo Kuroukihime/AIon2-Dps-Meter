@@ -19,6 +19,14 @@ namespace AionDpsMeter.UI
             _settingsService = settingsService;
         }
 
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+
+            if (DataContext is HistoryViewModel viewModel)
+                viewModel.Refresh();
+        }
+
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
@@ -64,5 +72,6 @@ namespace AionDpsMeter.UI
                 sessionWindow.Show();
             }
         }
+
     }
 }

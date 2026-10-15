@@ -6,8 +6,8 @@ using AionDpsMeter.Services.Services.Timed;
 
 namespace AionDpsMeter.Services.PacketProcessing.Processors
 {
-    [PacketOpcode(PacketOpcodes.SkillCd)]
-    internal class SkillCdProcessor(CombatSessionManager sessionManager) : IOpcodeProcessor
+    [PacketOpcode(PacketOpcodes.SkillCdUpdate)]
+    internal class SkillCdUpdateProcessor(CombatSessionManager sessionManager) : IOpcodeProcessor
     {
         private readonly GameDataProvider gameData = GameDataProvider.Instance;
         public void Process(Packet packet)
@@ -31,7 +31,7 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors
             var msLeft = r.ReadVarInt();
             var skill = gameData.GetSkillOrDefault((int)skillId);
 
-            sessionManager.RegisterSkillCdEvent(new TimedEvent()
+            sessionManager.RegisterSkillCdUpdateEvent(new TimedEvent()
             {
                 Name = skill.Name,
                 IconUrl = skill.Icon ?? string.Empty,
