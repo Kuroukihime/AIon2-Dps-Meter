@@ -75,7 +75,7 @@ namespace AionDpsMeter.UI.Services.Windowing
             WindowStateUpdated?.Invoke(this, EventArgs.Empty);
             var win = new BlazorWindow(App.AppHost.Services, typeof(SettingsPage))
             {
-                Width = 500,
+                Width = 680,
                 Height = 900,
             };
             windowManager.Open(WindowKey.Settings, win, isSingleton: true, owner: MainWindow);

@@ -3,14 +3,14 @@
 
 <div class="settings-shell">
 
-    <header class="settings-header">
-        <div class="settings-title" @onmousedown="BeginDrag">
+    <header class="settings-header" @onmousedown="BeginDrag">
+        <div class="settings-title">
             <span class="settings-title__mark"></span>
             <h1>Settings</h1>
         </div>
         <div class="settings-header__right">
             <span class="settings-version">v@(_version)</span>
-            <button type="button" class="settings-close" aria-label="Close settings" title="Close" @onclick="CloseWindow">
+            <button type="button" class="settings-close" aria-label="Close settings" title="Close" @onclick="CloseWindow" @onmousedown:stopPropagation="true">
                 <svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true">
                     <path d="M1 1L11 11M11 1L1 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
                 </svg>
