@@ -114,28 +114,6 @@ namespace AionDpsMeter.Services.Extensions
 
                 return (-1, -1);
             }
-
-            public int IndexOfArray(byte[] bytesToFind, int offset = 0)
-            {
-                if (bytesToFind.Length == 0 || bytes.Length < bytesToFind.Length || offset >= bytes.Length)
-                    return -1;
-
-                for (int i = offset; i <= bytes.Length - bytesToFind.Length; i++)
-                {
-                    bool found = true;
-                    for (int j = 0; j < bytesToFind.Length; j++)
-                    {
-                        if (bytes[i + j] != bytesToFind[j])
-                        {
-                            found = false;
-                            break;
-                        }
-                    }
-                    if (found)
-                        return i;
-                }
-                return -1;
-            }
         }
     }
 }
