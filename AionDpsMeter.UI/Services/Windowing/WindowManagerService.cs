@@ -161,18 +161,20 @@ public sealed class WindowManagerService(IAppSettingsService settingsService)
             return;
         }
 
-        var state = CaptureClickThroughState(hwnd);
+        var state = new ClickThroughState
+        {
+            WindowHandle = hwnd,
+            WindowExtendedStyle = NativeWindowHelper.GetExtendedStyle(hwnd)
+        };
 
         NativeWindowHelper.SetExtendedStyle(
             hwnd,
             state.WindowExtendedStyle | NativeWindowHelper.ClickThroughExtendedStyle);
 
-        foreach (var child in state.ChildWindows)
+        // Act on the children that exist now: WebView2 creates its input windows after startup, so a snapshot goes stale.
+        foreach (var child in NativeWindowHelper.GetChildWindows(hwnd))
         {
-            if (NativeWindowHelper.IsValid(child.Handle))
-            {
-                NativeWindowHelper.SetEnabled(child.Handle, enabled: false);
-            }
+            NativeWindowHelper.SetEnabled(child, enabled: false);
         }
 
         lock (_gate)
@@ -199,33 +201,13 @@ public sealed class WindowManagerService(IAppSettingsService settingsService)
             return;
         }
 
-        // Restore the top-level WPF window style exactly.
         NativeWindowHelper.SetExtendedStyle(state.WindowHandle, state.WindowExtendedStyle);
 
-        // Restore every child HWND to its previous enabled state.
-        foreach (var child in state.ChildWindows)
+        // Every child must take input outside click-through, including ones created after click-through was turned on.
+        foreach (var child in NativeWindowHelper.GetChildWindows(state.WindowHandle))
         {
-            if (NativeWindowHelper.IsValid(child.Handle))
-            {
-                NativeWindowHelper.SetEnabled(child.Handle, child.WasEnabled);
-            }
+            NativeWindowHelper.SetEnabled(child, enabled: true);
         }
-    }
-
-    private static ClickThroughState CaptureClickThroughState(IntPtr hwnd)
-    {
-        var state = new ClickThroughState
-        {
-            WindowHandle = hwnd,
-            WindowExtendedStyle = NativeWindowHelper.GetExtendedStyle(hwnd)
-        };
-
-        foreach (var childHandle in NativeWindowHelper.GetChildWindows(hwnd))
-        {
-            state.ChildWindows.Add(NativeWindowState.Capture(childHandle));
-        }
-
-        return state;
     }
 
     #endregion
