@@ -14,6 +14,10 @@ namespace AionDpsMeter.Services.Services.Session
     {
         private static readonly TimeSpan IdleTimeout = TimeSpan.FromSeconds(45);
         private static readonly TimeSpan ScarecrowIdleTimeout = TimeSpan.FromSeconds(10);
+        // The kill's HP update can arrive before the killing blow's damage.
+        private static readonly TimeSpan LateHitWindow = TimeSpan.FromSeconds(3);
+
+        private TargetCombatSession? killedSession;
 
         private readonly EntityTracker entityTracker;
         private readonly Action<TargetCombatSession>? onSessionCompleted;
@@ -43,6 +47,14 @@ namespace AionDpsMeter.Services.Services.Session
         public void AddDamage(PlayerDamage damage)
         {
             var mob = entityTracker.GetTargetMob(damage.TargetEntity.Id) ?? damage.TargetEntity;
+
+            // A hit landing just after the kill belongs to the fight that ended, not to a new one against a dead target.
+            if (CurrentSession is null && killedSession is { } killed && mob.HpCurrent == 0 && damage.DateTime - killed.LastHitTime < LateHitWindow)
+            {
+                killed.AddDamage(damage);
+                if (killed.TargetInfo.IsBoss) onSessionCompleted?.Invoke(killed);
+                return;
+            }
 
             if (CurrentSession is not null && CurrentSession.IsNewTry() || ShouldCompleteSession(damage.DateTime, mob))
             {
@@ -74,6 +86,15 @@ namespace AionDpsMeter.Services.Services.Session
             if (CurrentSession is null || CurrentSession.IsCompleted) return;
 
             if (ShouldCompleteSession(now)) CompleteCurrentSession();
+        }
+
+        /// <summary>Completes the running session now, if any. Returns whether one was completed.</summary>
+        public bool CompleteOnKill()
+        {
+            if (CurrentSession is null || CurrentSession.IsCompleted || CurrentSession.TargetInfo.IsDummy) return false;
+            killedSession = CurrentSession;
+            CompleteCurrentSession();
+            return true;
         }
 
         public void CompleteActiveSession()
@@ -127,6 +148,7 @@ namespace AionDpsMeter.Services.Services.Session
 
         private void StartNewSession(Mob mob, DateTime at)
         {
+            killedSession = null;
             CurrentSession = new TargetCombatSession(mob, at, entityTracker, settingsService);
         }
     }
