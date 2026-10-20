@@ -26,6 +26,15 @@ namespace AionDpsMeter.Services.Services.Settings
         int UiStyle { get; set; }
 
         public bool UseClassColors { get; set; }
+        string CurrentPlayerNameStyleMode { get; set; }
+        string CurrentPlayerNameColor { get; set; }
+        string CurrentPlayerNameGradientColor1 { get; set; }
+        string CurrentPlayerNameGradientColor2 { get; set; }
+
+        string CurrentPlayerBarStyleMode { get; set; }
+        string CurrentPlayerBarColor { get; set; }
+        string CurrentPlayerBarGradientColor1 { get; set; }
+        string CurrentPlayerBarGradientColor2 { get; set; }
 
         double StatCalcCritChance { get; set; }
         double StatCalcCriticalDamageBoost { get; set; }

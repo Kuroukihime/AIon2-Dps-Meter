@@ -50,13 +50,13 @@
             @foreach (var player in ViewModel.Players)
             {
                 <div class="player-module @ViewModel.GetIsUserClass(player)" @onclick="() => ViewModel.OpenPlayerDetails(player)">
-                    <div class="progress-bar @ViewModel.GetPlayerRowClass(player)" style="width:@($"{ViewModel.ClampPercent(player.EffectivePercentage).ToString("0.##", CultureInfo.InvariantCulture)}%")"></div>
+                    <div class="progress-bar @ViewModel.GetPlayerRowClass(player)" style="@ViewModel.GetPlayerProgressStyle(player)"></div>
                     <div class="player-data">
                         <div class="icon-wrap">
                             <div class="class-icon" style="background-image: url('/images/classes/@(player.ClassId).png');"></div>
                         </div>
                         <div class="player-info">
-                            <div class="name-block">
+                            <div class="name-block" style="@ViewModel.GetCurrentPlayerNameStyle(player)">
                                 @player.PlayerNameDisplay
                             </div>
                             <div class="score">@ViewModel.GetCombatScoreDisplay(player)</div>

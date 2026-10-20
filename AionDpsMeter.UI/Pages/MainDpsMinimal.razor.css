@@ -459,6 +459,7 @@
    ========================================================= */
 
 .name-block {
+    display: block;
     min-width: 0;
     white-space: nowrap;
     overflow: hidden;
@@ -466,6 +467,7 @@
     font-weight: 600;
     text-shadow: 1px 1px 1px #000;
 }
+
 
 
 .tag {

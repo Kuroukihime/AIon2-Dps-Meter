@@ -112,6 +112,84 @@
                 </ValueSlot>
             </SettingRow>
 
+            <div class="settings-section-label settings-section-label--spaced">MY STYLE</div>
+
+            <SettingRow Title="My Nickname Style" Description="Customize your own player name color">
+                <ValueSlot>
+                    <div class="appearance-style-editor">
+                        <div class="segmented segmented--style-chooser">
+                            @foreach (var option in _nameStyleOptions)
+                            {
+                                <button type="button"
+                                        class="segmented__option @(CurrentNameStyleMode == option.Value ? "is-selected" : "")"
+                                        @onclick="() => SetCurrentPlayerNameStyleMode(option.Value)">
+                                    @option.Label
+                                </button>
+                            }
+                        </div>
+
+                        @if (CurrentNameStyleMode == "color")
+                        {
+                            <div class="color-input-row">
+                                <label class="color-input-label">Color</label>
+                                <input type="color" class="color-input" value="@settings.CurrentPlayerNameColor" @oninput="OnCurrentPlayerNameColorInput" />
+                            </div>
+                        }
+                        else if (CurrentNameStyleMode == "gradient")
+                        {
+                            <div class="color-input-grid">
+                                <div class="color-input-row">
+                                    <label class="color-input-label">Color 1</label>
+                                    <input type="color" class="color-input" value="@settings.CurrentPlayerNameGradientColor1" @oninput="OnCurrentPlayerNameGradientColor1Input" />
+                                </div>
+                                <div class="color-input-row">
+                                    <label class="color-input-label">Color 2</label>
+                                    <input type="color" class="color-input" value="@settings.CurrentPlayerNameGradientColor2" @oninput="OnCurrentPlayerNameGradientColor2Input" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </ValueSlot>
+            </SettingRow>
+
+            <SettingRow Title="My Progress Bar Style" Description="Customize your own row fill in the DPS list" IsLast="true">
+                <ValueSlot>
+                    <div class="appearance-style-editor">
+                        <div class="segmented segmented--style-chooser">
+                            @foreach (var option in _barStyleOptions)
+                            {
+                                <button type="button"
+                                        class="segmented__option @(CurrentBarStyleMode == option.Value ? "is-selected" : "")"
+                                        @onclick="() => SetCurrentPlayerBarStyleMode(option.Value)">
+                                    @option.Label
+                                </button>
+                            }
+                        </div>
+
+                        @if (CurrentBarStyleMode == "color")
+                        {
+                            <div class="color-input-row">
+                                <label class="color-input-label">Color</label>
+                                <input type="color" class="color-input" value="@settings.CurrentPlayerBarColor" @oninput="OnCurrentPlayerBarColorInput" />
+                            </div>
+                        }
+                        else if (CurrentBarStyleMode == "gradient")
+                        {
+                            <div class="color-input-grid">
+                                <div class="color-input-row">
+                                    <label class="color-input-label">Color 1</label>
+                                    <input type="color" class="color-input" value="@settings.CurrentPlayerBarGradientColor1" @oninput="OnCurrentPlayerBarGradientColor1Input" />
+                                </div>
+                                <div class="color-input-row">
+                                    <label class="color-input-label">Color 2</label>
+                                    <input type="color" class="color-input" value="@settings.CurrentPlayerBarGradientColor2" @oninput="OnCurrentPlayerBarGradientColor2Input" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </ValueSlot>
+            </SettingRow>
+
         </section>
 
         @* ---------------- HOTKEYS ---------------- *@

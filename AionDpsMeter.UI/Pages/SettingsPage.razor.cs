@@ -31,6 +31,14 @@ namespace AionDpsMeter.UI.Pages
         private sealed record SettingsGroup(string Id, string Label, string Icon);
         private sealed record UiStyleOption(int Value, string Label, string PreviewClass);
         private sealed record OrderOption(OverlayOrderMode Value, string Label);
+        private sealed record StyleOption(string Value, string Label);
+
+        private const string NameStyleDefault = "default";
+        private const string NameStyleColor = "color";
+        private const string NameStyleGradient = "gradient";
+        private const string BarStyleDefault = "default";
+        private const string BarStyleColor = "color";
+        private const string BarStyleGradient = "gradient";
 
         private readonly List<SettingsGroup> _groups = new()
     {
@@ -50,6 +58,20 @@ namespace AionDpsMeter.UI.Pages
     {
         new(OverlayOrderMode.Ascending, "Least time"),
         new(OverlayOrderMode.Descending, "Most time"),
+    };
+
+        private readonly List<StyleOption> _nameStyleOptions = new()
+    {
+        new(NameStyleDefault, "Default"),
+        new(NameStyleColor, "Color"),
+        new(NameStyleGradient, "Gradient"),
+    };
+
+        private readonly List<StyleOption> _barStyleOptions = new()
+    {
+        new(BarStyleDefault, "Default"),
+        new(BarStyleColor, "Color"),
+        new(BarStyleGradient, "Gradient"),
     };
 
         protected override void OnInitialized()
@@ -113,6 +135,69 @@ namespace AionDpsMeter.UI.Pages
         }
 
         private void SetUiStyle(int value) => settings.UiStyle = value;
+
+        private string CurrentNameStyleMode => NormalizeNameStyleMode(settings.CurrentPlayerNameStyleMode);
+
+        private string CurrentBarStyleMode => NormalizeBarStyleMode(settings.CurrentPlayerBarStyleMode);
+
+        private static string NormalizeNameStyleMode(string? value)
+        {
+            return value?.Trim().ToLowerInvariant() switch
+            {
+                NameStyleColor => NameStyleColor,
+                NameStyleGradient => NameStyleGradient,
+                _ => NameStyleDefault
+            };
+        }
+
+        private static string NormalizeBarStyleMode(string? value)
+        {
+            return value?.Trim().ToLowerInvariant() switch
+            {
+                BarStyleColor => BarStyleColor,
+                BarStyleGradient => BarStyleGradient,
+                _ => BarStyleDefault
+            };
+        }
+
+        private static string NormalizeColor(string? value, string fallback)
+        {
+            var input = (value ?? string.Empty).Trim();
+            if (input.StartsWith('#')) input = input[1..];
+            if (input.Length != 6) return fallback;
+
+            for (var i = 0; i < input.Length; i++)
+            {
+                if (!Uri.IsHexDigit(input[i]))
+                    return fallback;
+            }
+
+            return $"#{input.ToUpperInvariant()}";
+        }
+
+        private void SetCurrentPlayerNameStyleMode(string value)
+            => settings.CurrentPlayerNameStyleMode = NormalizeNameStyleMode(value);
+
+        private void SetCurrentPlayerBarStyleMode(string value)
+            => settings.CurrentPlayerBarStyleMode = NormalizeBarStyleMode(value);
+
+        private void OnCurrentPlayerNameColorInput(ChangeEventArgs e)
+            => settings.CurrentPlayerNameColor = NormalizeColor(e.Value?.ToString(), "#F2F1F5");
+
+        private void OnCurrentPlayerNameGradientColor1Input(ChangeEventArgs e)
+            => settings.CurrentPlayerNameGradientColor1 = NormalizeColor(e.Value?.ToString(), "#C084FC");
+
+        private void OnCurrentPlayerNameGradientColor2Input(ChangeEventArgs e)
+            => settings.CurrentPlayerNameGradientColor2 = NormalizeColor(e.Value?.ToString(), "#60A5FA");
+
+        private void OnCurrentPlayerBarColorInput(ChangeEventArgs e)
+            => settings.CurrentPlayerBarColor = NormalizeColor(e.Value?.ToString(), "#9C27B0");
+
+        private void OnCurrentPlayerBarGradientColor1Input(ChangeEventArgs e)
+            => settings.CurrentPlayerBarGradientColor1 = NormalizeColor(e.Value?.ToString(), "#7C3AED");
+
+        private void OnCurrentPlayerBarGradientColor2Input(ChangeEventArgs e)
+            => settings.CurrentPlayerBarGradientColor2 = NormalizeColor(e.Value?.ToString(), "#EC4899");
 
         private void OnRetentionPeriodInput(ChangeEventArgs e)
         {
