@@ -8,7 +8,7 @@
         d:DataContext="{d:DesignInstance Type=vm:StatEfficiencyCalculatorViewModel}"
         Title="Stat efficiency calculator"
         Width="980"
-        Height="1050"
+        Height="1070"
         MinWidth="860"
         MinHeight="540"
         WindowStyle="None"
