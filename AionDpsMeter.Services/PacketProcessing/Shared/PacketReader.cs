@@ -90,12 +90,34 @@ namespace AionDpsMeter.Services.PacketProcessing.Shared
                 b = ReadU8();
                 result |= (uint)(b & 0x7F) << shift;
                 shift += 7;
-            } while ((b & 0x80) != 0);
+            } 
+            while ((b & 0x80) != 0);
 
-            if(result < 0)
-                throw new PacketParseException("Varint out of range", Position);
+
             return result;
         }
+
+        public ulong ReadVarInt64()
+        {
+            ulong result = 0;
+            int shift = 0;
+            byte b;
+
+            do
+            {
+                if (shift >= 70)
+                    throw new PacketParseException("VarInt64 too long", Position);
+
+                b = ReadU8();
+                result |= (ulong)(b & 0x7F) << shift;
+                shift += 7;
+            }
+            while ((b & 0x80) != 0);
+
+            return result;
+        }
+
+
 
         /// <summary>[u8 len][UTF-8 bytes] string, as used for party_name / _nickname.</summary>
         public string ReadLengthPrefixedString()

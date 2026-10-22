@@ -1,137 +1,142 @@
-﻿using AionDpsMeter.Services.Extensions;
-using AionDpsMeter.Services.PacketProcessing.Routing;
+﻿using AionDpsMeter.Services.PacketProcessing.Routing;
+using AionDpsMeter.Services.PacketProcessing.Shared;
 using AionDpsMeter.Services.Services.Entity;
-using Microsoft.Extensions.Logging;
 
 namespace AionDpsMeter.Services.PacketProcessing.Processors
 {
     [PacketOpcode(PacketOpcodes.MobSummon)]
-    internal sealed class MobPacketProcessor(EntityTracker entityTracker, ILogger<MobPacketProcessor> logger) : IOpcodeProcessor
+    internal sealed class MobPacketProcessor(EntityTracker entityTracker) : IOpcodeProcessor
     {
-        private static readonly byte[] SummonBoundaryMarker = [0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF];
-        private static readonly byte[] SummonActorHeader = [0x07, 0x02, 0x06];
-        private static readonly byte[] SummonActorHeader2 = [0x07, 0x02, 0x01];
-        private static readonly byte[] SummonActorHeaderBackup = [0x07, 0x02];
-        private const int MobTypeScanWindow = 60;
-        private const int HpScanWindow = 64;
-
 
         public void Process(Packet packet)
         {
-            TryParseSummon(packet.Data);
-            TryParseMobInfo(packet.Data);
-        }
 
+            var r = new PacketReader(packet.Data);
 
-        private bool TryParseMobInfo(byte[] data)
-        {
-            int end = data.Length;
-            int pos = data.ReadVarInt().Length + 2;
-            if (pos >= end) return false;
+            r.ReadVarInt(); //len
+            r.ReadU16();    //opcode
 
-            int mobId = data.ReadVarInt(pos).Value;
-            if (mobId == -1) return false;
+            var entityId = r.ReadVarInt();
+            var mask = r.ReadU16();
 
-            int searchFrom = pos;
-            int searchLimit = Math.Min(searchFrom + MobTypeScanWindow, end - 2);
-            int markerPos = ScanMobCodeMarker(data, pos, searchFrom, searchLimit, end);
-            if (markerPos < 0) return false;
+            var isPlayerSummon = (mask & 0x0010) != 0;
 
-            int codeRelative = markerPos - 2;
-            if (searchFrom > codeRelative - 3) return false;
+            ReadMobGeneralInfo(r, out var mobCode);
+            ReadMobState(r, out _, out var maxHp );
 
-            int codeAbsolute = pos + codeRelative - 3;
-            if (codeAbsolute < pos || codeAbsolute + 3 > end) return false;
-
-            int mobCode = data.ReadUInt24Le(codeAbsolute);
-            TryFireMobSpawnWithHp(data, pos, end - pos, end, codeRelative, mobId, mobCode);
-            return true;
-        }
-
-        private static int ScanMobCodeMarker(byte[] data, int offset, int from, int limit, int end)
-        {
-            for (int i = from; i < limit; i++)
+            if (!isPlayerSummon)
             {
-                int num = offset + i + 2;
-                if (num < end && num >= offset + 2 && data[num - 2] == 0 && (data[num - 1] & 0xBF) == 0 && data[num] == 2)
-                    return i + 2;
+                entityTracker.CreateOrUpdateTargetEntity((int)entityId, (int)mobCode, (long)maxHp);
+                return;
             }
-            return -1;
-        }
 
-        private void TryFireMobSpawnWithHp(byte[] data, int offset, int length, int end, int codeRelative, int mobId, int mobCode)
-        {
-            int hpScanFrom = codeRelative + 3;
-            int hpScanLimit = Math.Min(codeRelative + HpScanWindow, length - 2);
+            var entryCount = r.ReadVarInt();
 
-            for (int rel = hpScanFrom; rel < hpScanLimit; rel++)
+            for (var i = 1; i <= entryCount; i++)
             {
-                int abs = offset + rel;
-                if (abs >= end) break;
-                if (data[abs] != 1) continue;
-
-                int pos = abs + 1;
-                if (pos >= end) break;
-
-                long maxHp = data.ReadVarInt64(pos).Value;
-                if (maxHp == -1 || maxHp == 0 || pos >= end) continue;
-
-                long currentHp = data.ReadVarInt64(pos).Value;
-                if (currentHp == -1) continue;
-                if (currentHp >= maxHp) entityTracker.CreateOrUpdateTargetEntity(mobId, mobCode, maxHp);
-                break;
+               ReadMobEntry(r);
             }
-        }
 
-        private bool TryParseSummon(byte[] data)
-        {
-            int end = data.Length;
-            int pos = data.ReadVarInt().Length + 2;
-            if (pos >= end) return false;
+            if ((mask & 0x0001) != 0) r.ReadU8();
+            if ((mask & 0x0002) != 0) r.ReadU8();
+            if ((mask & 0x0004) != 0) r.ReadU8();
+            if ((mask & 0x0008) != 0) r.ReadBit();
+            var ownerId = r.ReadU32(); //mask & 0x0010
 
-            int petId = data.ReadVarInt(pos).Value;
-            if (petId == int.MaxValue) return false;
-            
-            if (!TryFindSummonActorId(data, pos, end - pos, out ushort actorId)) return false;
-
-            entityTracker.RegisterSummon(petId, actorId);
-            return true;
-        }
-
-        private static bool TryFindSummonActorId(byte[] data, int offset, int length, out ushort actorId)
-        {
-            actorId = 0;
-            ReadOnlySpan<byte> span = new(data, offset, length);
-
-            int boundaryIndex = span.IndexOf(SummonBoundaryMarker);
-            if (boundaryIndex == -1) return false;
-
-            int afterBoundary = boundaryIndex + SummonBoundaryMarker.Length;
-            if (afterBoundary >= length) return false;
-
-            int headerIndex = TryFindSummonActorHeader(span.Slice(afterBoundary));
-            if (headerIndex == -1) return false;
-
-            int actorOffset = afterBoundary + headerIndex;
-            if (actorOffset + 5 > length) return false;
-
-            ushort candidate = (ushort)(data[offset + actorOffset + 3] | (data[offset + actorOffset + 4] << 8));
-            if (candidate <= 1) return false;
-
-            actorId = candidate;
-            return true;
+            entityTracker.RegisterSummon((int)entityId, (int)ownerId);
         }
 
 
-        private static int TryFindSummonActorHeader(ReadOnlySpan<byte> data )
+        private void ReadMobGeneralInfo(PacketReader r, out uint mobCode)
         {
-            int headerIndex = -1;
-            headerIndex = data.IndexOf(SummonActorHeader);
-            if (headerIndex > -1) return headerIndex;
-            headerIndex = data.IndexOf(SummonActorHeader2);
-            if (headerIndex > -1) return headerIndex;
-            headerIndex = data.IndexOf(SummonActorHeaderBackup) +1;
-            return headerIndex;
+            var idMask = r.ReadU8();
+            if ((idMask & 0x01) != 0) r.ReadLengthPrefixedString(); //owner name (only for player summoned entities)
+
+            mobCode = r.ReadU32();
+
+            if ((idMask & 0x02) != 0) r.ReadU8();
+            if ((idMask & 0x04) != 0) r.ReadU8();
+            if ((idMask & 0x08) != 0) r.ReadU8();
+            if ((idMask & 0x08) != 0) r.ReadU32();
+            if ((idMask & 0x10) != 0) r.ReadU8();
+        }
+
+        private void ReadMobState(PacketReader r, out ulong hp, out ulong maxHp)
+        {
+            var stateMask = r.ReadU16();
+
+            //position
+            r.ReadU32(); //x
+            r.ReadU32(); //y
+            r.ReadU32(); //z
+            r.ReadU32(); //heading
+
+            r.ReadU16();
+
+            if ((stateMask & 0x0001) != 0)
+            {
+                r.ReadU32();
+                r.ReadU32();
+                r.ReadU32();
+            }
+
+            if ((stateMask & 0x0002) != 0) r.ReadU32();
+            if ((stateMask & 0x0004) != 0) r.ReadU16();
+
+            if ((stateMask & 0x0008) != 0)
+            {
+                r.ReadU32();
+                r.ReadU32();
+                r.ReadU32();
+            }
+
+            if ((stateMask & 0x0010) != 0)
+            {
+                r.ReadU32();
+                r.ReadU32();
+                r.ReadU32();
+            }
+
+            if ((stateMask & 0x0020) != 0) r.ReadU32();
+
+            r.ReadU8(); //isAlive
+            hp = r.ReadVarInt64();
+            maxHp = r.ReadVarInt64();
+
+            //skip x13 u32
+            r.Skip(52);
+
+            if ((stateMask & 0x0040) != 0) r.ReadU8();
+            if ((stateMask & 0x0080) != 0) r.ReadU32();
+            if ((stateMask & 0x0100) != 0) r.ReadU8();
+            if ((stateMask & 0x0200) != 0) r.ReadU8();
+            if ((stateMask & 0x0400) != 0) r.ReadVarInt();
+            if ((stateMask & 0x0800) != 0) r.ReadU32();
+            if ((stateMask & 0x1090) != 0) r.ReadU32();
+            if ((stateMask & 0x2000) != 0) r.ReadU8();
+            if ((stateMask & 0x4000) != 0) r.ReadU32();
+            if ((stateMask & 0x8000) != 0) r.ReadU32();
+        }
+
+        public void ReadMobEntry(PacketReader r)
+        {
+            var entryMask = r.ReadU8();
+            r.ReadVarInt();
+            r.ReadU32();
+            r.ReadU64();
+            r.ReadU64();
+            if ((entryMask & 0x01) != 0) r.ReadVarInt();
+            r.ReadU8();
+            if ((entryMask & 0x02) != 0) r.ReadU32();
+            r.ReadBit();
+            if ((entryMask & 0x04) != 0) r.ReadVarInt();
+            if ((entryMask & 0x08) != 0) r.ReadU32();
+            if ((entryMask & 0x10) != 0)
+            {
+                r.ReadU32();
+                r.ReadU32();
+                r.ReadU32();
+            }
         }
 
     }
