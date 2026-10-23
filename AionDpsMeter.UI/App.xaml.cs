@@ -15,6 +15,7 @@ using AionDpsMeter.UI.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using System;
 using System.Windows;
 
 namespace AionDpsMeter.UI
@@ -28,8 +29,8 @@ namespace AionDpsMeter.UI
 
         public App()
         {
+            ConfigureWebView2Arguments();
 
-          
 
             AppHost = Host.CreateDefaultBuilder()
                 .UseSerilog((context, services, loggerConfiguration) =>
@@ -67,6 +68,18 @@ namespace AionDpsMeter.UI
 
                 })
                 .Build();
+        }
+
+        private static void ConfigureWebView2Arguments()
+        {
+            const string requiredArguments = "--disable-features=BackgroundHtmlParserBudget,CalculateNativeWinOcclusion,IntensiveWakeUpThrottling --disable-backgrounding-occluded-windows --disable-renderer-backgrounding";
+
+            var existingArguments = Environment.GetEnvironmentVariable("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", EnvironmentVariableTarget.Process);
+            var combinedArguments = string.IsNullOrWhiteSpace(existingArguments)
+                ? requiredArguments
+                : $"{existingArguments} {requiredArguments}";
+
+            Environment.SetEnvironmentVariable("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", combinedArguments, EnvironmentVariableTarget.Process);
         }
 
         protected override async void OnStartup(StartupEventArgs e)

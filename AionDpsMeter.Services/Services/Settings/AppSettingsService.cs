@@ -63,6 +63,142 @@ namespace AionDpsMeter.Services.Services.Settings
             }
         }
 
+        public string CurrentPlayerNameStyleMode
+        {
+            get { lock (_lock) return _data.CurrentPlayerNameStyleMode; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    var normalized = NormalizeNameStyleMode(value);
+                    changed = _data.CurrentPlayerNameStyleMode != normalized;
+                    _data.CurrentPlayerNameStyleMode = normalized;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public string CurrentPlayerNameColor
+        {
+            get { lock (_lock) return _data.CurrentPlayerNameColor; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    var normalized = NormalizeHexColor(value, "#F2F1F5");
+                    changed = _data.CurrentPlayerNameColor != normalized;
+                    _data.CurrentPlayerNameColor = normalized;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public string CurrentPlayerNameGradientColor1
+        {
+            get { lock (_lock) return _data.CurrentPlayerNameGradientColor1; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    var normalized = NormalizeHexColor(value, "#C084FC");
+                    changed = _data.CurrentPlayerNameGradientColor1 != normalized;
+                    _data.CurrentPlayerNameGradientColor1 = normalized;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public string CurrentPlayerNameGradientColor2
+        {
+            get { lock (_lock) return _data.CurrentPlayerNameGradientColor2; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    var normalized = NormalizeHexColor(value, "#60A5FA");
+                    changed = _data.CurrentPlayerNameGradientColor2 != normalized;
+                    _data.CurrentPlayerNameGradientColor2 = normalized;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public string CurrentPlayerBarStyleMode
+        {
+            get { lock (_lock) return _data.CurrentPlayerBarStyleMode; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    var normalized = NormalizeBarStyleMode(value);
+                    changed = _data.CurrentPlayerBarStyleMode != normalized;
+                    _data.CurrentPlayerBarStyleMode = normalized;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public string CurrentPlayerBarColor
+        {
+            get { lock (_lock) return _data.CurrentPlayerBarColor; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    var normalized = NormalizeHexColor(value, "#9C27B0");
+                    changed = _data.CurrentPlayerBarColor != normalized;
+                    _data.CurrentPlayerBarColor = normalized;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public string CurrentPlayerBarGradientColor1
+        {
+            get { lock (_lock) return _data.CurrentPlayerBarGradientColor1; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    var normalized = NormalizeHexColor(value, "#7C3AED");
+                    changed = _data.CurrentPlayerBarGradientColor1 != normalized;
+                    _data.CurrentPlayerBarGradientColor1 = normalized;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public string CurrentPlayerBarGradientColor2
+        {
+            get { lock (_lock) return _data.CurrentPlayerBarGradientColor2; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    var normalized = NormalizeHexColor(value, "#EC4899");
+                    changed = _data.CurrentPlayerBarGradientColor2 != normalized;
+                    _data.CurrentPlayerBarGradientColor2 = normalized;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public bool TryGetWindowBounds(WindowKey key, out WindowBounds? bounds)
         {
             lock (_lock)
@@ -511,6 +647,43 @@ namespace AionDpsMeter.Services.Services.Settings
             catch { }
         }
 
+        private static string NormalizeNameStyleMode(string? value)
+        {
+            return value?.Trim().ToLowerInvariant() switch
+            {
+                "default" => "default",
+                "color" => "color",
+                "gradient" => "gradient",
+                _ => "default"
+            };
+        }
+
+        private static string NormalizeBarStyleMode(string? value)
+        {
+            return value?.Trim().ToLowerInvariant() switch
+            {
+                "default" => "default",
+                "color" => "color",
+                "gradient" => "gradient",
+                _ => "default"
+            };
+        }
+
+        private static string NormalizeHexColor(string? value, string fallback)
+        {
+            var input = value?.Trim() ?? string.Empty;
+            if (input.StartsWith('#')) input = input[1..];
+            if (input.Length != 6) return fallback;
+
+            for (var i = 0; i < input.Length; i++)
+            {
+                if (!Uri.IsHexDigit(input[i]))
+                    return fallback;
+            }
+
+            return $"#{input.ToUpperInvariant()}";
+        }
+
         private sealed class AppSettingsData
         {
             [JsonPropertyName("isPacketLoggingEnabled")]
@@ -529,6 +702,30 @@ namespace AionDpsMeter.Services.Services.Settings
             public double WindowOpacity { get; set; } = 0.92;
             [JsonPropertyName("useClassColors")]
             public bool UseClassColors { get; set; }
+
+            [JsonPropertyName("currentPlayerNameStyleMode")]
+            public string CurrentPlayerNameStyleMode { get; set; } = "default";
+
+            [JsonPropertyName("currentPlayerNameColor")]
+            public string CurrentPlayerNameColor { get; set; } = "#F2F1F5";
+
+            [JsonPropertyName("currentPlayerNameGradientColor1")]
+            public string CurrentPlayerNameGradientColor1 { get; set; } = "#C084FC";
+
+            [JsonPropertyName("currentPlayerNameGradientColor2")]
+            public string CurrentPlayerNameGradientColor2 { get; set; } = "#60A5FA";
+
+            [JsonPropertyName("currentPlayerBarStyleMode")]
+            public string CurrentPlayerBarStyleMode { get; set; } = "default";
+
+            [JsonPropertyName("currentPlayerBarColor")]
+            public string CurrentPlayerBarColor { get; set; } = "#9C27B0";
+
+            [JsonPropertyName("currentPlayerBarGradientColor1")]
+            public string CurrentPlayerBarGradientColor1 { get; set; } = "#7C3AED";
+
+            [JsonPropertyName("currentPlayerBarGradientColor2")]
+            public string CurrentPlayerBarGradientColor2 { get; set; } = "#EC4899";
 
             [JsonPropertyName("toggleVisibilityHotkey")]
             public string ToggleVisibilityHotkey { get; set; } = "Ctrl+Shift+D";

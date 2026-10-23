@@ -608,6 +608,55 @@
     color: var(--text-dim);
 }
 
+.color-input-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.appearance-style-editor {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    width: 100%;
+    max-width: 220px;
+}
+
+.segmented--style-chooser {
+    width: 100%;
+}
+
+    .segmented--style-chooser .segmented__option {
+        flex: 1 1 0;
+        text-align: center;
+        padding: 6px 8px;
+    }
+
+.color-input-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 0;
+}
+
+.color-input-label {
+    font-size: 11px;
+    color: var(--text-dim);
+}
+
+.color-input {
+    width: 44px;
+    height: 24px;
+    border: 1px solid var(--line-strong);
+    border-radius: 4px;
+    background: var(--panel);
+    padding: 0;
+    cursor: pointer;
+}
+
 /* ---------------- Reduced motion ---------------- */
 
 @media (prefers-reduced-motion: reduce) {

@@ -58,3 +58,12 @@
 .player-color {
     background: linear-gradient( 90deg, rgba(27, 94, 32, 0.42) 0%, rgba(76, 175, 80, 0.86) 100% );
 }
+
+@keyframes player-gradient-flow {
+    0% {
+        background-position: 200% 0%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}

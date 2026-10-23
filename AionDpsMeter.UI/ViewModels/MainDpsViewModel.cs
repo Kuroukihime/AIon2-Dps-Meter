@@ -232,6 +232,56 @@ namespace AionDpsMeter.UI.ViewModels
             }
         }
 
+        public string GetCurrentPlayerNameStyle(PlayerRenderState player)
+        {
+            if (!player.IsUser)
+                return string.Empty;
+
+            var mode = (settingsService.CurrentPlayerNameStyleMode ?? "default").Trim().ToLowerInvariant();
+            if (mode == "color")
+            {
+                return $"color:{settingsService.CurrentPlayerNameColor};";
+            }
+
+            if (mode == "gradient")
+            {
+                return $"display:inline-block;background-image:linear-gradient(90deg,{settingsService.CurrentPlayerNameGradientColor1} 0%,{settingsService.CurrentPlayerNameGradientColor2} 45%,{settingsService.CurrentPlayerNameGradientColor1} 100%);background-size:200% 100%;background-position:0% 50%;background-repeat:repeat;background-clip:text;-webkit-background-clip:text;color:transparent;-webkit-text-fill-color:transparent;text-shadow:none;animation:player-gradient-flow 2.4s linear infinite;";
+            }
+
+            return string.Empty;
+        }
+
+        public string GetPlayerProgressStyle(PlayerRenderState player)
+        {
+            var width = ClampPercent(player.EffectivePercentage)
+                .ToString("0.##", System.Globalization.CultureInfo.InvariantCulture);
+
+            var customStyle = GetCurrentPlayerBarStyle(player);
+            if (string.IsNullOrEmpty(customStyle))
+                return $"width:{width}%;";
+
+            return $"{customStyle}width:{width}%;";
+        }
+
+        private string GetCurrentPlayerBarStyle(PlayerRenderState player)
+        {
+            if (!player.IsUser)
+                return string.Empty;
+
+            var mode = (settingsService.CurrentPlayerBarStyleMode ?? "default").Trim().ToLowerInvariant();
+            if (mode == "color")
+            {
+                return $"background:{settingsService.CurrentPlayerBarColor};";
+            }
+
+            if (mode == "gradient")
+            {
+                return $"background-image:linear-gradient(90deg, {settingsService.CurrentPlayerBarGradientColor1} 0%, {settingsService.CurrentPlayerBarGradientColor2} 50%, {settingsService.CurrentPlayerBarGradientColor1} 100%);background-size:200% 100%;background-position:200% 0%;animation:player-gradient-flow 2.8s linear infinite;";
+            }
+
+            return string.Empty;
+        }
+
         public string GetIsUserClass(PlayerRenderState player)
         {
             if (!settingsService.UseClassColors) return string.Empty;
