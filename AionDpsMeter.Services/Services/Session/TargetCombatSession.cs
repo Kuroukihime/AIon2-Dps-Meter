@@ -209,6 +209,8 @@ namespace AionDpsMeter.Services.Services.Session
                     IsDoubleDamage = hit.IsDoubleDamage,
                     IsParry        = hit.IsParry,
                     IsDot          = hit.IsDot,
+                    MultihitCunt   = hit.MultihitCunt,
+                    MultihitDamage = hit.MultihitDamage,
                 };
                 ownerSession.AddDamage(reStamped);
             }

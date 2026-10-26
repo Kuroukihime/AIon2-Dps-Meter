@@ -16,6 +16,8 @@
         public bool IsDoubleDamage { get; init; }
         public bool IsParry { get; init; }
         public bool IsDot { get; init; }
+        public int MultihitCunt { get; init; }
+        public int MultihitDamage { get; init; }
 
 
         /// <summary>
