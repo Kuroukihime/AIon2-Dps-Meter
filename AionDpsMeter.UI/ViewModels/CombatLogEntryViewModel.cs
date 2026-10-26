@@ -28,6 +28,15 @@ namespace AionDpsMeter.UI.ViewModels
         public bool IsPerfect         => _damageEvent.IsPerfect;
         public bool IsDoubleDamage    => _damageEvent.IsDoubleDamage;
         public bool IsParry           => _damageEvent.IsParry;
+        public long BaseSkillDamage   => Math.Max(0, _damageEvent.Damage - _damageEvent.MultihitDamage);
+        public string BaseSkillDamageFormatted => DamageFormatter.Format(BaseSkillDamage);
+        public int MultihitCount      => _damageEvent.MultihitCunt;
+        public int MultihitDamage     => _damageEvent.MultihitDamage;
+        public string MultihitDamageFormatted => DamageFormatter.Format(_damageEvent.MultihitDamage);
+        public double MultihitDamageRate => BaseSkillDamage > 0
+            ? (double)_damageEvent.MultihitDamage / BaseSkillDamage * 100
+            : 0;
+        public string MultihitDamageWithRateFormatted => $"{DamageFormatter.Format(_damageEvent.MultihitDamage)}({DamageFormatter.FormatRateRounded(MultihitDamageRate)})";
 
         /// <summary>Delegates flag label aggregation to the domain model.</summary>
         public string Flags => _damageEvent.Flags;

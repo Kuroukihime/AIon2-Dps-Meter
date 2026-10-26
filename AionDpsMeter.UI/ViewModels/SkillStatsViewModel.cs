@@ -59,6 +59,10 @@ namespace AionDpsMeter.UI.ViewModels
         public int    PerfectHits          => _stats.PerfectHits;
         public int    DoubleDamageHits     => _stats.DoubleDamageHits;
         public int    ParryHits            => _stats.ParryHits;
+        public int    MultihitHits         => _stats.MultihitHits;
+        public long   MultihitDamage       => _stats.MultihitDamage;
+        public long   BaseSkillDamage      => _stats.BaseSkillDamage;
+        public string BaseSkillDamageFormatted => DamageFormatter.Format(_stats.BaseSkillDamage);
 
         // ── Per-hit values ────────────────────────────────────────────────────
         public double AverageDamage        => _stats.AverageDamage;
@@ -82,6 +86,11 @@ namespace AionDpsMeter.UI.ViewModels
         public string DoubleDamageRateFormatted => DamageFormatter.FormatRateRounded(_stats.DoubleDamageRate);
         public double ParryRate              => _stats.ParryRate;
         public string ParryRateFormatted     => DamageFormatter.FormatRateRounded(_stats.ParryRate);
+        public double MultihitRate           => _stats.MultihitRate;
+        public string MultihitRateFormatted  => DamageFormatter.FormatRateRounded(_stats.MultihitRate);
+        public double MultihitDamageRate     => _stats.MultihitDamageRate;
+        public string MultihitDamageFormatted => DamageFormatter.Format(_stats.MultihitDamage);
+        public string MultihitDamageWithRateFormatted => $"{DamageFormatter.Format(_stats.MultihitDamage)}";
 
         public void Update(AionDpsMeter.Services.Models.SkillStats stats)
         {
@@ -93,6 +102,8 @@ namespace AionDpsMeter.UI.ViewModels
             _stats.PerfectHits        = stats.PerfectHits;
             _stats.DoubleDamageHits   = stats.DoubleDamageHits;
             _stats.ParryHits          = stats.ParryHits;
+            _stats.MultihitHits       = stats.MultihitHits;
+            _stats.MultihitDamage     = stats.MultihitDamage;
             _stats.MaxHit             = stats.MaxHit;
             _stats.MinHit             = stats.MinHit;
             _stats.DamagePerSecond    = stats.DamagePerSecond;
@@ -125,6 +136,10 @@ namespace AionDpsMeter.UI.ViewModels
             OnPropertyChanged(nameof(PerfectHits));
             OnPropertyChanged(nameof(DoubleDamageHits));
             OnPropertyChanged(nameof(ParryHits));
+            OnPropertyChanged(nameof(MultihitHits));
+            OnPropertyChanged(nameof(MultihitDamage));
+            OnPropertyChanged(nameof(BaseSkillDamage));
+            OnPropertyChanged(nameof(BaseSkillDamageFormatted));
             OnPropertyChanged(nameof(AverageDamage));
             OnPropertyChanged(nameof(AverageDamageFormatted));
             OnPropertyChanged(nameof(MaxHit));
@@ -143,6 +158,11 @@ namespace AionDpsMeter.UI.ViewModels
             OnPropertyChanged(nameof(DoubleDamageRateFormatted));
             OnPropertyChanged(nameof(ParryRate));
             OnPropertyChanged(nameof(ParryRateFormatted));
+            OnPropertyChanged(nameof(MultihitRate));
+            OnPropertyChanged(nameof(MultihitRateFormatted));
+            OnPropertyChanged(nameof(MultihitDamageRate));
+            OnPropertyChanged(nameof(MultihitDamageFormatted));
+            OnPropertyChanged(nameof(MultihitDamageWithRateFormatted));
             OnPropertyChanged(nameof(SkillName));
             OnPropertyChanged(nameof(SpecializationFlags));
             OnPropertyChanged(nameof(IsSummonGroup));
