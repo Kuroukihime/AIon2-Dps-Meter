@@ -95,8 +95,8 @@ namespace AionDpsMeter.Services.PacketProcessing.Processors
 
             string rawString = Encoding.UTF8.GetString(outputBuffer, 0, writePos);
             var cleanName = new StringBuilder(rawString.Length);
-            foreach (char c in rawString)
-                if (char.IsLetterOrDigit(c) || (c >= '?' && c <= '?'))
+            foreach (Rune c in rawString.EnumerateRunes())
+                if (Rune.IsLetterOrDigit(c) || (c.Value >= '?' && c.Value <= '?'))
                     cleanName.Append(c);
 
             return cleanName.ToString();
