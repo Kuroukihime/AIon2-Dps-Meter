@@ -251,6 +251,11 @@ namespace AionDpsMeter.UI.Pages
             settings.SkillCdOverlaySettings = s;
         }
 
+        private void SetInsigniaProcOverlayEnabled(bool value)
+        {
+            settings.EnableInsigniaProcOverlay = value;
+        }
+
         private void SetBuffOverlayOrder(OverlayOrderMode mode)
         {
             var s = settings.BufOverlaySettings;

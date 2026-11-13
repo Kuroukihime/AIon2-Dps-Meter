@@ -257,10 +257,20 @@
 
         </section>
 
+
         @* ---------------- OVERLAYS ---------------- *@
         <section class="settings-group @(_activeGroup == "overlays" ? "" : "is-hidden")">
+            
+            <div class="settings-section-label">ClASS PROC OVERLAYS</div>
+                
+            <SettingRow Title="Enable Insignia proc overlay" Description="Overlay at 5 insignia stacks">
+                <ValueSlot>
+                    <ToggleSwitch Checked="settings.EnableInsigniaProcOverlay" CheckedChanged="v => SetInsigniaProcOverlayEnabled(v)" />
+                </ValueSlot>
+            </SettingRow>
 
-            <div class="settings-section-label">BUFF OVERLAY</div>
+
+            <div class="settings-section-label settings-section-label--spaced">BUFF OVERLAY</div>
 
             <SettingRow Title="Enabled" Description="Show a floating overlay with active buff timers">
                 <ValueSlot>

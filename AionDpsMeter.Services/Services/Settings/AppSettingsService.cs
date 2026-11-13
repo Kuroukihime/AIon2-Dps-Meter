@@ -46,6 +46,22 @@ namespace AionDpsMeter.Services.Services.Settings
             }
         }
 
+        public bool EnableInsigniaProcOverlay
+        {
+            get { lock (_lock) return _data.EnableInsigniaProcOverlay; }
+            set
+            {
+                bool changed;
+                lock (_lock)
+                {
+                    changed = _data.EnableInsigniaProcOverlay != value;
+                    _data.EnableInsigniaProcOverlay = value;
+                    if (changed) Save();
+                }
+                if (changed) SettingsChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
 
         public bool UseClassColors
         {
@@ -801,6 +817,9 @@ namespace AionDpsMeter.Services.Services.Settings
 
             [JsonPropertyName("skillCdOverlaySettings")]
             public OverlaySettings SkillCdOverlaySettings { get; set; } = new OverlaySettings();
+
+            [JsonPropertyName("enableInsigniaProcOverlay")]
+            public bool EnableInsigniaProcOverlay { get; set; }
 
         }
     }

@@ -15,9 +15,11 @@ namespace AionDpsMeter.UI.Services.Windowing
         public EventHandler? WindowStateUpdated { get; set; }
         public bool IsBuffEdit { get; private set; }
         public bool IsSkillCdEdit { get; private set; }
+        public bool IsInsigniaProcEdit { get; private set; }
 
         private bool IsBuffOverlayEnabled { get; set; }
         private bool IsSkillCdOverlayEnabled { get; set; }
+        private bool IsInsigniaProcOverlayEnabled { get; set; }
 
         private MainWindow MainWindow => serviceProvider.GetRequiredService<MainWindow>();
 
@@ -38,6 +40,7 @@ namespace AionDpsMeter.UI.Services.Windowing
 
             IsBuffOverlayEnabled = settingsService.BufOverlaySettings.Enabled;
             IsSkillCdOverlayEnabled = settingsService.SkillCdOverlaySettings.Enabled;
+            IsInsigniaProcOverlayEnabled = settingsService.EnableInsigniaProcOverlay;
             settingsService.SettingsChanged += SettingsChanged;
         }
 
@@ -54,6 +57,12 @@ namespace AionDpsMeter.UI.Services.Windowing
                 IsSkillCdOverlayEnabled = settingsService.SkillCdOverlaySettings.Enabled;
                 ManageSkillCdOverlay();
             }
+
+            if (IsInsigniaProcOverlayEnabled != settingsService.EnableInsigniaProcOverlay)
+            {
+                IsInsigniaProcOverlayEnabled = settingsService.EnableInsigniaProcOverlay;
+                ManageInsigniaProcOverlay();
+            }
                 
         }
 
@@ -61,8 +70,10 @@ namespace AionDpsMeter.UI.Services.Windowing
         {
             ManageBuffOverlay();
             ManageSkillCdOverlay();
+            ManageInsigniaProcOverlay();
             windowManager.SetClickThrough(WindowKey.BuffOverlay);
             windowManager.SetClickThrough(WindowKey.SkillCdOverlay);
+            windowManager.SetClickThrough(WindowKey.InsigniaProcOverlay);
         }
 
 
@@ -70,8 +81,10 @@ namespace AionDpsMeter.UI.Services.Windowing
         {
             IsBuffEdit = true;
             IsSkillCdEdit = true;
+            IsInsigniaProcEdit = true;
             windowManager.RestoreClickThrough(WindowKey.BuffOverlay);
             windowManager.RestoreClickThrough(WindowKey.SkillCdOverlay);
+            windowManager.RestoreClickThrough(WindowKey.InsigniaProcOverlay);
             WindowStateUpdated?.Invoke(this, EventArgs.Empty);
             var win = new BlazorWindow(App.AppHost.Services, typeof(SettingsPage))
             {
@@ -85,8 +98,10 @@ namespace AionDpsMeter.UI.Services.Windowing
         {
             IsBuffEdit = false;
             IsSkillCdEdit = false;
+            IsInsigniaProcEdit = false;
             windowManager.SetClickThrough(WindowKey.BuffOverlay);
             windowManager.SetClickThrough(WindowKey.SkillCdOverlay);
+            windowManager.SetClickThrough(WindowKey.InsigniaProcOverlay);
             WindowStateUpdated?.Invoke(this, EventArgs.Empty);
             windowManager.Hide(WindowKey.Settings);
         }
@@ -156,6 +171,12 @@ namespace AionDpsMeter.UI.Services.Windowing
             else HideSkillCdOverlay();
         }
 
+        private void ManageInsigniaProcOverlay()
+        {
+            if (IsInsigniaProcOverlayEnabled) OpenInsigniaProcOverlay();
+            else HideInsigniaProcOverlay();
+        }
+
         private void OpenBuffOverlay()
         {
             var buffOverlay = new BuffOverlayWindow();
@@ -176,6 +197,17 @@ namespace AionDpsMeter.UI.Services.Windowing
         private void HideSkillCdOverlay()
         {
             windowManager.Hide(WindowKey.SkillCdOverlay);
+        }
+
+        private void OpenInsigniaProcOverlay()
+        {
+            var insigniaProcOverlay = new InsigniaProcOverlayWindow();
+            windowManager.Open(WindowKey.InsigniaProcOverlay, insigniaProcOverlay, true, persistenceMode: WindowPersistenceMode.Bounds);
+        }
+
+        private void HideInsigniaProcOverlay()
+        {
+            windowManager.Hide(WindowKey.InsigniaProcOverlay);
         }
     }
 }

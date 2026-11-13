@@ -1,0 +1,88 @@
+@implements IDisposable
+
+@if (ShouldShowOverlay)
+{
+    <div class="proc-overlay @(IsEditable ? "editable" : "")" style="@RootStyle" @onmousedown="BeginDrag">
+        <div class="proc-overlay__inner @(isBuffActive ? "is-active" : "is-preview")">
+            <div class="proc-bar proc-bar--left"><div class="proc-bar__tex"></div></div>
+            <div class="proc-bar proc-bar--right"><div class="proc-bar__tex"></div></div>
+        </div>
+    </div>
+}
+
+<style>
+    .proc-overlay {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+        user-select: none;
+    }
+
+        .proc-overlay.editable {
+            border: 1px dashed rgba(255, 255, 255, 0.6);
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.28);
+            cursor: move;
+        }
+
+    .proc-overlay__inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        pointer-events: none;
+    }
+
+
+    .proc-bar {
+        position: absolute;
+        top: 0;
+        height: calc(100% - 20px);
+        width: 40px;
+        filter: drop-shadow(0 0 4px var(--proc-color)) drop-shadow(0 0 10px var(--proc-color));
+        padding: 10px;
+
+    }
+
+    .proc-bar--left {
+        left: 6px;
+    }
+
+    .proc-bar--right {
+        right: 6px;
+        transform: scaleX(-1);
+    }
+
+
+    .proc-bar__tex {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, color-mix(in srgb, var(--proc-color) 40%, white) 0%, var(--proc-color) 45%, transparent 100%);
+        -webkit-mask-image: radial-gradient(ellipse 100% 50% at 100% 50%, #000 98%, transparent 100%), radial-gradient(ellipse 100% 50% at 125% 50%, #000 98%, transparent 100%);
+        mask-image: radial-gradient(ellipse 100% 50% at 100% 50%, #000 98%, transparent 100%), radial-gradient(ellipse 100% 50% at 125% 50%, #000 98%, transparent 100%);
+        -webkit-mask-composite: source-out;
+        mask-composite: subtract;
+    }
+
+    .is-active .proc-bar {
+        animation: proc-bar-pulse 1.5s ease-in-out infinite;
+    }
+
+    .is-preview .proc-bar {
+        opacity: 0.5;
+    }
+
+    @@keyframes proc-bar-pulse {
+        0%, 100% {
+            opacity: 1;
+            filter: drop-shadow(0 0 5px var(--proc-color)) drop-shadow(0 0 9px var(--proc-color));
+        }
+
+        50% {
+            opacity: 0.6;
+            filter: drop-shadow(0 0 2px var(--proc-color)) drop-shadow(0 0 4px var(--proc-color));
+        }
+    }
+</style>
