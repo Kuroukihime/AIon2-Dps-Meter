@@ -25,6 +25,7 @@ namespace AionDpsMeter.Services.Services.Session
         private readonly List<BuffEvent> activeBuffBacklog = new();
         private readonly ITimedEventTracker buffEventTracker;
         private readonly ITimedEventTracker skillCdEventTracker;
+        private readonly IPlayerBuffStackTracker playerBuffStackTracker;
 
 
         public CombatSessionManager(
@@ -32,12 +33,14 @@ namespace AionDpsMeter.Services.Services.Session
             ILoggerFactory loggerFactory,
             IAppSettingsService settingsService,
             ICombatHistoryStore historyStore,
+            IPlayerBuffStackTracker playerBuffStackTracker,
             [FromKeyedServices("Buffs")] ITimedEventTracker buffEventTracker,
             [FromKeyedServices("SkillCdUpdate")] ITimedEventTracker skillCdEventTracker)
         {
             this.entityTracker = entityTracker;
             this.settingsService = settingsService;
             this.historyStore = historyStore;
+            this.playerBuffStackTracker = playerBuffStackTracker;
             this.buffEventTracker = buffEventTracker;
             this.skillCdEventTracker = skillCdEventTracker;
             targetResolver = new ActiveTargetResolver(entityTracker);
@@ -294,6 +297,8 @@ namespace AionDpsMeter.Services.Services.Session
             }
         }
 
+
+
         public void RegisterSkillCastEvent(SkillCastEvent skillCastEvent)
         {
             if (!entityTracker.IsCurrentPlayer(skillCastEvent.EntityId)) return;
@@ -314,6 +319,7 @@ namespace AionDpsMeter.Services.Services.Session
         private void RegisterTimedBuffEvent(BuffEvent buffEvent)
         {
             if (!entityTracker.IsCurrentPlayer(buffEvent.EntityId)) return;
+
             buffEventTracker.Register(new TimedEvent()
             {
                 Name = buffEvent.BuffName,
@@ -321,6 +327,15 @@ namespace AionDpsMeter.Services.Services.Session
                 Duration = TimeSpan.FromMilliseconds(buffEvent.DurationMs),
                 Id = (uint)buffEvent.BuffId
             });
+
+            playerBuffStackTracker.Register(buffEvent);
+        }
+
+        public void ProcessBuffRemoveEvent(int entityId, int castId)
+        {
+            if (!entityTracker.IsCurrentPlayer(entityId)) return;
+
+            playerBuffStackTracker.RemoveByCastId(castId);
         }
 
         public void Reset()
@@ -469,6 +484,7 @@ namespace AionDpsMeter.Services.Services.Session
             targetResolver.Reset();
             latestPlayerStatSnapshot = null;
             activeBuffBacklog.Clear();
+            playerBuffStackTracker.Clear();
         }
 
         private void OnSummonRegistered(int summonId, int ownerId)

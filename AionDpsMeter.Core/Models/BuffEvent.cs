@@ -4,6 +4,7 @@ namespace AionDpsMeter.Core.Models
     public sealed class BuffEvent
     {
         public int EntityId { get; init; }
+        public int CastId { get; init; }
         public int BuffId { get; init; }
         public string BuffName { get; init; } = string.Empty;
         public string? BuffIcon { get; init; }

@@ -18,4 +18,5 @@ public static class PacketOpcodes
     public const ushort EntityDeath = 0x8D04;         // 04 8D
     public const ushort SkillCdUpdate = 0x3847;       // 47 38
     public const ushort SkillCast = 0x3802;           // 02 38
+    public const ushort BuffRemoved = 0x382C;         // 2C 38
 }
